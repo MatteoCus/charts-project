@@ -1,5 +1,6 @@
 #ifndef TRAINING_H
 #define TRAINING_H
+
 #include <QDateTime>
 
 class Training
