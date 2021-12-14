@@ -10,13 +10,17 @@ CONFIG += c++11
 
 SOURCES += \
     endurance.cpp \
+    exercise.cpp \
     main.cpp \
     mainwindow.cpp \
+    repetition.cpp \
     training.cpp
 
 HEADERS += \
     endurance.h \
+    exercise.h \
     mainwindow.h \
+    repetition.h \
     training.h
 
 # Default rules for deployment.
