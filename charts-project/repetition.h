@@ -1,7 +1,7 @@
 #ifndef REPETITION_H
 #define REPETITION_H
 
-#include <list>
+#include <vector>
 #include <string>
 #include <QTime>
 #include "training.h"
@@ -10,13 +10,16 @@
 class Repetition : public Training
 {
 private:
-    std::list<Exercise* > exercises;
+    std::vector<Exercise* > exercises;
+    static std::vector<Exercise* > copy(const Repetition&);
+    static void destroy(std::vector<Exercise* >);
 public:
     Repetition() = default;
+    Repetition(QDateTime, double, std::vector<Exercise*>);
     void addExercise(Exercise* );
-    void insertExercise(Exercise* , unsigned int);
-    void removeExercise(unsigned int);
-    const std::list<Exercise* >& getExercises() const;
+    void insertExercise(Exercise* , unsigned int );
+    Exercise* removeExercise(unsigned int);
+    Exercise* getExercise(unsigned int) const;
     unsigned int getExercisesNumber() const;
     QTime totalRecovery() const;
     bool isEmpty() const;

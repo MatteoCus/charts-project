@@ -3,8 +3,9 @@
 
 #include <string>
 #include <QTime>
+#include "clonable.h"
 
-class Exercise
+class Exercise : public Clonable
 {
 private:
     std::string name;
@@ -15,6 +16,8 @@ public:
     std::string getName() const;
     QTime getDuration() const;
     QTime getRecoveryTime() const;
+    Exercise* clone() const override;
+    virtual ~Exercise() = default;
 };
 
 #endif // EXERCISE_H
