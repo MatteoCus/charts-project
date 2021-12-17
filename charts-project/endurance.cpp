@@ -1,6 +1,6 @@
 #include "endurance.h"
 
-Endurance::Endurance(QDateTime start, double weight, double dist, QTime dur)
+Endurance::Endurance(const QDateTime& start, double weight, double dist, const QTime& dur)
     : Training(start, weight), distance(dist>0? dist : throw std::invalid_argument("Invalid value of distance inserted")),
       duration(dur){}
 

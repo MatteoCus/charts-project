@@ -1,19 +1,15 @@
 #include "repetition.h"
 
-
-Repetition::Repetition(QDateTime begin, double mass, std::vector<Exercise*> ex)
+Repetition::Repetition(const QDateTime& begin, double mass, std::vector<Exercise*> ex)
     : Training(begin, mass), exercises(ex){}
 void Repetition::addExercise(Exercise* ex){exercises.push_back(ex);}
-/*
-Un utente potrebbe non tenere a mente il numero di esercizi che ha già inserito,
-per questo vale anche se inserisce un numero troppo alto (coi negativi invece non vale)
-ELIMINARE QUESTO COMMENTO O FARNE UNO MIGLIORE
-*/
+
 void Repetition::insertExercise(Exercise* ex, unsigned int pos){
-    if(pos >= exercises.size())
+    if(pos == exercises.size())
         exercises.push_back(ex);
-    else
-        exercises.insert(exercises.begin() + pos, ex);
+    else if(pos > exercises.size())
+        throw std::out_of_range("Invalid exercise's inserting index");
+    else exercises.insert(exercises.begin() + pos, ex);
 }
 
 Exercise* Repetition::removeExercise(unsigned int pos){
@@ -26,7 +22,10 @@ Exercise* Repetition::removeExercise(unsigned int pos){
         exercises.pop_back();
     }
     else
-        aux = *(exercises.erase(exercises.begin() + pos));
+    {
+        aux = *(exercises.begin() + pos);
+        exercises.erase(exercises.begin()+pos);
+    }
     return aux;
 }
 Exercise* Repetition::getExercise(unsigned int pos) const{
@@ -40,8 +39,9 @@ unsigned int Repetition::getExercisesNumber() const { return exercises.size(); }
 QTime Repetition::totalRecovery() const{
     QTime recovery(0,0);
     for(auto it = exercises.begin(); it != exercises.end(); ++it)
-    {    recovery = recovery.addMSecs((*it)->getRecoveryTime().msecsSinceStartOfDay());
-        if(!recovery.isValid())
+    {
+        recovery = recovery.addMSecs((*it)->getRecoveryTime().msecsSinceStartOfDay());
+        if(!(recovery.isValid()))
             throw std::runtime_error("Invalid recovery time value");
     }
     return recovery;
@@ -51,8 +51,9 @@ bool Repetition::isEmpty() const { return exercises.empty(); }
 QTime Repetition::Duration() const {
     QTime duration(0,0);
     for(auto it = exercises.begin(); it != exercises.end(); ++it)
-    {    duration = duration.addMSecs((*it)->getDuration().msecsSinceStartOfDay());
-        if(!duration.isValid())
+    {
+        duration = duration.addMSecs((*it)->getDuration().msecsSinceStartOfDay());
+        if(!(duration.isValid()))
             throw std::runtime_error("Invalid duration time value");
     }
     return duration;
@@ -61,7 +62,7 @@ QTime Repetition::Duration() const {
 /*
  preso un const Repetition&, ne copia il vector di Exercise*
  la clone() per le sottoclassi deve richiamare la copy(oggetto da copiare)
- in particolare , ogni classe avrà "clone() {return new Classe(copy(*this));}"
+ in particolare , ogni classe avrà "clone() {return new Classe(*this);}"
  clone serve per il clone pattern, cioè per poter copiare oggetti in
  modo polimorfo -> usato nel trainingCreator
 */
@@ -69,7 +70,7 @@ QTime Repetition::Duration() const {
 std::vector<Exercise* > Repetition::copy(const Repetition& rep){
     std::vector<Exercise* > aux;
     for(auto it = rep.exercises.begin() ; it != rep.exercises.end() ; ++it)
-        aux.push_back((*it)->clone());  //clone pattern usato, utile se si dovesse estendere gerarchia di Exercise
+        aux.push_back((*it)->clone());  //clone pattern su gerarchia di Exercise
     return aux;
 }
 

@@ -9,10 +9,10 @@ class Training : public Clonable
 private:
     QDateTime start;
     double weight;
-    static double minWeight;
+protected:
+    static const double minWeight;
 public:
-    Training() = default;
-    Training(QDateTime , double = minWeight);
+    Training(const QDateTime& = QDateTime(QDate(2000, 1, 1), QTime(0,0)), double = minWeight);
     virtual QTime Duration() const =0;
     virtual unsigned short int CaloriesBurned() const =0;
     QDateTime end() const;

@@ -14,8 +14,7 @@ private:
     static std::vector<Exercise* > copy(const Repetition&);
     static void destroy(std::vector<Exercise* >);
 public:
-    Repetition() = default;
-    Repetition(QDateTime, double, std::vector<Exercise*>);
+    Repetition(const QDateTime& = QDateTime(QDate(2000, 1, 1), QTime(0,0)), double = minWeight, std::vector<Exercise*> = std::vector<Exercise*>());
     void addExercise(Exercise* );
     void insertExercise(Exercise* , unsigned int );
     Exercise* removeExercise(unsigned int);

@@ -10,8 +10,8 @@ private:
     double distance;
     QTime duration;
 public:
-    Endurance() = default;
-    Endurance(QDateTime, double, double, QTime);
+    Endurance(const QDateTime& = QDateTime(QDate(2000, 1, 1), QTime (0,0)),
+              double = minWeight, double = 0.0, const QTime& = QTime(0,0));
     double getDistance() const;
     virtual QTime Pace() const = 0;
     QTime Duration() const override;

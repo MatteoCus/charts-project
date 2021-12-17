@@ -1,7 +1,8 @@
 #include "exercise.h"
 
-Exercise::Exercise(std::string exName, QTime exDuration, QTime exRecovery)
-    : name(exName), duration(exDuration), recovery(exRecovery){}
+Exercise::Exercise(const std::string& exName, const QTime& exDuration, const QTime& exRecovery)
+    : name(exName), duration(exDuration.isValid()? exDuration : throw std::invalid_argument("Invalid value of duration inserted!")),
+      recovery(exRecovery.isValid()? exRecovery : throw std::invalid_argument("Invalid value of recovery inserted!")){}
 
 std::string Exercise::getName() const {return name;}
 QTime Exercise::getDuration() const {return duration;}

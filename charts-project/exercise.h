@@ -12,7 +12,7 @@ private:
     QTime duration;
     QTime recovery;
 public:
-    Exercise(std::string ="", QTime = QTime(0,0), QTime = QTime(0,0));
+    Exercise(const std::string& ="", const QTime& = QTime(0,0), const QTime& = QTime(0,0));
     std::string getName() const;
     QTime getDuration() const;
     QTime getRecoveryTime() const;
