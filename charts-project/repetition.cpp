@@ -1,7 +1,12 @@
 #include "repetition.h"
 
-Repetition::Repetition(const QDateTime& begin, double mass, std::vector<Exercise*> ex)
-    : Training(begin, mass), exercises(ex){}
+Repetition::Repetition(const QDateTime& begin, double mass)
+    : Training(begin, mass), exercises(){}
+
+    const unsigned int Repetition::pausePerExercise = 300000;
+    const unsigned int Repetition::msecInSec = 1000;
+    const unsigned int Repetition::secInMinute = 60;
+
 void Repetition::addExercise(Exercise* ex){exercises.push_back(ex);}
 
 void Repetition::insertExercise(Exercise* ex, unsigned int pos){

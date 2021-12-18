@@ -16,6 +16,9 @@ public:
     std::string getName() const;
     QTime getDuration() const;
     QTime getRecoveryTime() const;
+    void setName(const std::string&);
+    void setDuration(const QTime&);
+    void setRecovery(const QTime&);
     Exercise* clone() const override;
     virtual ~Exercise() = default;
 };

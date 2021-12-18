@@ -13,8 +13,12 @@ private:
     std::vector<Exercise* > exercises;
     static std::vector<Exercise* > copy(const Repetition&);
     static void destroy(std::vector<Exercise* >);
+protected:
+    static const unsigned int pausePerExercise;
+    static const unsigned int msecInSec;
+    static const unsigned int secInMinute;
 public:
-    Repetition(const QDateTime& = QDateTime(QDate(2000, 1, 1), QTime(0,0)), double = minWeight, std::vector<Exercise*> = std::vector<Exercise*>());
+    Repetition(const QDateTime& = QDateTime(QDate(2000, 1, 1), QTime(0,0)), double = minWeight);
     void addExercise(Exercise* );
     void insertExercise(Exercise* , unsigned int );
     Exercise* removeExercise(unsigned int);

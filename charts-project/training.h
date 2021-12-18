@@ -14,10 +14,12 @@ protected:
 public:
     Training(const QDateTime& = QDateTime(QDate(2000, 1, 1), QTime(0,0)), double = minWeight);
     virtual QTime Duration() const =0;
-    virtual unsigned short int CaloriesBurned() const =0;
+    virtual unsigned int CaloriesBurned() const =0;
     QDateTime end() const;
     QDateTime getStart() const;
     double getWeight() const;
+    void setStart(const QDateTime&);
+    void setWeight(double );
     virtual ~Training() = default;
 };
 

@@ -10,20 +10,30 @@ CONFIG += c++11
 
 SOURCES += \
     clonable.cpp \
+    cycling.cpp \
     endurance.cpp \
     exercise.cpp \
     main.cpp \
     mainwindow.cpp \
     repetition.cpp \
-    training.cpp
+    rugby.cpp \
+    run.cpp \
+    tennis.cpp \
+    training.cpp \
+    walk.cpp
 
 HEADERS += \
     clonable.h \
+    cycling.h \
     endurance.h \
     exercise.h \
     mainwindow.h \
     repetition.h \
-    training.h
+    rugby.h \
+    run.h \
+    tennis.h \
+    training.h \
+    walk.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

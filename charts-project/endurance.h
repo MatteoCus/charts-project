@@ -15,6 +15,8 @@ public:
     double getDistance() const;
     virtual QTime Pace() const = 0;
     QTime Duration() const override;
+    void setDistance(double);
+    void setDuration(const QTime&);
     virtual ~Endurance() = default;
 };
 
