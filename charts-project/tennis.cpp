@@ -4,7 +4,8 @@ Tennis::Tennis(const QDateTime& begin, double mass)
     :Repetition(begin, mass){}
 
 unsigned int Tennis::Intensity() const {
-    return (100 * (totalRecovery().msecsSinceStartOfDay()/(getExercisesNumber() * pausePerExercise)));
+    return (100 * (totalRecovery().msecsSinceStartOfDay()/(getExercisesNumber() * pausePerExercise)) *
+            (Duration().msecsSinceStartOfDay()/(Duration().msecsSinceStartOfDay() + totalRecovery().msecsSinceStartOfDay() + 1)));
 }
 
 unsigned int Tennis::CaloriesBurned() const {

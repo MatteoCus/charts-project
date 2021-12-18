@@ -3,7 +3,7 @@
 Repetition::Repetition(const QDateTime& begin, double mass)
     : Training(begin, mass), exercises(){}
 
-    const unsigned int Repetition::pausePerExercise = 300000;
+    const unsigned int Repetition::pausePerExercise = 180000;
     const unsigned int Repetition::msecInSec = 1000;
     const unsigned int Repetition::secInMinute = 60;
 
