@@ -28,7 +28,7 @@ public:
     bool isEmpty() const;
     QTime Duration() const override;
 
-    virtual unsigned int Intensity() const=0;
+    virtual double Intensity() const=0;
     //rule of three
     Repetition(const Repetition&);
     Repetition& operator=(const Repetition&);

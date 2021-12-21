@@ -7,7 +7,7 @@ class Rugby : public Repetition
 {
 public:
     Rugby(const QDateTime& = QDateTime(QDate(2000, 1, 1), QTime(0,0)), double = minWeight);
-    unsigned int Intensity() const override;
+    double Intensity() const override;
     unsigned int CaloriesBurned() const override;
     Rugby* clone() const override;
 };

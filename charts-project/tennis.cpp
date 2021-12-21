@@ -3,12 +3,11 @@
 Tennis::Tennis(const QDateTime& begin, double mass)
     :Repetition(begin, mass){}
 
-unsigned int Tennis::Intensity() const {
-    return (100 * (totalRecovery().msecsSinceStartOfDay()/(getExercisesNumber() * pausePerExercise)) *
-            (Duration().msecsSinceStartOfDay()/(Duration().msecsSinceStartOfDay() + totalRecovery().msecsSinceStartOfDay() + 1)));
+double Tennis::Intensity() const {
+    return (100 * (Duration().msecsSinceStartOfDay()/5)/(totalRecovery().msecsSinceStartOfDay()+1));
 }
 
 unsigned int Tennis::CaloriesBurned() const {
-    return (1.10 * getWeight() * (Duration().msecsSinceStartOfDay()/(msecInSec * secInMinute)));
+    return (1.1 * getWeight() * (Duration().msecsSinceStartOfDay()/(msecInSec * secInMinute))/10);
 }
-Tennis* Tennis::clone() const { return new Tennis(*this);}
+Tennis* Tennis::clone() const {return new Tennis(*this);}
