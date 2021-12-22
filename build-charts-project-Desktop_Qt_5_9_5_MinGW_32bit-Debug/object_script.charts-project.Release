@@ -1,0 +1,15 @@
+INPUT(
+./release\clonable.o
+./release\cycling.o
+./release\endurance.o
+./release\exercise.o
+./release\main.o
+./release\mainwindow.o
+./release\repetition.o
+./release\rugby.o
+./release\run.o
+./release\tennis.o
+./release\training.o
+./release\walk.o
+./release\moc_mainwindow.o
+);
