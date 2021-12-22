@@ -4,7 +4,9 @@ Cycling::Cycling(const QDateTime& start, double weight, double dist, const QTime
     : Endurance(start, weight, dist, dur){}
 
 const unsigned int Cycling::MET = 9;
+
 const double Cycling::c2 = 0.0175;
+
 /*
  * pace is measured in min/10km
 */
@@ -23,6 +25,6 @@ QTime Cycling::Pace() const{
  * WALK: Cal = MET * weight (in kg) * c2 * distance (in km)
  */
 
-unsigned int Cycling::CaloriesBurned() const{ return (MET * getWeight() * c2 * Duration().msecsSinceStartOfDay()); }
+unsigned int Cycling::CaloriesBurned() const{ return (MET * getWeight() * c2 * Duration().msecsSinceStartOfDay()/(msecInSec * secInMinute)); }
 
 Cycling* Cycling::clone() const{ return new Cycling(*this);}

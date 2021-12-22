@@ -8,8 +8,7 @@ Walk::Walk(const QDateTime& start, double weight, double dist, const QTime& dur)
 */
 QTime Walk::Pace() const{
     QTime pace = QTime(0,0);
-    pace = pace.addMSecs((Duration().msecsSinceStartOfDay())/getDistance());
-    return pace;
+    return pace.addMSecs((Duration().msecsSinceStartOfDay())/getDistance());
 }
 
 /*

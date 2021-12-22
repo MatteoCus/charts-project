@@ -8,8 +8,7 @@ Run::Run(const QDateTime& start, double weight, double dist, const QTime& dur)
 */
 QTime Run::Pace() const{
     QTime pace = QTime(0,0);
-    pace = pace.addMSecs((Duration().msecsSinceStartOfDay())/getDistance());
-    return pace;
+  return pace.addMSecs((Duration().msecsSinceStartOfDay())/getDistance());
 }
 
 /*
@@ -20,7 +19,7 @@ QTime Run::Pace() const{
  * RUN: Cal = 0.9 * weight (in kg) * distance (in km)
  * pace don't make any difference until 22km/h,
  * under 3:00 min/km, barely impossible to
- * achieve if you're not a pro runner
+ * achieve if not a pro runner
  */
 
 unsigned int Run::CaloriesBurned() const{ return (0.9 * getWeight() * getDistance()); }

@@ -2,6 +2,7 @@
 #define TENNIS_H
 
 #include "repetition.h"
+
 class Tennis : public Repetition
 {
 public:

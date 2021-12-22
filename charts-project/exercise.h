@@ -19,7 +19,7 @@ public:
     void setName(const std::string&);
     void setDuration(const QTime&);
     void setRecovery(const QTime&);
-    Exercise* clone() const override;
+    Exercise* clone() const override;       //clone pattern
     virtual ~Exercise() = default;
 };
 

@@ -2,6 +2,7 @@
 #define TRAINING_H
 
 #include <QDateTime>
+#include <stdexcept>
 #include "clonable.h"
 
 class Training : public Clonable
@@ -11,6 +12,8 @@ private:
     double weight;
 protected:
     static const double minWeight;
+    static const unsigned int msecInSec;
+    static const unsigned int secInMinute;
 public:
     Training(const QDateTime& = QDateTime(QDate(2000, 1, 1), QTime(0,0)), double = minWeight);
     virtual QTime Duration() const =0;

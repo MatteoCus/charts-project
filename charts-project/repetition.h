@@ -12,11 +12,7 @@ class Repetition : public Training
 private:
     std::vector<Exercise* > exercises;
     static std::vector<Exercise* > copy(const Repetition&);
-    static void destroy(std::vector<Exercise* >);
-protected:
-    static const unsigned int pausePerExercise;
-    static const unsigned int msecInSec;
-    static const unsigned int secInMinute;
+    static void destroy(const Repetition& );
 public:
     Repetition(const QDateTime& = QDateTime(QDate(2000, 1, 1), QTime(0,0)), double = minWeight);
     void addExercise(Exercise* );
@@ -27,9 +23,8 @@ public:
     QTime totalRecovery() const;
     bool isEmpty() const;
     QTime Duration() const override;
+    virtual double Intensity() const=0;             //calculate the intensity of a specific training (value in % format)
 
-    virtual double Intensity() const=0;
-    //rule of three
     Repetition(const Repetition&);
     Repetition& operator=(const Repetition&);
     virtual ~Repetition();

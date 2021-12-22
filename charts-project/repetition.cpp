@@ -3,10 +3,6 @@
 Repetition::Repetition(const QDateTime& begin, double mass)
     : Training(begin, mass), exercises(){}
 
-    const unsigned int Repetition::pausePerExercise = 300000;
-    const unsigned int Repetition::msecInSec = 1000;
-    const unsigned int Repetition::secInMinute = 60;
-
 void Repetition::addExercise(Exercise* ex){exercises.push_back(ex);}
 
 void Repetition::insertExercise(Exercise* ex, unsigned int pos){
@@ -33,6 +29,7 @@ Exercise* Repetition::removeExercise(unsigned int pos){
     }
     return aux;
 }
+
 Exercise* Repetition::getExercise(unsigned int pos) const{
     if(pos >= exercises.size())
         throw std::out_of_range("Invalid index for requested-exercise");
@@ -51,6 +48,7 @@ QTime Repetition::totalRecovery() const{
     }
     return recovery;
 }
+
 bool Repetition::isEmpty() const { return exercises.empty(); }
 
 QTime Repetition::Duration() const {
@@ -65,11 +63,9 @@ QTime Repetition::Duration() const {
 }
 
 /*
- preso un const Repetition&, ne copia il vector di Exercise*
- la clone() per le sottoclassi deve richiamare la copy(oggetto da copiare)
- in particolare , ogni classe avrà "clone() {return new Classe(*this);}"
+ preso un const Repetition&, ne copia il vector (fatto di Exercise*);
  clone serve per il clone pattern, cioè per poter copiare oggetti in
- modo polimorfo -> usato nel trainingCreator
+ modo polimorfo -> usato in "Schedule"
 */
 
 std::vector<Exercise* > Repetition::copy(const Repetition& rep){
@@ -79,11 +75,12 @@ std::vector<Exercise* > Repetition::copy(const Repetition& rep){
     return aux;
 }
 
-//preso un vector di Exercise*, dealloca gli oggetti puntati uno ad uno
-void Repetition::destroy(std::vector<Exercise* > exList){
-    for(auto it = exList.begin() ; it!= exList.end() ; ++it)
+//preso const Repetition&, dealloca gli oggetti del suo vector uno ad uno
+void Repetition::destroy(const Repetition& rep){
+    for(auto it = rep.exercises.begin() ; it!= rep.exercises.end() ; ++it)
         delete (*it);
 }
+
 //rule of three
 Repetition::Repetition(const Repetition& repTraining)
     :Training(repTraining), exercises(copy(repTraining)){}
@@ -91,9 +88,10 @@ Repetition::Repetition(const Repetition& repTraining)
 Repetition& Repetition::operator=(const Repetition& repTraining){
     if(this != &repTraining){
         Training::operator=(repTraining);
-        destroy(exercises);
+        destroy(*this);
         exercises = copy(repTraining);
     }
     return *this;
 }
-Repetition::~Repetition(){ destroy(exercises); }
+
+Repetition::~Repetition(){ destroy(*this); }
