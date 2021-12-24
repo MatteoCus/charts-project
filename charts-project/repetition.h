@@ -7,6 +7,8 @@
 #include "training.h"
 #include "exercise.h"
 
+using std::string;
+
 class Repetition : public Training
 {
 private:
@@ -19,7 +21,8 @@ public:
     void insertExercise(Exercise* , unsigned int );
     Exercise* removeExercise(unsigned int);
     Exercise* getExercise(unsigned int) const;
-    unsigned int getExercisesNumber() const;
+    void setExercise(unsigned int, const string& ="", const QTime& = QTime(), const QTime& = QTime());
+    unsigned int getSize() const;
     QTime totalRecovery() const;
     bool isEmpty() const;
     QTime Duration() const override;

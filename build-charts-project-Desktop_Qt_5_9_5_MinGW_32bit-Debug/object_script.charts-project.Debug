@@ -5,6 +5,7 @@ INPUT(
 ./debug\exercise.o
 ./debug\main.o
 ./debug\mainwindow.o
+./debug\plan.o
 ./debug\repetition.o
 ./debug\rugby.o
 ./debug\run.o

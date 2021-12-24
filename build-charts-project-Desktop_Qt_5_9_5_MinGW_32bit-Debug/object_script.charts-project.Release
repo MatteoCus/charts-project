@@ -5,6 +5,7 @@ INPUT(
 ./release\exercise.o
 ./release\main.o
 ./release\mainwindow.o
+./release\plan.o
 ./release\repetition.o
 ./release\rugby.o
 ./release\run.o

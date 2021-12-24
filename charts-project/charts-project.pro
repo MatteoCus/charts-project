@@ -15,6 +15,7 @@ SOURCES += \
     exercise.cpp \
     main.cpp \
     mainwindow.cpp \
+    plan.cpp \
     repetition.cpp \
     rugby.cpp \
     run.cpp \
@@ -28,6 +29,7 @@ HEADERS += \
     endurance.h \
     exercise.h \
     mainwindow.h \
+    plan.h \
     repetition.h \
     rugby.h \
     run.h \

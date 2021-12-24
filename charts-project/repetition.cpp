@@ -9,13 +9,13 @@ void Repetition::insertExercise(Exercise* ex, unsigned int pos){
     if(pos == exercises.size())
         exercises.push_back(ex);
     else if(pos > exercises.size())
-        throw std::out_of_range("Invalid exercise's inserting index");
+        throw std::out_of_range("Invalid exercise's entry index");
     else exercises.insert(exercises.begin() + pos, ex);
 }
 
 Exercise* Repetition::removeExercise(unsigned int pos){
     if(pos >= exercises.size())
-        throw std::out_of_range("Invalid exercise's removing index");
+        throw std::out_of_range("Invalid exercise's removal index");
     Exercise* aux = nullptr;
     if(pos == exercises.size()-1)
     {
@@ -35,8 +35,28 @@ Exercise* Repetition::getExercise(unsigned int pos) const{
         throw std::out_of_range("Invalid index for requested-exercise");
     return exercises[pos];
 }
+void Repetition::setExercise(unsigned int pos, const string& name, const QTime& duration, const QTime& recovery){
+    if(pos >= exercises.size())
+        throw std::out_of_range("Invalid exercise's modification index");
+    if (name!="")
+        exercises[pos]->setName(name);
+    if(!duration.isValid())
+    {
+        if(duration != QTime())
+            throw std::invalid_argument("Invalid exercise's duration time inserted");
+    }
+    else
+        exercises[pos]->setDuration(duration);
+    if(!recovery.isValid())
+    {
+        if(recovery!= QTime())
+            throw std::invalid_argument("Invalid exercise's recovery time inserted");
+    }
+    else
+        exercises[pos]->setRecovery(recovery);
+}
 
-unsigned int Repetition::getExercisesNumber() const { return exercises.size(); }
+unsigned int Repetition::getSize() const { return exercises.size(); }
 
 QTime Repetition::totalRecovery() const{
     QTime recovery(0,0);
@@ -65,7 +85,7 @@ QTime Repetition::Duration() const {
 /*
  preso un const Repetition&, ne copia il vector (fatto di Exercise*);
  clone serve per il clone pattern, cioè per poter copiare oggetti in
- modo polimorfo -> usato in "Schedule"
+ modo polimorfo -> usato in "Plan"
 */
 
 std::vector<Exercise* > Repetition::copy(const Repetition& rep){
@@ -82,14 +102,14 @@ void Repetition::destroy(const Repetition& rep){
 }
 
 //rule of three
-Repetition::Repetition(const Repetition& repTraining)
-    :Training(repTraining), exercises(copy(repTraining)){}
+Repetition::Repetition(const Repetition& rep)
+    :Training(rep), exercises(copy(rep)){}
 
-Repetition& Repetition::operator=(const Repetition& repTraining){
-    if(this != &repTraining){
-        Training::operator=(repTraining);
+Repetition& Repetition::operator=(const Repetition& rep){
+    if(this != &rep){
+        Training::operator=(rep);
         destroy(*this);
-        exercises = copy(repTraining);
+        exercises = copy(rep);
     }
     return *this;
 }

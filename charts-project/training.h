@@ -3,9 +3,8 @@
 
 #include <QDateTime>
 #include <stdexcept>
-#include "clonable.h"
 
-class Training : public Clonable
+class Training
 {
 private:
     QDateTime start;
@@ -23,6 +22,7 @@ public:
     double getWeight() const;
     void setStart(const QDateTime&);
     void setWeight(double );
+    virtual Training* clone() const = 0;
     virtual ~Training() = default;
 };
 
