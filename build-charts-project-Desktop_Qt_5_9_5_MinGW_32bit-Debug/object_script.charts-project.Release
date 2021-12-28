@@ -3,6 +3,7 @@ INPUT(
 ./release\cycling.o
 ./release\endurance.o
 ./release\exercise.o
+./release\timespan.o
 ./release\main.o
 ./release\mainwindow.o
 ./release\plan.o

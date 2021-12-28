@@ -9,33 +9,35 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    clonable.cpp \
-    cycling.cpp \
-    endurance.cpp \
-    exercise.cpp \
+    Model/clonable.cpp \
+    Model/cycling.cpp \
+    Model/endurance.cpp \
+    Model/exercise.cpp \
+    Model/timespan.cpp \
     main.cpp \
     mainwindow.cpp \
-    plan.cpp \
-    repetition.cpp \
-    rugby.cpp \
-    run.cpp \
-    tennis.cpp \
-    training.cpp \
-    walk.cpp
+    Model/plan.cpp \
+    Model/repetition.cpp \
+    Model/rugby.cpp \
+    Model/run.cpp \
+    Model/tennis.cpp \
+    Model/training.cpp \
+    Model/walk.cpp
 
 HEADERS += \
-    clonable.h \
-    cycling.h \
-    endurance.h \
-    exercise.h \
+    Model/clonable.h \
+    Model/cycling.h \
+    Model/endurance.h \
+    Model/exercise.h \
+    Model/timespan.h \
     mainwindow.h \
-    plan.h \
-    repetition.h \
-    rugby.h \
-    run.h \
-    tennis.h \
-    training.h \
-    walk.h
+    Model/plan.h \
+    Model/repetition.h \
+    Model/rugby.h \
+    Model/run.h \
+    Model/tennis.h \
+    Model/training.h \
+    Model/walk.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
