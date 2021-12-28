@@ -6,8 +6,9 @@ class TimeSpan
 {
 private:
         unsigned int sec;
+        bool valid;
 public:
-    TimeSpan(unsigned int = 0, unsigned int = 0, unsigned int = 0);
+    TimeSpan(unsigned int = 0, unsigned int = 0, unsigned int = 0, bool = true);
     TimeSpan(const QTime&);
 
     static const unsigned int secInHour;
@@ -17,13 +18,13 @@ public:
     unsigned int getSeconds() const;
     unsigned int getTotalMinutes() const;
     unsigned int getTotalSeconds() const;
+    bool isValid() const;
     TimeSpan operator+(const TimeSpan&) const;
     TimeSpan operator-(const TimeSpan&) const;
     TimeSpan operator* (double) const;
     TimeSpan operator/(double) const;
-    unsigned int operator/(const TimeSpan& ) const;
+    double operator/(const TimeSpan& ) const;
     bool operator==(const TimeSpan&) const;
-    operator QTime();
 };
 
 #endif // TIMESPAN_H

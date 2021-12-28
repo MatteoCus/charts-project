@@ -38,10 +38,12 @@ Exercise* Repetition::getExercise(unsigned int pos) const{
 void Repetition::setExercise(unsigned int pos, const string& name, const TimeSpan& duration, const TimeSpan& recovery){
     if(pos >= exercises.size())
         throw std::out_of_range("Invalid exercise's modification index");
-    if (name!="")
+    if (name != "")
         exercises[pos]->setName(name);
-    exercises[pos]->setDuration(duration);
-    exercises[pos]->setRecovery(recovery);
+    if(duration.isValid())
+        exercises[pos]->setDuration(duration);
+    if(recovery.isValid())
+        exercises[pos]->setRecovery(recovery);
 }
 
 unsigned int Repetition::getSize() const { return exercises.size(); }

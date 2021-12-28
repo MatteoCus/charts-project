@@ -20,7 +20,7 @@ public:
     void insertExercise(Exercise* , unsigned int );
     Exercise* removeExercise(unsigned int);
     Exercise* getExercise(unsigned int) const;
-    void setExercise(unsigned int, const string& ="", const TimeSpan& = TimeSpan(), const TimeSpan& = TimeSpan());
+    void setExercise(unsigned int, const string& ="", const TimeSpan& = TimeSpan(false), const TimeSpan& = TimeSpan(false));
     unsigned int getSize() const;
     TimeSpan totalRecovery() const;
     bool isEmpty() const;
