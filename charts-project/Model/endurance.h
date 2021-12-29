@@ -9,7 +9,7 @@ private:
     double distance;
     TimeSpan duration;
 public:
-    Endurance(double = minWeight, double = 0.0, const TimeSpan& = TimeSpan());
+    Endurance(double, double, const TimeSpan&);
     double getDistance() const;
     virtual TimeSpan Pace() const = 0;         //calculate the pace of the training; it can be measured in min/km or min/10km
     TimeSpan Duration() const override;

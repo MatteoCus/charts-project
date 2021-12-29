@@ -9,7 +9,6 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    Model/clonable.cpp \
     Model/cycling.cpp \
     Model/endurance.cpp \
     Model/exercise.cpp \
@@ -25,7 +24,6 @@ SOURCES += \
     Model/walk.cpp
 
 HEADERS += \
-    Model/clonable.h \
     Model/cycling.h \
     Model/endurance.h \
     Model/exercise.h \

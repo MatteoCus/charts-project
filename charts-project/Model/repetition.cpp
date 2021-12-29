@@ -1,7 +1,7 @@
 #include "repetition.h"
 
-Repetition::Repetition(double mass)
-    : Training(mass), exercises(){}
+Repetition::Repetition(double weight)
+    : Training(weight), exercises(){}
 
 void Repetition::addExercise(Exercise* ex){exercises.push_back(ex);}
 
@@ -35,15 +35,13 @@ Exercise* Repetition::getExercise(unsigned int pos) const{
         throw std::out_of_range("Invalid index for requested-exercise");
     return exercises[pos];
 }
-void Repetition::setExercise(unsigned int pos, const string& name, const TimeSpan& duration, const TimeSpan& recovery){
+void Repetition::setExercise(unsigned int pos, double w, const string& name, const TimeSpan& duration, const TimeSpan& recovery){
     if(pos >= exercises.size())
         throw std::out_of_range("Invalid exercise's modification index");
-    if (name != "")
-        exercises[pos]->setName(name);
-    if(duration.isValid())
-        exercises[pos]->setDuration(duration);
-    if(recovery.isValid())
-        exercises[pos]->setRecovery(recovery);
+    setWeight(w);                           //if w < minWeight, nothing changed
+    exercises[pos]->setName(name);          //if name=="", nothing changed
+    exercises[pos]->setDuration(duration);  //if duration.isNull(), nothing changed
+    exercises[pos]->setRecovery(recovery);  //if recovery.isNull(), nothing changed
 }
 
 unsigned int Repetition::getSize() const { return exercises.size(); }
@@ -58,17 +56,11 @@ TimeSpan Repetition::totalRecovery() const{
 bool Repetition::isEmpty() const { return exercises.empty(); }
 
 TimeSpan Repetition::Duration() const {
-    TimeSpan duration(0,0);
+    TimeSpan duration;
     for(auto it = exercises.begin(); it != exercises.end(); ++it)
         duration = duration + ((*it)->getDuration());
     return duration;
 }
-
-/*
- preso un const Repetition&, ne copia il vector (fatto di Exercise*);
- clone serve per il clone pattern, cioè per poter copiare oggetti in
- modo polimorfo -> usato in "Plan"
-*/
 
 std::vector<Exercise* > Repetition::copy(const Repetition& rep){
     std::vector<Exercise* > aux;
@@ -77,7 +69,6 @@ std::vector<Exercise* > Repetition::copy(const Repetition& rep){
     return aux;
 }
 
-//preso const Repetition&, dealloca gli oggetti del suo vector uno ad uno
 void Repetition::destroy(const Repetition& rep){
     for(auto it = rep.exercises.begin() ; it!= rep.exercises.end() ; ++it)
         delete (*it);

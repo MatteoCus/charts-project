@@ -1,12 +1,10 @@
 #include "timespan.h"
 
-TimeSpan::TimeSpan(unsigned int h, unsigned int m, unsigned int s, bool valid)
-    :sec(h * secInHour + m * secInMinute + s), valid(valid){}
+TimeSpan::TimeSpan(unsigned int h, unsigned int m, unsigned int s)
+    :sec(h * secInHour + m * secInMinute + s){}
 
 TimeSpan::TimeSpan(const QTime& time)
-    :sec (!time.isValid()? throw std::invalid_argument("Invalid value of time passed to construct TimeSpan")
-                         : time.hour() * secInHour + time.minute() * secInMinute + time.second()),
-    valid(true){}
+    :TimeSpan(time.hour(), time.minute(), time.second()){}
 
 const unsigned int TimeSpan::secInHour = 3600;
 
@@ -22,7 +20,7 @@ unsigned int TimeSpan::getMinutes() const {return (sec-(getHours() * secInHour))
 
 unsigned int TimeSpan::getSeconds() const {return (sec - (getHours() * secInHour) - (getMinutes() * secInMinute)); }
 
-bool TimeSpan::isValid() const {return valid;}
+bool TimeSpan::isNull() const {return sec;}
 
 TimeSpan TimeSpan::operator+(const TimeSpan& time) const {return sec + time.sec; }
 

@@ -43,13 +43,15 @@ Training* Plan::getTraining(unsigned int pos) const{
     std::advance(it, pos);
     return *it;
 }
-//void Plan::setTraining(unsigned int, const string& ="", const TimeSpan& = TimeSpan(), const TimeSpan& = TimeSpan());
+//void Plan::setRepetition(unsigned int, double , const string& , const TimeSpan& , const TimeSpan& );
+//void setEndurance(unsigned int, double , double , const TimeSpan&)
+
 unsigned int Plan::getSize() const  { return trainings.size(); }
 
 bool Plan::isEmpty() const  { return trainings.empty(); }
 
-TimeSpan Plan::getTotalDuration() const{                                               //creare classe orario e data-ora
-    TimeSpan duration = TimeSpan(0,0);
+TimeSpan Plan::getTotalDuration() const{
+    TimeSpan duration = TimeSpan();
     for(auto it = trainings.begin(); it != trainings.end(); ++it)
         duration = duration + ((*it)->Duration());
     return duration;
