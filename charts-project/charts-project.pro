@@ -12,6 +12,8 @@ SOURCES += \
     Model/cycling.cpp \
     Model/endurance.cpp \
     Model/exercise.cpp \
+    Model/exercisecreator.cpp \
+    Model/model.cpp \
     Model/timespan.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -24,9 +26,12 @@ SOURCES += \
     Model/walk.cpp
 
 HEADERS += \
+    Model/action.h \
     Model/cycling.h \
     Model/endurance.h \
     Model/exercise.h \
+    Model/exercisecreator.h \
+    Model/model.h \
     Model/timespan.h \
     mainwindow.h \
     Model/plan.h \

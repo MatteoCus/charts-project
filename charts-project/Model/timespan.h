@@ -1,6 +1,5 @@
 #ifndef TIMESPAN_H
 #define TIMESPAN_H
-#include <QTime>
 
 class TimeSpan
 {
@@ -9,7 +8,6 @@ private:
 
 public:
     TimeSpan(unsigned int = 0, unsigned int = 0, unsigned int = 0);
-    TimeSpan(const QTime&);
 
     static const unsigned int secInHour;
     static const unsigned int secInMinute;

@@ -44,24 +44,53 @@ Training* Plan::getTraining(unsigned int pos) const{
     return *it;
 }
 
+void Plan::setTraining(unsigned int pos,  double weight, double distance, const TimeSpan& duration,
+                       unsigned int exPos, action operation, const std::string& exName, const TimeSpan& exDuration, const TimeSpan& exRecovery){
+    auto it = trainings.begin();
+    std::advance(it, pos);
+    (*it)->setWeight(weight);
+    if(dynamic_cast<Endurance*>(*it))
+    {
+        Endurance* endur = static_cast<Endurance*>(*it);
+        endur->setDistance(distance);
+        endur->setDuration(duration);
+    }
+    else
+    {
+        Repetition* rep = static_cast<Repetition*>(*it);
+        exerciseCreator* creator = new exerciseCreator();
+        Exercise* aux = creator->createExercise(exName, exDuration, exRecovery);
+        switch(operation)
+        {
+            case add:
+                rep->addExercise(aux);
+            break;
+
+            case insert:
+                rep->insertExercise(exPos, aux);
+            break;
+
+            case set:
+                rep->setExercise(exPos, exName, exDuration, exRecovery);
+            break;
+
+            case eliminate:
+                rep->removeExercise(exPos);
+            break;
+
+            case nothing:
+            break;
+
+            default:
+            throw std::invalid_argument("Invalid action on the exercises of a repetition training");
+        }
+        delete creator;
+    }
+}
 
 unsigned int Plan::getSize() const  { return trainings.size(); }
 
 bool Plan::isEmpty() const  { return trainings.empty(); }
-
-TimeSpan Plan::getTotalDuration() const{
-    TimeSpan duration = TimeSpan();
-    for(auto it = trainings.begin(); it != trainings.end(); ++it)
-        duration = duration + ((*it)->Duration());
-    return duration;
-}
-
-unsigned int Plan::getTotalCaloriesBurned() const{
-    unsigned int calories = 0;
-    for(auto it = trainings.begin(); it != trainings.end(); ++it)
-        calories += (*it)->CaloriesBurned();
-    return calories;
-}
 
 template<class T>
 std::list<T*> Plan::filter() const{

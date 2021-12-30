@@ -3,9 +3,6 @@
 TimeSpan::TimeSpan(unsigned int h, unsigned int m, unsigned int s)
     :sec(h * secInHour + m * secInMinute + s){}
 
-TimeSpan::TimeSpan(const QTime& time)
-    :TimeSpan(time.hour(), time.minute(), time.second()){}
-
 const unsigned int TimeSpan::secInHour = 3600;
 
 const unsigned int TimeSpan::secInMinute = 60;

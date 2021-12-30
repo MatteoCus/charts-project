@@ -2,10 +2,12 @@
 #define PLAN_H
 
 #include "training.h"
+#include "endurance.h"
+#include "repetition.h"
+#include "action.h"
+#include "exercisecreator.h"
 #include <string>
 #include <list>
-
-using std::string;
 
 class Plan
 {
@@ -22,9 +24,7 @@ public:
 
     unsigned int getSize() const;
     bool isEmpty() const;
-    TimeSpan getTotalDuration() const;
-    unsigned int getTotalCaloriesBurned() const;
-
+    void setTraining(unsigned int,  double, double = 0.0, const TimeSpan& = TimeSpan(), unsigned int = 0, action = nothing, const std::string& ="", const TimeSpan& = TimeSpan(),const TimeSpan& = TimeSpan());
     template<class T>
     std::list<T*> filter() const;
 

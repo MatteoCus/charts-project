@@ -2,6 +2,7 @@
 #define EXERCISE_H
 
 #include <string>
+#include <stdexcept>
 #include "timespan.h"
 
 //invariante: !duration.isNull() && !recovery.isNull() (non nel costruttore di default)

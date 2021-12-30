@@ -17,10 +17,10 @@ private:
 public:
     Repetition(double = minWeight);
     void addExercise(Exercise* );
-    void insertExercise(Exercise* , unsigned int );
+    void insertExercise(unsigned int, Exercise* );
     Exercise* removeExercise(unsigned int);
     Exercise* getExercise(unsigned int) const;
-    void setExercise(unsigned int, double, const string&, const TimeSpan& , const TimeSpan&);
+    void setExercise(unsigned int, const string&, const TimeSpan& , const TimeSpan&);
     unsigned int getSize() const;
     TimeSpan totalRecovery() const;
     bool isEmpty() const;

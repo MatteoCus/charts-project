@@ -5,7 +5,7 @@ Repetition::Repetition(double weight)
 
 void Repetition::addExercise(Exercise* ex){exercises.push_back(ex);}
 
-void Repetition::insertExercise(Exercise* ex, unsigned int pos){
+void Repetition::insertExercise(unsigned int pos, Exercise* ex){
     if(pos == exercises.size())
         exercises.push_back(ex);
     else if(pos > exercises.size())
@@ -35,10 +35,9 @@ Exercise* Repetition::getExercise(unsigned int pos) const{
         throw std::out_of_range("Invalid index for requested-exercise");
     return exercises[pos];
 }
-void Repetition::setExercise(unsigned int pos, double w, const string& name, const TimeSpan& duration, const TimeSpan& recovery){
+void Repetition::setExercise(unsigned int pos, const string& name, const TimeSpan& duration, const TimeSpan& recovery){
     if(pos >= exercises.size())
         throw std::out_of_range("Invalid exercise's modification index");
-    setWeight(w);                           //if w < minWeight, error
     exercises[pos]->setName(name);          //if name=="", nothing changed
     exercises[pos]->setDuration(duration);  //if duration.isNull(), nothing changed
     exercises[pos]->setRecovery(recovery);  //if recovery.isNull(), nothing changed
