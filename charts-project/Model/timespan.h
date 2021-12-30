@@ -1,6 +1,8 @@
 #ifndef TIMESPAN_H
 #define TIMESPAN_H
 
+#include <stdexcept>
+
 class TimeSpan
 {
 private:

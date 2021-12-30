@@ -2,7 +2,10 @@ INPUT(
 ./debug\cycling.o
 ./debug\endurance.o
 ./debug\exercise.o
+./debug\exercisecreator.o
+./debug\model.o
 ./debug\timespan.o
+./debug\trainingcreator.o
 ./debug\main.o
 ./debug\mainwindow.o
 ./debug\plan.o

@@ -18,7 +18,7 @@ public:
     Repetition(double = minWeight);
     void addExercise(Exercise* );
     void insertExercise(unsigned int, Exercise* );
-    Exercise* removeExercise(unsigned int);
+    void removeExercise(unsigned int);
     Exercise* getExercise(unsigned int) const;
     void setExercise(unsigned int, const string&, const TimeSpan& , const TimeSpan&);
     unsigned int getSize() const;

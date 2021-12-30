@@ -2,7 +2,10 @@ INPUT(
 ./release\cycling.o
 ./release\endurance.o
 ./release\exercise.o
+./release\exercisecreator.o
+./release\model.o
 ./release\timespan.o
+./release\trainingcreator.o
 ./release\main.o
 ./release\mainwindow.o
 ./release\plan.o

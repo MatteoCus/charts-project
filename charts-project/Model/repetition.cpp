@@ -13,21 +13,13 @@ void Repetition::insertExercise(unsigned int pos, Exercise* ex){
     else exercises.insert(exercises.begin() + pos, ex);
 }
 
-Exercise* Repetition::removeExercise(unsigned int pos){
+void Repetition::removeExercise(unsigned int pos){
     if(pos >= exercises.size())
         throw std::out_of_range("Invalid exercise's removal index");
-    Exercise* aux = nullptr;
     if(pos == exercises.size()-1)
-    {
-        aux = *(--exercises.end());
         exercises.pop_back();
-    }
     else
-    {
-        aux = *(exercises.begin() + pos);
         exercises.erase(exercises.begin()+pos);
-    }
-    return aux;
 }
 
 Exercise* Repetition::getExercise(unsigned int pos) const{
@@ -39,8 +31,13 @@ void Repetition::setExercise(unsigned int pos, const string& name, const TimeSpa
     if(pos >= exercises.size())
         throw std::out_of_range("Invalid exercise's modification index");
     exercises[pos]->setName(name);          //if name=="", nothing changed
-    exercises[pos]->setDuration(duration);  //if duration.isNull(), nothing changed
-    exercises[pos]->setRecovery(recovery);  //if recovery.isNull(), nothing changed
+    try {
+        exercises[pos]->setDuration(duration);
+        exercises[pos]->setRecovery(recovery);
+    }  catch (std::invalid_argument) {
+        throw;
+    }
+
 }
 
 unsigned int Repetition::getSize() const { return exercises.size(); }

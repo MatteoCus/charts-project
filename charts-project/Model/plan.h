@@ -19,14 +19,14 @@ public:
     Plan() = default;
     void addTraining(Training* );
     void insertTraining(Training* , unsigned int );
-    Training* removeTraining(unsigned int);
+    void removeTraining(unsigned int);
     Training* getTraining(unsigned int) const;
-
+    std::list<Training*> getTrainings() const;
     unsigned int getSize() const;
     bool isEmpty() const;
-    void setTraining(unsigned int,  double, double = 0.0, const TimeSpan& = TimeSpan(), unsigned int = 0, action = nothing, const std::string& ="", const TimeSpan& = TimeSpan(),const TimeSpan& = TimeSpan());
-    template<class T>
-    std::list<T*> filter() const;
+    void setTraining(unsigned int,  double, double = 0.0, const TimeSpan& = TimeSpan(), unsigned int = 0,
+                     action = nothing, const std::string& ="", const TimeSpan& = TimeSpan(),
+                     const TimeSpan& = TimeSpan());
 
     Plan(const Plan&);
     Plan& operator=(const Plan&);

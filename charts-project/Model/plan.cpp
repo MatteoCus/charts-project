@@ -1,6 +1,7 @@
 #include "plan.h"
 
 void Plan::addTraining(Training* tr){ trainings.push_back(tr); }
+
 void Plan::insertTraining(Training* tr, unsigned int pos){
     if(pos == trainings.size())
         trainings.push_back(tr);
@@ -13,29 +14,22 @@ void Plan::insertTraining(Training* tr, unsigned int pos){
         trainings.insert(it, tr);
     }
 }
-Training* Plan::removeTraining(unsigned int pos){
+
+void Plan::removeTraining(unsigned int pos){
     if(pos >= trainings.size())
         throw std::out_of_range("Invalid training's removal index");
-    Training* aux = nullptr;
     if(pos == trainings.size()-1)
-    {
-        aux = *(--trainings.end());
         trainings.pop_back();
-    }
     else if(pos == 0)
-    {
-        aux = *(trainings.begin());
         trainings.pop_front();
-    }
     else
     {
         auto it = trainings.begin();
         std::advance(it, pos);
-        aux = *it;
         trainings.erase(it);
     }
-    return aux;
 }
+
 Training* Plan::getTraining(unsigned int pos) const{
     if(pos >= trainings.size())
         throw std::out_of_range("Invalid index for requested-training");
@@ -45,63 +39,67 @@ Training* Plan::getTraining(unsigned int pos) const{
 }
 
 void Plan::setTraining(unsigned int pos,  double weight, double distance, const TimeSpan& duration,
-                       unsigned int exPos, action operation, const std::string& exName, const TimeSpan& exDuration, const TimeSpan& exRecovery){
+                       unsigned int exPos, action operation, const std::string& exName,
+                       const TimeSpan& exDuration, const TimeSpan& exRecovery){
     auto it = trainings.begin();
     std::advance(it, pos);
-    (*it)->setWeight(weight);
-    if(dynamic_cast<Endurance*>(*it))
+    try
     {
-        Endurance* endur = static_cast<Endurance*>(*it);
-        endur->setDistance(distance);
-        endur->setDuration(duration);
-    }
-    else
-    {
-        Repetition* rep = static_cast<Repetition*>(*it);
-        exerciseCreator* creator = new exerciseCreator();
-        Exercise* aux = creator->createExercise(exName, exDuration, exRecovery);
-        switch(operation)
+        (*it)->setWeight(weight);
+        if(dynamic_cast<Endurance*>(*it))
         {
-            case add:
-                rep->addExercise(aux);
-            break;
-
-            case insert:
-                rep->insertExercise(exPos, aux);
-            break;
-
-            case set:
-                rep->setExercise(exPos, exName, exDuration, exRecovery);
-            break;
-
-            case eliminate:
-                rep->removeExercise(exPos);
-            break;
-
-            case nothing:
-            break;
-
-            default:
-            throw std::invalid_argument("Invalid action on the exercises of a repetition training");
+            Endurance* endur = static_cast<Endurance*>(*it);
+            endur->setDistance(distance);
+            endur->setDuration(duration);
         }
-        delete creator;
+        else if (dynamic_cast<Repetition*>(*it))
+        {
+            Repetition* rep = static_cast<Repetition*>(*it);
+            exerciseCreator* creator = new exerciseCreator();
+            Exercise* aux = creator->createExercise(exName, exDuration, exRecovery);
+            switch(operation)
+            {
+                case add:
+                    rep->addExercise(aux);
+                break;
+
+                case insert:
+                    rep->insertExercise(exPos, aux);
+                break;
+
+                case set:
+                    rep->setExercise(exPos, exName, exDuration, exRecovery);
+                break;
+
+                case eliminate:
+                    rep->removeExercise(exPos);
+                break;
+
+                case nothing:
+                break;
+
+                default:
+                throw std::invalid_argument("Invalid action on the exercises of a repetition training");
+            }
+            delete creator;
+        }
+        else
+            throw std::invalid_argument("Invalid type of training passed");
     }
+    catch (std::invalid_argument) {
+        throw;
+    }
+    catch (std::out_of_range) {
+        throw;
+    }
+
 }
 
 unsigned int Plan::getSize() const  { return trainings.size(); }
 
 bool Plan::isEmpty() const  { return trainings.empty(); }
 
-template<class T>
-std::list<T*> Plan::filter() const{
-    std::list<T*> aux;
-    for(auto it = trainings.begin(); it != trainings.end() ; ++it)
-    {
-        if(dynamic_cast<T*>(*it))
-            aux.push_back(static_cast<T*>(*it));
-    }
-    return aux;
-}
+std::list<Training*> Plan::getTrainings() const { return trainings; }
 
 std::list<Training* > Plan::copy(const Plan& plan){
     std::list<Training* > aux;
