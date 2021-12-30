@@ -4,7 +4,7 @@
 #include <string>
 #include "timespan.h"
 
-//invariante: !duration.isNull() && !recovery.isNull()
+//invariante: !duration.isNull() && !recovery.isNull() (non nel costruttore di default)
 class Exercise
 {
 private:
@@ -12,6 +12,7 @@ private:
     TimeSpan duration;
     TimeSpan recovery;
 public:
+    Exercise();
     Exercise(const std::string& , const TimeSpan&, const TimeSpan&);
     std::string getName() const;
     TimeSpan getDuration() const;

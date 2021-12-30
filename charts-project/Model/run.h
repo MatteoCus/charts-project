@@ -6,7 +6,8 @@
 class Run : public Endurance
 {
 public:
-    Run(double = minWeight, double = 0.0, const TimeSpan& = TimeSpan());
+    Run() = default;
+    Run(double, double, const TimeSpan&);
     TimeSpan Pace() const override;
     unsigned int CaloriesBurned() const override;
     Run* clone() const override;

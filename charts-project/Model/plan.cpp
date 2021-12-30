@@ -43,8 +43,7 @@ Training* Plan::getTraining(unsigned int pos) const{
     std::advance(it, pos);
     return *it;
 }
-//void Plan::setRepetition(unsigned int, double , const string& , const TimeSpan& , const TimeSpan& );
-//void setEndurance(unsigned int, double , double , const TimeSpan&)
+
 
 unsigned int Plan::getSize() const  { return trainings.size(); }
 

@@ -1,5 +1,4 @@
 INPUT(
-./debug\clonable.o
 ./debug\cycling.o
 ./debug\endurance.o
 ./debug\exercise.o

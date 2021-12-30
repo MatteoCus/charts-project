@@ -1,5 +1,4 @@
 INPUT(
-./release\clonable.o
 ./release\cycling.o
 ./release\endurance.o
 ./release\exercise.o

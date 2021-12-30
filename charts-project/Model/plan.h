@@ -19,8 +19,7 @@ public:
     void insertTraining(Training* , unsigned int );
     Training* removeTraining(unsigned int);
     Training* getTraining(unsigned int) const;
-    //void setRepetition(unsigned int, double = 0.0, const string& ="", const TimeSpan& = TimeSpan(), const TimeSpan& = TimeSpan());
-    //void setEndurance(unsigned int, double = 0.0, double = 0.0, const TimeSpan& = TimeSpan())
+
     unsigned int getSize() const;
     bool isEmpty() const;
     TimeSpan getTotalDuration() const;

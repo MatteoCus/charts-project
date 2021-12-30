@@ -38,7 +38,7 @@ Exercise* Repetition::getExercise(unsigned int pos) const{
 void Repetition::setExercise(unsigned int pos, double w, const string& name, const TimeSpan& duration, const TimeSpan& recovery){
     if(pos >= exercises.size())
         throw std::out_of_range("Invalid exercise's modification index");
-    setWeight(w);                           //if w < minWeight, nothing changed
+    setWeight(w);                           //if w < minWeight, error
     exercises[pos]->setName(name);          //if name=="", nothing changed
     exercises[pos]->setDuration(duration);  //if duration.isNull(), nothing changed
     exercises[pos]->setRecovery(recovery);  //if recovery.isNull(), nothing changed

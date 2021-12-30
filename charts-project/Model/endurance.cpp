@@ -1,5 +1,8 @@
 #include "endurance.h"
 
+Endurance::Endurance()
+    :Training(), distance(0), duration(){}
+
 Endurance::Endurance(double weight, double dist, const TimeSpan& dur)
     : Training(weight),
       distance(dist >= 0? dist : throw std::invalid_argument("Invalid value of distance inserted")),
@@ -10,11 +13,9 @@ double Endurance::getDistance() const{return distance;}
 TimeSpan Endurance::Duration() const{return duration;}
 
 void Endurance::setDistance(double dist){
-    if (dist > 0)
-        distance = dist;
+    distance = (dist > 0? dist : throw std::invalid_argument("Invalid value of distance inserted"));
 }
 
 void Endurance::setDuration(const TimeSpan& dur) {
-    if(!dur.isNull())
-        duration =  dur;
+    duration = (!dur.isNull()? dur : throw std::invalid_argument("Invalid value of training duration inserted"));
 }

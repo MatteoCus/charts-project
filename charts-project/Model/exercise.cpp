@@ -1,9 +1,12 @@
 #include "exercise.h"
 
+Exercise::Exercise()
+    : name(""), duration(), recovery(){}
+
 Exercise::Exercise(const std::string& exName, const TimeSpan& exDuration, const TimeSpan& exRecovery)
     : name(exName != ""? exName : throw std::invalid_argument("Invalid exercise name inserted")),
-      duration(exDuration.isNull()? throw std::invalid_argument("Invalid (null) exercise's duration inserted") : exDuration),
-      recovery(exRecovery.isNull()? throw std::invalid_argument("Invalid (null) exercise's recovery inserted") : exRecovery){}
+      duration(!exDuration.isNull()? exDuration : throw std::invalid_argument("Invalid value of training duration inserted")),
+      recovery(!exRecovery.isNull()? exRecovery : throw std::invalid_argument("Invalid value of training duration inserted")){}
 
 std::string Exercise::getName() const {return name;}
 
@@ -17,13 +20,11 @@ void Exercise::setName(const std::string& exName){
 }
 
 void Exercise::setDuration(const TimeSpan& exDuration) {
-    if(!exDuration.isNull())
-        duration = exDuration;
+    duration = (!exDuration.isNull()? exDuration : throw std::invalid_argument("Invalid value of training duration inserted"));
 }
 
 void Exercise::setRecovery(const TimeSpan& exRecovery) {
-    if(!exRecovery.isNull())
-        recovery = exRecovery;
+    recovery = (!exRecovery.isNull()? exRecovery : throw std::invalid_argument("Invalid value of training duration inserted"));
 }
 
 //clone pattern to improve code extensibility
