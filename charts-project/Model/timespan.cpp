@@ -13,7 +13,7 @@ unsigned int TimeSpan::getTotalSeconds() const {return sec;}
 
 unsigned int TimeSpan::getHours() const {return sec/secInHour;}
 
-unsigned int TimeSpan::getMinutes() const {return (sec-(getHours() * secInHour))/secInMinute;}
+unsigned int TimeSpan::getMinutes() const {return (sec - (getHours() * secInHour))/secInMinute;}
 
 unsigned int TimeSpan::getSeconds() const {return (sec - (getHours() * secInHour) - (getMinutes() * secInMinute)); }
 
@@ -25,11 +25,7 @@ TimeSpan TimeSpan::operator-(const TimeSpan& time) const {return sec - time.sec;
 
 TimeSpan TimeSpan::operator* (double n) const {return TimeSpan()+(sec * n);}
 
-TimeSpan TimeSpan::operator/(double n) const {
-    if(n != 0)
-        return TimeSpan() +(sec / n);
-    throw std::invalid_argument("Invalid divisor passed to divide a timespan");
-}
+TimeSpan TimeSpan::operator/(double n) const {return TimeSpan() +(sec / n);}
 
 double TimeSpan::operator/(const TimeSpan& time) const {
     if(time.sec != 0)

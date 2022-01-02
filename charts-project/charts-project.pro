@@ -27,7 +27,7 @@ SOURCES += \
     Model/walk.cpp
 
 HEADERS += \
-    Model/action.h \
+    action.h \
     Model/cycling.h \
     Model/endurance.h \
     Model/exercise.h \
