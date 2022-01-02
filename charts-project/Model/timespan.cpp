@@ -27,10 +27,6 @@ TimeSpan TimeSpan::operator* (double n) const {return TimeSpan()+(sec * n);}
 
 TimeSpan TimeSpan::operator/(double n) const {return TimeSpan() +(sec / n);}
 
-double TimeSpan::operator/(const TimeSpan& time) const {
-    if(time.sec != 0)
-        return sec / time.sec;
-    throw std::invalid_argument("Invalid timespan passed to divide a timespan");
-}
+double TimeSpan::operator/(const TimeSpan& time) const {return sec / time.sec;}
 
 bool TimeSpan::operator==(const TimeSpan& time) const {return sec == time.sec;}
