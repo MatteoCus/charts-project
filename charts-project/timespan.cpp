@@ -1,7 +1,8 @@
 #include "timespan.h"
 
 TimeSpan::TimeSpan(unsigned int h, unsigned int m, unsigned int s)
-    :sec(h * secInHour + m * secInMinute + s){}
+    :sec((m < 60 && s < 60)? h * secInHour + m * secInMinute + s :
+                             throw std::invalid_argument("Invalid timespan inserted")){}
 
 const unsigned int TimeSpan::secInHour = 3600;
 

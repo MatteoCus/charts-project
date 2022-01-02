@@ -14,7 +14,7 @@ SOURCES += \
     Model/exercise.cpp \
     Model/exercisecreator.cpp \
     Model/model.cpp \
-    Model/timespan.cpp \
+    timespan.cpp \
     Model/trainingcreator.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -33,7 +33,7 @@ HEADERS += \
     Model/exercise.h \
     Model/exercisecreator.h \
     Model/model.h \
-    Model/timespan.h \
+    timespan.h \
     Model/trainingcreator.h \
     mainwindow.h \
     Model/plan.h \
