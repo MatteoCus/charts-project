@@ -16,6 +16,7 @@ public:
     unsigned int getHours() const;
     unsigned int getMinutes() const;
     unsigned int getSeconds() const;
+    void setTime(unsigned int, unsigned int =0, unsigned int =0);
     unsigned int getTotalMinutes() const;
     unsigned int getTotalSeconds() const;
     bool isNull() const;
@@ -25,6 +26,11 @@ public:
     TimeSpan operator/(double) const;
     double operator/(const TimeSpan& ) const;
     bool operator==(const TimeSpan&) const;
+    bool operator!=(const TimeSpan&) const;
+    bool operator<(const TimeSpan&) const;
+    bool operator>(const TimeSpan&) const;
+    bool operator<=(const TimeSpan&) const;
+    bool operator>=(const TimeSpan&) const;
 };
 
 #endif // TIMESPAN_H
