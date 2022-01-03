@@ -7,7 +7,7 @@
 #include "run.h"
 #include "tennis.h"
 #include "walk.h"
-#include "timespan.h"
+#include "DateTime/timespan.h"
 #include <string>
 #include <stdexcept>
 

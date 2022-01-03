@@ -9,8 +9,9 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    DateTime/Date.cpp \
-    DateTime/DateException.cpp \
+    DateTime/date.cpp \
+    DateTime/dateexception.cpp \
+    DateTime/datetime.cpp \
     Model/cycling.cpp \
     Model/endurance.cpp \
     Model/exercise.cpp \
@@ -29,8 +30,9 @@ SOURCES += \
     Model/walk.cpp
 
 HEADERS += \
-    DateTime/Date.h \
-    DateTime/DateException.h \
+    DateTime/date.h \
+    DateTime/dateexception.h \
+    DateTime/datetime.h \
     action.h \
     Model/cycling.h \
     Model/endurance.h \

@@ -2,7 +2,7 @@
 #define EXERCISECREATOR_H
 
 #include "exercise.h"
-#include "timespan.h"
+#include "DateTime/timespan.h"
 #include <string>
 
 class exerciseCreator

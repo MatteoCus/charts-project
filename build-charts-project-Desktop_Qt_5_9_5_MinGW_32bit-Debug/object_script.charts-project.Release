@@ -1,4 +1,7 @@
 INPUT(
+./release\date.o
+./release\dateexception.o
+./release\datetime.o
 ./release\cycling.o
 ./release\endurance.o
 ./release\exercise.o

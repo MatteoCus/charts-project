@@ -1,4 +1,7 @@
 INPUT(
+./debug\date.o
+./debug\dateexception.o
+./debug\datetime.o
 ./debug\cycling.o
 ./debug\endurance.o
 ./debug\exercise.o

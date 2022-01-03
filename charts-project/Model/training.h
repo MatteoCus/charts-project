@@ -1,7 +1,7 @@
 #ifndef TRAINING_H
 #define TRAINING_H
 
-#include "timespan.h"
+#include "DateTime/timespan.h"
 #include <stdexcept>
 
 class Training
