@@ -5,6 +5,7 @@
 #include "DateTime/timespan.h"
 #include "DateTime/date.h"
 #include "DateTime/dateexception.h"
+#include "DateTime/datetime.h"
 
 using namespace std;
 

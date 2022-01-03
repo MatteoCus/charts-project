@@ -11,7 +11,11 @@ class DateTime
 {
 private:
     Date date;
-    TimeStamp time;     //timespan used ad timestamp
+    TimeStamp time;     //timespan used as timestamp
+    DateTime(const Date& d, const TimeStamp& t);
+    static const unsigned int hoursPerDay;
+    void setTime(unsigned int hours, unsigned int minutes, unsigned int seconds);
+    void setDate(unsigned int day, unsigned int month, unsigned int year);
 public:
     DateTime();
     DateTime(unsigned int day, unsigned int month, unsigned int year,
@@ -19,12 +23,9 @@ public:
 
     Date getDate() const;
     TimeStamp getTime() const;
-    DateTime getDateTime() const;
-    void setTime(unsigned int hours, unsigned int minutes, unsigned int seconds);
-    void setDate(unsigned int day, unsigned int month, unsigned int year);
-    DateTime operator+(const DateTime&);
+    void setDateTime(unsigned int day, unsigned int month, unsigned int year,
+                     unsigned int hours, unsigned int minutes, unsigned int seconds =0);
     DateTime operator+(const TimeSpan&);
-    DateTime operator-(const DateTime&);
     DateTime operator-(const TimeSpan&);
     bool operator==(const DateTime&) const;
     bool operator<(const DateTime&) const;

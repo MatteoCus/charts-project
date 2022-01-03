@@ -294,11 +294,11 @@ bool Date::operator<(const Date& date) const{
             || (getYear() == date.getYear() && getMonth() == date.getMonth() && getDay() < date.getDay());
 }
 
-bool Date::operator>(const Date& date) const {return !operator<(date);}
+bool Date::operator>(const Date& date) const {return !operator<(date) && !operator==(date);}
 
-bool Date::operator<=(const Date& date) const {return (operator<(date) || operator==(date));}
+bool Date::operator<=(const Date& date) const {return !operator>(date);}
 
-bool Date::operator>=(const Date& date) const {return (operator>(date) || operator==(date));}
+bool Date::operator>=(const Date& date) const {return !operator<(date);}
 
 
 /*! \brief Metodo privato clear di resettaggio

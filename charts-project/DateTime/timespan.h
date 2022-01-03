@@ -7,12 +7,12 @@ class TimeSpan
 {
 private:
     unsigned int sec;
-
-public:
-    TimeSpan(unsigned int = 0, unsigned int = 0, unsigned int = 0);
-
+    static const unsigned int secPerDay;
     static const unsigned int secInHour;
     static const unsigned int secInMinute;
+public:
+    TimeSpan(unsigned int hours = 0, unsigned int minutes = 0, unsigned int seconds = 0);
+
     unsigned int getHours() const;
     unsigned int getMinutes() const;
     unsigned int getSeconds() const;
@@ -22,8 +22,8 @@ public:
     bool isNull() const;
     TimeSpan operator+(const TimeSpan&) const;
     TimeSpan operator-(const TimeSpan&) const;
-    TimeSpan operator* (double) const;
-    TimeSpan operator/(double) const;
+    TimeSpan operator* (unsigned int) const;
+    TimeSpan operator/(unsigned int) const;
     double operator/(const TimeSpan& ) const;
     bool operator==(const TimeSpan&) const;
     bool operator!=(const TimeSpan&) const;
