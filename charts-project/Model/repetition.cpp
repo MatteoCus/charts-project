@@ -34,8 +34,8 @@ void Repetition::setExercise(unsigned int pos, const string& name, const TimeSpa
     try {
         exercises[pos]->setDuration(duration);
         exercises[pos]->setRecovery(recovery);
-    }  catch (std::invalid_argument) {
-        throw;
+    }  catch (std::invalid_argument& e) {
+        throw e;
     }
 
 }

@@ -86,11 +86,11 @@ void Plan::setTraining(unsigned int pos,  double weight, double distance, const 
         else
             throw std::invalid_argument("Invalid type of training passed");
     }
-    catch (std::invalid_argument) {
-        throw;
+    catch (std::invalid_argument& e) {
+        throw e;
     }
-    catch (std::out_of_range) {
-        throw;
+    catch (std::out_of_range& ex) {
+        throw ex;
     }
 
 }

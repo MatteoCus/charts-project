@@ -13,13 +13,13 @@ private:
     TimeSpan recovery;
 public:
     Exercise();
-    Exercise(const std::string& , const TimeSpan&, const TimeSpan&);
+    Exercise(const std::string& name, const TimeSpan& duration, const TimeSpan& recovery);
     std::string getName() const;
     TimeSpan getDuration() const;
     TimeSpan getRecoveryTime() const;
-    void setName(const std::string&);
-    void setDuration(const TimeSpan&);
-    void setRecovery(const TimeSpan&);
+    void setName(const std::string& name);
+    void setDuration(const TimeSpan& duration);
+    void setRecovery(const TimeSpan& recovery);
     virtual Exercise* clone() const;       //clone pattern
     virtual ~Exercise() = default;
 };

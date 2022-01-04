@@ -12,7 +12,9 @@ const double Cycling::c2 = 0.0175;
 */
 
 TimeSpan Cycling::Pace() const{
-    return ((Duration()/getDistance()) * 10);
+    if(getDistance())
+          return ((Duration()/getDistance()) * 10);
+    throw std::runtime_error("Trying to calculate pace with a null distance");
 }
 
 /*

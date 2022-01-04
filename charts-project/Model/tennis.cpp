@@ -4,7 +4,9 @@ Tennis::Tennis(double mass)
     :Repetition(mass){}
 
 double Tennis::Intensity() const {
-    return ((Duration())/(totalRecovery())/4 * 100);
+    if(totalRecovery() != TimeSpan())
+        return (100 * (Duration()/totalRecovery())/4);
+    throw std::runtime_error("Trying to calculate intensity with a null recovery time (division by 0");
 }
 
 unsigned int Tennis::CaloriesBurned() const {

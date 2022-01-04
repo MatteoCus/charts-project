@@ -7,7 +7,9 @@ Walk::Walk(double weight, double dist, const TimeSpan& dur)
  * pace is measured in min/km
 */
 TimeSpan Walk::Pace() const{
-    return Duration()/getDistance();
+    if(getDistance())
+      return Duration()/getDistance();
+    throw std::runtime_error("Trying to calculate pace with a null distance");
 }
 
 /*

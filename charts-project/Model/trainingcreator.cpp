@@ -24,8 +24,8 @@ Training* trainingCreator::createTraining(const std::string& type,double weight,
             return t;
        }
     }
-    catch (std::invalid_argument) {
-        throw;                          //re-throw of the exception
+    catch (std::invalid_argument& e) {
+        throw e;                          //re-throw of the exception
     }
 
     throw std::invalid_argument("Invalid creation request");

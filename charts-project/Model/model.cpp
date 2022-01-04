@@ -21,27 +21,27 @@ void Model::addNewTraining(unsigned int pos, const std::string& type, double wei
             plan->insertTraining(tr, pos);
         delete creator;
     }
-    catch (std::invalid_argument) {
-        throw;
+    catch (std::invalid_argument& e) {
+        throw e;
     }
-    catch (std::out_of_range) {
-        throw;
+    catch (std::out_of_range& ex) {
+        throw ex;
     }
 }
 
 void Model::removeTraining(unsigned int pos) const {
     try {
         plan->removeTraining(pos);
-    }  catch (std::out_of_range) {
-        throw;
+    }  catch (std::out_of_range& e) {
+        throw e;
     }
 }
 
 Training* Model::getTraining(unsigned int pos) const {
     try {
         return plan->getTraining(pos);
-    }  catch (std::out_of_range) {
-        throw;
+    }  catch (std::out_of_range& e) {
+        throw e;
     }
 }
 
@@ -53,11 +53,11 @@ void Model::setTraining(unsigned int pos,  double weight, double distance, const
     try {
         plan->setTraining(pos, weight, distance, duration, exPos, operation, exName, exDuration, exRecovery);
     }
-    catch (std::invalid_argument) {
-        throw;
+    catch (std::invalid_argument& e) {
+        throw e;
     }
-    catch (std::out_of_range) {
-        throw;
+    catch (std::out_of_range& ex) {
+        throw ex;
     }
 }
 
