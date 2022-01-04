@@ -37,6 +37,7 @@ public:
   void operator+=(int n);
   void operator++();
   bool operator==(const Date&) const;
+  bool operator!=(const Date&) const;
   bool operator<(const Date&) const;
   bool operator>(const Date&) const;
   bool operator<=(const Date&) const;

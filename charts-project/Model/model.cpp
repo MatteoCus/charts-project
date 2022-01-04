@@ -7,25 +7,20 @@ Plan* Model::copy(const Model& model){ return new Plan(*model.plan); }
 
 void Model::destroy(const Model& model){ delete model.plan;}
 
-void Model::addNewTraining(unsigned int pos, const std::string& type, double weight, double distance,
-                           const TimeSpan& duration, const std::string& exName,
+void Model::addNewTraining(const std::string& type, double weight, const DateTime& start,
+                           double distance, const TimeSpan& duration, const std::string& exName,
                            const TimeSpan& exDuration, const TimeSpan& exRecovery) const{
-    Training* tr = nullptr;
-    trainingCreator* creator = nullptr;
     try {
-        creator = new trainingCreator();
-        tr = creator->createTraining(type, weight, distance, duration, exName, exDuration, exRecovery);
-        if(pos >= plan->getSize())
-            plan->addTraining(tr);
-        else
-            plan->insertTraining(tr, pos);
+        trainingCreator* creator = new trainingCreator();
+        Training* tr = creator->createTraining(type, weight, start, distance, duration, exName, exDuration, exRecovery);
+        plan->insertTraining(tr);
         delete creator;
     }
-    catch (std::invalid_argument& e) {
-        throw e;
-    }
-    catch (std::out_of_range& ex) {
+    catch (DateException &ex) {
         throw ex;
+      }
+    catch (std::invalid_argument& e) {
+        throw e;                          //re-throw of the exception
     }
 }
 
@@ -47,12 +42,15 @@ Training* Model::getTraining(unsigned int pos) const {
 
 std::list<Training*> Model::getTrainings() const { return plan->getTrainings(); }
 
-void Model::setTraining(unsigned int pos,  double weight, double distance, const TimeSpan& duration,
-                        unsigned int exPos, action operation, const std::string& exName,
+void Model::setTraining(unsigned int pos,  double weight, const DateTime& start, double distance,
+                        const TimeSpan& duration, unsigned int exPos, action operation, const std::string& exName,
                         const TimeSpan& exDuration, const TimeSpan& exRecovery) const{
     try {
-        plan->setTraining(pos, weight, distance, duration, exPos, operation, exName, exDuration, exRecovery);
+        plan->setTraining(pos, weight, start,distance, duration, exPos, operation, exName, exDuration, exRecovery);
     }
+    catch (DateException &ex) {
+        throw ex;
+      }
     catch (std::invalid_argument& e) {
         throw e;
     }

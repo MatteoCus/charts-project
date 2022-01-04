@@ -288,6 +288,9 @@ bool Date::operator==(const Date& date) const {
     return (getYear()==date.getYear()) && (getMonth()==date.getMonth()) && (getDay()==date.getDay());
 }
 
+bool Date::operator!=(const Date& date) const {
+    return !operator==(date);
+}
 
 bool Date::operator<(const Date& date) const{
     return (getYear() < date.getYear()) || (getYear() == date.getYear() && getMonth() < date.getMonth())

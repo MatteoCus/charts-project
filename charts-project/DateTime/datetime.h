@@ -12,22 +12,20 @@ class DateTime
 private:
     Date date;
     TimeStamp time;                                                 //timespan used as timestamp
-    DateTime(const Date& date, const TimeStamp& time);
     static const unsigned int hoursPerDay;
-    void setTime(unsigned int hours, unsigned int minutes, unsigned int seconds);
-    void setDate(unsigned int day, unsigned int month, unsigned int year);
+    void setTime(const TimeStamp& time);
+    void setDate(const Date& date);
 public:
     DateTime();                                                     //constructs 1-1-2000 00:00
-    DateTime(unsigned int day, unsigned int month, unsigned int year,
-             unsigned int hours = 0, unsigned int minutes = 0, unsigned int seconds = 0);
+    DateTime(const Date& date, const TimeStamp& time);
 
     Date getDate() const;
     TimeStamp getTime() const;
-    void setDateTime(unsigned int day, unsigned int month, unsigned int year,
-                     unsigned int hours, unsigned int minutes, unsigned int seconds =0);
-    DateTime operator+(const TimeSpan& time);
-    DateTime operator-(const TimeSpan& time);
+    void setDateTime(const DateTime& dateTime);
+    DateTime operator+(const TimeSpan& time) const;
+    DateTime operator-(const TimeSpan& time) const;
     bool operator==(const DateTime& dateTime) const;
+    bool operator!=(const DateTime& dateTime) const;
     bool operator<(const DateTime& dateTime) const;
     bool operator>(const DateTime& dateTime) const;
     bool operator<=(const DateTime& dateTime) const;

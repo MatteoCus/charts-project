@@ -4,6 +4,7 @@
 #include "training.h"
 #include "endurance.h"
 #include "repetition.h"
+#include "DateTime/datetime.h"
 #include "action.h"
 #include "exercisecreator.h"
 #include <string>
@@ -17,14 +18,14 @@ private:
     static void destroy(const Plan& plan);
 public:
     Plan() = default;
-    void addTraining(Training* training);
-    void insertTraining(Training* training, unsigned int pos);
+    bool check(Training* training);
+    void insertTraining(Training* training);
     void removeTraining(unsigned int pos);
     Training* getTraining(unsigned int pos) const;
     std::list<Training*> getTrainings() const;
     unsigned int getSize() const;
     bool isEmpty() const;
-    void setTraining(unsigned int pos, double weight, double distance = 0.0, const TimeSpan& duration= TimeSpan(),
+    void setTraining(unsigned int pos, double weight, const DateTime& start, double distance = 0.0, const TimeSpan& duration= TimeSpan(),
                      unsigned int exPos= 0, action operation= nothing, const std::string& exName="",
                      const TimeSpan& exDuration= TimeSpan(), const TimeSpan& exRecovery = TimeSpan());
 

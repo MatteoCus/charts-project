@@ -15,7 +15,8 @@ private:
     static std::vector<Exercise* > copy(const Repetition& repTraining);
     static void destroy(const Repetition& repTraining);
 public:
-    Repetition(double weight= minWeight);
+    Repetition() = default;
+    Repetition(double weight, const DateTime& start);
     void addExercise(Exercise* exercise);
     void insertExercise(unsigned int position, Exercise* exercise);
     void removeExercise(unsigned int position);

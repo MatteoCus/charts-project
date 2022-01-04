@@ -1,7 +1,7 @@
 #include "repetition.h"
 
-Repetition::Repetition(double weight)
-    : Training(weight), exercises(){}
+Repetition::Repetition(double weight, const DateTime& start)
+    : Training(weight, start), exercises(){}
 
 void Repetition::addExercise(Exercise* ex){exercises.push_back(ex);}
 

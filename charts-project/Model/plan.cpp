@@ -1,18 +1,26 @@
 #include "plan.h"
 
-void Plan::addTraining(Training* tr){ trainings.push_back(tr); }
-
-void Plan::insertTraining(Training* tr, unsigned int pos){
-    if(pos == trainings.size())
-        trainings.push_back(tr);
-    else if(pos > trainings.size())
-        throw std::out_of_range("Invalid training's entry index");
+bool Plan::check(Training* training){
+    DateTime start = training->getStart();
+    auto it = trainings.begin();
+    while(start < (*it)->getStart() || it != trainings.end())
+        ++it;
+    if (it == trainings.end() || training->getEnd() < (*it)->getStart())
+        return true;
     else
+        return false;
+}
+
+void Plan::insertTraining(Training* training){
+    if(check(training))
     {
         auto it = trainings.begin();
-        std::advance(it, pos);
-        trainings.insert(it, tr);
+        while(training->getStart() < (*it)->getStart() || it != trainings.end())
+            ++it;
+        trainings.insert(it, training);
     }
+    else
+        throw std::invalid_argument("Conflict of trainings' durations during modify operation");
 }
 
 void Plan::removeTraining(unsigned int pos){
@@ -38,11 +46,12 @@ Training* Plan::getTraining(unsigned int pos) const{
     return *it;
 }
 
-void Plan::setTraining(unsigned int pos,  double weight, double distance, const TimeSpan& duration,
-                       unsigned int exPos, action operation, const std::string& exName,
+void Plan::setTraining(unsigned int pos,  double weight, const DateTime& start, double distance,
+                       const TimeSpan& duration, unsigned int exPos, action operation, const std::string& exName,
                        const TimeSpan& exDuration, const TimeSpan& exRecovery){
     auto it = trainings.begin();
     std::advance(it, pos);
+    Training* backup = *it;
     try
     {
         (*it)->setWeight(weight);
@@ -85,6 +94,26 @@ void Plan::setTraining(unsigned int pos,  double weight, double distance, const 
         }
         else
             throw std::invalid_argument("Invalid type of training passed");
+        if(start != (*it)->getStart() || backup->Duration() != (*it)->Duration())
+        {
+            if(check(*it))
+            {
+                (*it)->setStart(start);
+                Training* tr = *it;
+                trainings.erase(it);
+                insertTraining(tr);
+                //cannot do delete on tr pointer because, if dyn_cast<Rep*>(tr) --> delete exercises
+            }
+            else
+            {
+                trainings.erase(it);
+                trainings.insert(it, backup);
+                throw std::invalid_argument("Conflict of trainings' durations during modify operation");
+            }
+        }
+    }
+    catch(DateException& ex){
+        throw ex;
     }
     catch (std::invalid_argument& e) {
         throw e;
