@@ -35,10 +35,9 @@ TimeSpan TimeSpan::operator+(const TimeSpan& time) const {
 }
 
 TimeSpan TimeSpan::operator-(const TimeSpan& time) const {
-    int seconds = sec, tsec=time.sec;
-    int totSec = (seconds - tsec);
-    while(totSec < 0)
-        totSec += (secPerDay); //module doesn't work with negative numbers
+    if(sec < time.sec)
+        throw std::invalid_argument("Invalid operation: timestamp subtraction has a negative result");
+    unsigned int totSec = sec - time.sec;
     unsigned int h = totSec/secInHour, m = (totSec % secInHour)/secInMinute, s = totSec % secInMinute;
     return TimeSpan(h, m, s);
 }

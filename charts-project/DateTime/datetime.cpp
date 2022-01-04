@@ -64,12 +64,16 @@ DateTime DateTime::operator+(const TimeSpan& addTime){
 
 DateTime DateTime::operator-(const TimeSpan& subTime){
     Date d = date;
-    TimeStamp t = time - subTime;
-    while (time < subTime)
+    TimeSpan t = time;
+    if(t < subTime)
     {
-        d += -1;
-        time = time + TimeSpan(24);
-    }
+        while (t < subTime)
+        {
+            d += -1;
+            t = t + TimeSpan(24);
+        }
+     }
+    t = t - subTime;
     return DateTime(d,t);
 }
 
