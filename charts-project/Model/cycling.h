@@ -10,7 +10,7 @@ private:
     static const double c2;             //constant to calculate calories burned
 public:
     Cycling() = default;
-    Cycling(double, double, const TimeSpan&);
+    Cycling(double weight, double distance, const TimeSpan& duration);
     TimeSpan Pace() const override;
     unsigned int CaloriesBurned() const override;
     Cycling* clone() const override;

@@ -16,22 +16,24 @@ private:
     static void destroy(const Model& );
 public:
     Model();
-    void addNewTraining(unsigned int, const std::string&, double, double = 0.0, const TimeSpan& = TimeSpan(),
-                        const std::string& ="", const TimeSpan& = TimeSpan(), const TimeSpan& = TimeSpan()) const;
+    void addNewTraining(unsigned int pos, const std::string& type, double weight, double distance = 0.0,
+                        const TimeSpan& duration= TimeSpan(),const std::string& exName="",
+                        const TimeSpan& exDuration= TimeSpan(), const TimeSpan& exRecovery = TimeSpan()) const;
 
-    void removeTraining(unsigned int) const;
-    Training* getTraining(unsigned int) const;
+    void removeTraining(unsigned int pos) const;
+    Training* getTraining(unsigned int pos) const;
     std::list<Training*> getTrainings() const;
 
-    void setTraining(unsigned int, double, double = 0.0, const TimeSpan& = TimeSpan(), unsigned int = 0,
-          action = nothing, const std::string& ="", const TimeSpan& = TimeSpan(),const TimeSpan& = TimeSpan()) const;
+    void setTraining(unsigned int pos, double weight, double distance = 0.0, const TimeSpan& duration= TimeSpan(),
+                     unsigned int exPos= 0, action operation= nothing, const std::string& exName="",
+                     const TimeSpan& exDuration= TimeSpan(), const TimeSpan& exRecovery = TimeSpan()) const;
 
     unsigned int getPlanSize() const;
     bool isEmpty() const;
 
     //rule of three
-    Model(const Model&);
-    Model& operator=(const Model&);
+    Model(const Model& model);
+    Model& operator=(const Model& model);
     ~Model();
 };
 

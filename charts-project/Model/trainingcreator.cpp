@@ -9,7 +9,7 @@ Training* trainingCreator::createTraining(const std::string& type,double weight,
         else if(type == "Run") { return new Run(weight, distance, duration);}
         else if(type == "Walk") { return new Walk(weight, distance, duration);}
 
-        //from here, there will be just a Repetition training creation or an error
+        //from here, there will be just a Repetition training creation (or an error)
         exerciseCreator* creator = new exerciseCreator();
         Exercise* ex = creator->createExercise(exName, exDuration, exRecovery);
         delete creator;

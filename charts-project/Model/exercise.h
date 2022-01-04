@@ -5,7 +5,6 @@
 #include <stdexcept>
 #include "DateTime/timespan.h"
 
-//invariante: !duration.isNull() && !recovery.isNull() (non nel costruttore di default)
 class Exercise
 {
 private:

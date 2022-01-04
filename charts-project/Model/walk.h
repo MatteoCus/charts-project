@@ -7,7 +7,7 @@ class Walk : public Endurance
 {
 public:
     Walk() = default;
-    Walk(double, double, const TimeSpan&);
+    Walk(double weight, double distance, const TimeSpan& duration);
     TimeSpan Pace() const override;
     unsigned int CaloriesBurned() const override;
     Walk* clone() const override;

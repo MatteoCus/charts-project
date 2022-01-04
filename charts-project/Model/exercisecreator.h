@@ -8,7 +8,7 @@
 class exerciseCreator
 {
 public:
-    Exercise* createExercise(const std::string&, const TimeSpan&, const TimeSpan&) const;
+    Exercise* createExercise(const std::string& name, const TimeSpan& recovery, const TimeSpan& duration) const;
 };
 
 #endif // EXERCISECREATOR_H

@@ -14,8 +14,9 @@
 class trainingCreator
 {
 public:
-    Training* createTraining(const std::string& ,double, double = 0.0, TimeSpan = TimeSpan(),
-                             const std::string& ="", TimeSpan=TimeSpan(),TimeSpan=TimeSpan()) const;
+    Training* createTraining(const std::string& type, double weight, double distance= 0.0,
+                             TimeSpan duration= TimeSpan(), const std::string& exName="",
+                             TimeSpan exDuration =TimeSpan(), TimeSpan exRecovery = TimeSpan()) const;
 };
 
 #endif // TRAININGCREATOR_H

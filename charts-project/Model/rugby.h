@@ -6,7 +6,7 @@
 class Rugby : public Repetition
 {
 public:
-    Rugby(double = minWeight);
+    Rugby(double weight  = minWeight);
     double Intensity() const override;
     unsigned int CaloriesBurned() const override;
     Rugby* clone() const override;

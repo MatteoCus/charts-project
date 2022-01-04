@@ -12,23 +12,24 @@ class Repetition : public Training
 {
 private:
     std::vector<Exercise* > exercises;
-    static std::vector<Exercise* > copy(const Repetition&);
-    static void destroy(const Repetition& );
+    static std::vector<Exercise* > copy(const Repetition& repTraining);
+    static void destroy(const Repetition& repTraining);
 public:
-    Repetition(double = minWeight);
-    void addExercise(Exercise* );
-    void insertExercise(unsigned int, Exercise* );
-    void removeExercise(unsigned int);
-    Exercise* getExercise(unsigned int) const;
-    void setExercise(unsigned int, const string&, const TimeSpan& , const TimeSpan&);
+    Repetition(double weight= minWeight);
+    void addExercise(Exercise* exercise);
+    void insertExercise(unsigned int position, Exercise* exercise);
+    void removeExercise(unsigned int position);
+    Exercise* getExercise(unsigned int position) const;
+    void setExercise(unsigned int position, const string& name, const TimeSpan& duration,
+                     const TimeSpan& recovery);
     unsigned int getSize() const;
     TimeSpan totalRecovery() const;
     bool isEmpty() const;
     TimeSpan Duration() const override;
     virtual double Intensity() const=0;             //calculate the intensity of a specific training (value in % format)
 
-    Repetition(const Repetition&);
-    Repetition& operator=(const Repetition&);
+    Repetition(const Repetition& repTraining);
+    Repetition& operator=(const Repetition& repTraining);
     virtual ~Repetition();
 };
 

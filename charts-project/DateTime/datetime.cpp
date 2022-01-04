@@ -1,7 +1,7 @@
 #include "datetime.h"
 
 DateTime::DateTime()
-    :date(1,1,2000), time(){}   //constructs 1-1-2000 00:00
+    :date(1,1,2000), time(){}
 
 DateTime::DateTime(const Date& d, const TimeStamp& t)
     :date(d), time(t){}
