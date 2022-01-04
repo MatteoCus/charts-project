@@ -21,7 +21,7 @@ void Training::setWeight(double mass){
 
 void Training::setStart(const DateTime& dateTime) {
     try {
-          start.setDateTime(dateTime);
+          start.setDateTime(dateTime.getDate(), dateTime.getTime());
     }
     catch(DateException& ex){
         throw ex;

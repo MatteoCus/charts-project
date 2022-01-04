@@ -7,7 +7,7 @@ class Tennis : public Repetition
 {
 public:
     Tennis() = default;
-    Tennis(double weight, const DateTime& start);      //to do
+    Tennis(double weight, const DateTime& start);
     double Intensity() const override;
     unsigned int CaloriesBurned() const override;
     Tennis* clone() const override;

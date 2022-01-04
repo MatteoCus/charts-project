@@ -5,10 +5,10 @@
 #include "DateTime/timespan.h"
 #include <string>
 
-class exerciseCreator
-{
+class exerciseCreator {
 public:
-    Exercise* createExercise(const std::string& name, const TimeSpan& recovery, const TimeSpan& duration) const;
+  Exercise *createExercise(const std::string &name, const TimeSpan &duration,
+                           const TimeSpan &recovery) const;
 };
 
 #endif // EXERCISECREATOR_H

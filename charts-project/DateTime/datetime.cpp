@@ -33,10 +33,10 @@ Date DateTime::getDate() const {return date;}
 
 TimeStamp DateTime::getTime() const {return time;}
 
-void DateTime::setDateTime(const DateTime& dateTime){
+void DateTime::setDateTime(const Date& date, const TimeStamp& time){
     try {
-        setDate(dateTime.getDate());
-        setTime(dateTime.getTime());
+        setDate(date);
+        setTime(time);
     }  catch(DateException& ex){
         throw ex;
     }

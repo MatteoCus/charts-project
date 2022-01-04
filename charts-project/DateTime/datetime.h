@@ -21,7 +21,7 @@ public:
 
     Date getDate() const;
     TimeStamp getTime() const;
-    void setDateTime(const DateTime& dateTime);
+    void setDateTime(const Date& date, const TimeStamp& time);
     DateTime operator+(const TimeSpan& time) const;
     DateTime operator-(const TimeSpan& time) const;
     bool operator==(const DateTime& dateTime) const;
