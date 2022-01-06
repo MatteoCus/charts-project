@@ -1,6 +1,8 @@
 #include "plan.h"
 
 bool Plan::check(Training *training) {
+  if (!training)
+    throw std::invalid_argument("Null training passed to check ");
   DateTime start = training->getStart();
   auto it = trainings.begin();
   while (it != trainings.end() && (start > (*it)->getStart()) &&
@@ -8,7 +10,7 @@ bool Plan::check(Training *training) {
     ++it;
   }
   if (it == trainings.end() ||
-      (training->getEnd() < (*it)->getStart() && start < (*it)->getEnd()))
+      ((training->getEnd() < (*it)->getStart()) && (start < (*it)->getEnd())))
     return true;
   else
     return false;
@@ -53,10 +55,10 @@ void Plan::setTraining(unsigned int pos, double weight, const DateTime &start,
                        const std::string &exName, const TimeSpan &exDuration,
                        const TimeSpan &exRecovery) {
   if (pos >= getSize())
-    throw std::invalid_argument("Invalid modify index");
+    throw std::out_of_range("Invalid modify index");
   auto it = trainings.begin();
   std::advance(it, pos);
-  Training *backup = *it;
+  Training *backup = (*it)->clone();
   try {
     (*it)->setWeight(weight);
     if (dynamic_cast<Endurance *>(*it)) {
@@ -95,20 +97,22 @@ void Plan::setTraining(unsigned int pos, double weight, const DateTime &start,
     } else
       throw std::invalid_argument("Invalid type of training passed");
     (*it)->setStart(start);
-    Training *tr = *it;
+    Training *tr = (*it)->clone();
     trainings.erase(it);
     if (check(tr)) {
+      delete backup;
       insertTraining(tr);
-      // cannot do delete on tr pointer because, if dyn_cast<Rep*>(tr) -->
-      // delete exercises
     } else {
-      insertTraining(backup);
+      delete tr;
       throw std::invalid_argument(
           "Conflict of trainings' durations during modify operation");
     }
+
   } catch (DateException &ex) {
+    insertTraining(backup); // return to the last correct state
     throw ex;
   } catch (std::invalid_argument &e) {
+    insertTraining(backup); // return to the last correct state
     throw e;
   } catch (std::out_of_range &ex) {
     throw ex;
