@@ -15,10 +15,10 @@ private:
   std::list<Training *> trainings;
   static std::list<Training *> copy(const Plan &plan);
   static void destroy(const Plan &plan);
+  bool check(Training *training);
 
 public:
   Plan() = default;
-  bool check(Training *training);
   void insertTraining(Training *training);
   void removeTraining(unsigned int pos);
   Training *getTraining(unsigned int pos) const;
