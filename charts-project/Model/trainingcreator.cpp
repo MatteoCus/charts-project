@@ -2,25 +2,25 @@
 #include "exercisecreator.h"
 
 Training *trainingCreator::createTraining(const std::string &type,
-                                          double weight, const DateTime &start,
+                                          const std::string &name, const DateTime &start,
                                           double distance, TimeSpan duration,
                                           const std::string &exName,
                                           const TimeSpan &exDuration,
                                           const TimeSpan &exRecovery) const {
   try {
     if (type == "Cycling") {
-      return new Cycling(weight, start, distance, duration);
+      return new Cycling(name, start, distance, duration);
     } else if (type == "Run") {
-      return new Run(weight, start, distance, duration);
+      return new Run(name, start, distance, duration);
     } else if (type == "Walk") {
-      return new Walk(weight, start, distance, duration);
+      return new Walk(name, start, distance, duration);
     }
 
     Repetition *aux = nullptr;
     if (type == "Rugby") {
-      aux = new Rugby(weight, start);
+      aux = new Rugby(name, start);
     } else if (type == "Tennis") {
-      aux = new Tennis(weight, start);
+      aux = new Tennis(name, start);
     }
     if (aux) {
       exerciseCreator *creator = new exerciseCreator();

@@ -1,7 +1,7 @@
 #include "rugby.h"
 
-Rugby::Rugby(double mass, const DateTime& start)
-    :Repetition(mass, start){}
+Rugby::Rugby(const std::string &name, const DateTime& start)
+    :Repetition(name, start){}
 
 double Rugby::Intensity() const {
     if(totalRecovery() != TimeSpan())

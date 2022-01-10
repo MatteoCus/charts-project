@@ -10,7 +10,7 @@ private:
     TimeSpan duration;
 public:
     Endurance();
-    Endurance(double weight, const DateTime& start, double distance, const TimeSpan& duration);
+    Endurance(const std::string &name, const DateTime& start, double distance, const TimeSpan& duration);
     double getDistance() const;
     virtual TimeSpan Pace() const = 0;         //pace measured in min/km or min/10km
     TimeSpan Duration() const override;

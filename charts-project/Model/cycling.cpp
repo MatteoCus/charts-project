@@ -1,7 +1,7 @@
 #include "cycling.h"
 
-Cycling::Cycling(double weight, const DateTime& start, double dist, const TimeSpan& dur)
-    : Endurance(weight, start, dist, dur){}
+Cycling::Cycling(const std::string &name, const DateTime& start, double dist, const TimeSpan& dur)
+    : Endurance(name, start, dist, dur){}
 
 const unsigned int Cycling::MET = 9;
 

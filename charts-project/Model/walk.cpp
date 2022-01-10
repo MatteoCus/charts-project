@@ -1,7 +1,7 @@
 #include "walk.h"
 
-Walk::Walk(double weight, const DateTime& start, double dist, const TimeSpan& dur)
-    : Endurance(weight, start, dist, dur){}
+Walk::Walk(const std::string &name, const DateTime& start, double dist, const TimeSpan& dur)
+    : Endurance(name, start, dist, dur){}
 
 /*
  * pace is measured in min/km

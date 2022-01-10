@@ -49,7 +49,7 @@ Training *Plan::getTraining(unsigned int pos) const {
   return *it;
 }
 
-void Plan::setTraining(unsigned int pos, double weight, const DateTime &start,
+void Plan::setTraining(unsigned int pos, const std::string &name, const DateTime &start,
                        double distance, const TimeSpan &duration,
                        unsigned int exPos, action operation,
                        const std::string &exName, const TimeSpan &exDuration,
@@ -60,7 +60,7 @@ void Plan::setTraining(unsigned int pos, double weight, const DateTime &start,
   std::advance(it, pos);
   Training *backup = (*it)->clone();
   try {
-    (*it)->setWeight(weight);
+    (*it)->setName(name);
     if (dynamic_cast<Endurance *>(*it)) {
       Endurance *endur = static_cast<Endurance *>(*it);
       endur->setDistance(distance);

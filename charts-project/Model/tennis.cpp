@@ -1,7 +1,7 @@
 #include "tennis.h"
 
-Tennis::Tennis(double mass, const DateTime& start)
-    :Repetition(mass, start){}
+Tennis::Tennis(const std::string &name, const DateTime& start)
+    :Repetition(name, start){}
 
 double Tennis::Intensity() const {
     if(totalRecovery() != TimeSpan())

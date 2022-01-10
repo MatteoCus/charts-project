@@ -16,7 +16,7 @@ private:
 
 public:
   Repetition() = default;
-  Repetition(double weight, const DateTime &start);
+  Repetition(const std::string &name, const DateTime &start);
   void addExercise(Exercise *exercise);
   void insertExercise(unsigned int position, Exercise *exercise);
   void removeExercise(unsigned int position);

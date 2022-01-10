@@ -1,7 +1,7 @@
 #include "run.h"
 
-Run::Run(double weight, const DateTime& start, double dist, const TimeSpan& dur)
-    : Endurance(weight, start, dist, dur){}
+Run::Run(const std::string &name, const DateTime& start, double dist, const TimeSpan& dur)
+    : Endurance(name, start, dist, dur){}
 
 /*
  * pace is measured in min/km

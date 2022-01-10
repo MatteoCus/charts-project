@@ -7,7 +7,7 @@ class Rugby : public Repetition
 {
 public:
     Rugby() = default;
-    Rugby(double weight, const DateTime& start);
+    Rugby(const std::string &name, const DateTime& start);
     double Intensity() const override;
     unsigned int CaloriesBurned() const override;
     Rugby* clone() const override;

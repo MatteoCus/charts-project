@@ -1,22 +1,22 @@
 #include "training.h"
 
 Training::Training()
-    : weight(minWeight), start(){}
+    : name("Generic training"), start(){}
 
-Training::Training(double mass, const DateTime& start)
-    : weight(mass >= minWeight? mass : throw std::invalid_argument("Invalid value of weight inserted!")),
+Training::Training(const std::string &trName, const DateTime& start)
+    : name(trName != ""? trName : throw std::invalid_argument("Invalid training name inserted!")),
         start(start){}
 
-const double Training::minWeight = 20;
+const double Training::avgWeight = 75;
 
-double Training::getWeight() const  {return weight;}
+double Training::getWeight() const  {return avgWeight;}
 
 DateTime Training::getStart() const {return start;}
 
 DateTime Training::getEnd() const {return start + Duration();}
 
-void Training::setWeight(double mass){
-    weight = (mass >= minWeight? mass : throw std::invalid_argument("Invalid value of weight inserted!"));
+void Training::setName(const std::string &trName){
+    name = trName != "" ? trName : throw std::invalid_argument("Invalid training name inserted!");
 }
 
 void Training::setStart(const DateTime& dateTime) {

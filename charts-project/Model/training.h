@@ -7,21 +7,21 @@
 
 class Training {
 private:
-  double weight;
+  std::string name;
   DateTime start;
 
 protected:
-  static const double minWeight;
+  static const double avgWeight;
 
 public:
   Training();
-  Training(double weight, const DateTime &start);
+  Training(const std::string &name, const DateTime &start);
   virtual TimeSpan Duration() const = 0;
   virtual unsigned int CaloriesBurned() const = 0;
   double getWeight() const;
   DateTime getStart() const;
   DateTime getEnd() const;
-  void setWeight(double weight);
+  void setName(const std::string &name);
   void setStart(const DateTime &dateTime);
   virtual Training *clone() const = 0;
   virtual ~Training() = default;

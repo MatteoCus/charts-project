@@ -12,7 +12,7 @@
 
 class trainingCreator {
 public:
-  Training *createTraining(const std::string &type, double weight,
+  Training *createTraining(const std::string &type, const std::string &name,
                            const DateTime &start, double distance = 0.0,
                            TimeSpan duration = TimeSpan(),
                            const std::string &exName = "",

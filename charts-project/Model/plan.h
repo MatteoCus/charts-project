@@ -25,7 +25,7 @@ public:
   std::list<Training *> getTrainings() const;
   unsigned int getSize() const;
   bool isEmpty() const;
-  void setTraining(unsigned int pos, double weight, const DateTime &start,
+  void setTraining(unsigned int pos, const std::string &name, const DateTime &start,
                    double distance = 0.0, const TimeSpan &duration = TimeSpan(),
                    unsigned int exPos = 0, action operation = nothing,
                    const std::string &exName = "",

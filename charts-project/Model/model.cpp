@@ -6,7 +6,7 @@ Plan *Model::copy(const Model &model) { return new Plan(*model.plan); }
 
 void Model::destroy(const Model &model) { delete model.plan; }
 
-void Model::addNewTraining(const std::string &type, double weight,
+void Model::addNewTraining(const std::string &type, const std::string &name,
                            const DateTime &start, double distance,
                            const TimeSpan &duration, const std::string &exName,
                            const TimeSpan &exDuration,
@@ -14,7 +14,7 @@ void Model::addNewTraining(const std::string &type, double weight,
   try {
     trainingCreator *creator = new trainingCreator();
     Training *tr =
-        creator->createTraining(type, weight, start, distance, duration, exName,
+        creator->createTraining(type, name, start, distance, duration, exName,
                                 exDuration, exRecovery);
     plan->insertTraining(tr);
     delete creator;
@@ -45,13 +45,13 @@ std::list<Training *> Model::getTrainings() const {
   return plan->getTrainings();
 }
 
-void Model::setTraining(unsigned int pos, double weight, const DateTime &start,
+void Model::setTraining(unsigned int pos, const std::string &name, const DateTime &start,
                         double distance, const TimeSpan &duration,
                         unsigned int exPos, action operation,
                         const std::string &exName, const TimeSpan &exDuration,
                         const TimeSpan &exRecovery) const {
   try {
-    plan->setTraining(pos, weight, start, distance, duration, exPos, operation,
+    plan->setTraining(pos, name, start, distance, duration, exPos, operation,
                       exName, exDuration, exRecovery);
   } catch (DateException &ex) {
     throw ex;
