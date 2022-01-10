@@ -5,11 +5,14 @@
 
 class Tennis : public Repetition
 {
+private:
+    static const double c1;
+    static const unsigned int c2;
 public:
     Tennis() = default;
     Tennis(const std::string &name, const DateTime& start);
-    double Intensity() const override;
     unsigned int CaloriesBurned() const override;
+    double Intensity() const override;
     Tennis* clone() const override;
 };
 

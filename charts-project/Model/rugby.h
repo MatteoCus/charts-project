@@ -5,11 +5,14 @@
 
 class Rugby : public Repetition
 {
+private:
+    static const double c1;
+    static const unsigned int c2;
 public:
     Rugby() = default;
     Rugby(const std::string &name, const DateTime& start);
-    double Intensity() const override;
     unsigned int CaloriesBurned() const override;
+    double Intensity() const override;
     Rugby* clone() const override;
 };
 
