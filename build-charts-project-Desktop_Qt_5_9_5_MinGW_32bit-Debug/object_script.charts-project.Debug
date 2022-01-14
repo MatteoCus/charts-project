@@ -9,6 +9,7 @@ INPUT(
 ./debug\model.o
 ./debug\timespan.o
 ./debug\trainingcreator.o
+./debug\datawidget.o
 ./debug\main.o
 ./debug\mainwindow.o
 ./debug\plan.o
@@ -18,5 +19,6 @@ INPUT(
 ./debug\tennis.o
 ./debug\training.o
 ./debug\walk.o
+./debug\moc_datawidget.o
 ./debug\moc_mainwindow.o
 );

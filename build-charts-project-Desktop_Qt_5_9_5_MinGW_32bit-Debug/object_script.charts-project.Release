@@ -9,6 +9,7 @@ INPUT(
 ./release\model.o
 ./release\timespan.o
 ./release\trainingcreator.o
+./release\datawidget.o
 ./release\main.o
 ./release\mainwindow.o
 ./release\plan.o
@@ -18,5 +19,6 @@ INPUT(
 ./release\tennis.o
 ./release\training.o
 ./release\walk.o
+./release\moc_datawidget.o
 ./release\moc_mainwindow.o
 );

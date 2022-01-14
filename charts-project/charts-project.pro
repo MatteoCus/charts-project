@@ -1,4 +1,5 @@
 QT       += core gui
+QT       += widgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -19,6 +20,7 @@ SOURCES += \
     Model/model.cpp \
     DateTime/timespan.cpp \
     Model/trainingcreator.cpp \
+    View/datawidget.cpp \
     main.cpp \
     mainwindow.cpp \
     Model/plan.cpp \
@@ -33,6 +35,7 @@ HEADERS += \
     DateTime/date.h \
     DateTime/dateexception.h \
     DateTime/datetime.h \
+    View/datawidget.h \
     action.h \
     Model/cycling.h \
     Model/endurance.h \
