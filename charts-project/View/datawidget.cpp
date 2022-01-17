@@ -22,11 +22,16 @@ dataWidget::dataWidget(QWidget *parent) : QWidget(parent)
     //table
     QTableWidget *table = new QTableWidget(this);
     table->setColumnCount(6);
+    QPalette palette;
+    palette.setColor(QPalette::Foreground, Qt::white);
+    table->setPalette(palette);
     table->setHorizontalHeaderLabels(QStringList()<<"Nome"<<"Inizio"<<"Durata"<<"Fine"<<"Calorie"<<"Esercizi");
-    table->setAlternatingRowColors(true);
     table->setStyleSheet("QHeaderView::section { color : white ; background-color: #4d7aa7}  "
-                         "QTableWidget::item {color : white ;  gridline-color: #4d7aa7 ; background-color : #404244}");
+                         "QTableWidget::item {color : white ;  gridline-color: #4d7aa7 ; background-color : #404244}"
+                         "QTableView QTableCornerButton::section {background-color : #404244}");
     table->horizontalHeader()->setSectionResizeMode(QHeaderView::Fixed);
+
+
     table->setColumnWidth(0,100);
     table->setColumnWidth(1,100);
     table->setColumnWidth(2,50);
@@ -49,6 +54,7 @@ dataWidget::dataWidget(QWidget *parent) : QWidget(parent)
 
 
     //da qui
+    table->insertRow(0);
     table->insertRow(0);
     QTableWidgetItem* it = new QTableWidgetItem("35:42");
         it->setFlags(it->flags() ^ Qt::ItemIsEditable);                             //per rendere non editabile un campo
