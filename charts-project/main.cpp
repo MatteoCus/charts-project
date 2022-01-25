@@ -9,12 +9,12 @@
 #include "DateTime/dateexception.h"
 #include "DateTime/datetime.h"
 #include "Model/model.h"
-#include "View/chartwidget.h"
+#include "View/datawidget.h"
 
 int main(int argc, char *argv[])
 {
 
     QApplication a(argc, argv);
-    chartWidget w;
+    dataWidget w;
     return a.exec();
 }

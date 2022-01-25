@@ -18,8 +18,8 @@ void dataWidget::addTable(QVBoxLayout* tableLayout)
     QTableWidget *table = new QTableWidget(this);
     table->setColumnCount(6);
     table->setHorizontalHeaderLabels(QStringList()<<"Nome"<<"Inizio"<<"Durata"<<"Fine"<<"Calorie"<<"Esercizi");
-    table->setStyleSheet("QHeaderView::section { color : white ; background-color: #4d7aa7}  "
-                         "QTableWidget::item {color : white ;  gridline-color: #4d7aa7 ; background-color : #404244}"
+    table->setStyleSheet("QHeaderView::section { color : white ; background-color: #c26110}  "
+                         "QTableWidget::item {color : white ;  gridline-color: #c26110 ; background-color : #404244}"
                          "QTableView QLineEdit {color : white ; background-color : #404244}");
 
     table->horizontalHeader()->setSectionResizeMode(QHeaderView::Fixed);
@@ -31,7 +31,6 @@ void dataWidget::addTable(QVBoxLayout* tableLayout)
     table->setColumnWidth(4,50);
     table->setColumnWidth(5,150);
     table->setAcceptDrops(false);
-
     unsigned int w = 2, h = 25;         //default values to adapt the table
     adaptTable(w, h, table);
     tableLayout->addWidget(table);
@@ -42,7 +41,7 @@ void dataWidget::addLabel(QVBoxLayout* tableLayout)
     QLabel* title = new QLabel("Dati", this);
     title->setFixedSize(50,25);
     title->setAlignment(Qt::AlignCenter);
-    title->setStyleSheet("QLabel { background-color : #4d7aa7 ; color : white; }");
+    title->setStyleSheet("QLabel { background-color : #c26110 ; color : white; }");
     tableLayout->addWidget(title);
     tableLayout->setAlignment(title, Qt::AlignHCenter);
 }
@@ -79,9 +78,9 @@ void dataWidget::addControls(QHBoxLayout* mainLayout)
     addButton->setFixedSize(70,25);
     setButton->setFixedSize(70,25);
     removeButton->setFixedSize(70,25);
-    addButton->setStyleSheet("QPushButton { background-color : #4d7aa7 ; color : white; }");
-    setButton->setStyleSheet("QPushButton { background-color : #4d7aa7 ; color : white; }");
-    removeButton->setStyleSheet("QPushButton { background-color : #4d7aa7 ; color : white; }");
+    addButton->setStyleSheet("QPushButton { background-color : #c26110 ; color : white; }");
+    setButton->setStyleSheet("QPushButton { background-color : #c26110 ; color : white; }");
+    removeButton->setStyleSheet("QPushButton { background-color : #c26110 ; color : white; }");
 
     controlLayout->addWidget(addButton);
     controlLayout->addWidget(setButton);

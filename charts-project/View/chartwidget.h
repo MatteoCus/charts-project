@@ -9,10 +9,15 @@
 #include <QGraphicsEffect>
 #include <QSizePolicy>
 #include <QtCharts>
+#include <QLineSeries>
 
 class chartWidget : public QWidget
 {
     Q_OBJECT
+    void addDefaultChart(QVBoxLayout * mainLayout);
+
+    void addControls(QVBoxLayout * mainLayout);
+
 public:
     explicit chartWidget(QWidget *parent = nullptr);
 
