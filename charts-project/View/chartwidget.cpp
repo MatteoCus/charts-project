@@ -53,7 +53,8 @@ void chartWidget::addControls(QVBoxLayout * mainLayout)
     dataBox->addItem("Intensità (*)");
     dataBox->setFixedSize(100,25);
     dataBox->setStyleSheet("QComboBox {background-color : #c26110 ; color : white; selection-background-color: #c26110}"
-                           "QComboBox QListView {background-color : #c26110 ; color : white;}");
+                           "QComboBox QListView {background-color : #c26110 ; color : white;}"
+                           "QComboBox QAbstractItemView {selection-background-color: red;}");   //IMPORTANTE
 
     controlsLayout->addWidget(chartBox);
     controlsLayout->addWidget(dataBox);
