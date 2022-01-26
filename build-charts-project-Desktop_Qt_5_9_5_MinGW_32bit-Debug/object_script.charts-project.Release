@@ -9,10 +9,11 @@ INPUT(
 ./release\model.o
 ./release\timespan.o
 ./release\trainingcreator.o
+./release\chartviewer.o
 ./release\chartwidget.o
 ./release\datawidget.o
-./release\main.o
 ./release\mainwindow.o
+./release\main.o
 ./release\plan.o
 ./release\repetition.o
 ./release\rugby.o
@@ -20,6 +21,7 @@ INPUT(
 ./release\tennis.o
 ./release\training.o
 ./release\walk.o
+./release\moc_chartviewer.o
 ./release\moc_chartwidget.o
 ./release\moc_datawidget.o
 ./release\moc_mainwindow.o

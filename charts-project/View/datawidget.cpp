@@ -22,16 +22,22 @@ void dataWidget::addTable(QVBoxLayout* tableLayout)
                          "QTableWidget::item {color : white ;  gridline-color: #c26110 ; background-color : #404244}"
                          "QTableView QLineEdit {color : white ; background-color : #404244}");
 
+    table->insertRow(0);
+    QTableWidgetItem* it[6];
+    for(unsigned int i = 0 ; i < 6 ; i++)
+    {
+        it[i] = new QTableWidgetItem();
+        it[i]->setFlags(it[i]->flags() ^ Qt::ItemIsEditable);                             //per rendere non editabile un campo
+        table->setItem(0, i, it[i]);
+    }
     table->horizontalHeader()->setSectionResizeMode(QHeaderView::Fixed);
-
     table->setColumnWidth(0,100);
     table->setColumnWidth(1,100);
     table->setColumnWidth(2,50);
     table->setColumnWidth(3,100);
     table->setColumnWidth(4,50);
     table->setColumnWidth(5,150);
-    table->setAcceptDrops(false);
-    unsigned int w = 2, h = 25;         //default values to adapt the table
+    unsigned int w = 17, h = 25;         //default values to adapt the table
     adaptTable(w, h, table);
     tableLayout->addWidget(table);
 }
@@ -66,7 +72,7 @@ void dataWidget::addControls(QHBoxLayout* mainLayout)
 {
     QVBoxLayout * controlLayout = new QVBoxLayout();
     controlLayout->setAlignment(Qt::AlignTop);
-    controlLayout->setContentsMargins(10,30,10,30);
+    controlLayout->setContentsMargins(20,80,10,80);
     controlLayout->setSpacing(10);
 
     QPushButton* addButton = new QPushButton("Aggiungi", this);
@@ -97,9 +103,7 @@ dataWidget::dataWidget(QWidget *parent) : QWidget(parent)
     addLabelTable(mainLayout);
 
     addControls(mainLayout);
-    setStyleSheet("QWidget {background : #2e2f30}");        //TOGLIERE ALLA FINE DELLA CREAZIONE DELLA VIEW
     setLayout(mainLayout);
-    show();
 }
 
 /*FUNZIONE PER FARE IL RESIZE DELLA TABELLA (COLONNE, RIGHE E "SFONDO BIANCO")

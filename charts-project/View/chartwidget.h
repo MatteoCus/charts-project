@@ -10,6 +10,7 @@
 #include <QSizePolicy>
 #include <QtCharts>
 #include <QLineSeries>
+#include <QFont>
 
 class chartWidget : public QWidget
 {

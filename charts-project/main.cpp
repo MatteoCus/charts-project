@@ -1,5 +1,3 @@
-#include "mainwindow.h"
-
 #include <QApplication>
 #include <iostream>
 #include <vector>
@@ -9,12 +7,12 @@
 #include "DateTime/dateexception.h"
 #include "DateTime/datetime.h"
 #include "Model/model.h"
-#include "View/chartwidget.h"
+#include "View/chartviewer.h"
 
 int main(int argc, char *argv[])
 {
 
     QApplication a(argc, argv);
-    chartWidget w;
+    chartViewer * v = new chartViewer();
     return a.exec();
 }

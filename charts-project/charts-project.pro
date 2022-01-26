@@ -21,10 +21,11 @@ SOURCES += \
     Model/model.cpp \
     DateTime/timespan.cpp \
     Model/trainingcreator.cpp \
+    View/chartviewer.cpp \
     View/chartwidget.cpp \
     View/datawidget.cpp \
+    View/mainwindow.cpp \
     main.cpp \
-    mainwindow.cpp \
     Model/plan.cpp \
     Model/repetition.cpp \
     Model/rugby.cpp \
@@ -37,8 +38,10 @@ HEADERS += \
     DateTime/date.h \
     DateTime/dateexception.h \
     DateTime/datetime.h \
+    View/chartviewer.h \
     View/chartwidget.h \
     View/datawidget.h \
+    View/mainwindow.h \
     action.h \
     Model/cycling.h \
     Model/endurance.h \
@@ -47,7 +50,6 @@ HEADERS += \
     Model/model.h \
     DateTime/timespan.h \
     Model/trainingcreator.h \
-    mainwindow.h \
     Model/plan.h \
     Model/repetition.h \
     Model/rugby.h \
