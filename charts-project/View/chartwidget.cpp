@@ -52,9 +52,20 @@ void chartWidget::addControls(QVBoxLayout * mainLayout)
     dataBox->addItem("Calorie");
     dataBox->addItem("Intensità (*)");
     dataBox->setFixedSize(100,25);
-    dataBox->setStyleSheet("QComboBox {background-color : #c26110 ; color : white; selection-background-color: #c26110}"
-                           "QComboBox QListView {background-color : #c26110 ; color : white;}"
-                           "QComboBox QAbstractItemView {selection-background-color: red;}");   //IMPORTANTE
+    dataBox->setStyleSheet("QComboBox {background-color : #404244 ; color: white ; selection-background-color: #404244 ;"
+                           "selection-color : white} "
+                           "QComboBox::drop-down{background-color : #c26110 ;}"
+                           "QComboBox::drop-down"
+                           "{"
+                           "border : 1px solid;"
+                           "border-color : #404244 #2e2f30 #2e2f30 #404244;}"
+                           "QComboBox::drop-down:pressed{"
+                           "border : 1px solid;"
+                           "border-color :  gray gray gray gray}"
+                           "QComboBox::down-arrow{image : url(C:/Users/Matteo/Documents/GitHub/charts-project/charts-project/icons/pngwing.com.png); width: 12px;"
+                           "height: 12px;}"
+                           "QComboBox QListView {background-color : #404244 ; color : white;}"
+                           "QComboBox QAbstractItemView {selection-background-color:#c26110;}");   //IMPORTANTE
 
     controlsLayout->addWidget(chartBox);
     controlsLayout->addWidget(dataBox);
