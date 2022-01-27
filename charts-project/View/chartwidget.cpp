@@ -98,6 +98,7 @@ chartWidget::chartWidget(QWidget *parent) : QWidget(parent)
 
     addControls(mainLayout);
 
+    setStyleSheet("QWidget{background-color : #2e2f30}");
     mainLayout->setAlignment(Qt::AlignTop);
     setLayout(mainLayout);
 }

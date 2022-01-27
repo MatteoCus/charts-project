@@ -2,53 +2,16 @@
 
 chartViewer::chartViewer(QWidget *parent) : QWidget(parent)
 {
-    QVBoxLayout* mainLayout = new QVBoxLayout;
-
-    QHBoxLayout* dataChartLayout = new QHBoxLayout;
-
-    QMenuBar* menuBar = new QMenuBar(this);
-
-    menuBar->setStyleSheet("QMenuBar {background-color : #404244 ; color: white; }"
-                           "QMenuBar::item:selected {background-color : #c26110;}"
-                           "QMenu {background-color : #404244 ; color: white; }"
-                           "QMenu::item:selected {background-color : #c26110;}");
-
-    QMenu *file = new QMenu("File", menuBar);
-    QMenu *visualizza = new QMenu("Visualizza", menuBar);
-    QMenu *allenamenti= new QMenu("Allenamenti", menuBar);
-
-    menuBar->addMenu(file);
-    menuBar->addMenu(visualizza);
-    menuBar->addMenu(allenamenti);
-
-    //Menù "File"
-    file->addAction(new QAction("Apri", file));
-    file->addAction(new QAction("Nuovo", file));
-    file->addAction(new QAction("Salva", file));
-    file->addAction(new QAction("Salva col nome", file));
-    file->addAction(new QAction("Chiudi", file));
-    file->addAction(new QAction("Esci", file));
-
-    //Menù "visualizza"
-    visualizza->addAction(new QAction("Line Chart", visualizza));
-    visualizza->addAction(new QAction("Bar Chart", visualizza));
-    visualizza->addAction(new QAction("Other Chart", visualizza));
-
-    //Menù "allenamenti"
-    allenamenti->addAction(new QAction("Aggiungi", allenamenti));
-    allenamenti->addAction(new QAction("Rimuovi", allenamenti));
-
-    mainLayout->addWidget(menuBar);
+    QHBoxLayout* mainLayout = new QHBoxLayout;
 
     dataWidget* dataW = new dataWidget(this);
     chartWidget* chartW = new chartWidget(this);
-    dataChartLayout->setSpacing(40);
-    dataChartLayout->addWidget(dataW);
-    dataChartLayout->addWidget(chartW);
-    dataChartLayout->setContentsMargins(10,90,10,20);
-    mainLayout->addLayout(dataChartLayout);
+    mainLayout->setSpacing(40);
+    mainLayout->addWidget(dataW);
+    mainLayout->addWidget(chartW);
+    mainLayout->setContentsMargins(10,90,10,20);
     setLayout(mainLayout);
-    setStyleSheet("QWidget {background-color : #2e2f30}" );
+
     resize(1200,700);
     show();
 }

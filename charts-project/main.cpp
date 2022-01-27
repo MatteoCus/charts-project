@@ -7,12 +7,12 @@
 #include "DateTime/dateexception.h"
 #include "DateTime/datetime.h"
 #include "Model/model.h"
-#include "View/chartviewer.h"
+#include "View/mainwindow.h"
 
 int main(int argc, char *argv[])
 {
 
     QApplication a(argc, argv);
-    chartViewer * v = new chartViewer();
+    mainWindow * w = new mainWindow();
     return a.exec();
 }
