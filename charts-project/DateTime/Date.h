@@ -4,7 +4,7 @@
 #include <ctime>
 #include <sstream>
 
-#include "dateexception.h"
+#include "DateException.h"
 
 //! Classe di gestione data
 /*!

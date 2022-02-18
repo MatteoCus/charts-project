@@ -57,8 +57,8 @@ void chartWidget::addControls(QVBoxLayout * mainLayout)
                             "QComboBox::drop-down:pressed{"
                             "border : 2px solid;"
                             "border-color : #81410b #df7012 #df7012 #81410b;}"
-                            "QComboBox::down-arrow{image : url(C:/Users/Matteo/Documents/GitHub/charts-project/charts-project/icons/pngwing.com.png); width: 10px;"
-                            "height: 10px;}"
+                            //"QComboBox::down-arrow{image : url(/home/matteo/Documenti/GitHub/charts-project/charts-project/pngwing.com.png); width: 10px;"
+                            //"height: 10px;}"
                             "QComboBox QListView {background-color : #404244 ; color : white;}"
                             "QComboBox QAbstractItemView {selection-background-color:#c26110;}");   //IMPORTANTE
 
@@ -77,7 +77,7 @@ void chartWidget::addControls(QVBoxLayout * mainLayout)
                            "QComboBox::drop-down:pressed{"
                            "border : 2px solid;"
                            "border-color : #81410b #df7012 #df7012 #81410b;}"
-                           "QComboBox::down-arrow{image : url(C:/Users/Matteo/Documents/GitHub/charts-project/charts-project/icons/pngwing.com.png); width: 10px;"
+                           "QComboBox::down-arrow{image : url(/home/matteo/Documenti/GitHub/charts-project/charts-project/pngwing.com.png); width: 10px;"
                            "height: 10px;}"
                            "QComboBox QListView {background-color : #404244 ; color : white;}"
                            "QComboBox QAbstractItemView {selection-background-color:#c26110;}");   //IMPORTANTE

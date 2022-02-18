@@ -11,9 +11,9 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    DateTime/date.cpp \
-    DateTime/dateexception.cpp \
     DateTime/datetime.cpp \
+    DateTime/Date.cpp \
+    DateTime/DateException.cpp \
     Model/cycling.cpp \
     Model/endurance.cpp \
     Model/exercise.cpp \
@@ -32,12 +32,12 @@ SOURCES += \
     Model/run.cpp \
     Model/tennis.cpp \
     Model/training.cpp \
-    Model/walk.cpp
+    Model/walk.cpp \
 
 HEADERS += \
-    DateTime/date.h \
-    DateTime/dateexception.h \
+    DateTime/DateException.h \
     DateTime/datetime.h \
+    DateTime/Date.h \
     View/chartviewer.h \
     View/chartwidget.h \
     View/datawidget.h \
@@ -56,7 +56,7 @@ HEADERS += \
     Model/run.h \
     Model/tennis.h \
     Model/training.h \
-    Model/walk.h
+    Model/walk.h \
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
