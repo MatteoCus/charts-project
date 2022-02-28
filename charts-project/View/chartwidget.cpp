@@ -46,8 +46,8 @@ void chartWidget::addControls(QVBoxLayout * mainLayout)
     chartBox->addItem("Line Chart");
     chartBox->addItem("Bar Chart");
     chartBox->addItem("Other Chart");
-    chartBox->setFixedSize(80,25);
-    chartBox->setStyleSheet("QComboBox {background-color : #404244 ; color: white ; selection-background-color: #404244 ;"
+    chartBox->setFixedSize(100,25);
+    chartBox->setStyleSheet("QComboBox {background-color : #404244 ; color: white ; selection-background-color: #c26110;"
                             "selection-color : white} "
                             "QComboBox::drop-down{background-color : #c26110 ;}"
                             "QComboBox::drop-down"
@@ -57,8 +57,8 @@ void chartWidget::addControls(QVBoxLayout * mainLayout)
                             "QComboBox::drop-down:pressed{"
                             "border : 2px solid;"
                             "border-color : #81410b #df7012 #df7012 #81410b;}"
-                            //"QComboBox::down-arrow{image : url(/home/matteo/Documenti/GitHub/charts-project/charts-project/pngwing.com.png); width: 10px;"
-                            //"height: 10px;}"
+                            "QComboBox::down-arrow{image : url(/home/matteo/Documenti/GitHub/charts-project/charts-project/icons/pngwing.com.png); width: 10px;"
+                            "height: 10px;}"
                             "QComboBox QListView {background-color : #404244 ; color : white;}"
                             "QComboBox QAbstractItemView {selection-background-color:#c26110;}");   //IMPORTANTE
 
@@ -66,8 +66,8 @@ void chartWidget::addControls(QVBoxLayout * mainLayout)
     dataBox->addItem("Durata");
     dataBox->addItem("Calorie");
     dataBox->addItem("Intensità (*)");
-    dataBox->setFixedSize(70,25);
-    dataBox->setStyleSheet("QComboBox {background-color : #404244 ; color: white ; selection-background-color: #404244 ;"
+    dataBox->setFixedSize(100,25);
+    dataBox->setStyleSheet("QComboBox {background-color : #404244 ; color: white ; selection-background-color: #c26110 ;"
                            "selection-color : white} "
                            "QComboBox::drop-down{background-color : #c26110 ;}"
                            "QComboBox::drop-down"
@@ -77,7 +77,7 @@ void chartWidget::addControls(QVBoxLayout * mainLayout)
                            "QComboBox::drop-down:pressed{"
                            "border : 2px solid;"
                            "border-color : #81410b #df7012 #df7012 #81410b;}"
-                           "QComboBox::down-arrow{image : url(/home/matteo/Documenti/GitHub/charts-project/charts-project/pngwing.com.png); width: 10px;"
+                           "QComboBox::down-arrow{image : url(/home/matteo/Documenti/GitHub/charts-project/charts-project/icons/pngwing.com.png); width: 10px;"
                            "height: 10px;}"
                            "QComboBox QListView {background-color : #404244 ; color : white;}"
                            "QComboBox QAbstractItemView {selection-background-color:#c26110;}");   //IMPORTANTE
