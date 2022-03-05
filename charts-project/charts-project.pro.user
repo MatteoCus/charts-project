@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 5.0.2, 2022-02-28T15:14:41. -->
+<!-- Written by QtCreator 5.0.2, 2022-03-05T12:32:21. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -236,14 +236,14 @@
     <valuelist type="QVariantList" key="CustomOutputParsers"/>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:/home/matteo/Documenti/GitHub/charts-project/charts-project/charts-project.pro</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/matteo/Documenti/GitHub/charts-project/charts-project/charts-project.pro</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">charts-project2</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:/home/matteo/Scrivania/charts-project/charts-project/charts-project.pro</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/matteo/Scrivania/charts-project/charts-project/charts-project.pro</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
     <value type="bool" key="RunConfiguration.UseLibrarySearchPath">true</value>
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/matteo/Documenti/GitHub/charts-project/build-charts-project-Desktop_Qt_5_9_5_GCC_64bit-Debug</value>
    </valuemap>
    <value type="int" key="ProjectExplorer.Target.RunConfigurationCount">1</value>
   </valuemap>

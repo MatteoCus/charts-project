@@ -11,7 +11,7 @@ private:
   static const unsigned int secInMinute;
 
 public:
-  TimeSpan(unsigned int hours = 0, unsigned int minutes = 0,
+  explicit TimeSpan(unsigned int hours = 0, unsigned int minutes = 0,
            unsigned int seconds = 0);
 
   unsigned int getHours() const;

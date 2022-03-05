@@ -1,9 +1,8 @@
 #include "timespan.h"
 
 TimeSpan::TimeSpan(unsigned int h, unsigned int m, unsigned int s)
-    : sec((m < 60 && s < 60)
-              ? h * secInHour + m * secInMinute + s
-              : throw std::invalid_argument("Invalid timespan inserted")) {}
+    : sec((m < 60 && s < 60)? h * secInHour + m * secInMinute + s
+              : throw std::invalid_argument("Invalid timespan/timestamp inserted")) {}
 
 const unsigned int TimeSpan::secPerDay = secInHour * 24;
 
@@ -24,9 +23,8 @@ unsigned int TimeSpan::getMinutes() const {
 unsigned int TimeSpan::getSeconds() const { return sec % secInMinute; }
 
 void TimeSpan::setTime(unsigned int h, unsigned int m, unsigned int s) {
-  sec = (m < 60 && s < 60)
-            ? h * secInHour + m * secInMinute + s
-            : throw std::invalid_argument("Invalid timespan setted");
+  sec = (m < 60 && s < 60)? h * secInHour + m * secInMinute + s
+            : throw std::invalid_argument("Invalid timespan/timestamp setted");
 }
 
 bool TimeSpan::isNull() const { return sec == 0; }
@@ -63,11 +61,11 @@ TimeSpan TimeSpan::operator/(double n) const {
                  s = totSec % secInMinute;
     return TimeSpan(h, m, s);
   }
-  throw std::invalid_argument("Invalid division operation with a timespan");
+  throw std::invalid_argument("Invalid divisor");
 }
 
 double TimeSpan::operator/(const TimeSpan &time) const {
-  return sec / time.sec;
+  return static_cast<double>(sec) / static_cast<double>(time.sec);
 }
 
 bool TimeSpan::operator==(const TimeSpan &time) const {
@@ -79,17 +77,17 @@ bool TimeSpan::operator!=(const TimeSpan &time) const {
 }
 
 bool TimeSpan::operator<(const TimeSpan &time) const {
-  return sec < time.getTotalSeconds();
+  return sec < time.sec;
 }
 
 bool TimeSpan::operator>(const TimeSpan &time) const {
-  return sec > time.getTotalSeconds();
+  return sec > time.sec;
 }
 
 bool TimeSpan::operator<=(const TimeSpan &time) const {
-  return sec <= time.getTotalSeconds();
+  return sec <= time.sec;
 }
 
 bool TimeSpan::operator>=(const TimeSpan &time) const {
-  return sec >= time.getTotalSeconds();
+  return sec >= time.sec;
 }
