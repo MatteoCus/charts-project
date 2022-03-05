@@ -9,6 +9,8 @@ Training::Training(const std::string &trName, const DateTime& start)
 
 const double Training::avgWeight = 75;
 
+std::string Training::getName() const {return name;}
+
 double Training::getWeight() const  {return avgWeight;}
 
 DateTime Training::getStart() const {return start;}
@@ -22,9 +24,6 @@ void Training::setName(const std::string &trName){
 void Training::setStart(const DateTime& dateTime) {
     try {
           start.setDateTime(dateTime.getDate(), dateTime.getTime());
-    }
-    catch(DateException& ex){
-        throw ex;
     }
     catch (std::invalid_argument& e) {
         throw e;

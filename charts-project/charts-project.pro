@@ -13,7 +13,6 @@ CONFIG += c++11
 SOURCES += \
     DateTime/datetime.cpp \
     DateTime/Date.cpp \
-    DateTime/DateException.cpp \
     Model/cycling.cpp \
     Model/endurance.cpp \
     Model/exercise.cpp \
@@ -35,7 +34,6 @@ SOURCES += \
     Model/walk.cpp \
 
 HEADERS += \
-    DateTime/DateException.h \
     DateTime/datetime.h \
     DateTime/Date.h \
     View/chartviewer.h \

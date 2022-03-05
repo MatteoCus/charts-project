@@ -18,6 +18,7 @@ public:
   Training(const std::string &name, const DateTime &start);
   virtual TimeSpan Duration() const = 0;
   virtual unsigned int CaloriesBurned() const = 0;
+  std::string getName() const;
   double getWeight() const;
   DateTime getStart() const;
   DateTime getEnd() const;

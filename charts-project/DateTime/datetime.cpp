@@ -23,7 +23,7 @@ void DateTime::setTime(const TimeStamp& t){
 void DateTime::setDate(const Date& d){
     try {
         date.setDate(d.getDay(), d.getMonth(), d.getYear());
-    }  catch (DateException& e) {
+    }  catch (std::invalid_argument& e) {
         throw e;
     }
 
@@ -37,11 +37,8 @@ void DateTime::setDateTime(const Date& date, const TimeStamp& time){
     try {
         setDate(date);
         setTime(time);
-    }  catch(DateException& ex){
+    }  catch(std::invalid_argument& ex){
         throw ex;
-    }
-    catch (std::invalid_argument& e) {
-        throw e;
     }
 
 }

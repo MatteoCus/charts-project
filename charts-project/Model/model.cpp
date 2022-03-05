@@ -18,8 +18,6 @@ void Model::addNewTraining(const std::string &type, const std::string &name,
                                 exDuration, exRecovery);
     plan->insertTraining(tr);
     delete creator;
-  } catch (DateException &ex) {
-    throw ex;
   } catch (std::invalid_argument &e) {
     throw e; // re-throw of the exception
   }
@@ -53,8 +51,6 @@ void Model::setTraining(unsigned int pos, const std::string &name, const DateTim
   try {
     plan->setTraining(pos, name, start, distance, duration, exPos, operation,
                       exName, exDuration, exRecovery);
-  } catch (DateException &ex) {
-    throw ex;
   } catch (std::invalid_argument &e) {
     throw e;
   } catch (std::out_of_range &ex) {

@@ -108,9 +108,6 @@ void Plan::setTraining(unsigned int pos, const std::string &name, const DateTime
           "Conflict of trainings' durations during modify operation");
     }
 
-  } catch (DateException &ex) {
-    insertTraining(backup); // return to the last correct state
-    throw ex;
   } catch (std::invalid_argument &e) {
     insertTraining(backup); // return to the last correct state
     throw e;

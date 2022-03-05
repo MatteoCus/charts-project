@@ -4,7 +4,6 @@
 #include <list>
 #include "DateTime/timespan.h"
 #include "DateTime/Date.h"
-#include "DateTime/DateException.h"
 #include "DateTime/datetime.h"
 #include "Model/model.h"
 #include "View/mainwindow.h"

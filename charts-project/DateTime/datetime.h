@@ -2,8 +2,8 @@
 #define DATETIME_H
 
 #include "timespan.h"
-#include "DateException.h"
 #include "Date.h"
+#include <stdexcept>
 
 #define TimeStamp TimeSpan
 

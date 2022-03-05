@@ -28,8 +28,6 @@ Training *trainingCreator::createTraining(const std::string &type,
       return aux;
     } else
       throw std::runtime_error("Invalid type of training inserted");
-  } catch (DateException &ex) {
-    throw ex;
   } catch (std::invalid_argument &e) {
     throw e; // re-throw of the exception
   }
