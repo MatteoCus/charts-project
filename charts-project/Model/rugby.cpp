@@ -11,7 +11,7 @@ unsigned int Rugby::CaloriesBurned() const {
 }
 
 double Rugby::Intensity() const {
-    if(totalRecovery() != TimeSpan())
+    if(!totalRecovery().isNull())
         return (c2 * (Duration()/totalRecovery())/4);
     throw std::runtime_error("Trying to calculate intensity with a null recovery time (division by 0");
 }
