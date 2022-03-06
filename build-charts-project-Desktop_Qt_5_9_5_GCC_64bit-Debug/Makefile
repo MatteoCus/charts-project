@@ -50,8 +50,8 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = ../charts-project/DateTime/datetime.cpp \
-		../charts-project/DateTime/Date.cpp \
+SOURCES       = ../charts-project/DateTime/date.cpp \
+		../charts-project/DateTime/datetime.cpp \
 		../charts-project/Model/cycling.cpp \
 		../charts-project/Model/endurance.cpp \
 		../charts-project/Model/exercise.cpp \
@@ -74,8 +74,8 @@ SOURCES       = ../charts-project/DateTime/datetime.cpp \
 		moc_chartwidget.cpp \
 		moc_datawidget.cpp \
 		moc_mainwindow.cpp
-OBJECTS       = datetime.o \
-		Date.o \
+OBJECTS       = date.o \
+		datetime.o \
 		cycling.o \
 		endurance.o \
 		exercise.o \
@@ -280,8 +280,8 @@ DIST          = ../../../../Qt/5.9.5/gcc_64/mkspecs/features/spec_pre.prf \
 		../../../../Qt/5.9.5/gcc_64/mkspecs/features/exceptions.prf \
 		../../../../Qt/5.9.5/gcc_64/mkspecs/features/yacc.prf \
 		../../../../Qt/5.9.5/gcc_64/mkspecs/features/lex.prf \
-		../charts-project/charts-project.pro ../charts-project/DateTime/datetime.h \
-		../charts-project/DateTime/Date.h \
+		../charts-project/charts-project.pro ../charts-project/DateTime/date.h \
+		../charts-project/DateTime/datetime.h \
 		../charts-project/View/chartviewer.h \
 		../charts-project/View/chartwidget.h \
 		../charts-project/View/datawidget.h \
@@ -300,8 +300,8 @@ DIST          = ../../../../Qt/5.9.5/gcc_64/mkspecs/features/spec_pre.prf \
 		../charts-project/Model/run.h \
 		../charts-project/Model/tennis.h \
 		../charts-project/Model/training.h \
-		../charts-project/Model/walk.h ../charts-project/DateTime/datetime.cpp \
-		../charts-project/DateTime/Date.cpp \
+		../charts-project/Model/walk.h ../charts-project/DateTime/date.cpp \
+		../charts-project/DateTime/datetime.cpp \
 		../charts-project/Model/cycling.cpp \
 		../charts-project/Model/endurance.cpp \
 		../charts-project/Model/exercise.cpp \
@@ -720,8 +720,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../../../../Qt/5.9.5/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../charts-project/DateTime/datetime.h ../charts-project/DateTime/Date.h ../charts-project/View/chartviewer.h ../charts-project/View/chartwidget.h ../charts-project/View/datawidget.h ../charts-project/View/mainwindow.h ../charts-project/action.h ../charts-project/Model/cycling.h ../charts-project/Model/endurance.h ../charts-project/Model/exercise.h ../charts-project/Model/exercisecreator.h ../charts-project/Model/model.h ../charts-project/DateTime/timespan.h ../charts-project/Model/trainingcreator.h ../charts-project/Model/plan.h ../charts-project/Model/repetition.h ../charts-project/Model/rugby.h ../charts-project/Model/run.h ../charts-project/Model/tennis.h ../charts-project/Model/training.h ../charts-project/Model/walk.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../charts-project/DateTime/datetime.cpp ../charts-project/DateTime/Date.cpp ../charts-project/Model/cycling.cpp ../charts-project/Model/endurance.cpp ../charts-project/Model/exercise.cpp ../charts-project/Model/exercisecreator.cpp ../charts-project/Model/model.cpp ../charts-project/DateTime/timespan.cpp ../charts-project/Model/trainingcreator.cpp ../charts-project/View/chartviewer.cpp ../charts-project/View/chartwidget.cpp ../charts-project/View/datawidget.cpp ../charts-project/View/mainwindow.cpp ../charts-project/main.cpp ../charts-project/Model/plan.cpp ../charts-project/Model/repetition.cpp ../charts-project/Model/rugby.cpp ../charts-project/Model/run.cpp ../charts-project/Model/tennis.cpp ../charts-project/Model/training.cpp ../charts-project/Model/walk.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../charts-project/DateTime/date.h ../charts-project/DateTime/datetime.h ../charts-project/View/chartviewer.h ../charts-project/View/chartwidget.h ../charts-project/View/datawidget.h ../charts-project/View/mainwindow.h ../charts-project/action.h ../charts-project/Model/cycling.h ../charts-project/Model/endurance.h ../charts-project/Model/exercise.h ../charts-project/Model/exercisecreator.h ../charts-project/Model/model.h ../charts-project/DateTime/timespan.h ../charts-project/Model/trainingcreator.h ../charts-project/Model/plan.h ../charts-project/Model/repetition.h ../charts-project/Model/rugby.h ../charts-project/Model/run.h ../charts-project/Model/tennis.h ../charts-project/Model/training.h ../charts-project/Model/walk.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../charts-project/DateTime/date.cpp ../charts-project/DateTime/datetime.cpp ../charts-project/Model/cycling.cpp ../charts-project/Model/endurance.cpp ../charts-project/Model/exercise.cpp ../charts-project/Model/exercisecreator.cpp ../charts-project/Model/model.cpp ../charts-project/DateTime/timespan.cpp ../charts-project/Model/trainingcreator.cpp ../charts-project/View/chartviewer.cpp ../charts-project/View/chartwidget.cpp ../charts-project/View/datawidget.cpp ../charts-project/View/mainwindow.cpp ../charts-project/main.cpp ../charts-project/Model/plan.cpp ../charts-project/Model/repetition.cpp ../charts-project/Model/rugby.cpp ../charts-project/Model/run.cpp ../charts-project/Model/tennis.cpp ../charts-project/Model/training.cpp ../charts-project/Model/walk.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -2558,27 +2558,27 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean
 
 ####### Compile
 
+date.o: ../charts-project/DateTime/date.cpp ../charts-project/DateTime/date.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o date.o ../charts-project/DateTime/date.cpp
+
 datetime.o: ../charts-project/DateTime/datetime.cpp ../charts-project/DateTime/datetime.h \
 		../charts-project/DateTime/timespan.h \
-		../charts-project/DateTime/Date.h
+		../charts-project/DateTime/date.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o datetime.o ../charts-project/DateTime/datetime.cpp
-
-Date.o: ../charts-project/DateTime/Date.cpp ../charts-project/DateTime/Date.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Date.o ../charts-project/DateTime/Date.cpp
 
 cycling.o: ../charts-project/Model/cycling.cpp ../charts-project/Model/cycling.h \
 		../charts-project/Model/endurance.h \
 		../charts-project/Model/training.h \
 		../charts-project/DateTime/datetime.h \
 		../charts-project/DateTime/timespan.h \
-		../charts-project/DateTime/Date.h
+		../charts-project/DateTime/date.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o cycling.o ../charts-project/Model/cycling.cpp
 
 endurance.o: ../charts-project/Model/endurance.cpp ../charts-project/Model/endurance.h \
 		../charts-project/Model/training.h \
 		../charts-project/DateTime/datetime.h \
 		../charts-project/DateTime/timespan.h \
-		../charts-project/DateTime/Date.h
+		../charts-project/DateTime/date.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o endurance.o ../charts-project/Model/endurance.cpp
 
 exercise.o: ../charts-project/Model/exercise.cpp ../charts-project/Model/exercise.h \
@@ -2597,7 +2597,7 @@ model.o: ../charts-project/Model/model.cpp ../charts-project/Model/model.h \
 		../charts-project/DateTime/timespan.h \
 		../charts-project/Model/plan.h \
 		../charts-project/DateTime/datetime.h \
-		../charts-project/DateTime/Date.h \
+		../charts-project/DateTime/date.h \
 		../charts-project/Model/endurance.h \
 		../charts-project/Model/training.h \
 		../charts-project/Model/repetition.h \
@@ -2618,7 +2618,7 @@ trainingcreator.o: ../charts-project/Model/trainingcreator.cpp ../charts-project
 		../charts-project/Model/training.h \
 		../charts-project/DateTime/datetime.h \
 		../charts-project/DateTime/timespan.h \
-		../charts-project/DateTime/Date.h \
+		../charts-project/DateTime/date.h \
 		../charts-project/Model/rugby.h \
 		../charts-project/Model/repetition.h \
 		../charts-project/Model/exercise.h \
@@ -4515,7 +4515,7 @@ main.o: ../charts-project/main.cpp ../../../../Qt/5.9.5/gcc_64/include/QtWidgets
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qguiapplication.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qinputmethod.h \
 		../charts-project/DateTime/timespan.h \
-		../charts-project/DateTime/Date.h \
+		../charts-project/DateTime/date.h \
 		../charts-project/DateTime/datetime.h \
 		../charts-project/Model/model.h \
 		../charts-project/action.h \
@@ -4981,7 +4981,7 @@ plan.o: ../charts-project/Model/plan.cpp ../charts-project/Model/plan.h \
 		../charts-project/action.h \
 		../charts-project/DateTime/datetime.h \
 		../charts-project/DateTime/timespan.h \
-		../charts-project/DateTime/Date.h \
+		../charts-project/DateTime/date.h \
 		../charts-project/Model/endurance.h \
 		../charts-project/Model/training.h \
 		../charts-project/Model/exercisecreator.h \
@@ -4994,7 +4994,7 @@ repetition.o: ../charts-project/Model/repetition.cpp ../charts-project/Model/rep
 		../charts-project/DateTime/timespan.h \
 		../charts-project/Model/training.h \
 		../charts-project/DateTime/datetime.h \
-		../charts-project/DateTime/Date.h
+		../charts-project/DateTime/date.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o repetition.o ../charts-project/Model/repetition.cpp
 
 rugby.o: ../charts-project/Model/rugby.cpp ../charts-project/Model/rugby.h \
@@ -5003,7 +5003,7 @@ rugby.o: ../charts-project/Model/rugby.cpp ../charts-project/Model/rugby.h \
 		../charts-project/DateTime/timespan.h \
 		../charts-project/Model/training.h \
 		../charts-project/DateTime/datetime.h \
-		../charts-project/DateTime/Date.h
+		../charts-project/DateTime/date.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o rugby.o ../charts-project/Model/rugby.cpp
 
 run.o: ../charts-project/Model/run.cpp ../charts-project/Model/run.h \
@@ -5011,7 +5011,7 @@ run.o: ../charts-project/Model/run.cpp ../charts-project/Model/run.h \
 		../charts-project/Model/training.h \
 		../charts-project/DateTime/datetime.h \
 		../charts-project/DateTime/timespan.h \
-		../charts-project/DateTime/Date.h
+		../charts-project/DateTime/date.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o run.o ../charts-project/Model/run.cpp
 
 tennis.o: ../charts-project/Model/tennis.cpp ../charts-project/Model/tennis.h \
@@ -5020,13 +5020,13 @@ tennis.o: ../charts-project/Model/tennis.cpp ../charts-project/Model/tennis.h \
 		../charts-project/DateTime/timespan.h \
 		../charts-project/Model/training.h \
 		../charts-project/DateTime/datetime.h \
-		../charts-project/DateTime/Date.h
+		../charts-project/DateTime/date.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tennis.o ../charts-project/Model/tennis.cpp
 
 training.o: ../charts-project/Model/training.cpp ../charts-project/Model/training.h \
 		../charts-project/DateTime/datetime.h \
 		../charts-project/DateTime/timespan.h \
-		../charts-project/DateTime/Date.h
+		../charts-project/DateTime/date.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o training.o ../charts-project/Model/training.cpp
 
 walk.o: ../charts-project/Model/walk.cpp ../charts-project/Model/walk.h \
@@ -5034,7 +5034,7 @@ walk.o: ../charts-project/Model/walk.cpp ../charts-project/Model/walk.h \
 		../charts-project/Model/training.h \
 		../charts-project/DateTime/datetime.h \
 		../charts-project/DateTime/timespan.h \
-		../charts-project/DateTime/Date.h
+		../charts-project/DateTime/date.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o walk.o ../charts-project/Model/walk.cpp
 
 moc_chartviewer.o: moc_chartviewer.cpp 
