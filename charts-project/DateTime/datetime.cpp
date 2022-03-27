@@ -3,14 +3,14 @@
 DateTime::DateTime()
     :date(1,1,2000), time(){}
 
-DateTime::DateTime(const Date& d, const TimeStamp& t)
+DateTime::DateTime(const Date& d, const Time& t)
     :date(d), time(t){}
 
 //possible throws --> catched outside of the creation of DateTime
 
 const unsigned int DateTime::hoursPerDay = 24;
 
-void DateTime::setTime(const TimeStamp& t){
+void DateTime::setTime(const Time& t){
     if(t.getHours()>= 24)
         throw std::invalid_argument("Invalid hour set");
     try {
@@ -31,9 +31,9 @@ void DateTime::setDate(const Date& d){
 
 Date DateTime::getDate() const {return date;}
 
-TimeStamp DateTime::getTime() const {return time;}
+Time DateTime::getTime() const {return time;}
 
-void DateTime::setDateTime(const Date& date, const TimeStamp& time){
+void DateTime::setDateTime(const Date& date, const Time& time){
     try {
         setDate(date);
         setTime(time);

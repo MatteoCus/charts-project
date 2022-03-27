@@ -5,23 +5,23 @@
 #include "date.h"
 #include <stdexcept>
 
-#define TimeStamp TimeSpan
+#define Time TimeSpan
 
 class DateTime
 {
 private:
     Date date;
-    TimeStamp time;                                                 //timespan used as timestamp
+    Time time;                                                 //timespan used as Time
     static const unsigned int hoursPerDay;
-    void setTime(const TimeStamp& time);
+    void setTime(const Time& time);
     void setDate(const Date& date);
 public:
     DateTime();                                                     //constructs 1-1-2000 00:00
-    DateTime(const Date& date, const TimeStamp& time);
+    DateTime(const Date& date, const Time& time);
 
     Date getDate() const;
-    TimeStamp getTime() const;
-    void setDateTime(const Date& date, const TimeStamp& time);
+    Time getTime() const;
+    void setDateTime(const Date& date, const Time& time);
     DateTime operator+(const TimeSpan& time) const;
     DateTime operator-(const TimeSpan& time) const;
     bool operator==(const DateTime& dateTime) const;
