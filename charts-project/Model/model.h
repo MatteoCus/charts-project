@@ -11,8 +11,6 @@
 class Model {
 private:
   Plan *plan;
-  static Plan *copy(const Model &);
-  static void destroy(const Model &);
 
 public:
   Model();
@@ -25,7 +23,7 @@ public:
 
   void removeTraining(unsigned int pos) const;
   Training *getTraining(unsigned int pos) const;
-  std::list<Training *> getTrainings() const;
+  const std::list<Training *>& getTrainings() const;
 
   void setTraining(unsigned int pos, const std::string &name, const DateTime &start,
                    double distance = 0.0, const TimeSpan &duration = TimeSpan(),

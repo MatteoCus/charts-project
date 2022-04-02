@@ -15,8 +15,19 @@
 class chartWidget : public QWidget
 {
     Q_OBJECT
-    void addDefaultChart(QVBoxLayout * mainLayout);
+private:
+    QChart *chart;
+    QLineSeries *lineSeries;
+    QBarSeries *barSeries;
+    QSplineSeries* splineSeries;
+    QDateTimeAxis *axisX;
+    QValueAxis *axisY;
+    QChartView *chartView;
+    QComboBox* chartBox;
+    QComboBox* dataBox;
+    QVBoxLayout * mainLayout;
 
+    void addDefaultChart(QVBoxLayout * mainLayout);
     void addControls(QVBoxLayout * mainLayout);
 
 public:

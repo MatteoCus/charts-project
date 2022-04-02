@@ -15,11 +15,19 @@
 class dataWidget : public QWidget
 {
     Q_OBJECT
+private:
+    QTableWidget *table;
+    QLabel* title;
+
     void adaptTable(unsigned int w, unsigned int h, QTableWidget* table);
     void addTable(QVBoxLayout* tableLayout);
     void addLabel(QVBoxLayout* tableLayout);
     void addLabelTable(QHBoxLayout* mainLayout);
     void addControls(QHBoxLayout* mainLayout);
+    QPushButton* addButton;
+    QPushButton* setButton;
+    QPushButton* removeButton;
+    QHBoxLayout* mainLayout;
 
 public:
     explicit dataWidget(QWidget *parent = nullptr);

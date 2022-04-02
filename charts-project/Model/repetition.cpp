@@ -35,12 +35,8 @@ void Repetition::setExercise(unsigned int pos, Exercise *ex) {
   if (pos >= exercises.size())
     throw std::out_of_range("Invalid exercise's modification index");
   exercises[pos]->setName(ex->getName()); // if name=="", nothing changed
-  try {
     exercises[pos]->setDuration(ex->getDuration());
     exercises[pos]->setRecovery(ex->getRecoveryTime());
-  } catch (std::invalid_argument &e) {
-    throw e;
-  }
 }
 
 unsigned int Repetition::getSize() const { return exercises.size(); }
@@ -73,7 +69,6 @@ void Repetition::destroy(const Repetition &rep) {
     delete (*it);
 }
 
-// rule of three
 Repetition::Repetition(const Repetition &rep)
     : Training(rep), exercises(copy(rep)) {}
 

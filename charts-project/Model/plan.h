@@ -22,7 +22,7 @@ public:
   void insertTraining(Training *training);
   void removeTraining(unsigned int pos);
   Training *getTraining(unsigned int pos) const;
-  std::list<Training *> getTrainings() const;
+  const std::list<Training *>& getTrainings() const;
   unsigned int getSize() const;
   bool isEmpty() const;
   void setTraining(unsigned int pos, const std::string &name, const DateTime &start,

@@ -23,7 +23,8 @@ SOURCES += \
     View/chartviewer.cpp \
     View/chartwidget.cpp \
     View/datawidget.cpp \
-    View/mainwindow.cpp \
+    View/adddialog.cpp \
+    addvalues.cpp \
     main.cpp \
     Model/plan.cpp \
     Model/repetition.cpp \
@@ -32,6 +33,7 @@ SOURCES += \
     Model/tennis.cpp \
     Model/training.cpp \
     Model/walk.cpp \
+    View/typedialog.cpp
 
 HEADERS += \
     DateTime/date.h \
@@ -39,7 +41,6 @@ HEADERS += \
     View/chartviewer.h \
     View/chartwidget.h \
     View/datawidget.h \
-    View/mainwindow.h \
     action.h \
     Model/cycling.h \
     Model/endurance.h \
@@ -55,6 +56,9 @@ HEADERS += \
     Model/tennis.h \
     Model/training.h \
     Model/walk.h \
+    View/adddialog.h \
+    View/typedialog.h \
+    addvalues.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -7,7 +7,6 @@ Training *trainingCreator::createTraining(const std::string &type,
                                           const std::string &exName,
                                           const TimeSpan &exDuration,
                                           const TimeSpan &exRecovery) const {
-  try {
     if (type == "Cycling") {
       return new Cycling(name, start, distance, duration);
     } else if (type == "Run") {
@@ -28,9 +27,4 @@ Training *trainingCreator::createTraining(const std::string &type,
       return aux;
     } else
       throw std::runtime_error("Invalid type of training inserted");
-  } catch (std::invalid_argument &e) {
-    throw e; // re-throw of the exception
-  }
-
-  throw std::invalid_argument("Invalid creation request");
 }

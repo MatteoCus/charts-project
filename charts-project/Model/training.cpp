@@ -22,10 +22,5 @@ void Training::setName(const std::string &trName){
 }
 
 void Training::setStart(const DateTime& dateTime) {
-    try {
-          start.setDateTime(dateTime.getDate(), dateTime.getTime());
-    }
-    catch (std::invalid_argument& e) {
-        throw e;
-    }
+    start.setDateTime(dateTime.getDate(), dateTime.getTime());
 }

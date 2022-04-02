@@ -15,7 +15,7 @@ void dataWidget::adaptTable(unsigned int w, unsigned int h, QTableWidget* table)
 
 void dataWidget::addTable(QVBoxLayout* tableLayout)
 {
-    QTableWidget *table = new QTableWidget(this);
+    table = new QTableWidget(this);
     table->setColumnCount(6);
     table->setHorizontalHeaderLabels(QStringList()<<"Nome"<<"Inizio"<<"Durata"<<"Fine"<<"Calorie"<<"Esercizi");
     table->setStyleSheet("QHeaderView::section { color : white ; background-color: #c26110}  "
@@ -44,7 +44,7 @@ void dataWidget::addTable(QVBoxLayout* tableLayout)
 
 void dataWidget::addLabel(QVBoxLayout* tableLayout)
 {
-    QLabel* title = new QLabel("Dati", this);
+    title = new QLabel("Dati", this);
     title->setFixedSize(50,25);
     title->setAlignment(Qt::AlignCenter);
     title->setStyleSheet("QLabel { background-color : #c26110 ; color : white; }");
@@ -75,9 +75,9 @@ void dataWidget::addControls(QHBoxLayout* mainLayout)
     controlLayout->setContentsMargins(20,80,10,80);
     controlLayout->setSpacing(10);
 
-    QPushButton* addButton = new QPushButton("Aggiungi", this);
-    QPushButton* setButton = new QPushButton("Modifica", this);
-    QPushButton* removeButton = new QPushButton("Rimuovi", this);
+    addButton = new QPushButton("Aggiungi", this);
+    setButton = new QPushButton("Modifica", this);
+    removeButton = new QPushButton("Rimuovi", this);
     addButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     setButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     removeButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
@@ -98,7 +98,7 @@ void dataWidget::addControls(QHBoxLayout* mainLayout)
 
 dataWidget::dataWidget(QWidget *parent) : QWidget(parent)
 {
-    QHBoxLayout* mainLayout = new QHBoxLayout();
+    mainLayout = new QHBoxLayout();
 
     addLabelTable(mainLayout);
 

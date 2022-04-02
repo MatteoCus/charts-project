@@ -5,12 +5,12 @@ bool Plan::check(Training *training) {
     throw std::invalid_argument("Null training passed to check ");
   DateTime start = training->getStart();
   auto it = trainings.begin();
-  while (it != trainings.end() && (start > (*it)->getStart()) &&
+  while (it != trainings.end() && //(start > (*it)->getStart()) &&
          (start > (*it)->getEnd())) {
     ++it;
   }
   if (it == trainings.end() ||
-      ((training->getEnd() < (*it)->getStart()) && (start < (*it)->getEnd())))
+      ((training->getEnd() < (*it)->getStart()))) //&& (start < (*it)->getEnd())))
     return true;
   else
     return false;
@@ -101,7 +101,7 @@ void Plan::setTraining(unsigned int pos, const std::string &name, const DateTime
     trainings.erase(it);
     if (check(tr)) {
       delete backup;
-      insertTraining(tr);
+      insertTraining(tr);           //qualora dovessero essere state modificate le date (di inizio e/o di fine)
     } else {
       delete tr;
       throw std::invalid_argument(
@@ -109,10 +109,8 @@ void Plan::setTraining(unsigned int pos, const std::string &name, const DateTime
     }
 
   } catch (std::invalid_argument &e) {
-    insertTraining(backup); // return to the last correct state
+    insertTraining(backup); // ritorna all'ultimo stato corretto --> messo qui perchè l'errore invalid_argument può avvenire anche sopra e non solo qui con check
     throw e;
-  } catch (std::out_of_range &ex) {
-    throw ex;
   }
 }
 
@@ -120,7 +118,7 @@ unsigned int Plan::getSize() const { return trainings.size(); }
 
 bool Plan::isEmpty() const { return trainings.empty(); }
 
-std::list<Training *> Plan::getTrainings() const { return trainings; }
+const std::list<Training *>& Plan::getTrainings() const { return trainings; }
 
 std::list<Training *> Plan::copy(const Plan &plan) {
   std::list<Training *> aux;

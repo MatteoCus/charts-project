@@ -2,10 +2,12 @@
 
 void chartWidget::addDefaultChart(QVBoxLayout * mainLayout)
 {
-    QChart *chart = new QChart();
-    QLineSeries *series = new QLineSeries(chart);
+    chart = new QChart();
+    lineSeries = new QLineSeries(chart);
+    barSeries = new QBarSeries(chart);
+    splineSeries = new QSplineSeries();
 
-    chart->addSeries(series);
+    chart->addSeries(lineSeries);
     chart->legend()->hide();
 
     chart->setTheme(QChart::ChartThemeDark);
@@ -15,24 +17,26 @@ void chartWidget::addDefaultChart(QVBoxLayout * mainLayout)
     chart->setTitleFont(font);
     chart->setTitle("Statistiche di allenamento");
 
-    QDateTimeAxis *axisX = new QDateTimeAxis(chart);
+    axisX = new QDateTimeAxis(chart);
     axisX->setFormat("dd.MM.yyyy");
     axisX->setTitleText("Data di allenamento");
-    chart->setAxisX(axisX, series);
+    chart->setAxisX(axisX, lineSeries);
 
-    QValueAxis *axisY = new QValueAxis(chart);
+    axisY = new QValueAxis(chart);
     axisY->setLabelFormat("%i");
     axisY->setTitleText("Durata");
-    chart->setAxisY(axisY, series);
+    chart->setAxisY(axisY, lineSeries);
 
     QPen pen(QRgb(0xc26110));
     pen.setWidth(3);
-    series->setPen(pen);
+    lineSeries->setPen(pen);
+    barSeries->setBarWidth(qreal(10));
+    splineSeries->setPen(pen);
 
     chart->setBackgroundBrush(QBrush(QColor(QRgb(0x404244))));
     chart->setAnimationOptions(QChart::GridAxisAnimations);
 
-    QChartView *chartView = new QChartView(chart, this);
+    chartView = new QChartView(chart, this);
     chartView->setRenderHint(QPainter::Antialiasing);
     chartView->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     chartView->setFixedSize(600,400);
@@ -42,7 +46,7 @@ void chartWidget::addDefaultChart(QVBoxLayout * mainLayout)
 void chartWidget::addControls(QVBoxLayout * mainLayout)
 {
     QHBoxLayout * controlsLayout = new QHBoxLayout();
-    QComboBox* chartBox = new QComboBox(this);
+    chartBox = new QComboBox(this);
     chartBox->addItem("Line Chart");
     chartBox->addItem("Bar Chart");
     chartBox->addItem("Other Chart");
@@ -62,7 +66,7 @@ void chartWidget::addControls(QVBoxLayout * mainLayout)
                             "QComboBox QListView {background-color : #404244 ; color : white;}"
                             "QComboBox QAbstractItemView {selection-background-color:#c26110;}");   //IMPORTANTE
 
-    QComboBox* dataBox = new QComboBox(this);
+    dataBox = new QComboBox(this);
     dataBox->addItem("Durata");
     dataBox->addItem("Calorie");
     dataBox->addItem("Intensità (*)");
@@ -92,7 +96,7 @@ void chartWidget::addControls(QVBoxLayout * mainLayout)
 
 chartWidget::chartWidget(QWidget *parent) : QWidget(parent)
 {
-    QVBoxLayout * mainLayout = new QVBoxLayout();
+    mainLayout = new QVBoxLayout();
 
     addDefaultChart(mainLayout);
 

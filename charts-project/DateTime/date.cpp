@@ -166,10 +166,3 @@ bool Date::operator<=(const Date& d) const{
 bool Date::operator>=(const Date& d) const{
     return this->operator==(d) || this->operator>(d);
 }
-
-Date Date::operator=(const Date& d){    //d è corretto, invariante
-    day = d.day;
-    month = d.month;
-    year = d.year;
-    return *this;
-}

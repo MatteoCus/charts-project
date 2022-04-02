@@ -13,20 +13,11 @@ const unsigned int DateTime::hoursPerDay = 24;
 void DateTime::setTime(const Time& t){
     if(t.getHours()>= 24)
         throw std::invalid_argument("Invalid hour set");
-    try {
-        time.setTime(t.getHours(), t.getMinutes(), t.getSeconds());
-    }  catch (std::invalid_argument& e) {
-        throw e;
-    }
+    time.setTime(t.getHours(), t.getMinutes(), t.getSeconds());
 }
 
 void DateTime::setDate(const Date& d){
-    try {
-        date.setDate(d.getDay(), d.getMonth(), d.getYear());
-    }  catch (std::invalid_argument& e) {
-        throw e;
-    }
-
+    date.setDate(d.getDay(), d.getMonth(), d.getYear());
 }
 
 Date DateTime::getDate() const {return date;}
@@ -34,13 +25,8 @@ Date DateTime::getDate() const {return date;}
 Time DateTime::getTime() const {return time;}
 
 void DateTime::setDateTime(const Date& date, const Time& time){
-    try {
-        setDate(date);
-        setTime(time);
-    }  catch(std::invalid_argument& ex){
-        throw ex;
-    }
-
+    setDate(date);
+    setTime(time);
 }
 
 DateTime DateTime::operator+(const TimeSpan& addTime) const{
