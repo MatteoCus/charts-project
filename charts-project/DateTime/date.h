@@ -1,5 +1,6 @@
 #ifndef DATE_H
 #define DATE_H
+#include <string>
 class Date{
 private:
     unsigned int day, month, year;
@@ -16,6 +17,7 @@ public:
     unsigned int getDay() const;
     unsigned int getMonth() const;
     unsigned int getYear() const;
+    std::string toString() const;
     Date operator+(unsigned int n) const;
     Date operator-(unsigned int n) const;
     void operator+=(unsigned int n);

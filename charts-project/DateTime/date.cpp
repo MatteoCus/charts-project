@@ -61,6 +61,11 @@ unsigned int Date::getMonth() const { return month;}
 
 unsigned int Date::getYear() const { return year;}
 
+std::string Date::toString() const
+{
+    return std::string(std::to_string(day) + "/" + std::to_string(month) + "/" + std::to_string(year));
+}
+
 Date Date::operator+(unsigned int n) const{ //n è il numero di giorni
     if(checkDate(day + n, month, year))
         return Date(day + n, month, year);

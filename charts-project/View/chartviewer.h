@@ -12,8 +12,10 @@
 #include <QPlainTextEdit>
 #include "datawidget.h"
 #include "chartwidget.h"
-#include "adddialog.h"
-#include "addvalues.h"
+#include "./Model/training.h"
+#include "trainingdialog.h"
+#include "trainingvalues.h"
+#include "action.h"
 
 class chartViewer : public QWidget
 {
@@ -23,6 +25,7 @@ private:
     dataWidget* dataW;
     chartWidget* chartW;
     QDialog* dialog;
+    const std::vector<Training*>& trainings;
     void addMenu(QHBoxLayout* mainLayout);
 
 
@@ -31,7 +34,9 @@ public:
 
     void showWarning(const QString& message);
     QString showImportDialog();
-    addValues showAddDialog();
+    trainingValues showAddDialog();
+    trainingValues showRemoveDialog();
+    trainingValues showSetDialog();
 
 signals:
 

@@ -1,5 +1,5 @@
-#ifndef ADDDIALOG_H
-#define ADDDIALOG_H
+#ifndef TRAININGDIALOG_H
+#define TRAININGDIALOG_H
 
 #include <QObject>
 #include <QDialog>
@@ -11,10 +11,13 @@
 #include <QDateTimeEdit>
 #include <QDoubleSpinBox>
 #include <QPushButton>
+#include "./Model/training.h"
 #include "typedialog.h"
-#include "addvalues.h"
+#include "trainingvalues.h"
+#include "selecttrainingdialog.h"
+#include "action.h"
 
-class addDialog : public QDialog
+class trainingDialog : public QDialog
 {
     Q_OBJECT
 private:
@@ -37,12 +40,12 @@ private:
 
     void setupEndurance(QBoxLayout *mainL);
 
-    void setupCommon(QBoxLayout *mainL);
+    void setupCommon(QBoxLayout *mainL, action act, QString name = "", QString start = "");
 
 public:
-    explicit addDialog(QWidget *parent = nullptr);
-    static addValues getValues(QWidget* parent, bool *ok = nullptr);
+    explicit trainingDialog(QWidget *parent = nullptr, action act = nothing, const std::vector<Training*>* trainings = nullptr);
+    static trainingValues getValues(QWidget* parent = nullptr, bool *ok = nullptr , action act = nothing, const std::vector<Training*>* trainings= nullptr);
 
 };
 
-#endif // ADDDIALOG_H
+#endif // TRAININGDIALOG_H

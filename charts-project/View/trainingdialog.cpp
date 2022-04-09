@@ -1,17 +1,17 @@
-#include "adddialog.h"
+#include "trainingdialog.h"
 
-void addDialog::setLabelStyleSheet(QLabel* name)
+void trainingDialog::setLabelStyleSheet(QLabel* name)
 {
     name->setStyleSheet("QLabel {background-color: #404244; color: white}");
 }
 
-void addDialog::addToLayout(QBoxLayout* layout, QWidget* w1, QWidget* w2)
+void trainingDialog::addToLayout(QBoxLayout* layout, QWidget* w1, QWidget* w2)
 {
     layout->addWidget(w1);
     layout->addWidget(w2);
 }
 
-void addDialog::setupRepetition(QBoxLayout* mainL)
+void trainingDialog::setupRepetition(QBoxLayout* mainL)
 {
     QHBoxLayout *nameExLayout = new QHBoxLayout;
     QLabel* nameExLabel = new QLabel(QString("Nome primo esercizio"), this);
@@ -48,7 +48,7 @@ void addDialog::setupRepetition(QBoxLayout* mainL)
     mainL->addLayout(nameExLayout);
 }
 
-void addDialog::setupEndurance(QBoxLayout* mainL)
+void trainingDialog::setupEndurance(QBoxLayout* mainL)
 {
     QHBoxLayout *distanceLayout = new QHBoxLayout;
     distance = new QDoubleSpinBox(this);
@@ -73,7 +73,7 @@ void addDialog::setupEndurance(QBoxLayout* mainL)
     mainL->addLayout(durationLayout);
 }
 
-void addDialog::setupCommon(QBoxLayout* mainL)
+void trainingDialog::setupCommon(QBoxLayout* mainL, action act, QString nameTraining, QString startTraining) //name e date possono essere vuoti
 {
     QHBoxLayout *nameLayout = new QHBoxLayout;
     QHBoxLayout *startLayout = new QHBoxLayout;
@@ -81,7 +81,27 @@ void addDialog::setupCommon(QBoxLayout* mainL)
     setStyleSheet("QDialog{background-color: #404244}");
 
     QLabel* nameLabel = new QLabel(QString("Nome allenamento"), this);
-    name = new QLineEdit(QString("Nome Allenamento"), this);
+    if (act == add)
+    {
+        name = new QLineEdit(QString("Nome Allenamento"), this);
+        start = new QDateTimeEdit(QDateTime::currentDateTime());
+    }
+    else
+    {
+        name = new QLineEdit(nameTraining, this);
+        start->setMinimumDate(QDate(1970,1,1));
+        start->setMaximumDate(QDate::currentDate());
+        start->setDisplayFormat("dd.MM.yyyy hh:mm:ss");
+        start = new QDateTimeEdit(QDateTime()); //serve un parser per le date
+
+    }
+
+    if (act == eliminate)
+    {
+        name->setReadOnly(true);
+        start->setReadOnly(true);
+    }
+
     name->setStyleSheet("QLineEdit {background-color : #404244 ; color: white ; selection-background-color: #c26110 ;"
                         "selection-color : white} ");
 
@@ -90,10 +110,6 @@ void addDialog::setupCommon(QBoxLayout* mainL)
     addToLayout(nameLayout,nameLabel,name);
 
     QLabel* startLabel = new QLabel(QString("Inizio"), this);
-    start = new QDateTimeEdit(QDateTime::currentDateTime());
-    start->setMinimumDate(QDate(1970,1,1));
-    start->setMaximumDate(QDate::currentDate());
-    start->setDisplayFormat("dd.MM.yyyy hh:mm:ss");
     start->setStyleSheet("QDateTimeEdit {background-color : #404244 ; color: white ; selection-background-color: #c26110 ;"
                          "selection-color : white} ");
 
@@ -105,20 +121,29 @@ void addDialog::setupCommon(QBoxLayout* mainL)
     mainL->addLayout(startLayout);
 }
 
-addDialog::addDialog(QWidget *parent) : QDialog(parent)
+trainingDialog::trainingDialog(QWidget *parent, action act, const std::vector<Training*>* trainings) : QDialog(parent)
 {
     QVBoxLayout *mainL = new QVBoxLayout;
     QHBoxLayout *buttonsLayout = new QHBoxLayout;
     bool ok;
-
-    setupCommon(mainL);
-
-    type = typeDialog::getType(this,&ok);
-
-    if(type == "Tennis" || type == "Rugby")
-        setupRepetition(mainL);
-    else //if (type == "Camminata" || type == "Corsa" || type == "Ciclismo")
-        setupEndurance(mainL);
+    if (act == add)
+    {
+        setupCommon(mainL,act);
+        type = typeDialog::getType(this,&ok);
+        if(type == "Tennis" || type == "Rugby")
+            setupRepetition(mainL);
+        else //if (type == "Camminata" || type == "Corsa" || type == "Ciclismo")
+            setupEndurance(mainL);
+    }
+    else
+    {
+        QString date = selectTrainingDialog::getDate(this,&ok,trainings);
+        //trova valori del training
+        setupCommon(mainL,act,date);
+        //fai metodo privato setup che faccia vedere solamente durata, data di fine e dati comuni a tutti
+        //gli allenamenti se siamo in una remove... se siamo in una set, occorre specificare il tipo di training
+        // e quindi occorre andare a creare due setup diversi (di cui uno deve far vedere tutti gli esercizi di un training)
+    }
 
     QDialogButtonBox *buttonBox = new QDialogButtonBox(Qt::Orientation::Horizontal,this);
 
@@ -142,18 +167,18 @@ addDialog::addDialog(QWidget *parent) : QDialog(parent)
     mainL->addLayout(buttonsLayout);
 
     bool conn = connect(buttonBox, &QDialogButtonBox::accepted,
-                      this, &addDialog::accept);
+                      this, &trainingDialog::accept);
     Q_ASSERT(conn);
     conn = connect(buttonBox, &QDialogButtonBox::rejected,
-        this, &addDialog::reject);
+        this, &trainingDialog::reject);
     Q_ASSERT(conn);
 
     setLayout(mainL);
 }
 
-addValues addDialog::getValues(QWidget *parent, bool *ok)
+trainingValues trainingDialog::getValues(QWidget *parent, bool *ok, action act, const std::vector<Training*>* trainings)
 {
-    addDialog *dialog = new addDialog(parent);
+    trainingDialog *dialog = new trainingDialog(parent, act, trainings);
 
         const int ret = dialog->exec();
         if (ok)
@@ -167,7 +192,7 @@ addValues addDialog::getValues(QWidget *parent, bool *ok)
         QDateTime start;
         QString type;
         double distance = 0.0;
-        if (ret) {
+        if (ret) {      //modifica per modifica di tutti gli esercizi di un repetition (metti un indice dell'esercizio modificato)
 
             type = dialog->type;
             name = dialog->name->text();
@@ -185,5 +210,5 @@ addValues addDialog::getValues(QWidget *parent, bool *ok)
             }
         }
         dialog->deleteLater();
-        return addValues(type,start,name,distance,duration,exName,exDuration,recovery);
+        return trainingValues(type,start,name,distance,duration,exName,exDuration,recovery);
 }

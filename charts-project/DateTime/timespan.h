@@ -2,6 +2,7 @@
 #define TIMESPAN_H
 
 #include <stdexcept>
+#include "string"
 
 class TimeSpan {
 private:
@@ -22,6 +23,7 @@ public:
   unsigned int getTotalMinutes() const;
   unsigned int getTotalSeconds() const;
   bool isNull() const;
+  std::string toString() const;
   TimeSpan operator+(const TimeSpan &time) const;
   TimeSpan operator-(const TimeSpan &time) const;
   TimeSpan operator*(unsigned int n) const;

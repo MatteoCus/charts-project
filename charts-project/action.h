@@ -2,7 +2,7 @@
 #define ACTION_H
 
 enum action{
-    add, insert, set, eliminate, nothing
+    add, set, insert, eliminate, nothing
 };
 
 #endif // ACTION_H

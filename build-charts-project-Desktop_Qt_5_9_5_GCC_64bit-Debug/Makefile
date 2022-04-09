@@ -62,8 +62,7 @@ SOURCES       = ../charts-project/DateTime/date.cpp \
 		../charts-project/View/chartviewer.cpp \
 		../charts-project/View/chartwidget.cpp \
 		../charts-project/View/datawidget.cpp \
-		../charts-project/View/adddialog.cpp \
-		../charts-project/addvalues.cpp \
+		../charts-project/View/trainingdialog.cpp \
 		../charts-project/main.cpp \
 		../charts-project/Model/plan.cpp \
 		../charts-project/Model/repetition.cpp \
@@ -72,10 +71,11 @@ SOURCES       = ../charts-project/DateTime/date.cpp \
 		../charts-project/Model/tennis.cpp \
 		../charts-project/Model/training.cpp \
 		../charts-project/Model/walk.cpp \
-		../charts-project/View/typedialog.cpp moc_chartviewer.cpp \
+		../charts-project/View/typedialog.cpp \
+		../charts-project/trainingvalues.cpp moc_chartviewer.cpp \
 		moc_chartwidget.cpp \
 		moc_datawidget.cpp \
-		moc_adddialog.cpp \
+		moc_trainingdialog.cpp \
 		moc_typedialog.cpp
 OBJECTS       = date.o \
 		datetime.o \
@@ -89,8 +89,7 @@ OBJECTS       = date.o \
 		chartviewer.o \
 		chartwidget.o \
 		datawidget.o \
-		adddialog.o \
-		addvalues.o \
+		trainingdialog.o \
 		main.o \
 		plan.o \
 		repetition.o \
@@ -100,10 +99,11 @@ OBJECTS       = date.o \
 		training.o \
 		walk.o \
 		typedialog.o \
+		trainingvalues.o \
 		moc_chartviewer.o \
 		moc_chartwidget.o \
 		moc_datawidget.o \
-		moc_adddialog.o \
+		moc_trainingdialog.o \
 		moc_typedialog.o
 DIST          = ../../../../Qt/5.9.5/gcc_64/mkspecs/features/spec_pre.prf \
 		../../../../Qt/5.9.5/gcc_64/mkspecs/common/unix.conf \
@@ -291,6 +291,7 @@ DIST          = ../../../../Qt/5.9.5/gcc_64/mkspecs/features/spec_pre.prf \
 		../charts-project/View/chartviewer.h \
 		../charts-project/View/chartwidget.h \
 		../charts-project/View/datawidget.h \
+		../charts-project/View/trainingdialog.h \
 		../charts-project/action.h \
 		../charts-project/Model/cycling.h \
 		../charts-project/Model/endurance.h \
@@ -306,9 +307,8 @@ DIST          = ../../../../Qt/5.9.5/gcc_64/mkspecs/features/spec_pre.prf \
 		../charts-project/Model/tennis.h \
 		../charts-project/Model/training.h \
 		../charts-project/Model/walk.h \
-		../charts-project/View/adddialog.h \
 		../charts-project/View/typedialog.h \
-		../charts-project/addvalues.h ../charts-project/DateTime/date.cpp \
+		../charts-project/trainingvalues.h ../charts-project/DateTime/date.cpp \
 		../charts-project/DateTime/datetime.cpp \
 		../charts-project/Model/cycling.cpp \
 		../charts-project/Model/endurance.cpp \
@@ -320,8 +320,7 @@ DIST          = ../../../../Qt/5.9.5/gcc_64/mkspecs/features/spec_pre.prf \
 		../charts-project/View/chartviewer.cpp \
 		../charts-project/View/chartwidget.cpp \
 		../charts-project/View/datawidget.cpp \
-		../charts-project/View/adddialog.cpp \
-		../charts-project/addvalues.cpp \
+		../charts-project/View/trainingdialog.cpp \
 		../charts-project/main.cpp \
 		../charts-project/Model/plan.cpp \
 		../charts-project/Model/repetition.cpp \
@@ -330,7 +329,8 @@ DIST          = ../../../../Qt/5.9.5/gcc_64/mkspecs/features/spec_pre.prf \
 		../charts-project/Model/tennis.cpp \
 		../charts-project/Model/training.cpp \
 		../charts-project/Model/walk.cpp \
-		../charts-project/View/typedialog.cpp
+		../charts-project/View/typedialog.cpp \
+		../charts-project/trainingvalues.cpp
 QMAKE_TARGET  = charts-project
 DESTDIR       = 
 TARGET        = charts-project
@@ -730,8 +730,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../../../../Qt/5.9.5/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../charts-project/DateTime/date.h ../charts-project/DateTime/datetime.h ../charts-project/View/chartviewer.h ../charts-project/View/chartwidget.h ../charts-project/View/datawidget.h ../charts-project/action.h ../charts-project/Model/cycling.h ../charts-project/Model/endurance.h ../charts-project/Model/exercise.h ../charts-project/Model/exercisecreator.h ../charts-project/Model/model.h ../charts-project/DateTime/timespan.h ../charts-project/Model/trainingcreator.h ../charts-project/Model/plan.h ../charts-project/Model/repetition.h ../charts-project/Model/rugby.h ../charts-project/Model/run.h ../charts-project/Model/tennis.h ../charts-project/Model/training.h ../charts-project/Model/walk.h ../charts-project/View/adddialog.h ../charts-project/View/typedialog.h ../charts-project/addvalues.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../charts-project/DateTime/date.cpp ../charts-project/DateTime/datetime.cpp ../charts-project/Model/cycling.cpp ../charts-project/Model/endurance.cpp ../charts-project/Model/exercise.cpp ../charts-project/Model/exercisecreator.cpp ../charts-project/Model/model.cpp ../charts-project/DateTime/timespan.cpp ../charts-project/Model/trainingcreator.cpp ../charts-project/View/chartviewer.cpp ../charts-project/View/chartwidget.cpp ../charts-project/View/datawidget.cpp ../charts-project/View/adddialog.cpp ../charts-project/addvalues.cpp ../charts-project/main.cpp ../charts-project/Model/plan.cpp ../charts-project/Model/repetition.cpp ../charts-project/Model/rugby.cpp ../charts-project/Model/run.cpp ../charts-project/Model/tennis.cpp ../charts-project/Model/training.cpp ../charts-project/Model/walk.cpp ../charts-project/View/typedialog.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../charts-project/DateTime/date.h ../charts-project/DateTime/datetime.h ../charts-project/View/chartviewer.h ../charts-project/View/chartwidget.h ../charts-project/View/datawidget.h ../charts-project/View/trainingdialog.h ../charts-project/action.h ../charts-project/Model/cycling.h ../charts-project/Model/endurance.h ../charts-project/Model/exercise.h ../charts-project/Model/exercisecreator.h ../charts-project/Model/model.h ../charts-project/DateTime/timespan.h ../charts-project/Model/trainingcreator.h ../charts-project/Model/plan.h ../charts-project/Model/repetition.h ../charts-project/Model/rugby.h ../charts-project/Model/run.h ../charts-project/Model/tennis.h ../charts-project/Model/training.h ../charts-project/Model/walk.h ../charts-project/View/typedialog.h ../charts-project/trainingvalues.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../charts-project/DateTime/date.cpp ../charts-project/DateTime/datetime.cpp ../charts-project/Model/cycling.cpp ../charts-project/Model/endurance.cpp ../charts-project/Model/exercise.cpp ../charts-project/Model/exercisecreator.cpp ../charts-project/Model/model.cpp ../charts-project/DateTime/timespan.cpp ../charts-project/Model/trainingcreator.cpp ../charts-project/View/chartviewer.cpp ../charts-project/View/chartwidget.cpp ../charts-project/View/datawidget.cpp ../charts-project/View/trainingdialog.cpp ../charts-project/main.cpp ../charts-project/Model/plan.cpp ../charts-project/Model/repetition.cpp ../charts-project/Model/rugby.cpp ../charts-project/Model/run.cpp ../charts-project/Model/tennis.cpp ../charts-project/Model/training.cpp ../charts-project/Model/walk.cpp ../charts-project/View/typedialog.cpp ../charts-project/trainingvalues.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -763,9 +763,9 @@ compiler_moc_predefs_clean:
 moc_predefs.h: ../../../../Qt/5.9.5/gcc_64/mkspecs/features/data/dummy.cpp
 	g++ -pipe -g -std=gnu++11 -Wall -W -dM -E -o moc_predefs.h ../../../../Qt/5.9.5/gcc_64/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_chartviewer.cpp moc_chartwidget.cpp moc_datawidget.cpp moc_adddialog.cpp moc_typedialog.cpp
+compiler_moc_header_make_all: moc_chartviewer.cpp moc_chartwidget.cpp moc_datawidget.cpp moc_trainingdialog.cpp moc_typedialog.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_chartviewer.cpp moc_chartwidget.cpp moc_datawidget.cpp moc_adddialog.cpp moc_typedialog.cpp
+	-$(DEL_FILE) moc_chartviewer.cpp moc_chartwidget.cpp moc_datawidget.cpp moc_trainingdialog.cpp moc_typedialog.cpp
 moc_chartviewer.cpp: ../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QWidget \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qwidget.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
@@ -1315,7 +1315,7 @@ moc_chartviewer.cpp: ../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QWidget \
 		../../../../Qt/5.9.5/gcc_64/include/QtCharts/qxylegendmarker.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCharts/qtchartsversion.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCharts/QLineSeries \
-		../charts-project/View/adddialog.h \
+		../charts-project/View/trainingdialog.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QLineEdit \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QDialogButtonBox \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QFormLayout \
@@ -1323,7 +1323,7 @@ moc_chartviewer.cpp: ../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QWidget \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QDateTimeEdit \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QDoubleSpinBox \
 		../charts-project/View/typedialog.h \
-		../charts-project/addvalues.h \
+		../charts-project/trainingvalues.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/QString \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/QTime \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/QDateTime \
@@ -2016,7 +2016,7 @@ moc_datawidget.cpp: ../../../../Qt/5.9.5/gcc_64/include/QtCore/QObject \
 		../../../../Qt/5.9.5/gcc_64/bin/moc
 	/home/matteo/Qt/5.9.5/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/matteo/Qt/5.9.5/gcc_64/mkspecs/linux-g++ -I/home/matteo/Documenti/GitHub/charts-project/charts-project -I/home/matteo/Qt/5.9.5/gcc_64/include -I/home/matteo/Qt/5.9.5/gcc_64/include/QtCharts -I/home/matteo/Qt/5.9.5/gcc_64/include/QtWidgets -I/home/matteo/Qt/5.9.5/gcc_64/include/QtGui -I/home/matteo/Qt/5.9.5/gcc_64/include/QtCore -I. -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../charts-project/View/datawidget.h -o moc_datawidget.cpp
 
-moc_adddialog.cpp: ../../../../Qt/5.9.5/gcc_64/include/QtCore/QObject \
+moc_trainingdialog.cpp: ../../../../Qt/5.9.5/gcc_64/include/QtCore/QObject \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qobject.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qobjectdefs.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qnamespace.h \
@@ -2156,15 +2156,18 @@ moc_adddialog.cpp: ../../../../Qt/5.9.5/gcc_64/include/QtCore/QObject \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qdatetime.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QDoubleSpinBox \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qspinbox.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QPushButton \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qpushbutton.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qabstractbutton.h \
 		../charts-project/View/typedialog.h \
-		../charts-project/addvalues.h \
+		../charts-project/trainingvalues.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/QString \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/QTime \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/QDateTime \
-		../charts-project/View/adddialog.h \
+		../charts-project/View/trainingdialog.h \
 		moc_predefs.h \
 		../../../../Qt/5.9.5/gcc_64/bin/moc
-	/home/matteo/Qt/5.9.5/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/matteo/Qt/5.9.5/gcc_64/mkspecs/linux-g++ -I/home/matteo/Documenti/GitHub/charts-project/charts-project -I/home/matteo/Qt/5.9.5/gcc_64/include -I/home/matteo/Qt/5.9.5/gcc_64/include/QtCharts -I/home/matteo/Qt/5.9.5/gcc_64/include/QtWidgets -I/home/matteo/Qt/5.9.5/gcc_64/include/QtGui -I/home/matteo/Qt/5.9.5/gcc_64/include/QtCore -I. -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../charts-project/View/adddialog.h -o moc_adddialog.cpp
+	/home/matteo/Qt/5.9.5/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/matteo/Qt/5.9.5/gcc_64/mkspecs/linux-g++ -I/home/matteo/Documenti/GitHub/charts-project/charts-project -I/home/matteo/Qt/5.9.5/gcc_64/include -I/home/matteo/Qt/5.9.5/gcc_64/include/QtCharts -I/home/matteo/Qt/5.9.5/gcc_64/include/QtWidgets -I/home/matteo/Qt/5.9.5/gcc_64/include/QtGui -I/home/matteo/Qt/5.9.5/gcc_64/include/QtCore -I. -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../charts-project/View/trainingdialog.h -o moc_trainingdialog.cpp
 
 moc_typedialog.cpp: ../../../../Qt/5.9.5/gcc_64/include/QtCore/QObject \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qobject.h \
@@ -2295,6 +2298,9 @@ moc_typedialog.cpp: ../../../../Qt/5.9.5/gcc_64/include/QtCore/QObject \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qtabwidget.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qrubberband.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qabstractitemmodel.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QPushButton \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qpushbutton.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qabstractbutton.h \
 		../charts-project/View/typedialog.h \
 		moc_predefs.h \
 		../../../../Qt/5.9.5/gcc_64/bin/moc
@@ -2934,7 +2940,7 @@ chartviewer.o: ../charts-project/View/chartviewer.cpp ../charts-project/View/cha
 		../../../../Qt/5.9.5/gcc_64/include/QtCharts/qxylegendmarker.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCharts/qtchartsversion.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCharts/QLineSeries \
-		../charts-project/View/adddialog.h \
+		../charts-project/View/trainingdialog.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QLineEdit \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QDialogButtonBox \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QFormLayout \
@@ -2942,7 +2948,7 @@ chartviewer.o: ../charts-project/View/chartviewer.cpp ../charts-project/View/cha
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QDateTimeEdit \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QDoubleSpinBox \
 		../charts-project/View/typedialog.h \
-		../charts-project/addvalues.h \
+		../charts-project/trainingvalues.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/QString \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/QTime \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/QDateTime
@@ -3628,7 +3634,7 @@ datawidget.o: ../charts-project/View/datawidget.cpp ../charts-project/View/dataw
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QSizePolicy
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o datawidget.o ../charts-project/View/datawidget.cpp
 
-adddialog.o: ../charts-project/View/adddialog.cpp ../charts-project/View/adddialog.h \
+trainingdialog.o: ../charts-project/View/trainingdialog.cpp ../charts-project/View/trainingdialog.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/QObject \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qobject.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qobjectdefs.h \
@@ -3769,58 +3775,15 @@ adddialog.o: ../charts-project/View/adddialog.cpp ../charts-project/View/adddial
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qdatetime.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QDoubleSpinBox \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qspinbox.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QPushButton \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qpushbutton.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qabstractbutton.h \
 		../charts-project/View/typedialog.h \
-		../charts-project/addvalues.h \
+		../charts-project/trainingvalues.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/QString \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/QTime \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/QDateTime
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o adddialog.o ../charts-project/View/adddialog.cpp
-
-addvalues.o: ../charts-project/addvalues.cpp ../charts-project/addvalues.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/QString \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/qstring.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/qchar.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/qglobal.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/qconfig-bootstrapped.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/qconfig.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/qtcore-config.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/qsystemdetection.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/qprocessordetection.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/qcompilerdetection.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/qtypeinfo.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/qsysinfo.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/qlogging.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/qflags.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/qatomic.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/qbasicatomic.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/qatomic_bootstrap.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/qgenericatomic.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/qatomic_cxx11.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/qatomic_msvc.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/qglobalstatic.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/qmutex.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/qnumeric.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/qversiontagging.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/qbytearray.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/qrefcount.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/qnamespace.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/qarraydata.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/qstringbuilder.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/QTime \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/qdatetime.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/qshareddata.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/qhash.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/qiterator.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/qlist.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/qalgorithms.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/qhashfunctions.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/qpair.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/qbytearraylist.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/qstringlist.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/qregexp.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/qstringmatcher.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/QDateTime
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o addvalues.o ../charts-project/addvalues.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o trainingdialog.o ../charts-project/View/trainingdialog.cpp
 
 main.o: ../charts-project/main.cpp ../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QApplication \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qapplication.h \
@@ -4390,7 +4353,7 @@ main.o: ../charts-project/main.cpp ../../../../Qt/5.9.5/gcc_64/include/QtWidgets
 		../../../../Qt/5.9.5/gcc_64/include/QtCharts/qxylegendmarker.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCharts/qtchartsversion.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCharts/QLineSeries \
-		../charts-project/View/adddialog.h \
+		../charts-project/View/trainingdialog.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QLineEdit \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QDialogButtonBox \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QFormLayout \
@@ -4398,7 +4361,7 @@ main.o: ../charts-project/main.cpp ../../../../Qt/5.9.5/gcc_64/include/QtWidgets
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QDateTimeEdit \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QDoubleSpinBox \
 		../charts-project/View/typedialog.h \
-		../charts-project/addvalues.h \
+		../charts-project/trainingvalues.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/QString \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/QTime \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/QDateTime
@@ -4593,8 +4556,57 @@ typedialog.o: ../charts-project/View/typedialog.cpp ../charts-project/View/typed
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qtabbar.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qtabwidget.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qrubberband.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/qabstractitemmodel.h
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qabstractitemmodel.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QPushButton \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qpushbutton.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qabstractbutton.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o typedialog.o ../charts-project/View/typedialog.cpp
+
+trainingvalues.o: ../charts-project/trainingvalues.cpp ../charts-project/trainingvalues.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/QString \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qstring.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qchar.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qglobal.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qconfig.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qtcore-config.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qsystemdetection.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qprocessordetection.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qtypeinfo.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qsysinfo.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qlogging.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qflags.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qatomic.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qbasicatomic.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qgenericatomic.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qatomic_msvc.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qglobalstatic.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qmutex.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qnumeric.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qversiontagging.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qbytearray.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qrefcount.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qnamespace.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qarraydata.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qstringbuilder.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/QTime \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qdatetime.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qshareddata.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qhash.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qiterator.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qlist.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qalgorithms.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qhashfunctions.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qpair.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qbytearraylist.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qstringlist.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qregexp.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qstringmatcher.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/QDateTime
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o trainingvalues.o ../charts-project/trainingvalues.cpp
 
 moc_chartviewer.o: moc_chartviewer.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_chartviewer.o moc_chartviewer.cpp
@@ -4605,8 +4617,8 @@ moc_chartwidget.o: moc_chartwidget.cpp
 moc_datawidget.o: moc_datawidget.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_datawidget.o moc_datawidget.cpp
 
-moc_adddialog.o: moc_adddialog.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_adddialog.o moc_adddialog.cpp
+moc_trainingdialog.o: moc_trainingdialog.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_trainingdialog.o moc_trainingdialog.cpp
 
 moc_typedialog.o: moc_typedialog.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_typedialog.o moc_typedialog.cpp

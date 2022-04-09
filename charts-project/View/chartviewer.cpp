@@ -52,7 +52,7 @@ chartViewer::chartViewer(QWidget *parent) : QWidget(parent)
     addMenu(mainLayout);
     setLayout(mainLayout);
     setStyleSheet("QWidget{background-color : #2e2f30}");
-    showAddDialog();
+    showTrainingDialog();
     resize(1200,700);
 }
 
@@ -84,8 +84,20 @@ QString chartViewer::showImportDialog()
     return fileName;
 }
 
-addValues chartViewer::showAddDialog()
+trainingValues chartViewer::showAddDialog()
 {
     bool ok;
-    return addDialog::getValues(this, &ok);
+    return trainingDialog::getValues(this, &ok,add);
+}
+
+trainingValues chartViewer::showRemoveDialog()
+{
+    bool ok;
+    return trainingDialog::getValues(this, &ok,eliminate, trainings);
+}
+
+trainingValues chartViewer::showSetDialog()
+{
+    bool ok;
+    return trainingDialog::getValues(this, &ok,set,trainings);
 }

@@ -29,6 +29,11 @@ void TimeSpan::setTime(unsigned int h, unsigned int m, unsigned int s) {
 
 bool TimeSpan::isNull() const { return sec == 0; }
 
+std::string TimeSpan::toString() const
+{
+    return std::string(std::to_string(getHours()) + "/" + std::to_string(getMinutes()) + "/" + std::to_string(getSeconds()));
+}
+
 TimeSpan TimeSpan::operator+(const TimeSpan &time) const {
   unsigned int totSec = sec + time.sec;
   unsigned int h = totSec / secInHour, m = (totSec % secInHour) / secInMinute,

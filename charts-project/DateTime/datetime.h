@@ -21,6 +21,7 @@ public:
 
     Date getDate() const;
     Time getTime() const;
+    std::string toString() const;
     void setDateTime(const Date& date, const Time& time);
     DateTime operator+(const TimeSpan& time) const;
     DateTime operator-(const TimeSpan& time) const;
