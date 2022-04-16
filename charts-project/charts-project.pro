@@ -20,11 +20,14 @@ SOURCES += \
     Model/model.cpp \
     DateTime/timespan.cpp \
     Model/trainingcreator.cpp \
+    View/adddialog.cpp \
     View/chartviewer.cpp \
     View/chartwidget.cpp \
     View/datawidget.cpp \
+    View/exercisedialog.cpp \
+    View/removedialog.cpp \
     View/selecttrainingdialog.cpp \
-    View/trainingdialog.cpp \
+    View/setdialog.cpp \
     main.cpp \
     Model/plan.cpp \
     Model/repetition.cpp \
@@ -39,11 +42,14 @@ SOURCES += \
 HEADERS += \
     DateTime/date.h \
     DateTime/datetime.h \
+    View/adddialog.h \
     View/chartviewer.h \
     View/chartwidget.h \
     View/datawidget.h \
+    View/exercisedialog.h \
+    View/removedialog.h \
     View/selecttrainingdialog.h \
-    View/trainingdialog.h \
+    View/setdialog.h \
     action.h \
     Model/cycling.h \
     Model/endurance.h \

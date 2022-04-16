@@ -13,7 +13,7 @@
 #include "datawidget.h"
 #include "chartwidget.h"
 #include "./Model/training.h"
-#include "trainingdialog.h"
+#include "adddialog.h"
 #include "trainingvalues.h"
 #include "action.h"
 
@@ -25,7 +25,7 @@ private:
     dataWidget* dataW;
     chartWidget* chartW;
     QDialog* dialog;
-    const std::vector<Training*>& trainings;
+    const std::vector<Training*>* trainings;
     void addMenu(QHBoxLayout* mainLayout);
 
 

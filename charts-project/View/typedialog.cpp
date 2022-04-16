@@ -5,6 +5,8 @@ typeDialog::typeDialog(QWidget* parent): QDialog(parent)
     QVBoxLayout *mainL = new QVBoxLayout;
     QHBoxLayout *typeLayout = new QHBoxLayout;
     QHBoxLayout *buttonsLayout = new QHBoxLayout;
+    QFont font;
+    font.setBold(true);
 
     setStyleSheet("QDialog{background-color: #404244}");
     setFixedSize(250,90);
@@ -32,6 +34,7 @@ typeDialog::typeDialog(QWidget* parent): QDialog(parent)
     typeBox->addItem(QString("Rugby"));
 
     QLabel* type = new QLabel(QString("Tipo allenamento"), this);
+    type->setFont(font);
     type->setStyleSheet("QWidget {background-color: #404244; color: white}");
     typeLayout->addWidget(type);
     typeLayout->addWidget(typeBox);
@@ -39,12 +42,12 @@ typeDialog::typeDialog(QWidget* parent): QDialog(parent)
     QDialogButtonBox *buttonBox = new QDialogButtonBox(Qt::Orientation::Horizontal,this);
 
     QPushButton* first = new QPushButton(QString("Ok"), buttonBox);
-    first->setStyleSheet("QPushButton {background-color : #404244 ; color: white ; selection-background-color: #c26110 ;"
+    first->setStyleSheet("QPushButton {background-color: #56585a; color: white ; selection-background-color: #c26110 ;"
                          "selection-color : white} ");
     first->setDefault(true);
 
     QPushButton* second = new QPushButton(QString("Cancel"), buttonBox);
-    second->setStyleSheet("QPushButton {background-color : #404244 ; color: white ; selection-background-color: #c26110 ;"
+    second->setStyleSheet("QPushButton {background-color: #56585a; color: white ; selection-background-color: #c26110 ;"
                          "selection-color : white} ");
     second->setAutoDefault(false);
 

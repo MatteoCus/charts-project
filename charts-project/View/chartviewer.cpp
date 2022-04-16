@@ -52,7 +52,10 @@ chartViewer::chartViewer(QWidget *parent) : QWidget(parent)
     addMenu(mainLayout);
     setLayout(mainLayout);
     setStyleSheet("QWidget{background-color : #2e2f30}");
-    showTrainingDialog();
+    trainingValues t = showAddDialog();
+    std::cout<<t.name.toStdString()<<" "<<t.start.date().day()<<" "<<t.start.date().month()<<" "<<t.start.date().year()<<" "<<std::endl;
+    if (t.type.toStdString() == "Corsa" || t.type.toStdString() == "Ciclismo" || t.type.toStdString() == "Ciclismo")
+        std::cout<<t.duration.hour()<<":"<<t.duration.minute()<<":"<<t.duration.second()<<" "<<t.distance<<std::endl;
     resize(1200,700);
 }
 
@@ -87,10 +90,10 @@ QString chartViewer::showImportDialog()
 trainingValues chartViewer::showAddDialog()
 {
     bool ok;
-    return trainingDialog::getValues(this, &ok,add);
+    return addDialog::getValues(this, &ok);
 }
 
-trainingValues chartViewer::showRemoveDialog()
+/*trainingValues chartViewer::showRemoveDialog()
 {
     bool ok;
     return trainingDialog::getValues(this, &ok,eliminate, trainings);
@@ -100,4 +103,4 @@ trainingValues chartViewer::showSetDialog()
 {
     bool ok;
     return trainingDialog::getValues(this, &ok,set,trainings);
-}
+}*/
