@@ -26,7 +26,7 @@ Time DateTime::getTime() const {return time;}
 
 std::string DateTime::toString() const
 {
-    return date.toString() + time.toString();
+    return date.toString() + " " + time.toString();
 }
 
 void DateTime::setDateTime(const Date& date, const Time& time){

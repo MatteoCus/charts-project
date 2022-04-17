@@ -1,18 +1,18 @@
-#include "adddialog.h"
+#include "trainingdialog.h"
 #include <iostream>
 
-void addDialog::setLabelStyleSheet(QLabel* name)
+void trainingDialog::setLabelStyleSheet(QLabel* name)
 {
     name->setStyleSheet("QLabel {background-color: #404244; color: white}");
 }
 
-void addDialog::addToLayout(QBoxLayout* layout, QWidget* w1, QWidget* w2)
+void trainingDialog::addToLayout(QBoxLayout* layout, QWidget* w1, QWidget* w2)
 {
     layout->addWidget(w1);
     layout->addWidget(w2);
 }
 
-void addDialog::setupRepetition(QBoxLayout* mainL)
+void trainingDialog::setupRepetition(QBoxLayout* mainL, action act, const Repetition* training)
 {
     std::vector<QHBoxLayout *> nameExLayout;
     std::vector<QHBoxLayout *> exDurationLayout;
@@ -23,16 +23,15 @@ void addDialog::setupRepetition(QBoxLayout* mainL)
     QFont font;
     font.setItalic(true);
 
-    setupCommon(firstLayout);
+    setupCommon(firstLayout,act,training);
 
     firstLayout->setContentsMargins(0,0,15,0);
     rowLayout.push_back(firstLayout);
-    unsigned int exNumber = showExNumberDialog();
+    unsigned int exNumber = (act == add? showExNumberDialog() : training->getExercises().size());
     if (exNumber > 3){
         QHBoxLayout * horizLayout = new QHBoxLayout;
         horizLayout->addLayout(firstLayout);
         unsigned int numVerticalLayout = exNumber/3 + (exNumber%3==0? 0 : 1);
-        std::cout<<numVerticalLayout<<std::endl;
         for(unsigned int i=1; i < numVerticalLayout  ; ++i)
         {
             QVBoxLayout * otherLayout = new QVBoxLayout;
@@ -57,7 +56,35 @@ void addDialog::setupRepetition(QBoxLayout* mainL)
         nameExLabel.push_back(auxLabel);
         auxLabel->setFont(font);
 
-        QLineEdit* auxEdit = new QLineEdit(this);
+        QLineEdit* auxEdit;
+        QTimeEdit* auxDuration;
+        QTimeEdit* auxRecovery;
+
+        if (act == add)
+        {
+            auxEdit = new QLineEdit(this);
+            auxDuration = new QTimeEdit(QTime(1,0,0),this);
+            auxRecovery= new QTimeEdit(QTime(1,0,0),this);
+        }
+        else
+        {
+            Exercise* ex = training->getExercise(i);
+            Time dur = ex->getDuration();
+            Time rec = ex->getRecoveryTime();
+
+            auxEdit = new QLineEdit(QString::fromStdString(ex->getName()));
+            auxDuration = new QTimeEdit(QTime(dur.getHours(),dur.getMinutes(),dur.getSeconds()),this);
+            auxRecovery = new QTimeEdit(QTime(rec.getHours(),rec.getMinutes(),rec.getSeconds()),this);
+
+            if (act == eliminate)
+            {
+                auxEdit->setReadOnly(true);
+                auxDuration->setReadOnly(true);
+                auxRecovery->setReadOnly(true);
+            }
+        }
+
+
         auxEdit->setStyleSheet("QLineEdit {background-color: #56585a; color: white ; selection-background-color: #c26110 ;"
                               "selection-color : white} ");
         auxEdit->setAlignment(Qt::AlignCenter);
@@ -71,7 +98,7 @@ void addDialog::setupRepetition(QBoxLayout* mainL)
         QLabel* exDurationLabel = new QLabel(QString("Durata attività"), this);
         exDurationLabel->setFont(font);
 
-        QTimeEdit* auxDuration = new QTimeEdit(QTime(1,0,0),this);
+
         auxDuration->setStyleSheet("QTimeEdit {background-color: #56585a; color: white ; selection-background-color: #c26110 ;"
                                   "selection-color : white} ");
         auxDuration->setDisplayFormat("hh:mm:ss");
@@ -86,7 +113,6 @@ void addDialog::setupRepetition(QBoxLayout* mainL)
         QLabel* exRecoveryLabel = new QLabel(QString("Durata recupero"), this);
         exRecoveryLabel->setFont(font);
 
-        QTimeEdit* auxRecovery = new QTimeEdit(QTime(1,0,0),this);
         auxRecovery->setStyleSheet("QTimeEdit {background-color: #56585a; color: white ; selection-background-color: #c26110 ;"
                                   "selection-color : white} ");
         auxRecovery->setDisplayFormat("hh:mm:ss");
@@ -106,17 +132,35 @@ void addDialog::setupRepetition(QBoxLayout* mainL)
     }
 }
 
-void addDialog::setupEndurance(QBoxLayout* mainL)
+void trainingDialog::setupEndurance(QBoxLayout* mainL, action act, const Endurance* training)
 {
     QHBoxLayout *distanceLayout = new QHBoxLayout;
+    QHBoxLayout *durationLayout = new QHBoxLayout;
+    QFont font;
+    font.setBold(true);
+
+
+
     distance = new QDoubleSpinBox(this);
+    if (act == add)
+        duration = new QTimeEdit(QTime(1,0,0),this);
+    else
+    {
+        Time time = training->Duration();
+        double dist = training->getDistance();
+
+        duration = new QTimeEdit(QTime(time.getHours(),time.getMinutes(),time.getSeconds()),this);
+        distance->setValue(dist);
+
+        if( act == eliminate)
+        {   duration->setReadOnly(true);
+            distance->setReadOnly(true);
+        }
+    }
     distance->setFixedWidth(150);
     distance->setAlignment(Qt::AlignCenter);
     distance->setStyleSheet("QDoubleSpinBox {background-color: #56585a; color: white ; selection-background-color: #c26110 ;"
                             "selection-color : white} ");
-
-    QFont font;
-    font.setBold(true);
     QLabel* distanceLabel = new QLabel(QString("Distanza percorsa"), this);
     distanceLabel->setFixedWidth(150);
     distanceLabel->setFont(font);
@@ -124,8 +168,6 @@ void addDialog::setupEndurance(QBoxLayout* mainL)
     setLabelStyleSheet(distanceLabel);
     addToLayout(distanceLayout,distanceLabel,distance);
 
-    QHBoxLayout *durationLayout = new QHBoxLayout;
-    duration = new QTimeEdit(QTime(1,0,0),this);
     duration->setFixedWidth(150);
     duration->setAlignment(Qt::AlignCenter);
     duration->setStyleSheet("QTimeEdit {background-color: #56585a; color: white ; selection-background-color: #c26110 ;"
@@ -134,6 +176,8 @@ void addDialog::setupEndurance(QBoxLayout* mainL)
     duration->setDisplayFormat("hh:mm:ss");
     durationLabel->setFixedWidth(150);
     durationLabel->setFont(font);
+
+
 
     this->setFixedSize(327,200);
 
@@ -144,7 +188,7 @@ void addDialog::setupEndurance(QBoxLayout* mainL)
     mainL->addLayout(durationLayout);
 }
 
-void addDialog::setupCommon(QBoxLayout* mainL)
+void trainingDialog::setupCommon(QBoxLayout* mainL, action act, const Training* training)
 {
     QHBoxLayout *nameLayout = new QHBoxLayout;
     QHBoxLayout *startLayout = new QHBoxLayout;
@@ -152,16 +196,39 @@ void addDialog::setupCommon(QBoxLayout* mainL)
     font.setBold(true);
 
     QLabel* nameLabel = new QLabel(QString("Nome"), this);
+
+    if (act == add)
+    {
+        name = new QLineEdit(QString("Nome Allenamento"), this);
+        start = new QDateTimeEdit(QDateTime::currentDateTime());
+    }
+    else
+    {
+        if (!training)
+            throw std::runtime_error("Allenamento non valido!");
+        Date date = training->getStart().getDate();
+        Time time = training->getStart().getTime();
+        QString trainingName = QString::fromStdString(training->getName());
+        QDateTime* qdatetime = new QDateTime(QDate(date.getYear(),date.getMonth(), date.getDay()), QTime(time.getHours(),time.getMinutes(),time.getSeconds()));
+
+        name = new QLineEdit(trainingName, this);
+        start = new QDateTimeEdit(*qdatetime,this);
+
+        if( act == eliminate)
+        {   name->setReadOnly(true);
+            start->setReadOnly(true);
+        }
+    }
     nameLabel->setFont(font);
-    name = new QLineEdit(QString("Nome Allenamento"), this);
     name->setFixedWidth(150);
     name->setAlignment(Qt::AlignCenter);
-    start = new QDateTimeEdit(QDateTime::currentDateTime());
-    start->setFixedWidth(150);
-    start->setAlignment(Qt::AlignCenter);
 
     name->setStyleSheet("QLineEdit {background-color: #56585a; color: white ; selection-background-color: #c26110 ;"
                         "selection-color : white} ");
+
+    start->setFixedWidth(150);
+    start->setAlignment(Qt::AlignCenter);
+
 
     setLabelStyleSheet(nameLabel);
 
@@ -182,7 +249,7 @@ void addDialog::setupCommon(QBoxLayout* mainL)
     mainL->addLayout(startLayout);
 }
 
-int addDialog::showExNumberDialog() //guarda come settare lo stylesheet di un QInputDialog
+int trainingDialog::showExNumberDialog() //guarda come settare lo stylesheet di un QInputDialog
 {
     bool ok = false;
     QInputDialog* dial = new QInputDialog(this);
@@ -195,19 +262,44 @@ int addDialog::showExNumberDialog() //guarda come settare lo stylesheet di un QI
     return remove;
 }
 
-addDialog::addDialog(QWidget *parent) : QDialog(parent)
+trainingDialog::trainingDialog(QWidget *parent, action act, const Training* training) : QDialog(parent)
 {
     QVBoxLayout *mainL = new QVBoxLayout;
     QHBoxLayout *buttonsLayout = new QHBoxLayout;
     bool ok;
-    type = typeDialog::getType(this,&ok);
-    if (type == "Camminata" || type == "Corsa" || type == "Ciclismo")
+    if (act == add)
     {
-        setupCommon(mainL);
-        setupEndurance(mainL);
+        type = typeDialog::getType(this,&ok);
+        if (type == "Camminata" || type == "Corsa" || type == "Ciclismo")
+        {
+            type = "Endurance";
+            setupCommon(mainL,act);
+            setupEndurance(mainL,act);
+        }
+        else //if(type == "Tennis" || type == "Rugby")
+        {
+            type = "Repetition";
+            setupRepetition(mainL,act);
+        }
+
     }
-    else //if(type == "Tennis" || type == "Rugby")
-        setupRepetition(mainL);
+    else if (act == set || act == eliminate)
+    {
+        if (dynamic_cast<const Endurance*>(training))
+        {
+            type = "Endurance";
+            setupCommon(mainL,act,training);
+            setupEndurance(mainL,act,static_cast<const Endurance*>(training));
+        }
+        else //if(type == "Tennis" || type == "Rugby")
+        {
+            type = "Repetition";
+            setupRepetition(mainL,act, static_cast<const Repetition*>(training));
+        }
+
+    }
+    else
+        throw std::runtime_error("Tipo di operazione non consentito!");
 
     this->setStyleSheet("QWidget{background-color : #404244; color : white}");
     QDialogButtonBox *buttonBox = new QDialogButtonBox(Qt::Orientation::Horizontal,this);
@@ -232,18 +324,18 @@ addDialog::addDialog(QWidget *parent) : QDialog(parent)
     mainL->addLayout(buttonsLayout);
 
     bool conn = connect(buttonBox, &QDialogButtonBox::accepted,
-                      this, &addDialog::accept);
+                      this, &trainingDialog::accept);
     Q_ASSERT(conn);
     conn = connect(buttonBox, &QDialogButtonBox::rejected,
-        this, &addDialog::reject);
+        this, &trainingDialog::reject);
     Q_ASSERT(conn);
 
     setLayout(mainL);
 }
 
-trainingValues addDialog::getValues(QWidget *parent, bool *ok)
+trainingValues trainingDialog::getValues(QWidget *parent, bool *ok, action act, const Training* training)
 {
-    addDialog *dialog = new addDialog(parent);
+    trainingDialog *dialog = new trainingDialog(parent,act,training);
 
         const int ret = dialog->exec();
         if (ok)
@@ -257,12 +349,11 @@ trainingValues addDialog::getValues(QWidget *parent, bool *ok)
         QDateTime start;
         QString type;
         double distance = 0.0;
-        if (ret) {      //modifica per modifica di tutti gli esercizi di un repetition (metti un indice dell'esercizio modificato)
-
+        if (ret) {
             type = dialog->type;
             name = dialog->name->text();
             start = dialog->start->dateTime();
-            if(type == "Tennis" || type == "Rugby")
+            if(type == "Repetition")
             {
                 for (unsigned int i = 0; i < dialog->nameEx.size(); ++i)
                 {
@@ -270,13 +361,14 @@ trainingValues addDialog::getValues(QWidget *parent, bool *ok)
                     exDuration.push_back(dialog->exDuration[i]->time());
                     recovery.push_back(dialog->exRecovery[i]->time());
                 }
-                std::cout<<dialog->nameEx.size()<<std::endl;
             }
-            else
+            else if(type == "Endurance")
             {
                 distance = dialog->distance->value();
                 duration = dialog->duration->time();
             }
+            else
+                throw std::runtime_error("Tipo di allenamento errato!");
         }
         dialog->deleteLater();
         return trainingValues(type,start,name,distance,duration,exName,exDuration,recovery);

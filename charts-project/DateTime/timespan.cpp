@@ -31,7 +31,7 @@ bool TimeSpan::isNull() const { return sec == 0; }
 
 std::string TimeSpan::toString() const
 {
-    return std::string(std::to_string(getHours()) + "/" + std::to_string(getMinutes()) + "/" + std::to_string(getSeconds()));
+    return std::string((getHours() < 10? "0" : "") + std::to_string(getHours()) + ":" + (getMinutes() < 10? "0" : "") + std::to_string(getMinutes()) + ":" + (getSeconds() < 10? "0" : "") +std::to_string(getSeconds()));
 }
 
 TimeSpan TimeSpan::operator+(const TimeSpan &time) const {

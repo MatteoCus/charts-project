@@ -52,10 +52,11 @@ chartViewer::chartViewer(QWidget *parent) : QWidget(parent)
     addMenu(mainLayout);
     setLayout(mainLayout);
     setStyleSheet("QWidget{background-color : #2e2f30}");
-    trainingValues t = showAddDialog();
-    std::cout<<t.name.toStdString()<<" "<<t.start.date().day()<<" "<<t.start.date().month()<<" "<<t.start.date().year()<<" "<<std::endl;
-    if (t.type.toStdString() == "Corsa" || t.type.toStdString() == "Ciclismo" || t.type.toStdString() == "Ciclismo")
-        std::cout<<t.duration.hour()<<":"<<t.duration.minute()<<":"<<t.duration.second()<<" "<<t.distance<<std::endl;
+
+
+    std::cout<<showImportDialog().toStdString()<<std::endl;
+
+
     resize(1200,700);
 }
 
@@ -90,17 +91,37 @@ QString chartViewer::showImportDialog()
 trainingValues chartViewer::showAddDialog()
 {
     bool ok;
-    return addDialog::getValues(this, &ok);
+    return trainingDialog::getValues(this, &ok,add);
 }
 
-/*trainingValues chartViewer::showRemoveDialog()
+trainingValues chartViewer::showRemoveDialog()
 {
-    bool ok;
-    return trainingDialog::getValues(this, &ok,eliminate, trainings);
+    bool ok, found = false;
+    QString start = selectTrainingDialog::getDate(this,&ok,trainings);
+    unsigned int n = 0;
+    for (unsigned int i = 0; i < trainings->size() && !found ; ++i)
+    {
+        if ((*trainings)[i]->getStart().toString() == start.toStdString())
+        {
+            found = true;
+            n = i;
+        }
+    }
+    return trainingDialog::getValues(this,&ok,eliminate,(*trainings)[n]);
 }
 
 trainingValues chartViewer::showSetDialog()
 {
-    bool ok;
-    return trainingDialog::getValues(this, &ok,set,trainings);
-}*/
+    bool ok, found = false;
+    QString start = selectTrainingDialog::getDate(this,&ok,trainings);
+    unsigned int n = 0;
+    for (unsigned int i = 0; i < trainings->size() && !found ; ++i)
+    {
+        if ((*trainings)[i]->getStart().toString() == start.toStdString())
+        {
+            found = true;
+            n = i;
+        }
+    }
+    return trainingDialog::getValues(this,&ok,set,(*trainings)[n]);
+}

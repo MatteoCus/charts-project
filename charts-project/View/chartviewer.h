@@ -13,9 +13,17 @@
 #include "datawidget.h"
 #include "chartwidget.h"
 #include "./Model/training.h"
-#include "adddialog.h"
+
+#include "./Model/run.h"
+#include "./Model/cycling.h"
+#include "./Model/tennis.h"
+#include "./Model/rugby.h"
+#include "./Model/walk.h"
+
+#include "trainingdialog.h"
 #include "trainingvalues.h"
 #include "action.h"
+#include "selecttrainingdialog.h"
 
 class chartViewer : public QWidget
 {

@@ -63,7 +63,7 @@ unsigned int Date::getYear() const { return year;}
 
 std::string Date::toString() const
 {
-    return std::string(std::to_string(day) + "/" + std::to_string(month) + "/" + std::to_string(year));
+    return std::string((day < 10? "0" : "") + std::to_string(day) + "/" + (month < 10? "0" : "") +std::to_string(month) + "/" + std::to_string(year));
 }
 
 Date Date::operator+(unsigned int n) const{ //n è il numero di giorni

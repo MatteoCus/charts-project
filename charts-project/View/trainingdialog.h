@@ -1,5 +1,5 @@
-#ifndef ADDDIALOG_H
-#define ADDDIALOG_H
+#ifndef TRAININGDIALOG_H
+#define TRAININGDIALOG_H
 
 #include <QObject>
 #include <QDialog>
@@ -12,13 +12,18 @@
 #include <QDoubleSpinBox>
 #include <QPushButton>
 #include "./Model/training.h"
+#include "./Model/endurance.h"
+#include "./Model/repetition.h"
+#include "./Model/rugby.h"
+#include "./Model/run.h"
+#include "./Model/walk.h"
 #include "typedialog.h"
 #include "trainingvalues.h"
 #include "selecttrainingdialog.h"
 #include "action.h"
 #include <QInputDialog>
 
-class addDialog : public QDialog
+class trainingDialog : public QDialog
 {
     Q_OBJECT
 private:
@@ -37,16 +42,16 @@ private:
 
     void addToLayout(QBoxLayout* layout, QWidget* w1, QWidget* w2);
 
-    void setupRepetition(QBoxLayout *mainL);
+    void setupRepetition(QBoxLayout *mainL, action act, const Repetition* training = nullptr);
 
-    void setupEndurance(QBoxLayout *mainL);
+    void setupEndurance(QBoxLayout *mainL, action act, const Endurance* training = nullptr);
 
-    void setupCommon(QBoxLayout *mainL);
+    void setupCommon(QBoxLayout *mainL, action act, const Training* training = nullptr);
 
     int showExNumberDialog();
 public:
-    explicit addDialog(QWidget *parent = nullptr);
-    static trainingValues getValues(QWidget* parent = nullptr, bool *ok = nullptr);
+    explicit trainingDialog(QWidget *parent, action act, const Training* training = nullptr);
+    static trainingValues getValues(QWidget* parent, bool *ok, action act, const Training* training = nullptr);
 };
 
-#endif // ADDDIALOG_H
+#endif // TRAININGDIALOG_H
