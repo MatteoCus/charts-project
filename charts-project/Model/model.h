@@ -7,6 +7,7 @@
 #include "training.h"
 #include "trainingcreator.h"
 #include <string>
+#include <vector>
 
 class Model {
 private:
@@ -17,9 +18,9 @@ public:
   void addNewTraining(const std::string &type, const std::string &name,
                       const DateTime &start, double distance = 0.0,
                       const TimeSpan &duration = TimeSpan(),
-                      const std::string &exName = "",
-                      const TimeSpan &exDuration = TimeSpan(),
-                      const TimeSpan &exRecovery = TimeSpan()) const;
+                      const std::vector<std::string>* exName = nullptr,
+                      const std::vector<TimeSpan>* exDuration = nullptr,
+                      const std::vector<TimeSpan>* exRecovery = nullptr) const;
 
   void removeTraining(unsigned int pos) const;
   Training *getTraining(unsigned int pos) const;

@@ -10,7 +10,7 @@ Endurance::Endurance(const std::string &name, const DateTime& start, double dist
 
 double Endurance::getDistance() const{return distance;}
 
-TimeSpan Endurance::Duration() const{return duration;}
+TimeSpan Endurance::getDuration() const{return duration;}
 
 void Endurance::setDistance(double dist){
     distance = (dist > 0? dist : throw std::invalid_argument("Invalid value of distance inserted"));

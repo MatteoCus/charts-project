@@ -8,7 +8,7 @@ Run::Run(const std::string &name, const DateTime& start, double dist, const Time
 */
 TimeSpan Run::Pace() const{
   if(getDistance())
-    return Duration()/getDistance();
+    return getDuration()/getDistance();
   throw std::runtime_error("Trying to calculate pace with a null distance");
 }
 

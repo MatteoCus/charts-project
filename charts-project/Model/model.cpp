@@ -4,9 +4,9 @@ Model::Model() : plan(new Plan()) {}
 
 void Model::addNewTraining(const std::string &type, const std::string &name,
                            const DateTime &start, double distance,
-                           const TimeSpan &duration, const std::string &exName,
-                           const TimeSpan &exDuration,
-                           const TimeSpan &exRecovery) const {
+                           const TimeSpan &duration, const std::vector<std::string>* exName,
+                           const std::vector<TimeSpan>* exDuration,
+                           const std::vector<TimeSpan>* exRecovery) const {
     trainingCreator *creator = new trainingCreator();
     Training *tr =
         creator->createTraining(type, name, start, distance, duration, exName,
@@ -40,7 +40,6 @@ unsigned int Model::getPlanSize() const { return plan->getSize(); }
 
 bool Model::isEmpty() const { return plan->isEmpty(); }
 
-// rule of three
 Model::Model(const Model &model) : plan(new Plan(*model.plan)) {}
 
 Model &Model::operator=(const Model &model) {

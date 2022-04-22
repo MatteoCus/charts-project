@@ -9,8 +9,8 @@ bool Plan::check(Training *training) {
          (start > (*it)->getEnd())) {
     ++it;
   }
-  if (it == trainings.end() ||
-      ((training->getEnd() < (*it)->getStart()))) //&& (start < (*it)->getEnd())))
+  if (training->getDuration() <= TimeSpan(10) && (it == trainings.end() ||
+      (training->getEnd() < (*it)->getStart())))
     return true;
   else
     return false;
@@ -56,9 +56,11 @@ void Plan::setTraining(unsigned int pos, const std::string &name, const DateTime
                        const TimeSpan &exRecovery) {
   if (pos >= getSize())
     throw std::out_of_range("Invalid modify index");
+
   auto it = trainings.begin();
   std::advance(it, pos);
   Training *backup = (*it)->clone();
+
   try {
     (*it)->setName(name);
     if (dynamic_cast<Endurance *>(*it)) {

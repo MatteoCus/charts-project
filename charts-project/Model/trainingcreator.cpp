@@ -4,9 +4,9 @@
 Training *trainingCreator::createTraining(const std::string &type,
                                           const std::string &name, const DateTime &start,
                                           double distance, TimeSpan duration,
-                                          const std::string &exName,
-                                          const TimeSpan &exDuration,
-                                          const TimeSpan &exRecovery) const {
+                                          const std::vector<std::string>* exName,
+                                          const std::vector<TimeSpan>* exDuration,
+                                          const std::vector<TimeSpan>* exRecovery) const {
     if (type == "Cycling") {
       return new Cycling(name, start, distance, duration);
     } else if (type == "Run") {
@@ -21,9 +21,13 @@ Training *trainingCreator::createTraining(const std::string &type,
     } else if (type == "Tennis") {
       aux = new Tennis(name, start);
     }
-    if (aux) {
+    if (aux && (exName->size() == exDuration->size() && exDuration->size() == exRecovery->size() && exName->size() > 0)) {
       exerciseCreator *creator = new exerciseCreator();
-      aux->addExercise(creator->createExercise(exName, exDuration, exRecovery));
+      for (unsigned int i = 0; i < exName->size(); ++i )
+          aux->addExercise(creator->createExercise((*exName)[i], (*exDuration)[i], (*exRecovery)[i]));
+
+      delete creator;
+
       return aux;
     } else
       throw std::runtime_error("Invalid type of training inserted");

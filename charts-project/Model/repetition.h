@@ -26,7 +26,7 @@ public:
   unsigned int getSize() const;
   TimeSpan totalRecovery() const;
   bool isEmpty() const;
-  TimeSpan Duration() const override;
+  TimeSpan getDuration() const override;
   virtual double Intensity() const = 0; // calculate the intensity of a specific
                                         // training (value in % format)
 

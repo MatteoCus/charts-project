@@ -54,9 +54,6 @@ chartViewer::chartViewer(QWidget *parent) : QWidget(parent)
     setStyleSheet("QWidget{background-color : #2e2f30}");
 
 
-    std::cout<<showImportDialog().toStdString()<<std::endl;
-
-
     resize(1200,700);
 }
 

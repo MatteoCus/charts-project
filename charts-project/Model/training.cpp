@@ -15,7 +15,7 @@ double Training::getWeight() const  {return avgWeight;}
 
 DateTime Training::getStart() const {return start;}
 
-DateTime Training::getEnd() const {return start + Duration();}
+DateTime Training::getEnd() const {return start + getDuration();}
 
 void Training::setName(const std::string &trName){
     name = trName != "" ? trName : throw std::invalid_argument("Invalid training name inserted!");

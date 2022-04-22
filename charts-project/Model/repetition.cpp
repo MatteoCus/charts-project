@@ -50,7 +50,7 @@ TimeSpan Repetition::totalRecovery() const {
 
 bool Repetition::isEmpty() const { return exercises.empty(); }
 
-TimeSpan Repetition::Duration() const {
+TimeSpan Repetition::getDuration() const {
   TimeSpan duration;
   for (auto it = exercises.begin(); it != exercises.end(); ++it)
     duration = duration + ((*it)->getDuration()) + ((*it)->getRecoveryTime());

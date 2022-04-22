@@ -9,15 +9,16 @@
 #include "walk.h"
 #include <stdexcept>
 #include <string>
+#include <vector>
 
 class trainingCreator {
 public:
   Training *createTraining(const std::string &type, const std::string &name,
                            const DateTime &start, double distance = 0.0,
                            TimeSpan duration = TimeSpan(),
-                           const std::string &exName = "",
-                           const TimeSpan &exDuration = TimeSpan(),
-                           const TimeSpan &exRecovery = TimeSpan()) const;
+                           const std::vector<std::string>* exName = nullptr,
+                           const std::vector<TimeSpan>* exDuration = nullptr,
+                           const std::vector<TimeSpan>* exRecovery = nullptr) const;
 };
 
 #endif // TRAININGCREATOR_H

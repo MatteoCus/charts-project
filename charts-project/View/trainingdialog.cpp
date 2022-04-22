@@ -146,7 +146,7 @@ void trainingDialog::setupEndurance(QBoxLayout* mainL, action act, const Enduran
         duration = new QTimeEdit(QTime(1,0,0),this);
     else
     {
-        Time time = training->Duration();
+        Time time = training->getDuration();
         double dist = training->getDistance();
 
         duration = new QTimeEdit(QTime(time.getHours(),time.getMinutes(),time.getSeconds()),this);
