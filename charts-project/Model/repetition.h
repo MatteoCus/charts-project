@@ -13,6 +13,7 @@ private:
   std::vector<Exercise *> exercises;
   static std::vector<Exercise *> copy(const Repetition &repTraining);
   static void destroy(const Repetition &repTraining);
+  bool isEmpty() const;
 
 public:
   Repetition() = default;
@@ -25,7 +26,6 @@ public:
   void setExercise(unsigned int position, Exercise *ex);
   unsigned int getSize() const;
   TimeSpan totalRecovery() const;
-  bool isEmpty() const;
   TimeSpan getDuration() const override;
   virtual double Intensity() const = 0; // calculate the intensity of a specific
                                         // training (value in % format)

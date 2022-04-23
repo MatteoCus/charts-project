@@ -22,8 +22,8 @@ SOURCES += \
     Model/trainingcreator.cpp \
     View/chartviewer.cpp \
     View/chartwidget.cpp \
-    View/datawidget.cpp \
     View/selecttrainingdialog.cpp \
+    View/tablewidget.cpp \
     View/trainingdialog.cpp \
     main.cpp \
     Model/plan.cpp \
@@ -41,8 +41,8 @@ HEADERS += \
     DateTime/datetime.h \
     View/chartviewer.h \
     View/chartwidget.h \
-    View/datawidget.h \
     View/selecttrainingdialog.h \
+    View/tablewidget.h \
     View/trainingdialog.h \
     action.h \
     Model/cycling.h \

@@ -39,11 +39,23 @@ void chartViewer::addMenu(QHBoxLayout* mainLayout)
     mainLayout->setMenuBar(menuBar);
 }
 
+void chartViewer::findTraining(unsigned int &n, bool found, const QString& start)
+{
+    for (unsigned int i = 0; i < trainings->size() && !found ; ++i)
+    {
+        if ((*trainings)[i]->getStart().toString() == start.toStdString())
+        {
+            found = true;
+            n = i;
+        }
+    }
+}
+
 chartViewer::chartViewer(QWidget *parent) : QWidget(parent)
 {
     mainLayout = new QHBoxLayout;
 
-    dataW = new dataWidget(this);
+    dataW = new tableWidget(this);
     chartW = new chartWidget(this);
     mainLayout->setSpacing(40);
     mainLayout->addWidget(dataW);
@@ -53,7 +65,51 @@ chartViewer::chartViewer(QWidget *parent) : QWidget(parent)
     setLayout(mainLayout);
     setStyleSheet("QWidget{background-color : #2e2f30}");
 
+    auto aux = new std::vector<const Training*>;
+    Date d = Date(21,06,2021);
+    Date d2 = Date(21,07,2021);
+    Time ti = Time(17);
+    Training* t = new Run("C",DateTime(d,ti) ,7.59,TimeSpan(0,15));
+    aux->push_back(t);
+    trainings = aux;
 
+    Tennis* tr = new Tennis("Tennis",DateTime(d2,ti));
+    Exercise* ex = new Exercise("Primo", Time(0,15,0),Time(0,5,0));
+    tr->addExercise(ex);
+    ex = new Exercise("Secondo", Time(0,15,1),Time(0,6,0));
+    tr->addExercise(ex);
+    ex = new Exercise("Secondo", Time(0,15,1),Time(0,6,0));
+    tr->addExercise(ex);
+    ex = new Exercise("Secondo", Time(0,15,1),Time(0,6,0));
+    tr->addExercise(ex);
+    ex = new Exercise("Secondo", Time(0,15,1),Time(0,6,0));
+    tr->addExercise(ex);
+    ex = new Exercise("Secondo", Time(0,15,1),Time(0,6,0));
+    tr->addExercise(ex);
+    ex = new Exercise("Secondo", Time(0,15,1),Time(0,6,0));
+    tr->addExercise(ex);
+    aux->push_back(tr);
+
+    Date d3 = Date(21,05,2021);
+    Time tim = Time(17);
+    Tennis* tr2 = new Tennis("Cristo",DateTime(d3,tim));
+    Exercise* ex2 = new Exercise("Primo", Time(0,15,0),Time(0,5,0));
+    tr2->addExercise(ex2);
+    ex2 = new Exercise("Secondo", Time(0,15,1),Time(0,6,0));
+    tr2->addExercise(ex2);
+    ex2 = new Exercise("Secondo", Time(0,15,1),Time(0,6,0));
+    tr2->addExercise(ex2);
+    ex2 = new Exercise("Secondo", Time(0,15,1),Time(0,6,0));
+    tr2->addExercise(ex2);
+    ex2 = new Exercise("Secondo", Time(0,15,1),Time(0,6,0));
+    tr2->addExercise(ex2);
+    ex2 = new Exercise("Secondo", Time(0,15,1),Time(0,6,0));
+    tr2->addExercise(ex2);
+    ex2 = new Exercise("Secondo", Time(0,15,1),Time(0,6,0));
+    tr2->addExercise(ex2);
+    aux->push_back(tr2);
+
+    showData();
     resize(1200,700);
 }
 
@@ -96,14 +152,7 @@ trainingValues chartViewer::showRemoveDialog()
     bool ok, found = false;
     QString start = selectTrainingDialog::getDate(this,&ok,trainings);
     unsigned int n = 0;
-    for (unsigned int i = 0; i < trainings->size() && !found ; ++i)
-    {
-        if ((*trainings)[i]->getStart().toString() == start.toStdString())
-        {
-            found = true;
-            n = i;
-        }
-    }
+    findTraining(n,found,start);
     return trainingDialog::getValues(this,&ok,eliminate,(*trainings)[n]);
 }
 
@@ -112,13 +161,18 @@ trainingValues chartViewer::showSetDialog()
     bool ok, found = false;
     QString start = selectTrainingDialog::getDate(this,&ok,trainings);
     unsigned int n = 0;
-    for (unsigned int i = 0; i < trainings->size() && !found ; ++i)
-    {
-        if ((*trainings)[i]->getStart().toString() == start.toStdString())
-        {
-            found = true;
-            n = i;
-        }
-    }
+    findTraining(n,found,start);
     return trainingDialog::getValues(this,&ok,set,(*trainings)[n]);
+}
+
+void chartViewer::setData(const std::vector<const Training *> *data)
+{
+    trainings = data;
+}
+
+void chartViewer::showData()
+{
+    dataW->setData(trainings);
+    dataW->showData();
+    //chartW->showData(trainings);
 }

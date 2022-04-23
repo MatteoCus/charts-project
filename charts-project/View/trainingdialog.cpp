@@ -249,7 +249,7 @@ void trainingDialog::setupCommon(QBoxLayout* mainL, action act, const Training* 
     mainL->addLayout(startLayout);
 }
 
-int trainingDialog::showExNumberDialog() //guarda come settare lo stylesheet di un QInputDialog
+int trainingDialog::showExNumberDialog()
 {
     bool ok = false;
     QInputDialog* dial = new QInputDialog(this);

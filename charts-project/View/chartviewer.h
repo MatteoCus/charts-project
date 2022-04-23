@@ -10,7 +10,7 @@
 #include <QFileDialog>
 #include <QFont>
 #include <QPlainTextEdit>
-#include "datawidget.h"
+#include "tablewidget.h"
 #include "chartwidget.h"
 #include "./Model/training.h"
 
@@ -30,12 +30,12 @@ class chartViewer : public QWidget
     Q_OBJECT
 private:
     QHBoxLayout* mainLayout;
-    dataWidget* dataW;
+    tableWidget* dataW;
     chartWidget* chartW;
     QDialog* dialog;
-    const std::vector<Training*>* trainings;
+    const std::vector<const Training*>* trainings;
     void addMenu(QHBoxLayout* mainLayout);
-
+    void findTraining(unsigned int &n, bool found, const QString& start);
 
 public:
     explicit chartViewer(QWidget *parent = nullptr);
@@ -45,6 +45,8 @@ public:
     trainingValues showAddDialog();
     trainingValues showRemoveDialog();
     trainingValues showSetDialog();
+    void setData(const std::vector<const Training*>* data);
+    void showData();
 
 signals:
 

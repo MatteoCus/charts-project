@@ -106,3 +106,8 @@ chartWidget::chartWidget(QWidget *parent) : QWidget(parent)
     mainLayout->setAlignment(Qt::AlignTop);
     setLayout(mainLayout);
 }
+
+void chartWidget::showData(const std::vector<const Training *> *data)
+{
+
+}

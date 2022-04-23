@@ -11,6 +11,8 @@
 #include <QtCharts>
 #include <QLineSeries>
 #include <QFont>
+#include <./Model/training.h>
+#include <./DateTime/datetime.h>
 
 class chartWidget : public QWidget
 {
@@ -32,6 +34,7 @@ private:
 
 public:
     explicit chartWidget(QWidget *parent = nullptr);
+    void showData(const std::vector<const Training *> *data);
 
 signals:
 
