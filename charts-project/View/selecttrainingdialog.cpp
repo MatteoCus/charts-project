@@ -40,7 +40,8 @@ selectTrainingDialog::selectTrainingDialog(QWidget* parent, const std::vector<co
     auto it = trainings->begin();
     std::string trainingName = (*it)->getName();
     std::vector<const Training*> aux;
-    for (auto it = trainings->begin(); it != trainings->end(); ++it)
+    for (auto it = --trainings->end(); it >= trainings->begin(); --it)
+    {
         if(type == "All" || (type == "Repetition" && dynamic_cast<const Repetition*>(*it))
                          || (type == "Endurance" && dynamic_cast<const Endurance*>(*it)))
         {
@@ -53,7 +54,9 @@ selectTrainingDialog::selectTrainingDialog(QWidget* parent, const std::vector<co
             aux.push_back(*it);
         }
 
+    }
     name = new QLineEdit(QString::fromStdString(trainingName),this);
+    name->setAlignment(Qt::AlignCenter);
     name->setReadOnly(true);
 
 

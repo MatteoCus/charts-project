@@ -39,7 +39,7 @@ void chartWidget::addDefaultChart(QVBoxLayout * mainLayout)
     chartView = new QChartView(chart, this);
     chartView->setRenderHint(QPainter::Antialiasing);
     chartView->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    chartView->setFixedSize(600,400);
+    chartView->setFixedSize(550,400);
     mainLayout->addWidget(chartView);
 }
 

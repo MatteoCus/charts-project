@@ -31,9 +31,15 @@ class tableWidget : public QWidget
     Q_OBJECT
 private:
     QTableWidget *table;
-    QLabel* title;
-    QDialog* dialog;
-    std::vector<QPushButton*> exerciseButtons;
+
+    QPushButton* addButton;
+    QPushButton* setButton;
+    QPushButton* removeButton;
+    QPushButton* exerciseButton;
+
+    QVBoxLayout* tableLayout;
+    QVBoxLayout* mainLayout;
+
     const std::vector<const Training*>* trainings;
 
     void setLabelStyleSheet(QLabel* name);
@@ -41,16 +47,13 @@ private:
     void adaptTable(unsigned int w, unsigned int h, QTableWidget* table);
     void addTable(QVBoxLayout* tableLayout);
     void addControlTable(QVBoxLayout* mainLayout);
-    void addControls(QVBoxLayout* tableLayout);
+    void addControls(QVBoxLayout* mainLayout);
+    void addLabel(QVBoxLayout* tableLayout);
     void setupExercises(QVBoxLayout *mainL, const Repetition* training);
     void setupCommon(QVBoxLayout* mainL, const Training* training);
 
-    QPushButton* addButton;
-    QPushButton* setButton;
-    QPushButton* removeButton;
-    QPushButton* exerciseButton;
+    void setLineEdit(QLineEdit* item);
 
-    QVBoxLayout* mainLayout;
 private slots:
     void showExercises();
 public:

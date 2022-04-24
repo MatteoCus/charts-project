@@ -21,7 +21,7 @@ Training *trainingCreator::createTraining(const std::string &type,
     } else if (type == "Tennis") {
       aux = new Tennis(name, start);
     }
-    if (aux && (exName->size() == exDuration->size() && exDuration->size() == exRecovery->size() && exName->size() > 0)) {
+    if (aux && exName->size() == exDuration->size() && exDuration->size() == exRecovery->size() && exName->size() > 0 && exName->size() <= 15) {
       exerciseCreator *creator = new exerciseCreator();
       for (unsigned int i = 0; i < exName->size(); ++i )
           aux->addExercise(creator->createExercise((*exName)[i], (*exDuration)[i], (*exRecovery)[i]));

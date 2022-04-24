@@ -24,7 +24,7 @@ void tableWidget::adaptTable(unsigned int w, unsigned int h, QTableWidget* table
     for(int i = 0; i < table->columnCount() ; i++)
     {
         w += table->columnWidth(i);
-        table->resizeColumnsToContents();
+        //table->resizeColumnsToContents();
     }
 
     for(int i = 0; i < table->rowCount() ; i++)
@@ -33,6 +33,7 @@ void tableWidget::adaptTable(unsigned int w, unsigned int h, QTableWidget* table
         w = 700;
     if(h > 600)
         h = 600;
+
     table->setFixedSize(w,h);
 }
 
@@ -40,10 +41,12 @@ void tableWidget::addTable(QVBoxLayout* tableLayout)
 {
     table = new QTableWidget(this);
     table->setColumnCount(7);
-    table->setHorizontalHeaderLabels(QStringList()<<"Nome"<<"Tipo"<<"Inizio"<<"Durata"<<"Fine"<<"Calorie"<<"Distanza/Intensità");
+    table->setHorizontalHeaderLabels(QStringList()<<"Nome"<<"Tipo"<<"Inizio"<<"Durata"<<"Fine"<<"Calorie"<<"*");
     table->setStyleSheet("QHeaderView::section { color : white ; background-color: #c26110}  "
-                         "QTableWidget::item {color : white ;  gridline-color: #c26110 ; background-color : #404244}"
-                         "QTableView QLineEdit {color : white ; background-color : #404244}");
+                         "QTableWidget::item {color : white ;  gridline-color: #c26110 ; background-color : #404244; selection-background-color: #c26110 ;"
+                         "selection-color : white}"
+                         "QLineEdit {color : white ; background-color : #404244; selection-background-color: #c26110 ;"
+                         "selection-color : white}");
 
     table->insertRow(0);
     QTableWidgetItem* it[7];
@@ -55,14 +58,16 @@ void tableWidget::addTable(QVBoxLayout* tableLayout)
     }
     table->horizontalHeader()->setSectionResizeMode(QHeaderView::Fixed);
     table->setColumnWidth(0,150);
-    table->setColumnWidth(1,130);
-    table->setColumnWidth(2,60);
-    table->setColumnWidth(3,130);
-    table->setColumnWidth(4,50);
-    table->setColumnWidth(5,70);
-    table->setColumnWidth(6,100);
+    table->setColumnWidth(1,65);
+    table->setColumnWidth(2,135);
+    table->setColumnWidth(3,65);
+    table->setColumnWidth(4,135);
+    table->setColumnWidth(5,50);
+    table->setColumnWidth(6,80);
     unsigned int w = 17, h = 25;         //default values to adapt the table
     adaptTable(w, h, table);
+
+
     tableLayout->addWidget(table);
 }
 
@@ -70,18 +75,19 @@ void tableWidget::addTable(QVBoxLayout* tableLayout)
 
 void tableWidget::addControlTable(QVBoxLayout* mainLayout)
 {
-    QVBoxLayout* tableLayout = new QVBoxLayout();
+    tableLayout = new QVBoxLayout();
 
-    tableLayout->setSpacing(20);
+    //tableLayout->setSpacing(20);
     tableLayout->setAlignment(Qt::AlignCenter);
     tableLayout->setAlignment(Qt::AlignTop);
 
     addControls(mainLayout);
     addTable(tableLayout);
     mainLayout->addLayout(tableLayout);
+    addLabel(tableLayout);
 }
 
-void tableWidget::addControls(QVBoxLayout* tableLayout)
+void tableWidget::addControls(QVBoxLayout* mainLayout)
 {
     QHBoxLayout * controlLayout = new QHBoxLayout();
     controlLayout->setAlignment(Qt::AlignTop);
@@ -115,7 +121,15 @@ void tableWidget::addControls(QVBoxLayout* tableLayout)
 
     connect(exerciseButton, SIGNAL(clicked()), this, SLOT(showExercises()));
 
-    tableLayout->addLayout(controlLayout);
+    mainLayout->addLayout(controlLayout);
+}
+
+void tableWidget::addLabel(QVBoxLayout *tableLayout)
+{
+    QLabel* label = new QLabel(QString::fromStdString("* : Distanza percorsa in allenamento / Intensità dell'allenamento"),this);
+    label->setFixedSize(380,20);
+    label->setStyleSheet("QLabel {color: white}");
+    tableLayout->addWidget(label);
 }
 
 void tableWidget::setupCommon(QVBoxLayout* mainL, const Training* training)
@@ -286,7 +300,7 @@ void tableWidget::setupExercises(QVBoxLayout *mainL, const Repetition *training)
 void tableWidget::showExercises()
 {
     //showTrainingExercises();
-    dialog = new QDialog(this);
+    QDialog* dialog = new QDialog(this);
     dialog->setModal(true);
     dialog->setStyleSheet("QDialog{background-color: #404244}");
     QVBoxLayout* mainLayout = new QVBoxLayout;
@@ -313,6 +327,8 @@ void tableWidget::showExercises()
         else
             throw std::runtime_error("Tipo di allenamento selezionato non valido!");
     }
+    else
+        delete mainLayout;
 }
 
 tableWidget::tableWidget(QWidget *parent) : QWidget(parent)
@@ -324,60 +340,67 @@ tableWidget::tableWidget(QWidget *parent) : QWidget(parent)
     setLayout(mainLayout);
 }
 
+void tableWidget::setLineEdit(QLineEdit* item)
+{
+    item->setAlignment(Qt::AlignCenter);
+    item->setReadOnly(true);
+}
+
 void tableWidget::showData()
 {
     for (int i=0 ; i < table->rowCount(); ++i)
         table->removeRow(i);
+
     for (auto it = trainings->begin(); it != trainings->end(); ++it)
     {
         table->insertRow(0);
-        QTableWidgetItem* item = new QTableWidgetItem(QString::fromStdString((*it)->getName()));
-        item->setTextAlignment(Qt::AlignCenter);
-        table->setItem(0,0,item);
+        QLineEdit* item = new QLineEdit(QString::fromStdString((*it)->getName()),this);
+        setLineEdit(item);
+        table->setCellWidget(0,0,item);
 
-        item = new QTableWidgetItem(QString::fromStdString((*it)->getStart().toString()));
-        item->setTextAlignment(Qt::AlignCenter);
-        table->setItem(0,2,item);
+        item = new QLineEdit(QString::fromStdString((*it)->getStart().toString()),this);
+        setLineEdit(item);
+        table->setCellWidget(0,2,item);
 
-        item = new QTableWidgetItem(QString::fromStdString((*it)->getDuration().toString()));
-        item->setTextAlignment(Qt::AlignCenter);
-        table->setItem(0,3,item);
+        item = new QLineEdit(QString::fromStdString((*it)->getDuration().toString()),this);
+        setLineEdit(item);
+        table->setCellWidget(0,3,item);
 
-        item = new QTableWidgetItem(QString::fromStdString((*it)->getEnd().toString()));
-        item->setTextAlignment(Qt::AlignCenter);
-        table->setItem(0,4,item);
+        item = new QLineEdit(QString::fromStdString((*it)->getEnd().toString()),this);
+        setLineEdit(item);
+        table->setCellWidget(0,4,item);
 
-        item = new QTableWidgetItem(QString::fromStdString(std::to_string((*it)->CaloriesBurned())));
-        item->setTextAlignment(Qt::AlignCenter);
-        table->setItem(0,5,item);
+        item = new QLineEdit(QString::fromStdString(std::to_string((*it)->CaloriesBurned())),this);
+        setLineEdit(item);
+        table->setCellWidget(0,5,item);
 
         if (dynamic_cast<const Endurance*>(*it))
         {
-            item = new QTableWidgetItem(QString::fromStdString(value2string(static_cast<const Endurance*>(*it)->getDistance()) + "km"));
-            item->setTextAlignment(Qt::AlignCenter);
-            table->setItem(0,6,item);
+            item = new QLineEdit(QString::fromStdString(value2string(static_cast<const Endurance*>(*it)->getDistance()) + " km"),this);
+            setLineEdit(item);
+            table->setCellWidget(0,6,item);
 
             if (dynamic_cast<const Run*>(*it))
-                item = new QTableWidgetItem(QString::fromStdString("Corsa"));
+                item = new QLineEdit(QString::fromStdString("Corsa"));
             else if (dynamic_cast<const Walk*>(*it))
-                item = new QTableWidgetItem(QString::fromStdString("Camminata"));
+                item = new QLineEdit(QString::fromStdString("Camminata"));
             else
-                item = new QTableWidgetItem(QString::fromStdString("Ciclismo"));
+                item = new QLineEdit(QString::fromStdString("Ciclismo"));
         }
         else
         {
-            item = new QTableWidgetItem(QString::fromStdString(value2string(static_cast<const Repetition*>(*it)->Intensity()) + "%"));
-            item->setTextAlignment(Qt::AlignCenter);
-            table->setItem(0,6,item);
+            item = new QLineEdit(QString::fromStdString(value2string(static_cast<const Repetition*>(*it)->Intensity()) + " %"),this);
+            setLineEdit(item);
+            table->setCellWidget(0,6,item);
 
             if (dynamic_cast<const Tennis*>(*it))
-                item = new QTableWidgetItem(QString::fromStdString("Tennis"));
+                item = new QLineEdit(QString::fromStdString("Tennis"));
             else
-                item = new QTableWidgetItem(QString::fromStdString("Rugby"));
+                item = new QLineEdit(QString::fromStdString("Rugby"));
         }
-        item->setTextAlignment(Qt::AlignCenter);
-        table->setItem(0,1,item);
-        adaptTable(18,25,table);
+        setLineEdit(item);
+        table->setCellWidget(0,1,item);
+        adaptTable(14,22,table);
     }
 }
 
@@ -390,9 +413,9 @@ void tableWidget::setData(const std::vector<const Training *> *data)
  *     //da qui
     table->insertRow(0);
     table->insertRow(0);
-    QTableWidgetItem* it = new QTableWidgetItem("35:42");
+    QLineEdit* it = new QLineEdit("35:42");
         it->setFlags(it->flags() ^ Qt::ItemIsEditable);                             //per rendere non editabile un campo
-        table->setItem(0, 2, it);
+        table->setCellWidget(0, 2, it);
         table->resizeColumnToContents(2);
         //table->resizeColumnsToContents();
         table->resizeRowsToContents();

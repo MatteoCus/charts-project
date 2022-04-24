@@ -30,6 +30,7 @@ void chartViewer::addMenu(QHBoxLayout* mainLayout)
     visualizza->addAction(new QAction("Line Chart", visualizza));
     visualizza->addAction(new QAction("Bar Chart", visualizza));
     visualizza->addAction(new QAction("Other Chart", visualizza));
+    visualizza->addAction(new QAction("Esercizi", visualizza));
 
     //Menù "allenamenti"
     allenamenti->addAction(new QAction("Aggiungi", allenamenti));
@@ -66,14 +67,14 @@ chartViewer::chartViewer(QWidget *parent) : QWidget(parent)
     setStyleSheet("QWidget{background-color : #2e2f30}");
 
     auto aux = new std::vector<const Training*>;
-    Date d = Date(21,06,2021);
-    Date d2 = Date(21,07,2021);
+    Date d = Date(21,04,2021);
+    Date d2 = Date(21,05,2021);
     Time ti = Time(17);
     Training* t = new Run("C",DateTime(d,ti) ,7.59,TimeSpan(0,15));
     aux->push_back(t);
     trainings = aux;
 
-    Tennis* tr = new Tennis("Tennis",DateTime(d2,ti));
+    Tennis* tr = new Tennis("Tennis del martedì",DateTime(d2,ti));
     Exercise* ex = new Exercise("Primo", Time(0,15,0),Time(0,5,0));
     tr->addExercise(ex);
     ex = new Exercise("Secondo", Time(0,15,1),Time(0,6,0));
@@ -90,7 +91,7 @@ chartViewer::chartViewer(QWidget *parent) : QWidget(parent)
     tr->addExercise(ex);
     aux->push_back(tr);
 
-    Date d3 = Date(21,05,2021);
+    Date d3 = Date(21,06,2021);
     Time tim = Time(17);
     Tennis* tr2 = new Tennis("Cristo",DateTime(d3,tim));
     Exercise* ex2 = new Exercise("Primo", Time(0,15,0),Time(0,5,0));
@@ -109,6 +110,10 @@ chartViewer::chartViewer(QWidget *parent) : QWidget(parent)
     tr2->addExercise(ex2);
     aux->push_back(tr2);
 
+    Date d4 = Date(21,07,2021);
+    Time t4 = Time(17);
+    Training* tr4 = new Cycling("C",DateTime(d4,t4) ,7.59,TimeSpan(0,15));
+    aux->push_back(tr4);
     showData();
     resize(1200,700);
 }
