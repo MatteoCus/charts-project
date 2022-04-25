@@ -34,7 +34,7 @@ private:
 
 public:
     explicit chartWidget(QWidget *parent = nullptr);
-    void showData(const std::vector<const Training *> *data);
+    void showData(const std::list<const Training *> *data);
 
 signals:
 

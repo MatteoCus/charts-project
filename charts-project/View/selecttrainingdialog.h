@@ -22,8 +22,8 @@ private slots:
     //void updateName(const QString &text);
 
 public:
-    explicit selectTrainingDialog(QWidget* parent = nullptr, const std::vector<const Training*>* trainings = nullptr, std::string type = "All");    //trainings not nullptr
-    static QString getDate(QWidget* parent, bool* ok = nullptr, const std::vector<const Training*>* trainings = nullptr, std::string type = "All");
+    explicit selectTrainingDialog(QWidget* parent = nullptr, const std::list<const Training*>* trainings = nullptr, std::string type = "All");    //trainings not nullptr
+    static QString getDate(QWidget* parent, bool* ok = nullptr, const std::list<const Training*>* trainings = nullptr, std::string type = "All");
 
 
 };

@@ -8,6 +8,7 @@
 #include "repetition.h"
 #include "training.h"
 #include <list>
+#include <vector>
 #include <string>
 
 class Plan {
@@ -28,9 +29,9 @@ public:
   void setTraining(unsigned int pos, const std::string &name, const DateTime &start,
                    double distance = 0.0, const TimeSpan &duration = TimeSpan(),
                    unsigned int exPos = 0, action operation = nothing,
-                   const std::string &exName = "",
-                   const TimeSpan &exDuration = TimeSpan(),
-                   const TimeSpan &exRecovery = TimeSpan());
+                   const std::vector<std::string>* exName = nullptr,
+                   const std::vector<TimeSpan>* exDuration = nullptr,
+                   const std::vector<TimeSpan>* exRecovery = nullptr);
 
   Plan(const Plan &plan);
   Plan &operator=(const Plan &plan);

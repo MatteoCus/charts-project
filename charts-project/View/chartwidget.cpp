@@ -107,7 +107,7 @@ chartWidget::chartWidget(QWidget *parent) : QWidget(parent)
     setLayout(mainLayout);
 }
 
-void chartWidget::showData(const std::vector<const Training *> *data)
+void chartWidget::showData(const std::list<const Training *> *data)
 {
 
 }

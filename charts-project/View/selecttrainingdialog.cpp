@@ -6,8 +6,11 @@
     name->setText(text);
 }*/
 
-selectTrainingDialog::selectTrainingDialog(QWidget* parent, const std::vector<const Training*>* trainings, std::string type): QDialog(parent)
+selectTrainingDialog::selectTrainingDialog(QWidget* parent, const std::list<const Training*>* trainings, std::string type): QDialog(parent)
 {
+    if (!trainings)
+        throw std::runtime_error("Non ci sono allenamenti adatti!");
+
     QVBoxLayout *mainL = new QVBoxLayout;
     QHBoxLayout *dateLayout = new QHBoxLayout;
     QHBoxLayout *nameLayout = new QHBoxLayout;
@@ -36,20 +39,16 @@ selectTrainingDialog::selectTrainingDialog(QWidget* parent, const std::vector<co
                            "QComboBox QAbstractItemView {selection-background-color:#c26110;}");
     dateBox->setFixedWidth(150);
 
-    bool found = false;
     auto it = trainings->begin();
     std::string trainingName = (*it)->getName();
-    std::vector<const Training*> aux;
-    for (auto it = --trainings->end(); it >= trainings->begin(); --it)
+    std::list<const Training*> aux;
+    it = trainings->end();
+    for (--it; it != --trainings->begin(); --it)
     {
         if(type == "All" || (type == "Repetition" && dynamic_cast<const Repetition*>(*it))
                          || (type == "Endurance" && dynamic_cast<const Endurance*>(*it)))
         {
-            if (!found)
-            {
-                found = true;
-                trainingName = (*it)->getName();
-            }
+            trainingName = (*it)->getName();
             dateBox->addItem(QString::fromStdString((*it)->getStart().toString()));
             aux.push_back(*it);
         }
@@ -101,16 +100,12 @@ selectTrainingDialog::selectTrainingDialog(QWidget* parent, const std::vector<co
         this, &selectTrainingDialog::reject);
     Q_ASSERT(conn);
 
-    if (type == "All")
-        connect(dateBox, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged),[=](int index){ name->setText(QString::fromStdString(((*trainings)[index])->getName())); });
-    else
-        connect(dateBox, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged),[=](int index){ name->setText(QString::fromStdString((aux[index])->getName())); });
-
+    connect(dateBox, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged),[=](int index){auto training = aux.begin(); std::advance(training, index); name->setText(QString::fromStdString((*training)->getName())); });
 
     setLayout(mainL);
 }
 
-QString selectTrainingDialog::getDate(QWidget *parent, bool *ok, const std::vector<const Training *> *trainings, std::string type)
+QString selectTrainingDialog::getDate(QWidget *parent, bool *ok, const std::list<const Training *> *trainings, std::string type)
 {
     selectTrainingDialog *dialog = new selectTrainingDialog(parent, trainings, type);
     const int ret = dialog->exec();

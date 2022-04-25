@@ -42,14 +42,14 @@ void chartViewer::addMenu(QHBoxLayout* mainLayout)
 
 void chartViewer::findTraining(unsigned int &n, bool found, const QString& start)
 {
-    for (unsigned int i = 0; i < trainings->size() && !found ; ++i)
+    int i=0;
+    for (auto it = trainings->begin(); it != trainings->end() && !found ; ++it)
     {
-        if ((*trainings)[i]->getStart().toString() == start.toStdString())
-        {
+        i++;
+        if (((*it)->getStart().toString() == start.toStdString()))
             found = true;
-            n = i;
-        }
     }
+    n = i-1;
 }
 
 chartViewer::chartViewer(QWidget *parent) : QWidget(parent)
@@ -66,7 +66,7 @@ chartViewer::chartViewer(QWidget *parent) : QWidget(parent)
     setLayout(mainLayout);
     setStyleSheet("QWidget{background-color : #2e2f30}");
 
-    auto aux = new std::vector<const Training*>;
+    auto aux = new std::list<const Training*>;
     Date d = Date(21,04,2021);
     Date d2 = Date(21,05,2021);
     Time ti = Time(17);
@@ -114,7 +114,8 @@ chartViewer::chartViewer(QWidget *parent) : QWidget(parent)
     Time t4 = Time(17);
     Training* tr4 = new Cycling("C",DateTime(d4,t4) ,7.59,TimeSpan(0,15));
     aux->push_back(tr4);
-    showData();
+    trainingValues val = showRemoveDialog();
+    std::cout<<val.pos<<" "<<val.exName.size()<<std::endl;
     resize(1200,700);
 }
 
@@ -158,7 +159,11 @@ trainingValues chartViewer::showRemoveDialog()
     QString start = selectTrainingDialog::getDate(this,&ok,trainings);
     unsigned int n = 0;
     findTraining(n,found,start);
-    return trainingDialog::getValues(this,&ok,eliminate,(*trainings)[n]);
+    auto training = trainings->begin();
+    std::advance(training,n);
+    trainingValues values = trainingDialog::getValues(this,&ok,eliminate,*training);
+    values.pos = n;
+    return values;
 }
 
 trainingValues chartViewer::showSetDialog()
@@ -167,10 +172,17 @@ trainingValues chartViewer::showSetDialog()
     QString start = selectTrainingDialog::getDate(this,&ok,trainings);
     unsigned int n = 0;
     findTraining(n,found,start);
-    return trainingDialog::getValues(this,&ok,set,(*trainings)[n]);
+    std::cout<<n<<std::endl;
+    auto training = trainings->begin();
+    std::advance(training,n);
+
+    trainingValues values = trainingDialog::getValues(this,&ok,set,*training);
+    values.pos = n;
+    return values;
+//fare dialog separati
 }
 
-void chartViewer::setData(const std::vector<const Training *> *data)
+void chartViewer::setData(const std::list<const Training *> *data)
 {
     trainings = data;
 }

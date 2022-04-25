@@ -11,7 +11,13 @@ bool Plan::check(Training *training) {
   }
   if (training->getDuration() <= TimeSpan(10) && (it == trainings.end() ||
       (training->getEnd() < (*it)->getStart())))
-    return true;
+  {
+      auto aux = dynamic_cast<Repetition*>(training);
+      if (!aux || (aux && aux->getSize() < 16))
+          return true;
+      else
+          return false;
+  }
   else
     return false;
 }
@@ -52,8 +58,9 @@ Training *Plan::getTraining(unsigned int pos) const {
 void Plan::setTraining(unsigned int pos, const std::string &name, const DateTime &start,
                        double distance, const TimeSpan &duration,
                        unsigned int exPos, action operation,
-                       const std::string &exName, const TimeSpan &exDuration,
-                       const TimeSpan &exRecovery) {
+                       const std::vector<std::string>* exName,
+                       const std::vector<TimeSpan>*exDuration,
+                       const std::vector<TimeSpan>* exRecovery) {
   if (pos >= getSize())
     throw std::out_of_range("Invalid modify index");
 
@@ -68,20 +75,36 @@ void Plan::setTraining(unsigned int pos, const std::string &name, const DateTime
       endur->setDistance(distance);
       endur->setDuration(duration);
     } else if (dynamic_cast<Repetition *>(*it)) {
+        unsigned int size = exName->size();
+        if (size != exRecovery->size() || size != exDuration->size())
+            throw std::runtime_error("Impossibile modificare l'allenamento: errore negli esercizi!");
+
       Repetition *rep = static_cast<Repetition *>(*it);
       exerciseCreator *creator = new exerciseCreator();
-      Exercise *aux = creator->createExercise(exName, exDuration, exRecovery);
+      Exercise *aux = nullptr;
       switch (operation) {
       case add:
+        if (size != 1)
+              throw std::runtime_error("Impossibile aggiungere l'esercizio");
+        aux = creator->createExercise((*exName)[0], (*exDuration)[0], (*exRecovery)[0]);
         rep->addExercise(aux);
         break;
 
       case insert:
+        if (size != 1)
+              throw std::runtime_error("Impossibile inserire l'esercizio");
+        aux = creator->createExercise((*exName)[0], (*exDuration)[0], (*exRecovery)[0]);
         rep->insertExercise(exPos, aux);
         break;
 
       case set:
-        rep->setExercise(exPos, aux);
+        if (size != rep->getSize())
+            throw std::runtime_error("Impossibile modificare gli esercizi");
+        for (unsigned int i = 0; i < rep->getSize(); ++i)
+        {
+            aux = creator->createExercise((*exName)[i], (*exDuration)[i], (*exRecovery)[i]);
+            rep->setExercise(i, aux);
+        }
         break;
 
       case eliminate:

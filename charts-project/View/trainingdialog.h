@@ -36,7 +36,8 @@ private:
     std::vector<QTimeEdit*> exDuration;
     std::vector<QTimeEdit*> exRecovery;
     QString type;
-
+    unsigned int pos, exPos;
+    action exAct;
 
     void setLabelStyleSheet(QLabel* name);
 

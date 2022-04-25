@@ -30,8 +30,9 @@ const std::list<Training *>& Model::getTrainings() const {
 void Model::setTraining(unsigned int pos, const std::string &name, const DateTime &start,
                         double distance, const TimeSpan &duration,
                         unsigned int exPos, action operation,
-                        const std::string &exName, const TimeSpan &exDuration,
-                        const TimeSpan &exRecovery) const {
+                        const std::vector<std::string>* exName,
+                        const std::vector<TimeSpan>*exDuration,
+                        const std::vector<TimeSpan>* exRecovery) const {
     plan->setTraining(pos, name, start, distance, duration, exPos, operation,
                       exName, exDuration, exRecovery);
 }

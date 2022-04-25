@@ -40,7 +40,7 @@ private:
     QVBoxLayout* tableLayout;
     QVBoxLayout* mainLayout;
 
-    const std::vector<const Training*>* trainings;
+    const std::list<const Training*>* trainings;
 
     void setLabelStyleSheet(QLabel* name);
     void addToLayout(QBoxLayout* layout, QWidget* w1, QWidget* w2);
@@ -59,7 +59,7 @@ private slots:
 public:
     explicit tableWidget(QWidget *parent = nullptr);
     void showData();
-    void setData(const std::vector<const Training *> *data);
+    void setData(const std::list<const Training *> *data);
 
 signals:
 

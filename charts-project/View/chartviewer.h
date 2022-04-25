@@ -1,5 +1,6 @@
 #ifndef CHARTVIEWER_H
 #define CHARTVIEWER_H
+#include <utility>
 
 #include <QWidget>
 #include <QHBoxLayout>
@@ -33,7 +34,7 @@ private:
     tableWidget* dataW;
     chartWidget* chartW;
     QDialog* dialog;
-    const std::vector<const Training*>* trainings;
+    const std::list<const Training*>* trainings;
     void addMenu(QHBoxLayout* mainLayout);
     void findTraining(unsigned int &n, bool found, const QString& start);
 
@@ -45,7 +46,7 @@ public:
     trainingValues showAddDialog();
     trainingValues showRemoveDialog();
     trainingValues showSetDialog();
-    void setData(const std::vector<const Training*>* data);
+    void setData(const std::list<const Training*>* data);
     void showData();
 
 signals:

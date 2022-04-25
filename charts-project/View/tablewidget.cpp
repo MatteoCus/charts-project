@@ -309,17 +309,22 @@ void tableWidget::showExercises()
     if (start != "")
     {
         unsigned int n = 0;
+        auto training = trainings->begin();
         for (unsigned int i = 0; i < trainings->size() && !found ; ++i)
         {
-            if ((*trainings)[i]->getStart().toString() == start.toStdString())
+            if ((*training)->getStart().toString() == start.toStdString())
             {
                 found = true;
                 n = i;
             }
+            if (training != trainings->end())
+                std::advance(training,1);
         }
-        if (dynamic_cast<const Repetition*>((*trainings)[n]))
+        training = trainings->begin();
+        std::advance(training,n);
+        if (found && dynamic_cast<const Repetition*>(*training))
         {
-            const Repetition* aux = static_cast<const Repetition*>((*trainings)[n]);
+            const Repetition* aux = static_cast<const Repetition*>(*training);
             setupExercises(mainLayout,aux);
             dialog->setLayout(mainLayout);
             dialog->exec();
@@ -404,7 +409,7 @@ void tableWidget::showData()
     }
 }
 
-void tableWidget::setData(const std::vector<const Training *> *data)
+void tableWidget::setData(const std::list<const Training *> *data)
 {
     trainings = data;
 }
