@@ -114,8 +114,9 @@ chartViewer::chartViewer(QWidget *parent) : QWidget(parent)
     Time t4 = Time(17);
     Training* tr4 = new Cycling("C",DateTime(d4,t4) ,7.59,TimeSpan(0,15));
     aux->push_back(tr4);
-    trainingValues val = showRemoveDialog();
-    std::cout<<val.pos<<" "<<val.exName.size()<<std::endl;
+    //trainingValues val = showRemoveDialog();
+    //std::cout<<val.pos<<" "<<val.exName.size()<<std::endl;
+    showData();
     resize(1200,700);
 }
 
@@ -172,7 +173,6 @@ trainingValues chartViewer::showSetDialog()
     QString start = selectTrainingDialog::getDate(this,&ok,trainings);
     unsigned int n = 0;
     findTraining(n,found,start);
-    std::cout<<n<<std::endl;
     auto training = trainings->begin();
     std::advance(training,n);
 

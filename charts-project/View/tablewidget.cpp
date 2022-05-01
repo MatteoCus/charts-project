@@ -19,43 +19,52 @@ void tableWidget::addToLayout(QBoxLayout *layout, QWidget *w1, QWidget *w2)
     layout->addWidget(w2);
 }
 
-void tableWidget::adaptTable(unsigned int w, unsigned int h, QTableWidget* table)
+void tableWidget::adaptTableHeight(unsigned int h, QTableWidget* table)
 {
-    for(int i = 0; i < table->columnCount() ; i++)
-    {
-        w += table->columnWidth(i);
-        //table->resizeColumnsToContents();
-    }
-
     for(int i = 0; i < table->rowCount() ; i++)
         h += table->rowHeight(i);
-    if(w > 700)
-        w = 700;
+
     if(h > 600)
         h = 600;
 
-    table->setFixedSize(w,h);
+    //table->setFixedSize(w,h);
+    table->setFixedHeight(h);
 }
 
-void tableWidget::addTable(QVBoxLayout* tableLayout)
+void tableWidget::adaptTableWidth(unsigned int w, QTableWidget *table)
 {
-    table = new QTableWidget(this);
-    table->setColumnCount(7);
-    table->setHorizontalHeaderLabels(QStringList()<<"Nome"<<"Tipo"<<"Inizio"<<"Durata"<<"Fine"<<"Calorie"<<"*");
+    for(int i = 0; i < table->columnCount() ; i++)
+    {
+            w += table->columnWidth(i);
+            //table1->resizeColumnsToContents();
+    }
+    if(w > 700)
+        w = 700;
+    table->setFixedWidth(w);
+}
+
+void tableWidget::addTable(QTableWidget* table)
+{
+
+    table->setColumnCount(6);
+
+    table->setHorizontalHeaderLabels(QStringList()<<"Nome"<<"Tipo"<<"Inizio"<<"Durata"<<"Fine"<<"Calorie");
     table->setStyleSheet("QHeaderView::section { color : white ; background-color: #c26110}  "
-                         "QTableWidget::item {color : white ;  gridline-color: #c26110 ; background-color : #404244; selection-background-color: #c26110 ;"
+                         "Qtable1Widget::item {color : white ;  gridline-color: #c26110 ; background-color : #404244; selection-background-color: #c26110 ;"
                          "selection-color : white}"
                          "QLineEdit {color : white ; background-color : #404244; selection-background-color: #c26110 ;"
                          "selection-color : white}");
 
     table->insertRow(0);
-    QTableWidgetItem* it[7];
-    for(unsigned int i = 0 ; i < 7 ; i++)
+
+    QTableWidgetItem* it1[6];
+    for(unsigned int i = 0 ; i < 6 ; i++)
     {
-        it[i] = new QTableWidgetItem();
-        it[i]->setFlags(it[i]->flags() ^ Qt::ItemIsEditable);                             //per rendere non editabile un campo
-        table->setItem(0, i, it[i]);
+        it1[i] = new QTableWidgetItem();
+        it1[i]->setFlags(it1[i]->flags() ^ Qt::ItemIsEditable);                             //per rendere non editabile un campo
+        table->setItem(0, i, it1[i]);
     }
+
     table->horizontalHeader()->setSectionResizeMode(QHeaderView::Fixed);
     table->setColumnWidth(0,150);
     table->setColumnWidth(1,65);
@@ -63,10 +72,9 @@ void tableWidget::addTable(QVBoxLayout* tableLayout)
     table->setColumnWidth(3,65);
     table->setColumnWidth(4,135);
     table->setColumnWidth(5,50);
-    table->setColumnWidth(6,80);
-    unsigned int w = 17, h = 25;         //default values to adapt the table
-    adaptTable(w, h, table);
 
+    adaptTableHeight(22, table);
+    adaptTableWidth(15,table);
 
     tableLayout->addWidget(table);
 }
@@ -75,16 +83,32 @@ void tableWidget::addTable(QVBoxLayout* tableLayout)
 
 void tableWidget::addControlTable(QVBoxLayout* mainLayout)
 {
+
+    table1 = new QTableWidget(this);
+    table2= new QTableWidget(this);
+    table2->setVisible(false);
+
     tableLayout = new QVBoxLayout();
 
-    //tableLayout->setSpacing(20);
+    tableLayout->setSpacing(20);
     tableLayout->setAlignment(Qt::AlignCenter);
     tableLayout->setAlignment(Qt::AlignTop);
 
     addControls(mainLayout);
-    addTable(tableLayout);
+
+    addTable(table1);
+
+    addTable(table2);
+
+    table2->setColumnCount(7);
+    table2->setHorizontalHeaderLabels(QStringList()<<"Nome"<<"Tipo"<<"Inizio"<<"Durata"<<"Fine"<<"Calorie"<<"Distanza");
+    table2->setColumnWidth(6,70);
+
     mainLayout->addLayout(tableLayout);
-    addLabel(tableLayout);
+
+    label1 = new QLabel("Allenamenti in ordine cronologico",this);
+    addLabel(label1);
+
 }
 
 void tableWidget::addControls(QVBoxLayout* mainLayout)
@@ -98,38 +122,37 @@ void tableWidget::addControls(QVBoxLayout* mainLayout)
     setButton = new QPushButton("Modifica", this);
     removeButton = new QPushButton("Rimuovi", this);
     exerciseButton = new QPushButton("Visualizza esercizi", this);
-
-    addButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-    setButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-    removeButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-    exerciseButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+    splitCheckBox = new QCheckBox("Split allenamenti resistenza");
 
     addButton->setFixedSize(70,25);
     setButton->setFixedSize(70,25);
     removeButton->setFixedSize(70,25);
     exerciseButton->setFixedSize(130,25);
+    splitCheckBox->setFixedSize(200,25);
 
     addButton->setStyleSheet("QPushButton { background-color : #c26110 ; color : white; }");
     setButton->setStyleSheet("QPushButton { background-color : #c26110 ; color : white; }");
     removeButton->setStyleSheet("QPushButton { background-color : #c26110 ; color : white; }");
     exerciseButton->setStyleSheet("QPushButton { background-color : #c26110 ; color : white; }");
+    splitCheckBox->setStyleSheet("QCheckBox { background-color : #c26110 ; color : white; }");
 
     controlLayout->addWidget(addButton);
     controlLayout->addWidget(setButton);
     controlLayout->addWidget(removeButton);
     controlLayout->addWidget(exerciseButton);
+    controlLayout->addWidget(splitCheckBox);
 
     connect(exerciseButton, SIGNAL(clicked()), this, SLOT(showExercises()));
+    connect(splitCheckBox, SIGNAL(stateChanged(int)), this, SLOT(changeState(int)));
 
     mainLayout->addLayout(controlLayout);
 }
 
-void tableWidget::addLabel(QVBoxLayout *tableLayout)
+void tableWidget::addLabel(QLabel* label)
 {
-    QLabel* label = new QLabel(QString::fromStdString("* : Distanza percorsa in allenamento / Intensità dell'allenamento"),this);
-    label->setFixedSize(380,20);
+    label->adjustSize();
     label->setStyleSheet("QLabel {color: white}");
-    tableLayout->addWidget(label);
+    mainLayout->addWidget(label);
 }
 
 void tableWidget::setupCommon(QVBoxLayout* mainL, const Training* training)
@@ -336,13 +359,33 @@ void tableWidget::showExercises()
         delete mainLayout;
 }
 
+void tableWidget::changeState(int state)
+{
+    splitState = (state == Qt::CheckState::Unchecked ? false : true);
+
+    table2->setVisible(splitState);
+    if (splitState)
+        label1->setText(QString::fromStdString("Allenamenti in ordine cronologico, allenamenti di ripetizione in alto, di resistenza in basso"));
+    else
+        label1->setText(QString::fromStdString("Allenamenti in ordine cronologico"));
+    label1->adjustSize();
+
+
+    showData();
+}
+
 tableWidget::tableWidget(QWidget *parent) : QWidget(parent)
 {
     mainLayout = new QVBoxLayout();
 
+    splitState = false;
+
+    trainings = nullptr;
+
     addControlTable(mainLayout);
 
     setLayout(mainLayout);
+
 }
 
 void tableWidget::setLineEdit(QLineEdit* item)
@@ -351,87 +394,166 @@ void tableWidget::setLineEdit(QLineEdit* item)
     item->setReadOnly(true);
 }
 
+void tableWidget::showCommonData(const Training* it, unsigned int i)
+{
+    i == 1? table1->insertRow(0) : table2->insertRow(0);
+    QLineEdit* item = new QLineEdit(QString::fromStdString(it->getName()),this);
+    setLineEdit(item);
+    i == 1? table1->setCellWidget(0,0,item) : table2->setCellWidget(0,0,item);
+    i == 1? std::cout<<"Inserito in table1"<<std::endl : std::cout<<"Inserito in t2"<<std::endl;
+
+    item = new QLineEdit(QString::fromStdString(it->getStart().toString()),this);
+    setLineEdit(item);
+    i == 1? table1->setCellWidget(0,2,item) : table2->setCellWidget(0,2,item);
+
+    item = new QLineEdit(QString::fromStdString(it->getDuration().toString()),this);
+    setLineEdit(item);
+    i == 1? table1->setCellWidget(0,3,item) : table2->setCellWidget(0,3,item);
+
+    item = new QLineEdit(QString::fromStdString(it->getEnd().toString()),this);
+    setLineEdit(item);
+    i == 1? table1->setCellWidget(0,4,item) : table2->setCellWidget(0,4,item);
+
+    item = new QLineEdit(QString::fromStdString(std::to_string(it->CaloriesBurned())),this);
+    setLineEdit(item);
+    i == 1? table1->setCellWidget(0,5,item) : table2->setCellWidget(0,5,item);
+
+    if (dynamic_cast<const Endurance*>(it))
+    {
+        if (dynamic_cast<const Run*>(it))
+            item = new QLineEdit(QString::fromStdString("Corsa"));
+        else if (dynamic_cast<const Walk*>(it))
+            item = new QLineEdit(QString::fromStdString("Camminata"));
+        else
+            item = new QLineEdit(QString::fromStdString("Ciclismo"));
+    }
+    else
+    {
+        if (dynamic_cast<const Tennis*>(it))
+            item = new QLineEdit(QString::fromStdString("Tennis"));
+        else
+            item = new QLineEdit(QString::fromStdString("Rugby"));
+    }
+    setLineEdit(item);
+    i == 1? table1->setCellWidget(0,1,item) : table2->setCellWidget(0,1,item);
+}
+
+void tableWidget::showRepetitionData(const Repetition *training)
+{
+
+    QLineEdit* item = new QLineEdit(QString::fromStdString(value2string(training->Intensity()) + " %"),this);
+    setLineEdit(item);
+    table1->setCellWidget(0,6,item);
+}
+
+void tableWidget::showEnduranceData(const Endurance *training)
+{
+    QLineEdit* item = new QLineEdit(QString::fromStdString(value2string(training->getDistance()) + " km"),this);
+    setLineEdit(item);
+    table2->setCellWidget(0,6,item);
+}
+
 void tableWidget::showData()
 {
-    for (int i=0 ; i < table->rowCount(); ++i)
-        table->removeRow(i);
+    while (table1->rowCount() != 0)
+        table1->removeRow(0);
 
-    for (auto it = trainings->begin(); it != trainings->end(); ++it)
+    while (table2->rowCount() != 0)
+        table2->removeRow(0);
+
+    bool foundRepetition = false, foundEndurance = false;
+
+    if (splitState)
     {
-        table->insertRow(0);
-        QLineEdit* item = new QLineEdit(QString::fromStdString((*it)->getName()),this);
-        setLineEdit(item);
-        table->setCellWidget(0,0,item);
+        mainLayout->setContentsMargins(0,0,0,0);
+        std::cout<<"Split state: "<<splitState<<std::endl;
+        foundEndurance = foundRepetition = true;
 
-        item = new QLineEdit(QString::fromStdString((*it)->getStart().toString()),this);
-        setLineEdit(item);
-        table->setCellWidget(0,2,item);
-
-        item = new QLineEdit(QString::fromStdString((*it)->getDuration().toString()),this);
-        setLineEdit(item);
-        table->setCellWidget(0,3,item);
-
-        item = new QLineEdit(QString::fromStdString((*it)->getEnd().toString()),this);
-        setLineEdit(item);
-        table->setCellWidget(0,4,item);
-
-        item = new QLineEdit(QString::fromStdString(std::to_string((*it)->CaloriesBurned())),this);
-        setLineEdit(item);
-        table->setCellWidget(0,5,item);
-
-        if (dynamic_cast<const Endurance*>(*it))
+        if(table1->columnCount() != 7)
         {
-            item = new QLineEdit(QString::fromStdString(value2string(static_cast<const Endurance*>(*it)->getDistance()) + " km"),this);
-            setLineEdit(item);
-            table->setCellWidget(0,6,item);
-
-            if (dynamic_cast<const Run*>(*it))
-                item = new QLineEdit(QString::fromStdString("Corsa"));
-            else if (dynamic_cast<const Walk*>(*it))
-                item = new QLineEdit(QString::fromStdString("Camminata"));
-            else
-                item = new QLineEdit(QString::fromStdString("Ciclismo"));
+            table1->setColumnCount(7);
+            table1->setHorizontalHeaderLabels(QStringList()<<"Nome"<<"Tipo"<<"Inizio"<<"Durata"<<"Fine"<<"Calorie"<<"Intensità");
+            table1->setColumnWidth(6,70);
         }
-        else
+
+        for (auto it = trainings->begin(); it != trainings->end(); ++it)
         {
-            item = new QLineEdit(QString::fromStdString(value2string(static_cast<const Repetition*>(*it)->Intensity()) + " %"),this);
-            setLineEdit(item);
-            table->setCellWidget(0,6,item);
-
-            if (dynamic_cast<const Tennis*>(*it))
-                item = new QLineEdit(QString::fromStdString("Tennis"));
+            if (dynamic_cast<const Repetition*>(*it))
+            {
+                showCommonData(*it);
+                showRepetitionData(static_cast<const Repetition*>(*it));
+            }
             else
-                item = new QLineEdit(QString::fromStdString("Rugby"));
+            {
+                showCommonData(*it,2);
+                showEnduranceData(static_cast<const Endurance*>(*it));
+            }
         }
-        setLineEdit(item);
-        table->setCellWidget(0,1,item);
-        adaptTable(14,22,table);
     }
+    else
+    {
+        mainLayout->setContentsMargins(0,0,70,0);
+
+        if(table1->columnCount() != 6)
+            table1->removeColumn(6);
+
+        for (auto it = trainings->begin(); it != trainings->end(); ++it)
+        {
+            if (!foundRepetition && dynamic_cast<const Repetition*>(*it))
+                foundRepetition = true;
+            else if (!foundEndurance)
+                foundEndurance = true;
+
+            showCommonData(*it);
+        }
+    }
+
+
+
+    if (!foundRepetition)
+    {
+        exerciseButton->setVisible(false);
+        splitCheckBox->setVisible(false);
+    }
+    else
+    {
+        exerciseButton->setVisible(true);
+        if (foundEndurance)
+            splitCheckBox->setVisible(true);
+        else
+            splitCheckBox->setVisible(false);
+    }
+    adaptTableHeight(22,table1);
+    adaptTableHeight(22,table2);
+    adaptTableWidth(15,table1);
+    adaptTableWidth(15,table2);
 }
 
 void tableWidget::setData(const std::list<const Training *> *data)
 {
+    auto aux = trainings;
     trainings = data;
+    delete aux;
 }
 
 /*FUNZIONE PER FARE IL RESIZE DELLA TABELLA (COLONNE, RIGHE E "SFONDO BIANCO")
  *     //da qui
-    table->insertRow(0);
-    table->insertRow(0);
+    table1->insertRow(0);
+    table1->insertRow(0);
     QLineEdit* it = new QLineEdit("35:42");
-        it->setFlags(it->flags() ^ Qt::ItemIsEditable);                             //per rendere non editabile un campo
-        table->setCellWidget(0, 2, it);
-        table->resizeColumnToContents(2);
-        //table->resizeColumnsToContents();
-        table->resizeRowsToContents();
+        it->setFlags(it->flags() ^ Qt::ItemIsEditable1);                             //per rendere non editabile un campo
+        table1->setCellWidget(0, 2, it);
+        table1->resizeColumnToContents(2);
+        //table1->resizeColumnsToContents();
+        table1->resizeRowsToContents();
         w = 17, h = 25;     //W ha 17 invece di 2 a causa dei numeri sui lati della tabella--> vedi te
-        for(int i = 0; i < table->columnCount() ; i++)
-            w += table->columnWidth(i);
-        for(int i = 0; i < table->rowCount() ; i++)
-            h += table->rowHeight(i);
+        for(int i = 0; i < table1->columnCount() ; i++)
+            w += table1->columnWidth(i);
+        for(int i = 0; i < table1->rowCount() ; i++)
+            h += table1->rowHeight(i);
         if(w > 800)
             w = 800;
         if(h > 600)
             h = 600;
-        table->setFixedSize(w,h);
+        table1->setFixedSize(w,h);
     //a qui*/

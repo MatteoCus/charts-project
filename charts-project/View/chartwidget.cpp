@@ -34,13 +34,15 @@ void chartWidget::addDefaultChart(QVBoxLayout * mainLayout)
     splineSeries->setPen(pen);
 
     chart->setBackgroundBrush(QBrush(QColor(QRgb(0x404244))));
-    chart->setAnimationOptions(QChart::GridAxisAnimations);
+    //chart->setAnimationOptions(QChart::GridAxisAnimations);
 
     chartView = new QChartView(chart, this);
     chartView->setRenderHint(QPainter::Antialiasing);
     chartView->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    chartView->setFixedSize(550,400);
+    chartView->setFixedSize(600,400);
+
     mainLayout->addWidget(chartView);
+    mainLayout->setContentsMargins(0,0,0,0);
 }
 
 void chartWidget::addControls(QVBoxLayout * mainLayout)
@@ -88,7 +90,7 @@ void chartWidget::addControls(QVBoxLayout * mainLayout)
 
     controlsLayout->addWidget(chartBox);
     controlsLayout->addWidget(dataBox);
-    controlsLayout->setContentsMargins(10,20,10,10);
+    controlsLayout->setContentsMargins(0,20,0,0);
     controlsLayout->setSpacing(50);
     controlsLayout->setAlignment(Qt::AlignHCenter);
     mainLayout->addLayout(controlsLayout);

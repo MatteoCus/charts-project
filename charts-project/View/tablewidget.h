@@ -14,6 +14,7 @@
 #include <QDialog>
 #include <QTimeEdit>
 #include <QLineEdit>
+#include <QCheckBox>
 #include <sstream>
 #include <iomanip>
 #include "selecttrainingdialog.h"
@@ -30,7 +31,9 @@ class tableWidget : public QWidget
 {
     Q_OBJECT
 private:
-    QTableWidget *table;
+    QTableWidget *table1, *table2;
+    QCheckBox * splitCheckBox;
+    QLabel* label1;
 
     QPushButton* addButton;
     QPushButton* setButton;
@@ -41,21 +44,28 @@ private:
     QVBoxLayout* mainLayout;
 
     const std::list<const Training*>* trainings;
+    bool splitState;
 
     void setLabelStyleSheet(QLabel* name);
     void addToLayout(QBoxLayout* layout, QWidget* w1, QWidget* w2);
-    void adaptTable(unsigned int w, unsigned int h, QTableWidget* table);
-    void addTable(QVBoxLayout* tableLayout);
+    void adaptTableHeight(unsigned int h, QTableWidget* table);
+    void adaptTableWidth(unsigned int w, QTableWidget* table);
+    void addTable(QTableWidget * table);
     void addControlTable(QVBoxLayout* mainLayout);
     void addControls(QVBoxLayout* mainLayout);
-    void addLabel(QVBoxLayout* tableLayout);
+    void addLabel(QLabel* label);
     void setupExercises(QVBoxLayout *mainL, const Repetition* training);
     void setupCommon(QVBoxLayout* mainL, const Training* training);
 
     void setLineEdit(QLineEdit* item);
 
+    void showCommonData(const Training* it, unsigned int i = 1);
+    void showRepetitionData(const Repetition* training);
+    void showEnduranceData(const Endurance* training);
+    
 private slots:
     void showExercises();
+    void changeState(int state);
 public:
     explicit tableWidget(QWidget *parent = nullptr);
     void showData();
