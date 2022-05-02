@@ -33,14 +33,14 @@ class tableWidget : public QWidget
 private:
     QTableWidget *table1, *table2;
     QCheckBox * splitCheckBox;
-    QLabel* label1;
+    QLabel* label1, *label2;
 
     QPushButton* addButton;
     QPushButton* setButton;
     QPushButton* removeButton;
     QPushButton* exerciseButton;
 
-    QVBoxLayout* tableLayout;
+    QHBoxLayout* table1Layout, *table2Layout;
     QVBoxLayout* mainLayout;
 
     const std::list<const Training*>* trainings;
@@ -48,9 +48,10 @@ private:
 
     void setLabelStyleSheet(QLabel* name);
     void addToLayout(QBoxLayout* layout, QWidget* w1, QWidget* w2);
-    void adaptTableHeight(unsigned int h, QTableWidget* table);
+    void adaptSingleTableHeight(unsigned int h, QTableWidget* table);
+    void adaptDoubleTableHeight(unsigned int h, QTableWidget* table);
     void adaptTableWidth(unsigned int w, QTableWidget* table);
-    void addTable(QTableWidget * table);
+    void addTable(QTableWidget * table, QHBoxLayout* layout);
     void addControlTable(QVBoxLayout* mainLayout);
     void addControls(QVBoxLayout* mainLayout);
     void addLabel(QLabel* label);

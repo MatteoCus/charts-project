@@ -19,7 +19,7 @@ void tableWidget::addToLayout(QBoxLayout *layout, QWidget *w1, QWidget *w2)
     layout->addWidget(w2);
 }
 
-void tableWidget::adaptTableHeight(unsigned int h, QTableWidget* table)
+void tableWidget::adaptSingleTableHeight(unsigned int h, QTableWidget* table)
 {
     for(int i = 0; i < table->rowCount() ; i++)
         h += table->rowHeight(i);
@@ -27,7 +27,17 @@ void tableWidget::adaptTableHeight(unsigned int h, QTableWidget* table)
     if(h > 600)
         h = 600;
 
-    //table->setFixedSize(w,h);
+    table->setFixedHeight(h);
+}
+
+void tableWidget::adaptDoubleTableHeight(unsigned int h, QTableWidget *table)
+{
+    for(int i = 0; i < table->rowCount() ; i++)
+        h += table->rowHeight(i);
+
+    if(h > 300)
+        h = 300;
+
     table->setFixedHeight(h);
 }
 
@@ -43,12 +53,12 @@ void tableWidget::adaptTableWidth(unsigned int w, QTableWidget *table)
     table->setFixedWidth(w);
 }
 
-void tableWidget::addTable(QTableWidget* table)
+void tableWidget::addTable(QTableWidget* table, QHBoxLayout* layout)
 {
 
-    table->setColumnCount(6);
+    table->setColumnCount(7);
 
-    table->setHorizontalHeaderLabels(QStringList()<<"Nome"<<"Tipo"<<"Inizio"<<"Durata"<<"Fine"<<"Calorie");
+    table->setHorizontalHeaderLabels(QStringList()<<"Nome"<<"Tipo"<<"Inizio"<<"Durata"<<"Fine"<<"Calorie"<<"Distanza");
     table->setStyleSheet("QHeaderView::section { color : white ; background-color: #c26110}  "
                          "Qtable1Widget::item {color : white ;  gridline-color: #c26110 ; background-color : #404244; selection-background-color: #c26110 ;"
                          "selection-color : white}"
@@ -57,8 +67,8 @@ void tableWidget::addTable(QTableWidget* table)
 
     table->insertRow(0);
 
-    QTableWidgetItem* it1[6];
-    for(unsigned int i = 0 ; i < 6 ; i++)
+    QTableWidgetItem* it1[7];
+    for(unsigned int i = 0 ; i < 7 ; i++)
     {
         it1[i] = new QTableWidgetItem();
         it1[i]->setFlags(it1[i]->flags() ^ Qt::ItemIsEditable);                             //per rendere non editabile un campo
@@ -72,11 +82,12 @@ void tableWidget::addTable(QTableWidget* table)
     table->setColumnWidth(3,65);
     table->setColumnWidth(4,135);
     table->setColumnWidth(5,50);
+    table->setColumnWidth(6,70);
 
-    adaptTableHeight(22, table);
+    adaptSingleTableHeight(22, table);
     adaptTableWidth(15,table);
 
-    tableLayout->addWidget(table);
+    layout->addWidget(table);
 }
 
 
@@ -88,26 +99,38 @@ void tableWidget::addControlTable(QVBoxLayout* mainLayout)
     table2= new QTableWidget(this);
     table2->setVisible(false);
 
-    tableLayout = new QVBoxLayout();
+    table1Layout = new QHBoxLayout();
 
-    tableLayout->setSpacing(20);
-    tableLayout->setAlignment(Qt::AlignCenter);
-    tableLayout->setAlignment(Qt::AlignTop);
+    table1Layout->setAlignment(Qt::AlignHCenter);
+    table1Layout->setAlignment(Qt::AlignTop);
+
+    table2Layout = new QHBoxLayout();
+
+    table2Layout->setAlignment(Qt::AlignHCenter);
+    table2Layout->setAlignment(Qt::AlignTop);
 
     addControls(mainLayout);
 
-    addTable(table1);
+    label1 = new QLabel("Allenamenti in ordine cronologico",this);
+    addLabel(label1);
+    addTable(table1, table1Layout);
+    table1->hideColumn(6);
 
-    addTable(table2);
+    mainLayout->addLayout(table1Layout);
+
+    label2 = new QLabel("Allenamenti di resistenza in ordine cronologico",this);
+    label2->setVisible(true);
+    addLabel(label2);
+
+    addTable(table2, table2Layout);
 
     table2->setColumnCount(7);
     table2->setHorizontalHeaderLabels(QStringList()<<"Nome"<<"Tipo"<<"Inizio"<<"Durata"<<"Fine"<<"Calorie"<<"Distanza");
     table2->setColumnWidth(6,70);
 
-    mainLayout->addLayout(tableLayout);
 
-    label1 = new QLabel("Allenamenti in ordine cronologico",this);
-    addLabel(label1);
+    mainLayout->addLayout(table2Layout);
+
 
 }
 
@@ -150,9 +173,15 @@ void tableWidget::addControls(QVBoxLayout* mainLayout)
 
 void tableWidget::addLabel(QLabel* label)
 {
+    QHBoxLayout* labelLayout = new QHBoxLayout;
+    labelLayout->setAlignment(Qt::AlignHCenter);
+    labelLayout->setAlignment(Qt::AlignTop);
+
     label->adjustSize();
     label->setStyleSheet("QLabel {color: white}");
-    mainLayout->addWidget(label);
+    labelLayout->addWidget(label);
+
+    mainLayout->addLayout(labelLayout);
 }
 
 void tableWidget::setupCommon(QVBoxLayout* mainL, const Training* training)
@@ -363,9 +392,8 @@ void tableWidget::changeState(int state)
 {
     splitState = (state == Qt::CheckState::Unchecked ? false : true);
 
-    table2->setVisible(splitState);
     if (splitState)
-        label1->setText(QString::fromStdString("Allenamenti in ordine cronologico, allenamenti di ripetizione in alto, di resistenza in basso"));
+        label1->setText(QString::fromStdString("Allenamenti di ripetizione in ordine cronologico"));
     else
         label1->setText(QString::fromStdString("Allenamenti in ordine cronologico"));
     label1->adjustSize();
@@ -377,6 +405,7 @@ void tableWidget::changeState(int state)
 tableWidget::tableWidget(QWidget *parent) : QWidget(parent)
 {
     mainLayout = new QVBoxLayout();
+    mainLayout->setSpacing(10);
 
     splitState = false;
 
@@ -400,7 +429,6 @@ void tableWidget::showCommonData(const Training* it, unsigned int i)
     QLineEdit* item = new QLineEdit(QString::fromStdString(it->getName()),this);
     setLineEdit(item);
     i == 1? table1->setCellWidget(0,0,item) : table2->setCellWidget(0,0,item);
-    i == 1? std::cout<<"Inserito in table1"<<std::endl : std::cout<<"Inserito in t2"<<std::endl;
 
     item = new QLineEdit(QString::fromStdString(it->getStart().toString()),this);
     setLineEdit(item);
@@ -455,6 +483,9 @@ void tableWidget::showEnduranceData(const Endurance *training)
 
 void tableWidget::showData()
 {
+    table1->setVisible(false);
+    table2->setVisible(false);
+
     while (table1->rowCount() != 0)
         table1->removeRow(0);
 
@@ -466,15 +497,10 @@ void tableWidget::showData()
     if (splitState)
     {
         mainLayout->setContentsMargins(0,0,0,0);
-        std::cout<<"Split state: "<<splitState<<std::endl;
         foundEndurance = foundRepetition = true;
 
-        if(table1->columnCount() != 7)
-        {
-            table1->setColumnCount(7);
-            table1->setHorizontalHeaderLabels(QStringList()<<"Nome"<<"Tipo"<<"Inizio"<<"Durata"<<"Fine"<<"Calorie"<<"Intensità");
-            table1->setColumnWidth(6,70);
-        }
+        if(table1->isColumnHidden(6))
+            table1->showColumn(6);
 
         for (auto it = trainings->begin(); it != trainings->end(); ++it)
         {
@@ -494,8 +520,8 @@ void tableWidget::showData()
     {
         mainLayout->setContentsMargins(0,0,70,0);
 
-        if(table1->columnCount() != 6)
-            table1->removeColumn(6);
+        if(!table1->isColumnHidden(6))
+            table1->setColumnHidden(6,true);
 
         for (auto it = trainings->begin(); it != trainings->end(); ++it)
         {
@@ -523,17 +549,32 @@ void tableWidget::showData()
         else
             splitCheckBox->setVisible(false);
     }
-    adaptTableHeight(22,table1);
-    adaptTableHeight(22,table2);
+
+    if (splitState)
+    {
+        adaptDoubleTableHeight(22,table1);
+        adaptDoubleTableHeight(22,table2);
+    }
+    else
+    {
+        adaptSingleTableHeight(22,table1);
+        adaptSingleTableHeight(22,table2);
+    }
     adaptTableWidth(15,table1);
     adaptTableWidth(15,table2);
+
+    table1->setVisible(true);
+    table2->setVisible(splitState);
 }
 
 void tableWidget::setData(const std::list<const Training *> *data)
 {
-    auto aux = trainings;
-    trainings = data;
-    delete aux;
+    if (trainings != data)
+    {
+        auto aux = trainings;
+        trainings = data;
+        delete aux;
+    }
 }
 
 /*FUNZIONE PER FARE IL RESIZE DELLA TABELLA (COLONNE, RIGHE E "SFONDO BIANCO")
