@@ -53,7 +53,7 @@ void tableWidget::adaptTableWidth(unsigned int w, QTableWidget *table)
     table->setFixedWidth(w);
 }
 
-void tableWidget::addTable(QTableWidget* table, QHBoxLayout* layout)
+void tableWidget::addTable(QTableWidget* table, QVBoxLayout* layout)
 {
 
     table->setColumnCount(7);
@@ -92,53 +92,53 @@ void tableWidget::addTable(QTableWidget* table, QHBoxLayout* layout)
 
 
 
-void tableWidget::addControlTable(QVBoxLayout* mainLayout)
+void tableWidget::addControlTable()
 {
 
     table1 = new QTableWidget(this);
     table2= new QTableWidget(this);
     table2->setVisible(false);
 
-    table1Layout = new QHBoxLayout();
+    tableLayout = new QVBoxLayout();
+    table1Layout = new QVBoxLayout();
+    table2Layout = new QVBoxLayout();
 
-    table1Layout->setAlignment(Qt::AlignHCenter);
-    table1Layout->setAlignment(Qt::AlignTop);
+    table1Layout->setContentsMargins(0,0,0,20);
+    addControls();
 
-    table2Layout = new QHBoxLayout();
-
-    table2Layout->setAlignment(Qt::AlignHCenter);
-    table2Layout->setAlignment(Qt::AlignTop);
-
-    addControls(mainLayout);
 
     label1 = new QLabel("Allenamenti in ordine cronologico",this);
-    addLabel(label1);
+
+    setLabel(label1, table1Layout);
     addTable(table1, table1Layout);
     table1->hideColumn(6);
 
-    mainLayout->addLayout(table1Layout);
 
     label2 = new QLabel("Allenamenti di resistenza in ordine cronologico",this);
-    label2->setVisible(true);
-    addLabel(label2);
-
+    label2->setVisible(false);
+    setLabel(label2, table2Layout);
     addTable(table2, table2Layout);
 
     table2->setColumnCount(7);
     table2->setHorizontalHeaderLabels(QStringList()<<"Nome"<<"Tipo"<<"Inizio"<<"Durata"<<"Fine"<<"Calorie"<<"Distanza");
     table2->setColumnWidth(6,70);
 
-
-    mainLayout->addLayout(table2Layout);
+    tableLayout->addLayout(table1Layout);
+    tableLayout->addLayout(table2Layout);
+    mainLayout->addLayout(tableLayout);
 
 
 }
 
-void tableWidget::addControls(QVBoxLayout* mainLayout)
+void tableWidget::addControls()
 {
-    QHBoxLayout * controlLayout = new QHBoxLayout();
-    controlLayout->setAlignment(Qt::AlignTop);
-    controlLayout->setContentsMargins(0,0,0,10);
+    QHBoxLayout* controlBoxLayout = new QHBoxLayout;
+    QHBoxLayout * controlLayout = new QHBoxLayout;
+
+    controlBoxLayout->setAlignment(Qt::AlignLeft);
+    controlBoxLayout->setContentsMargins(0,0, 0,10);
+
+    controlLayout->setContentsMargins(0,0,50,0);
     controlLayout->setSpacing(10);
 
     addButton = new QPushButton("Aggiungi", this);
@@ -157,31 +157,29 @@ void tableWidget::addControls(QVBoxLayout* mainLayout)
     setButton->setStyleSheet("QPushButton { background-color : #c26110 ; color : white; }");
     removeButton->setStyleSheet("QPushButton { background-color : #c26110 ; color : white; }");
     exerciseButton->setStyleSheet("QPushButton { background-color : #c26110 ; color : white; }");
-    splitCheckBox->setStyleSheet("QCheckBox { background-color : #c26110 ; color : white; }");
+    splitCheckBox->setStyleSheet("QCheckBox { color : white;}"
+                                 "QCheckBox::indicator {border : 3px solid rgba(255,120,100,50); }"
+                                 );
 
     controlLayout->addWidget(addButton);
     controlLayout->addWidget(setButton);
     controlLayout->addWidget(removeButton);
     controlLayout->addWidget(exerciseButton);
-    controlLayout->addWidget(splitCheckBox);
+
+    controlBoxLayout->addLayout(controlLayout);
+    controlBoxLayout->addWidget(splitCheckBox);
 
     connect(exerciseButton, SIGNAL(clicked()), this, SLOT(showExercises()));
     connect(splitCheckBox, SIGNAL(stateChanged(int)), this, SLOT(changeState(int)));
 
-    mainLayout->addLayout(controlLayout);
+    mainLayout->addLayout(controlBoxLayout);
 }
 
-void tableWidget::addLabel(QLabel* label)
+void tableWidget::setLabel(QLabel* label, QBoxLayout* layout)
 {
-    QHBoxLayout* labelLayout = new QHBoxLayout;
-    labelLayout->setAlignment(Qt::AlignHCenter);
-    labelLayout->setAlignment(Qt::AlignTop);
-
-    label->adjustSize();
+    label->setFixedSize(300,25);
     label->setStyleSheet("QLabel {color: white}");
-    labelLayout->addWidget(label);
-
-    mainLayout->addLayout(labelLayout);
+    layout->addWidget(label);
 }
 
 void tableWidget::setupCommon(QVBoxLayout* mainL, const Training* training)
@@ -405,13 +403,13 @@ void tableWidget::changeState(int state)
 tableWidget::tableWidget(QWidget *parent) : QWidget(parent)
 {
     mainLayout = new QVBoxLayout();
-    mainLayout->setSpacing(10);
+    mainLayout->setAlignment(Qt::AlignTop);
 
     splitState = false;
 
     trainings = nullptr;
 
-    addControlTable(mainLayout);
+    addControlTable();
 
     setLayout(mainLayout);
 
@@ -496,7 +494,7 @@ void tableWidget::showData()
 
     if (splitState)
     {
-        mainLayout->setContentsMargins(0,0,0,0);
+        tableLayout->setContentsMargins(0,0,0,0);
         foundEndurance = foundRepetition = true;
 
         if(table1->isColumnHidden(6))
@@ -518,7 +516,7 @@ void tableWidget::showData()
     }
     else
     {
-        mainLayout->setContentsMargins(0,0,70,0);
+        tableLayout->setContentsMargins(0,0,70,0);
 
         if(!table1->isColumnHidden(6))
             table1->setColumnHidden(6,true);
@@ -565,6 +563,7 @@ void tableWidget::showData()
 
     table1->setVisible(true);
     table2->setVisible(splitState);
+    label2->setVisible(splitState);
 }
 
 void tableWidget::setData(const std::list<const Training *> *data)

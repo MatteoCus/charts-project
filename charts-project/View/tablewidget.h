@@ -40,8 +40,8 @@ private:
     QPushButton* removeButton;
     QPushButton* exerciseButton;
 
-    QHBoxLayout* table1Layout, *table2Layout;
-    QVBoxLayout* mainLayout;
+    QVBoxLayout* table1Layout, *table2Layout;
+    QVBoxLayout* mainLayout, *tableLayout;
 
     const std::list<const Training*>* trainings;
     bool splitState;
@@ -51,10 +51,10 @@ private:
     void adaptSingleTableHeight(unsigned int h, QTableWidget* table);
     void adaptDoubleTableHeight(unsigned int h, QTableWidget* table);
     void adaptTableWidth(unsigned int w, QTableWidget* table);
-    void addTable(QTableWidget * table, QHBoxLayout* layout);
-    void addControlTable(QVBoxLayout* mainLayout);
-    void addControls(QVBoxLayout* mainLayout);
-    void addLabel(QLabel* label);
+    void addTable(QTableWidget * table, QVBoxLayout* layout);
+    void addControlTable();
+    void addControls();
+    void setLabel(QLabel* label, QBoxLayout* layout);
     void setupExercises(QVBoxLayout *mainL, const Repetition* training);
     void setupCommon(QVBoxLayout* mainL, const Training* training);
 
