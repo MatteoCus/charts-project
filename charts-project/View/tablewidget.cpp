@@ -13,6 +13,25 @@ void tableWidget::setLabelStyleSheet(QLabel *name)
     name->setStyleSheet("QLabel {background-color: #404244; color: white}");
 }
 
+void tableWidget::setCheckBoxStyleSheet(QCheckBox *checkBox)
+{
+    checkBox->setStyleSheet("QCheckBox { color : white} "
+                                "QCheckBox::indicator {background-color: #c26110 ; border : 1px solid #c26110}"
+                                 "QCheckBox::indicator:unchecked:pressed {"
+                                     "background-color : #ca7833;"
+                                 "}"
+
+                                 "QCheckBox::indicator:checked {"
+                                     "image: url(/home/matteo/Documenti/GitHub/charts-project/charts-project/icons/tick.png);"
+                                    " width : 12 px; height : 12 px"
+                                 "}"
+
+                                 "QCheckBox::indicator:checked:pressed {"
+                                     "image: url(/home/matteo/Documenti/GitHub/charts-project/charts-project/icons/tickPressed.png);"
+                                    ""
+                                 "}" );
+}
+
 void tableWidget::addToLayout(QBoxLayout *layout, QWidget *w1, QWidget *w2)
 {
     layout->addWidget(w1);
@@ -58,9 +77,9 @@ void tableWidget::addTable(QTableWidget* table, QVBoxLayout* layout)
 
     table->setColumnCount(7);
 
-    table->setHorizontalHeaderLabels(QStringList()<<"Nome"<<"Tipo"<<"Inizio"<<"Durata"<<"Fine"<<"Calorie"<<"Distanza");
+    table->setHorizontalHeaderLabels(QStringList()<<"Nome"<<"Tipo"<<"Inizio"<<"Durata"<<"Fine"<<"Calorie"<<"Intensità");
     table->setStyleSheet("QHeaderView::section { color : white ; background-color: #c26110}  "
-                         "Qtable1Widget::item {color : white ;  gridline-color: #c26110 ; background-color : #404244; selection-background-color: #c26110 ;"
+                         "QTableWidget::item {color : white ;  gridline-color: #c26110 ; background-color : #404244; selection-background-color: #c26110 ;"
                          "selection-color : white}"
                          "QLineEdit {color : white ; background-color : #404244; selection-background-color: #c26110 ;"
                          "selection-color : white}");
@@ -151,15 +170,13 @@ void tableWidget::addControls()
     setButton->setFixedSize(70,25);
     removeButton->setFixedSize(70,25);
     exerciseButton->setFixedSize(130,25);
-    splitCheckBox->setFixedSize(200,25);
+    //splitCheckBox->setFixedSize(200,25);
 
     addButton->setStyleSheet("QPushButton { background-color : #c26110 ; color : white; }");
     setButton->setStyleSheet("QPushButton { background-color : #c26110 ; color : white; }");
     removeButton->setStyleSheet("QPushButton { background-color : #c26110 ; color : white; }");
     exerciseButton->setStyleSheet("QPushButton { background-color : #c26110 ; color : white; }");
-    splitCheckBox->setStyleSheet("QCheckBox { color : white;}"
-                                 "QCheckBox::indicator {border : 3px solid rgba(255,120,100,50); }"
-                                 );
+    setCheckBoxStyleSheet(splitCheckBox);
 
     controlLayout->addWidget(addButton);
     controlLayout->addWidget(setButton);

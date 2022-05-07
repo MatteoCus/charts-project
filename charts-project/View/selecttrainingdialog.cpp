@@ -43,12 +43,18 @@ selectTrainingDialog::selectTrainingDialog(QWidget* parent, const std::list<cons
     std::string trainingName = (*it)->getName();
     std::list<const Training*> aux;
     it = trainings->end();
+    bool foundFirst = false;
+
     for (--it; it != --trainings->begin(); --it)
     {
         if(type == "All" || (type == "Repetition" && dynamic_cast<const Repetition*>(*it))
                          || (type == "Endurance" && dynamic_cast<const Endurance*>(*it)))
         {
-            trainingName = (*it)->getName();
+            if (!foundFirst)
+            {
+                foundFirst = true;
+                trainingName = (*it)->getName();
+            }
             dateBox->addItem(QString::fromStdString((*it)->getStart().toString()));
             aux.push_back(*it);
         }
