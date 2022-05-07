@@ -585,12 +585,7 @@ void tableWidget::showData()
 
 void tableWidget::setData(const std::list<const Training *> *data)
 {
-    if (trainings != data)
-    {
-        auto aux = trainings;
-        trainings = data;
-        delete aux;
-    }
+    trainings = data;
 }
 
 /*FUNZIONE PER FARE IL RESIZE DELLA TABELLA (COLONNE, RIGHE E "SFONDO BIANCO")

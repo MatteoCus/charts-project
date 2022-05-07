@@ -56,10 +56,10 @@ chartViewer::chartViewer(QWidget *parent) : QWidget(parent)
 {
     mainLayout = new QHBoxLayout;
 
-    dataW = new tableWidget(this);
+    tableW = new tableWidget(this);
     chartW = new chartWidget(this);
     mainLayout->setSpacing(40);
-    mainLayout->addWidget(dataW);
+    mainLayout->addWidget(tableW);
     mainLayout->addWidget(chartW);
     mainLayout->setContentsMargins(10,90,10,20);
     addMenu(mainLayout);
@@ -93,7 +93,7 @@ chartViewer::chartViewer(QWidget *parent) : QWidget(parent)
 
     Date d3 = Date(21,06,2021);
     Time tim = Time(17);
-    Tennis* tr2 = new Tennis("Cristo",DateTime(d3,tim));
+    Rugby* tr2 = new Rugby("Cristo",DateTime(d3,tim));
     Exercise* ex2 = new Exercise("Primo", Time(0,15,0),Time(0,5,0));
     tr2->addExercise(ex2);
     ex2 = new Exercise("Secondo", Time(0,15,1),Time(0,6,0));
@@ -116,6 +116,7 @@ chartViewer::chartViewer(QWidget *parent) : QWidget(parent)
     aux->push_back(tr4);
     //trainingValues val = showRemoveDialog();
     //std::cout<<val.pos<<" "<<val.exName.size()<<std::endl;
+    setData(aux);
     showData();
     resize(1200,700);
 }
@@ -185,11 +186,12 @@ trainingValues chartViewer::showSetDialog()
 void chartViewer::setData(const std::list<const Training *> *data)
 {
     trainings = data;
+    tableW->setData(trainings);
+    chartW->setData(trainings);
 }
 
 void chartViewer::showData()
 {
-    dataW->setData(trainings);
-    dataW->showData();
-    //chartW->showData(trainings);
+    tableW->showData();
+    chartW->showData(trainings);
 }

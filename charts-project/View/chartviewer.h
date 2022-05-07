@@ -31,7 +31,7 @@ class chartViewer : public QWidget
     Q_OBJECT
 private:
     QHBoxLayout* mainLayout;
-    tableWidget* dataW;
+    tableWidget* tableW;
     chartWidget* chartW;
     QDialog* dialog;
     const std::list<const Training*>* trainings;
