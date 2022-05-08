@@ -20,6 +20,7 @@ SOURCES += \
     Model/model.cpp \
     DateTime/timespan.cpp \
     Model/trainingcreator.cpp \
+    View/barchart.cpp \
     View/chart.cpp \
     View/chartviewer.cpp \
     View/chartwidget.cpp \
@@ -41,6 +42,7 @@ SOURCES += \
 HEADERS += \
     DateTime/date.h \
     DateTime/datetime.h \
+    View/barchart.h \
     View/chart.h \
     View/chartviewer.h \
     View/chartwidget.h \

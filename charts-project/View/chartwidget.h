@@ -13,9 +13,13 @@
 #include <QChartView>
 #include <QFont>
 #include <./DateTime/datetime.h>
-#include <./Model/endurance.h>
-#include <./Model/repetition.h>
+#include <./Model/walk.h>
+#include <./Model/cycling.h>
+#include <./Model/run.h>
+#include <./Model/tennis.h>
+#include <./Model/rugby.h>
 #include "linechart.h"
+#include "barchart.h"
 
 class chartWidget : public QWidget
 {
@@ -23,14 +27,15 @@ class chartWidget : public QWidget
 private:
     chart* visibleChart;
     lineChart* line;
+    barChart* bar;
 
 
     const std::list<const Training*>* trainings;
 
-    QChartView *chartView;
     QComboBox* chartBox;
     QComboBox* dataBox;
     QVBoxLayout * mainLayout;
+    QHBoxLayout * controlsLayout;
 
     void addDefaultChart(QVBoxLayout * mainLayout);
     void addControls(QVBoxLayout * mainLayout);
@@ -41,9 +46,13 @@ private:
 
     void checkDataBoxValues();
 
+    void extractValues1(std::vector<double>& values, std::vector<DateTime*>& start, const std::string& data);
+
+    void extractValues2(std::vector<double>& values, std::vector<DateTime*>& start, const std::string& data);
+
 public:
     explicit chartWidget(QWidget *parent = nullptr);
-    void showData(const std::string& chart, const std::string& data);
+    void showData(std::string chart = "", std::string data = "");
     void setData(const std::list<const Training *> *data);
 
 signals:

@@ -2,7 +2,7 @@
 
 TimeSpan::TimeSpan(unsigned int h, unsigned int m, unsigned int s)
     : sec((m < 60 && s < 60)? h * secInHour + m * secInMinute + s
-              : throw std::invalid_argument("Invalid timespan/timestamp inserted")) {}
+                            : throw std::invalid_argument("Invalid timespan/timestamp inserted")) {}
 
 const unsigned int TimeSpan::secPerDay = secInHour * 24;
 

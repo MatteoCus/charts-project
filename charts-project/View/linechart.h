@@ -9,15 +9,19 @@ class lineChart : public chart
 
 private:
     QLineSeries* series;
-    QCategoryAxis* axisX;
-    QValueAxis* axisY;
+    QDateTimeAxis* axisX;
+    QAbstractAxis* axisY;
+    QValueAxis* axisYInt;
+    QDateTimeAxis* axisYDateTime;
     QPen pen;
+
+protected:
+    void connect() override;
 
 public:
     lineChart(QWidget *parent = nullptr);
-    void connect(QChart*  chart) override;
     void addAxes(const std::string& x, const std::string& y) override;
-    void addSeries(const std::vector<int>* values, const std::vector<DateTime*>* start) override;
+    void addSeries(const std::vector<double>* values, const std::vector<DateTime*>* start, bool duration) override;
 };
 
 #endif // LINECHART_H

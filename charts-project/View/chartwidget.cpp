@@ -1,23 +1,25 @@
 #include "chartwidget.h"
+#include <iostream>
+using namespace std;
 
 void chartWidget::addDefaultChart(QVBoxLayout * mainLayout)
 {
     line = new lineChart(this);
+    bar = new barChart(this);
 
+    visibleChart = bar;
+    mainLayout->addWidget(visibleChart->getChartView());
+    visibleChart->getChartView()->hide();
 
+    visibleChart = line;
+    mainLayout->addWidget(visibleChart->getChartView());
 
-    chartView = new QChartView(this);
-    chartView->setRenderHint(QPainter::Antialiasing);
-    chartView->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    chartView->setFixedSize(600,400);
-
-    mainLayout->addWidget(chartView);
     mainLayout->setContentsMargins(0,0,0,0);
 }
 
 void chartWidget::addControls(QVBoxLayout * mainLayout)
 {
-    QHBoxLayout * controlsLayout = new QHBoxLayout();
+    controlsLayout = new QHBoxLayout();
     chartBox = new QComboBox(this);
     chartBox->addItem("Line Chart");
     chartBox->addItem("Bar Chart");
@@ -73,7 +75,6 @@ void chartWidget::addControls(QVBoxLayout * mainLayout)
     controlsLayout->setAlignment(Qt::AlignHCenter);
     mainLayout->addLayout(controlsLayout);
 
-    //rimuovere Intensità e Distanza se non ci sono repetition / endurance
 }
 
 void chartWidget::hideDataEntry(int x)
@@ -119,7 +120,7 @@ void chartWidget::checkDataBoxValues()
 {
     bool repetitionFound = false, enduranceFound = false;
 
-    for (auto it = trainings->begin(); it != trainings->end() && !repetitionFound && !enduranceFound; ++it)
+    for (auto it = trainings->begin(); it != trainings->end() && (!repetitionFound || !enduranceFound); ++it)
     {
         if (dynamic_cast<const Endurance*>(*it))
             enduranceFound = true;
@@ -137,67 +138,127 @@ void chartWidget::checkDataBoxValues()
         hideDataEntry(3);
 }
 
-void chartWidget::showData(const std::string& chart, const std::string& data)
+void chartWidget::extractValues1(std::vector<double>& values, std::vector<DateTime*>& start, const std::string& data)
 {
-    //in base al valore delle combobox, campioniamo dei dati da spedire poi a mainChart (tipo chart*) tramite 'update(dati)'
-    //e poi si invoca 'show()' sempre su mainChart, dopo averlo opportunamente cambiato se necessario
-    //aggiungi il QChart alla QChartView quando vai a cambiare
-    checkDataBoxValues();
 
-    std::vector<int> values;
-    std::vector<DateTime*> start;
-
-    if (chart == "Line Chart" || chart == "Bar Chart")
+    for (auto it = trainings->begin(); it != trainings->end(); ++it)
     {
-        unsigned int i = 0;
+        start.push_back(new DateTime((*it)->getStart()));
         if (data == "Durata")
-        {
-            for (auto it = trainings->begin(); it != trainings->end(); ++it)
-            {
-                values[i] = (*it)->getDuration().getTotalSeconds();
-                start[i] = new DateTime((*it)->getStart());
-                ++i;
-            }
-        }
+            values.push_back((*it)->getDuration().getTotalSeconds());
         else if (data == "Calorie")
-        {
-            for (auto it = trainings->begin(); it != trainings->end(); ++it)
-            {
-                start[i] = new DateTime((*it)->getStart());
-                values[i] = (*it)->CaloriesBurned();
-                ++i;
-            }
-        }
+            values.push_back((*it)->CaloriesBurned());
         else if (data == "Intensità")
         {
-            for (auto it = trainings->begin(); it != trainings->end(); ++it)
+            if (auto rep = dynamic_cast<const Repetition*>(*it))
+                values.push_back(rep->Intensity());
+            else{ start.pop_back();}
+        }
+        else if (data == "Distanza")
+        {
+            if (auto end = dynamic_cast<const Endurance*>(*it))
+                values.push_back(end->getDistance());
+            else {start.pop_back();}
+        }
+    }
+}
+
+void chartWidget::extractValues2(std::vector<double>& values, std::vector<DateTime*>& start, const std::string& data)
+{
+    unsigned int j = 0 , counter[5] ;
+    for (unsigned int i = 0; i < 5; ++i)
+        counter[i] = 0;
+
+    for (auto it = trainings->begin(); it != trainings->end(); ++it)
+    {
+        //values[0] = valori di cycling, [1] = run, [2] = walk, [3] rugby, [4] tennis
+        //values[0] : rugby, values[1]: tennis
+        //values[0] = valori di cycling, [1] = run, [2] = walk
+
+        if (dynamic_cast<const Cycling*>(*it)) {j = 0;}
+        else if (dynamic_cast<const Run*>(*it)) { j = 1;}
+
+        else if (dynamic_cast<const Walk*>(*it)) { j = 2;}
+
+        else if (dynamic_cast<const Rugby*>(*it)) { j = 3;}
+
+        else if (dynamic_cast<const Tennis*>(*it)) {j = 4;}
+
+        else throw std::runtime_error("Tipo di allenamento sconosciuto");
+
+        counter[j]++;
+
+        start[j] = new DateTime((*it)->getStart());
+        if (data == "Durata")
+            values[j] = (*it)->getDuration().getTotalSeconds();
+        else if (data == "Calorie")
+            values[j] = (*it)->CaloriesBurned();
+        else if (data == "Intensità")
+        {
+            if (auto rep = dynamic_cast<const Repetition*>(*it))
             {
-                if (auto rep = dynamic_cast<const Repetition*>(*it))
-                {
-                    start[i] = new DateTime(rep->getStart());
-                    values[i] = rep->Intensity();
-                    ++i;
-                }
+                start[j] = new DateTime(rep->getStart());
+                values[j] = rep->Intensity();
             }
         }
         else if (data == "Distanza")
         {
-            for (auto it = trainings->begin(); it != trainings->end(); ++it)
+            if (auto end = dynamic_cast<const Endurance*>(*it))
             {
-                if (auto end = dynamic_cast<const Endurance*>(*it))
-                {
-                    start[i] = new DateTime(end->getStart());
-                    values[i] = end->getDistance();
-                    ++i;
-                };
+                start[j] = new DateTime(end->getStart());
+                values[j] = end->getDistance();
             }
         }
+    }
 
-    }
-    else
+    for (unsigned int i = 0; i < 5; ++i)
     {
-        //manca da estrarre i dati in base al tipo di dato ed al tipo di allenamento
+        if (counter[i])
+            values[i] = values[i]/counter[i];
     }
+}
+
+void chartWidget::showData(std::string chart, std::string data)
+{
+    //in base al valore delle combobox, campioniamo dei dati da spedire poi a mainChart (tipo chart*) tramite 'update(dati)'
+    //e poi si invoca 'show()' sempre su mainChart, dopo averlo opportunamente cambiato se necessario
+    //aggiungi il QChart alla QChartView quando vai a cambiare
+
+    visibleChart->getChartView()->setVisible(false);
+
+    checkDataBoxValues();
+
+    if ( chart == "" && data == "")
+    {
+        chart = chartBox->currentText().toStdString();
+        data = dataBox->currentText().toStdString();
+    }
+
+    std::vector<double> values;
+    std::vector<DateTime*> start;
+
+    if (chart == "Line Chart" || chart == "Bar Chart")
+    {
+        extractValues1(values,start,data);
+        if (chart == "Line Chart")
+            visibleChart = line;
+        else
+            visibleChart = bar;
+    }
+    else if (chart == "Pie Chart")
+    {
+        extractValues2(values,start,data);  //da sistemare
+        //visibleChart = pie
+    }
+    else throw std::runtime_error("Grafico non identificato!");
+
+    if (data == "Durata")
+        visibleChart->addSeries(&values,&start,true);
+    else
+        visibleChart->addSeries(&values,&start,false);
+
+    visibleChart->addAxes("Inizio allenamento", data);
+    visibleChart->getChartView()->setVisible(true);
 }
 
 void chartWidget::setData(const std::list<const Training *> *data)

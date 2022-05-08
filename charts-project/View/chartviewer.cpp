@@ -70,22 +70,22 @@ chartViewer::chartViewer(QWidget *parent) : QWidget(parent)
     Date d = Date(21,04,2021);
     Date d2 = Date(21,05,2021);
     Time ti = Time(17);
-    Training* t = new Run("C",DateTime(d,ti) ,7.59,TimeSpan(0,15));
+    Training* t = new Run("C",DateTime(d,ti) ,17.59,TimeSpan(1,25));
     aux->push_back(t);
     trainings = aux;
 
     Tennis* tr = new Tennis("Tennis del martedì",DateTime(d2,ti));
     Exercise* ex = new Exercise("Primo", Time(0,15,0),Time(0,5,0));
     tr->addExercise(ex);
-    ex = new Exercise("Secondo", Time(0,15,1),Time(0,6,0));
+    ex = new Exercise("Secondo", Time(0,15,1),Time(0,16,0));
     tr->addExercise(ex);
     ex = new Exercise("Secondo", Time(0,15,1),Time(0,6,0));
     tr->addExercise(ex);
-    ex = new Exercise("Secondo", Time(0,15,1),Time(0,6,0));
+    ex = new Exercise("Secondo", Time(0,15,1),Time(0,16,0));
     tr->addExercise(ex);
     ex = new Exercise("Secondo", Time(0,15,1),Time(0,6,0));
     tr->addExercise(ex);
-    ex = new Exercise("Secondo", Time(0,15,1),Time(0,6,0));
+    ex = new Exercise("Secondo", Time(0,15,1),Time(0,16,0));
     tr->addExercise(ex);
     ex = new Exercise("Secondo", Time(0,15,1),Time(0,6,0));
     tr->addExercise(ex);
@@ -110,7 +110,7 @@ chartViewer::chartViewer(QWidget *parent) : QWidget(parent)
     tr2->addExercise(ex2);
     aux->push_back(tr2);
 
-    Date d4 = Date(21,07,2021);
+    Date d4 = Date(29,07,2021);
     Time t4 = Time(17);
     Training* tr4 = new Cycling("C",DateTime(d4,t4) ,7.59,TimeSpan(0,15));
     aux->push_back(tr4);
@@ -193,5 +193,5 @@ void chartViewer::setData(const std::list<const Training *> *data)
 void chartViewer::showData()
 {
     tableW->showData();
-    chartW->showData(trainings);
+    chartW->showData();
 }
