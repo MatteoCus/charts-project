@@ -1,13 +1,13 @@
 #ifndef LINECHART_H
 #define LINECHART_H
 
-#include "chart.h"
+#include "axedchart.h"
 #include <QWidget>
 
-class lineChart : public chart
+class lineChart : public axedChart
 {
 
-private:
+protected:
     QLineSeries* series;
     QDateTimeAxis* axisX;
     QAbstractAxis* axisY;
@@ -15,12 +15,11 @@ private:
     QDateTimeAxis* axisYDateTime;
     QPen pen;
 
-protected:
     void connect() override;
 
 public:
     lineChart(QWidget *parent = nullptr);
-    void addAxes(const std::string& x, const std::string& y) override;
+    void setAxes(const std::string& x, const std::string& y) override;
     void addSeries(const std::vector<double>* values, const std::vector<DateTime*>* start, bool duration) override;
 };
 

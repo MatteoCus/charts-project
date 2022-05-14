@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 
-lineChart::lineChart(QWidget *parent) : chart(parent)
+lineChart::lineChart(QWidget *parent) : axedChart(parent)
 {
     graph->legend()->hide();
     series = new QLineSeries(this);
@@ -31,7 +31,7 @@ void lineChart::connect()
     graph->setAxisY(axisY,series);
 }
 
-void lineChart::addAxes(const std::string &x, const std::string &y)
+void lineChart::setAxes(const std::string &x, const std::string &y)
 {
     axisX->setTitleText(QString::fromStdString(x));
     axisY->setTitleText(QString::fromStdString(y));
@@ -70,7 +70,6 @@ void lineChart::addSeries(const std::vector<double> *values, const std::vector<D
                 axisYDateTime->setMax((*aux));
                 mx = sec;
             }
-            cout<<sec<<" "<<aux->toMSecsSinceEpoch()<<endl;
 
             series->append(convertDateTime((*start)[i])->toMSecsSinceEpoch(),aux->toMSecsSinceEpoch());
         }

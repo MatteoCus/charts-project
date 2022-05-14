@@ -20,6 +20,7 @@
 #include <./Model/rugby.h>
 #include "linechart.h"
 #include "barchart.h"
+#include "piechart.h"
 
 class chartWidget : public QWidget
 {
@@ -28,6 +29,7 @@ private:
     chart* visibleChart;
     lineChart* line;
     barChart* bar;
+    pieChart* pie;
 
 
     const std::list<const Training*>* trainings;
@@ -48,7 +50,7 @@ private:
 
     void extractValues1(std::vector<double>& values, std::vector<DateTime*>& start, const std::string& data);
 
-    void extractValues2(std::vector<double>& values, std::vector<DateTime*>& start, const std::string& data);
+    void extractValues2(std::vector<double>& values, const std::string& data);
 
 public:
     explicit chartWidget(QWidget *parent = nullptr);

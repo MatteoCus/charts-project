@@ -20,11 +20,14 @@ SOURCES += \
     Model/model.cpp \
     DateTime/timespan.cpp \
     Model/trainingcreator.cpp \
+    View/axedchart.cpp \
     View/barchart.cpp \
     View/chart.cpp \
     View/chartviewer.cpp \
     View/chartwidget.cpp \
     View/linechart.cpp \
+    View/nonaxedchart.cpp \
+    View/piechart.cpp \
     View/selecttrainingdialog.cpp \
     View/tablewidget.cpp \
     View/trainingdialog.cpp \
@@ -42,11 +45,14 @@ SOURCES += \
 HEADERS += \
     DateTime/date.h \
     DateTime/datetime.h \
+    View/axedchart.h \
     View/barchart.h \
     View/chart.h \
     View/chartviewer.h \
     View/chartwidget.h \
     View/linechart.h \
+    View/nonaxedchart.h \
+    View/piechart.h \
     View/selecttrainingdialog.h \
     View/tablewidget.h \
     View/trainingdialog.h \

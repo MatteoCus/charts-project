@@ -1,17 +1,5 @@
 #include "chart.h"
 
-QTime *chart::convertTime(TimeSpan *time)
-{
-    return new QTime(time->getHours(),time->getMinutes(), time->getSeconds());
-}
-
-QDateTime *chart::convertDateTime(DateTime *dateTime)
-{
-    Date d = dateTime->getDate();
-    Time t = dateTime->getTime();
-    return new QDateTime(QDate(d.getYear(), d.getMonth(), d.getDay()),*(convertTime(&t)));
-}
-
 chart::chart(QWidget *parent) : QWidget(parent)
 {
     graph = new QChart();
@@ -29,7 +17,7 @@ chart::chart(QWidget *parent) : QWidget(parent)
     graph->setTitle("Statistiche di allenamento");
 
     graph->setBackgroundBrush(QBrush(QColor(QRgb(0x404244))));
-    graph->setAnimationOptions(QChart::GridAxisAnimations);
+    graph->setAnimationOptions(QChart::AllAnimations);
 }
 
 QChartView *chart::getChartView() const

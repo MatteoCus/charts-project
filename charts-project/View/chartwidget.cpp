@@ -6,6 +6,11 @@ void chartWidget::addDefaultChart(QVBoxLayout * mainLayout)
 {
     line = new lineChart(this);
     bar = new barChart(this);
+    pie = new pieChart(this);
+
+    visibleChart = pie;
+    mainLayout->addWidget(visibleChart->getChartView());
+    visibleChart->getChartView()->hide();
 
     visibleChart = bar;
     mainLayout->addWidget(visibleChart->getChartView());
@@ -163,11 +168,12 @@ void chartWidget::extractValues1(std::vector<double>& values, std::vector<DateTi
     }
 }
 
-void chartWidget::extractValues2(std::vector<double>& values, std::vector<DateTime*>& start, const std::string& data)
+void chartWidget::extractValues2(std::vector<double>& values, const std::string& data)
 {
-    unsigned int j = 0 , counter[5] ;
-    for (unsigned int i = 0; i < 5; ++i)
-        counter[i] = 0;
+    unsigned int j = 0;
+
+    for(unsigned int i=0; i < 5; i++)
+        values.push_back(0);
 
     for (auto it = trainings->begin(); it != trainings->end(); ++it)
     {
@@ -175,46 +181,36 @@ void chartWidget::extractValues2(std::vector<double>& values, std::vector<DateTi
         //values[0] : rugby, values[1]: tennis
         //values[0] = valori di cycling, [1] = run, [2] = walk
 
-        if (dynamic_cast<const Cycling*>(*it)) {j = 0;}
-        else if (dynamic_cast<const Run*>(*it)) { j = 1;}
+        if (dynamic_cast<const Cycling*>(*it)) {j = (data != "Intensità"? 0 : -1);}
+        else if (dynamic_cast<const Run*>(*it)) { j = (data != "Intensità"? 1 : -1);}
 
-        else if (dynamic_cast<const Walk*>(*it)) { j = 2;}
+        else if (dynamic_cast<const Walk*>(*it)) { j = (data != "Intensità"? 2 : -1);}
 
-        else if (dynamic_cast<const Rugby*>(*it)) { j = 3;}
+        else if (dynamic_cast<const Rugby*>(*it)) { j = (data == "Intensità"? 0 : data != "Distanza"? 3: -1);}
 
-        else if (dynamic_cast<const Tennis*>(*it)) {j = 4;}
+        else if (dynamic_cast<const Tennis*>(*it)) {j = (data == "Intensità"? 1 : data != "Distanza"? 4: -1);}
 
         else throw std::runtime_error("Tipo di allenamento sconosciuto");
 
-        counter[j]++;
+        //j: se vale -1 vuol dire che un attributo non deve essere incluso in values, altrimenti indica la sua posizione
 
-        start[j] = new DateTime((*it)->getStart());
-        if (data == "Durata")
-            values[j] = (*it)->getDuration().getTotalSeconds();
-        else if (data == "Calorie")
-            values[j] = (*it)->CaloriesBurned();
-        else if (data == "Intensità")
+        if (j >= 0)
         {
-            if (auto rep = dynamic_cast<const Repetition*>(*it))
+            if (data == "Durata")
+                values[j] += (*it)->getDuration().getTotalSeconds();
+            else if (data == "Calorie")
+                values[j] += (*it)->CaloriesBurned();
+            else if (data == "Intensità")
             {
-                start[j] = new DateTime(rep->getStart());
-                values[j] = rep->Intensity();
+                if (auto rep = dynamic_cast<const Repetition*>(*it))
+                    values[j] += rep->Intensity();
+            }
+            else if (data == "Distanza")
+            {
+                if (auto end = dynamic_cast<const Endurance*>(*it))
+                    values[j] += end->getDistance();
             }
         }
-        else if (data == "Distanza")
-        {
-            if (auto end = dynamic_cast<const Endurance*>(*it))
-            {
-                start[j] = new DateTime(end->getStart());
-                values[j] = end->getDistance();
-            }
-        }
-    }
-
-    for (unsigned int i = 0; i < 5; ++i)
-    {
-        if (counter[i])
-            values[i] = values[i]/counter[i];
     }
 }
 
@@ -223,6 +219,7 @@ void chartWidget::showData(std::string chart, std::string data)
     //in base al valore delle combobox, campioniamo dei dati da spedire poi a mainChart (tipo chart*) tramite 'update(dati)'
     //e poi si invoca 'show()' sempre su mainChart, dopo averlo opportunamente cambiato se necessario
     //aggiungi il QChart alla QChartView quando vai a cambiare
+    bool durationFlag = false, repetitionFlag = false, enduranceFlag = false;
 
     visibleChart->getChartView()->setVisible(false);
 
@@ -247,17 +244,33 @@ void chartWidget::showData(std::string chart, std::string data)
     }
     else if (chart == "Pie Chart")
     {
-        extractValues2(values,start,data);  //da sistemare
-        //visibleChart = pie
+        extractValues2(values,data);
+        visibleChart = pie;
     }
     else throw std::runtime_error("Grafico non identificato!");
 
-    if (data == "Durata")
-        visibleChart->addSeries(&values,&start,true);
-    else
-        visibleChart->addSeries(&values,&start,false);
 
-    visibleChart->addAxes("Inizio allenamento", data);
+    if (data == "Durata")
+        durationFlag = true;
+    else if (data == "Intensità")
+        repetitionFlag = true;
+    else if (data == "Distanza")
+        enduranceFlag = true;
+
+    if (dynamic_cast<axedChart*>(visibleChart) && (chart == "Line Chart" || chart == "Bar Chart"))
+    {
+        axedChart* c = static_cast<axedChart*>(visibleChart);
+        c->addSeries(&values,&start,durationFlag);
+        c->setAxes("Inizio allenamento", data);
+    }
+    else if(dynamic_cast<nonAxedChart*>(visibleChart) && chart == "Pie Chart")
+    {
+        nonAxedChart* c = static_cast<nonAxedChart*>(visibleChart);
+        c->addSeries(&values,repetitionFlag,enduranceFlag);
+    }
+    else
+        throw std::runtime_error("Errore nella visualizzazione del grafico!");
+
     visibleChart->getChartView()->setVisible(true);
 }
 

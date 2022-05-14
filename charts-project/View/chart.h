@@ -13,26 +13,20 @@
 #include <QBarSet>
 #include <QCategoryAxis>
 #include <QDateTimeAxis>
+#include <DateTime/datetime.h>
 
 #include <vector>
-#include "DateTime/datetime.h"
-
 QT_CHARTS_USE_NAMESPACE
 
 class chart : public QWidget
 {
-    Q_OBJECT
 protected:
     QChartView *chartView;
     QChart * graph;
     virtual void connect() = 0;
-    static QTime *convertTime(Time* time);
-    static QDateTime *convertDateTime(DateTime* dateTime);
 public:
     explicit chart(QWidget *parent = nullptr);
-    virtual QChartView *getChartView() const;
-    virtual void addAxes(const std::string& x, const std::string& y) = 0;
-    virtual void addSeries(const std::vector<double>* values, const std::vector<DateTime*>* start, bool duration) = 0;
+    QChartView *getChartView() const;
 };
 
 #endif // CHART_H
