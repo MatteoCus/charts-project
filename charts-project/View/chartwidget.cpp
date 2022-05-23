@@ -170,7 +170,7 @@ void chartWidget::extractValues1(std::vector<double>& values, std::vector<DateTi
 
 void chartWidget::extractValues2(std::vector<double>& values, const std::string& data)
 {
-    unsigned int j = 0;
+    int j = 0;
 
     for(unsigned int i=0; i < 5; i++)
         values.push_back(0);

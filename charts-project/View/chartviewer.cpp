@@ -27,9 +27,7 @@ void chartViewer::addMenu(QHBoxLayout* mainLayout)
     file->addAction(new QAction("Esci", file));
 
     //Menù "visualizza"
-    visualizza->addAction(new QAction("Line Chart", visualizza));
-    visualizza->addAction(new QAction("Bar Chart", visualizza));
-    visualizza->addAction(new QAction("Other Chart", visualizza));
+    visualizza->addAction(new QAction("Grafico", visualizza));
     visualizza->addAction(new QAction("Esercizi", visualizza));
 
     //Menù "allenamenti"

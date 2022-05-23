@@ -11,7 +11,6 @@ private:
 public:
     Cycling() = default;
     Cycling(const std::string &name, const DateTime& start, double distance, const TimeSpan& duration);
-    TimeSpan Pace() const override;
     unsigned int CaloriesBurned() const override;
     Cycling* clone() const override;
 };

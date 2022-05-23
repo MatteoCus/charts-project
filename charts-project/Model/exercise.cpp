@@ -4,7 +4,7 @@ Exercise::Exercise()
     : name(""), duration(), recovery(){}
 
 Exercise::Exercise(const std::string& exName, const TimeSpan& exDuration, const TimeSpan& exRecovery)
-    : name(exName != ""? exName : throw std::invalid_argument("Invalid exercise name inserted")),
+    : name(exName != ""? exName : throw std::invalid_argument("Nome dell'esercizio non valido!")),
       duration(!exDuration.isNull()? exDuration : throw std::invalid_argument("Invalid value of training duration inserted")),
       recovery(!exRecovery.isNull()? exRecovery : throw std::invalid_argument("Invalid value of training duration inserted")){}
 
@@ -15,8 +15,7 @@ TimeSpan Exercise::getDuration() const {return duration;}
 TimeSpan Exercise::getRecoveryTime() const {return recovery;}
 
 void Exercise::setName(const std::string& exName){
-    if (exName != "")
-        name = exName;
+    name = exName != ""? exName : throw std::invalid_argument("Nome dell'esercizio non valido!");
 }
 
 void Exercise::setDuration(const TimeSpan& exDuration) {
@@ -27,5 +26,4 @@ void Exercise::setRecovery(const TimeSpan& exRecovery) {
     recovery = (!exRecovery.isNull()? exRecovery : throw std::invalid_argument("Invalid value of training duration inserted"));
 }
 
-//clone pattern to improve code extensibility
 Exercise* Exercise::clone() const   {return new Exercise(*this);}

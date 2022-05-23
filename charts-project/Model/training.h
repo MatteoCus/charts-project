@@ -19,11 +19,10 @@ public:
   virtual TimeSpan getDuration() const = 0;
   virtual unsigned int CaloriesBurned() const = 0;
   std::string getName() const;
-  double getWeight() const;
   DateTime getStart() const;
   DateTime getEnd() const;
-  void setName(const std::string &name);
-  void setStart(const DateTime &dateTime);
+  void setName(const std::string &newName);
+  void setStart(const DateTime &newStart);
   virtual Training *clone() const = 0;
   virtual ~Training() = default;
 };

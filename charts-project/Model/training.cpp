@@ -11,16 +11,14 @@ const double Training::avgWeight = 75;
 
 std::string Training::getName() const {return name;}
 
-double Training::getWeight() const  {return avgWeight;}
-
 DateTime Training::getStart() const {return start;}
 
 DateTime Training::getEnd() const {return start + getDuration();}
 
-void Training::setName(const std::string &trName){
-    name = trName != "" ? trName : throw std::invalid_argument("Invalid training name inserted!");
+void Training::setName(const std::string &newName){
+    name = newName != "" ? newName : throw std::invalid_argument("Invalid training name inserted!");
 }
 
-void Training::setStart(const DateTime& dateTime) {
-    start.setDateTime(dateTime.getDate(), dateTime.getTime());
+void Training::setStart(const DateTime& newStart) {
+    start.setDateTime(newStart.getDate(), newStart.getTime());
 }
