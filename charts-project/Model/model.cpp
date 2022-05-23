@@ -9,8 +9,8 @@ void Model::addNewTraining(const std::string &type, const std::string &name,
                            const std::vector<TimeSpan>* exRecovery) const {
     trainingCreator *creator = new trainingCreator();
     Training *tr =
-        creator->createTraining(type, name, start, distance, duration, exName,
-                                exDuration, exRecovery);
+            creator->createTraining(type, name, start, distance, duration, exName,
+                                    exDuration, exRecovery);
     plan->insertTraining(tr);
     delete creator;
 }
@@ -23,8 +23,8 @@ Training *Model::getTraining(unsigned int pos) const {
     return plan->getTraining(pos);
 }
 
-const std::list<Training *>& Model::getTrainings() const {
-  return plan->getTrainings();
+const std::list<Training *>* Model::getTrainings() const {
+    return plan->getTrainings();
 }
 
 void Model::setTraining(unsigned int pos, const std::string &name, const DateTime &start,
@@ -44,11 +44,11 @@ bool Model::isEmpty() const { return plan->isEmpty(); }
 Model::Model(const Model &model) : plan(new Plan(*model.plan)) {}
 
 Model &Model::operator=(const Model &model) {
-  if (this != &model) {
-    delete plan;
-    plan = new Plan(*model.plan);
-  }
-  return *this;
+    if (this != &model) {
+        delete plan;
+        plan = new Plan(*model.plan);
+    }
+    return *this;
 }
 
 Model::~Model() { delete plan; }

@@ -13,29 +13,29 @@
 
 class Plan {
 private:
-  std::list<Training *> trainings;
-  static std::list<Training *> copy(const Plan &plan);
-  static void destroy(const Plan &plan);
-  bool check(Training *training);
+    std::list<Training *> trainings;
+    static std::list<Training *> copy(const Plan &plan);
+    static void destroy(const Plan &plan);
+    bool check(Training *training);
 
 public:
-  Plan() = default;
-  void insertTraining(Training *training);
-  void removeTraining(unsigned int pos);
-  Training *getTraining(unsigned int pos) const;
-  const std::list<Training *>& getTrainings() const;
-  unsigned int getSize() const;
-  bool isEmpty() const;
-  void setTraining(unsigned int pos, const std::string &name, const DateTime &start,
-                   double distance = 0.0, const TimeSpan &duration = TimeSpan(),
-                   unsigned int exPos = 0, action operation = nothing,
-                   const std::vector<std::string>* exName = nullptr,
-                   const std::vector<TimeSpan>* exDuration = nullptr,
-                   const std::vector<TimeSpan>* exRecovery = nullptr);
+    Plan() = default;
+    void insertTraining(Training *training);
+    void removeTraining(unsigned int pos);
+    Training *getTraining(unsigned int pos) const;
+    const std::list<Training *>* getTrainings() const;
+    unsigned int getSize() const;
+    bool isEmpty() const;
+    void setTraining(unsigned int pos, const std::string &name, const DateTime &start,
+                     double distance = 0.0, const TimeSpan &duration = TimeSpan(),
+                     unsigned int exPos = 0, action operation = nothing,
+                     const std::vector<std::string>* exName = nullptr,
+                     const std::vector<TimeSpan>* exDuration = nullptr,
+                     const std::vector<TimeSpan>* exRecovery = nullptr);
 
-  Plan(const Plan &plan);
-  Plan &operator=(const Plan &plan);
-  ~Plan();
+    Plan(const Plan &plan);
+    Plan &operator=(const Plan &plan);
+    ~Plan();
 };
 
 #endif // PLAN_H
