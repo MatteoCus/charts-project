@@ -18,11 +18,9 @@ class selectTrainingDialog : public QDialog
 private:
     QComboBox* dateBox;
     QLineEdit* name;
-private slots:
-    //void updateName(const QString &text);
-
+    void setComboBoxStyleSheet();
 public:
-    explicit selectTrainingDialog(QWidget* parent = nullptr, const std::list<const Training*>* trainings = nullptr, std::string type = "All");    //trainings not nullptr
+    explicit selectTrainingDialog(QWidget* parent = nullptr, const std::list<const Training*>* trainings = nullptr, std::string type = "All");
     static QString getDate(QWidget* parent, bool* ok = nullptr, const std::list<const Training*>* trainings = nullptr, std::string type = "All");
 
 

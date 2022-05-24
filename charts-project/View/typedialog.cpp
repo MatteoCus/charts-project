@@ -1,18 +1,7 @@
 #include "typedialog.h"
 
-typeDialog::typeDialog(QWidget* parent): QDialog(parent)
+void typeDialog::setComboBoxStyleSheet()
 {
-    QVBoxLayout *mainL = new QVBoxLayout;
-    QHBoxLayout *typeLayout = new QHBoxLayout;
-    QHBoxLayout *buttonsLayout = new QHBoxLayout;
-    QFont font;
-    font.setBold(true);
-
-    setStyleSheet("QDialog{background-color: #404244}");
-    setFixedSize(250,90);
-
-    typeBox = new QComboBox(this);
-    typeBox->setFixedSize(100,25);
     typeBox->setStyleSheet("QComboBox {background-color : #404244 ; color: white ; selection-background-color: #c26110 ;"
                            "selection-color : white} "
                            "QComboBox::drop-down{background-color : #c26110 ;}"
@@ -27,6 +16,23 @@ typeDialog::typeDialog(QWidget* parent): QDialog(parent)
                            "height: 10px;}"
                            "QComboBox QListView {background-color : #404244 ; color : white;}"
                            "QComboBox QAbstractItemView {selection-background-color:#c26110;}");
+}
+
+typeDialog::typeDialog(QWidget* parent): QDialog(parent)
+{
+    QVBoxLayout *mainL = new QVBoxLayout;
+    QHBoxLayout *typeLayout = new QHBoxLayout;
+    QHBoxLayout *buttonsLayout = new QHBoxLayout;
+    QFont font;
+    font.setBold(true);
+
+    setStyleSheet("QDialog{background-color: #404244}");
+    setFixedSize(250,90);
+
+    typeBox = new QComboBox(this);
+    typeBox->setFixedSize(100,25);
+    setComboBoxStyleSheet();
+
     typeBox->addItem(QString("Corsa"));
     typeBox->addItem(QString("Camminata"));
     typeBox->addItem(QString("Ciclismo"));

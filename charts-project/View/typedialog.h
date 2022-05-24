@@ -14,6 +14,7 @@ class typeDialog : public QDialog
     Q_OBJECT
 private:
     QComboBox* typeBox;
+    void setComboBoxStyleSheet();
 public:
     explicit typeDialog(QWidget* parent = nullptr);
     static QString getType(QWidget* parent, bool* ok = nullptr);

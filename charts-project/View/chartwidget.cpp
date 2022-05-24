@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 
-void chartWidget::addDefaultChart(QVBoxLayout * mainLayout)
+void chartWidget::addDefaultChart()
 {
     line = new lineChart(this);
     bar = new barChart(this);
@@ -22,9 +22,9 @@ void chartWidget::addDefaultChart(QVBoxLayout * mainLayout)
     mainLayout->setContentsMargins(0,0,0,0);
 }
 
-void chartWidget::addControls(QVBoxLayout * mainLayout)
+void chartWidget::addControls()
 {
-    controlsLayout = new QHBoxLayout();
+    QHBoxLayout * controlsLayout = new QHBoxLayout();
     chartBox = new QComboBox(this);
     chartBox->addItem("Line Chart");
     chartBox->addItem("Bar Chart");
@@ -82,7 +82,7 @@ void chartWidget::addControls(QVBoxLayout * mainLayout)
 
 }
 
-void chartWidget::hideDataEntry(int x)
+void chartWidget::hideDataBoxEntry(int x)
 {
     QListView* view = qobject_cast<QListView *>(dataBox->view());
     Q_ASSERT(view != nullptr);
@@ -94,7 +94,7 @@ void chartWidget::hideDataEntry(int x)
     item->setFlags(item->flags() & ~Qt::ItemIsEnabled);
 }
 
-void chartWidget::unhideDataEntry(int x)
+void chartWidget::unhideDataBoxEntry(int x)
 {
     QListView* view = qobject_cast<QListView *>(dataBox->view());
     Q_ASSERT(view != nullptr);
@@ -112,9 +112,9 @@ chartWidget::chartWidget(QWidget *parent) : QWidget(parent)
 {
     mainLayout = new QVBoxLayout();
 
-    addDefaultChart(mainLayout);
+    addDefaultChart();
 
-    addControls(mainLayout);
+    addControls();
 
     setStyleSheet("QWidget{background-color : #2e2f30}");
     mainLayout->setAlignment(Qt::AlignTop);
@@ -134,16 +134,16 @@ void chartWidget::checkDataBoxValues()
     }
 
     if(repetitionFound)
-        unhideDataEntry(2);
+        unhideDataBoxEntry(2);
     else
-        hideDataEntry(2);
+        hideDataBoxEntry(2);
     if (enduranceFound)
-        unhideDataEntry(3);
+        unhideDataBoxEntry(3);
     else
-        hideDataEntry(3);
+        hideDataBoxEntry(3);
 }
 
-void chartWidget::extractValues1(std::vector<double>& values, std::vector<DateTime*>& start, const std::string& data)
+void chartWidget::extractValues(std::vector<double>& values, std::vector<DateTime*>& start, const std::string& data)
 {
 
     for (auto it = trainings->begin(); it != trainings->end(); ++it)
@@ -168,7 +168,7 @@ void chartWidget::extractValues1(std::vector<double>& values, std::vector<DateTi
     }
 }
 
-void chartWidget::extractValues2(std::vector<double>& values, const std::string& data)
+void chartWidget::extractValues(std::vector<double>& values, const std::string& data)
 {
     int j = 0;
 
@@ -236,7 +236,7 @@ void chartWidget::showData(std::string chart, std::string data)
 
     if (chart == "Line Chart" || chart == "Bar Chart")
     {
-        extractValues1(values,start,data);
+        extractValues(values,start,data);
         if (chart == "Line Chart")
             visibleChart = line;
         else
@@ -244,7 +244,7 @@ void chartWidget::showData(std::string chart, std::string data)
     }
     else if (chart == "Pie Chart")
     {
-        extractValues2(values,data);
+        extractValues(values,data);
         visibleChart = pie;
     }
     else throw std::runtime_error("Grafico non identificato!");

@@ -15,7 +15,7 @@ protected:
     void setPieSliceStyle();
 public:
     pieChart(QWidget *parent = nullptr);
-    virtual void addSeries(const std::vector<double>* values, bool repetition, bool endurance) override;
+    void addSeries(const std::vector<double>* values, bool repetition, bool endurance) override;
 };
 
 #endif // PIECHART_H

@@ -7,6 +7,7 @@ barChart::barChart(QWidget *parent) : axedChart(parent)
     graph->legend()->hide();
     set = new QBarSet("", this);
     series = new QBarSeries(this);
+    series->append(set);
     graph->addSeries(series);
 
     categories << "Non c'è alcun dato per ora";
@@ -49,15 +50,12 @@ void barChart::addSeries(const std::vector<double> *values, const std::vector<Da
     axisX->clear();
     categories.clear();
 
+    axisY->setTitleVisible(false);
+    axisY->setVisible(false);
+
     if(duration)
     {
-        axisY->setTitleVisible(false);
-        axisY->setVisible(false);
-
         axisY = axisYDateTime;
-
-        axisY->setVisible(true);
-        axisY->setTitleVisible(true);
 
         unsigned int mx = (*values)[0];
         for(unsigned int i = 0; i < values->size(); ++i)
@@ -85,13 +83,7 @@ void barChart::addSeries(const std::vector<double> *values, const std::vector<Da
     }
     else
     {
-        axisY->setTitleVisible(false);
-        axisY->setVisible(false);
-
         axisY = axisYInt;
-
-        axisY->setVisible(true);
-        axisY->setTitleVisible(true);
 
         double max = (*values)[0];
         for(unsigned int i = 0; i < values->size(); ++i)
@@ -104,6 +96,9 @@ void barChart::addSeries(const std::vector<double> *values, const std::vector<Da
         axisYInt->setMin(0);
         axisYInt->setMax(max);
     }
+    axisY->setVisible(true);
+    axisY->setTitleVisible(true);
+
     series->append(set);
     axisX->append(categories);
     connect();

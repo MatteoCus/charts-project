@@ -1,10 +1,23 @@
 #include "selecttrainingdialog.h"
 #include <iostream>
 
-/*void selectTrainingDialog::updateName(const QString &text)
+void selectTrainingDialog::setComboBoxStyleSheet()
 {
-    name->setText(text);
-}*/
+    dateBox->setStyleSheet("QComboBox {background-color : #404244 ; color: white ; selection-background-color: #c26110 ;"
+                           "selection-color : white} "
+                           "QComboBox::drop-down{background-color : #c26110 ;}"
+                           "QComboBox::drop-down"
+                           "{"
+                           "border : 2px solid;"
+                           "border-color : #df7012 #81410b #81410b #df7012;}"
+                           "QComboBox::drop-down:pressed{"
+                           "border : 2px solid;"
+                           "border-color : #81410b #df7012 #df7012 #81410b;}"
+                           "QComboBox::down-arrow{image : url(/home/matteo/Documenti/GitHub/charts-project/charts-project/icons/pngwing.com.png); width: 10px;"
+                           "height: 10px;}"
+                           "QComboBox QListView {background-color : #404244 ; color : white;}"
+                           "QComboBox QAbstractItemView {selection-background-color:#c26110;}");
+}
 
 selectTrainingDialog::selectTrainingDialog(QWidget* parent, const std::list<const Training*>* trainings, std::string type): QDialog(parent)
 {
@@ -23,20 +36,7 @@ selectTrainingDialog::selectTrainingDialog(QWidget* parent, const std::list<cons
 
     dateBox = new QComboBox(this);
     dateBox->setFixedSize(100,25);
-    dateBox->setStyleSheet("QComboBox {background-color : #404244 ; color: white ; selection-background-color: #c26110 ;"
-                           "selection-color : white} "
-                           "QComboBox::drop-down{background-color : #c26110 ;}"
-                           "QComboBox::drop-down"
-                           "{"
-                           "border : 2px solid;"
-                           "border-color : #df7012 #81410b #81410b #df7012;}"
-                           "QComboBox::drop-down:pressed{"
-                           "border : 2px solid;"
-                           "border-color : #81410b #df7012 #df7012 #81410b;}"
-                           "QComboBox::down-arrow{image : url(/home/matteo/Documenti/GitHub/charts-project/charts-project/icons/pngwing.com.png); width: 10px;"
-                           "height: 10px;}"
-                           "QComboBox QListView {background-color : #404244 ; color : white;}"
-                           "QComboBox QAbstractItemView {selection-background-color:#c26110;}");
+    setComboBoxStyleSheet();
     dateBox->setFixedWidth(150);
 
     auto it = trainings->begin();

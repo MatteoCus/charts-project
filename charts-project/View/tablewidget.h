@@ -46,16 +46,16 @@ private:
     const std::list<const Training*>* trainings;
     bool splitState;
 
-    void setLabelStyleSheet(QLabel* name);
+    void setLabelColor(QLabel* label);
+    void setLabelBackground(QLabel* label);
     void setCheckBoxStyleSheet(QCheckBox* checkBox);
     void addToLayout(QBoxLayout* layout, QWidget* w1, QWidget* w2);
     void adaptSingleTableHeight(unsigned int h, QTableWidget* table);
     void adaptDoubleTableHeight(unsigned int h, QTableWidget* table);
     void adaptTableWidth(unsigned int w, QTableWidget* table);
-    void addTable(QTableWidget * table, QVBoxLayout* layout);
+    void setTableStyleSheet(QTableWidget* table);
     void addControlTable();
     void addControls();
-    void setLabel(QLabel* label, QBoxLayout* layout);
     void setupExercises(QVBoxLayout *mainL, const Repetition* training);
     void setupCommon(QVBoxLayout* mainL, const Training* training);
 

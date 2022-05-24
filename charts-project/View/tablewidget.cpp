@@ -8,9 +8,16 @@ std::string value2string(double value)
   return out.str();
 }
 
-void tableWidget::setLabelStyleSheet(QLabel *name)
+void tableWidget::setLabelColor(QLabel *label)
 {
-    name->setStyleSheet("QLabel {background-color: #404244; color: white}");
+    label->setStyleSheet("QLabel { color: white}");
+}
+
+void tableWidget::setLabelBackground(QLabel *label)
+{
+    QString style = label->styleSheet();
+    style +=" QLabel{background-color: #404244 }";
+    label->setStyleSheet(style);
 }
 
 void tableWidget::setCheckBoxStyleSheet(QCheckBox *checkBox)
@@ -72,7 +79,7 @@ void tableWidget::adaptTableWidth(unsigned int w, QTableWidget *table)
     table->setFixedWidth(w);
 }
 
-void tableWidget::addTable(QTableWidget* table, QVBoxLayout* layout)
+void tableWidget::setTableStyleSheet(QTableWidget* table)
 {
 
     table->setColumnCount(7);
@@ -105,8 +112,6 @@ void tableWidget::addTable(QTableWidget* table, QVBoxLayout* layout)
 
     adaptSingleTableHeight(22, table);
     adaptTableWidth(15,table);
-
-    layout->addWidget(table);
 }
 
 
@@ -127,16 +132,23 @@ void tableWidget::addControlTable()
 
 
     label1 = new QLabel("Allenamenti in ordine cronologico",this);
+    setLabelColor(label1);
+    label1->setFixedSize(300,25);
 
-    setLabel(label1, table1Layout);
-    addTable(table1, table1Layout);
+    setTableStyleSheet(table1);
+    table1Layout->addWidget(label1);
+    table1Layout->addWidget(table1);
     table1->hideColumn(6);
 
 
     label2 = new QLabel("Allenamenti di resistenza in ordine cronologico",this);
     label2->setVisible(false);
-    setLabel(label2, table2Layout);
-    addTable(table2, table2Layout);
+    setLabelColor(label2);
+    label2->setFixedSize(300,25);
+
+    setTableStyleSheet(table2);
+    table2Layout->addWidget(label2);
+    table2Layout->addWidget(table2);
 
     table2->setColumnCount(7);
     table2->setHorizontalHeaderLabels(QStringList()<<"Nome"<<"Tipo"<<"Inizio"<<"Durata"<<"Fine"<<"Calorie"<<"Distanza");
@@ -192,13 +204,6 @@ void tableWidget::addControls()
     mainLayout->addLayout(controlBoxLayout);
 }
 
-void tableWidget::setLabel(QLabel* label, QBoxLayout* layout)
-{
-    label->setFixedSize(300,25);
-    label->setStyleSheet("QLabel {color: white}");
-    layout->addWidget(label);
-}
-
 void tableWidget::setupCommon(QVBoxLayout* mainL, const Training* training)
 {
     QHBoxLayout *nameLayout = new QHBoxLayout;
@@ -231,7 +236,8 @@ void tableWidget::setupCommon(QVBoxLayout* mainL, const Training* training)
     start->setAlignment(Qt::AlignCenter);
 
 
-    setLabelStyleSheet(nameLabel);
+    setLabelColor(nameLabel);
+    setLabelBackground(nameLabel);
 
     addToLayout(nameLayout,nameLabel,name);
 
@@ -240,7 +246,8 @@ void tableWidget::setupCommon(QVBoxLayout* mainL, const Training* training)
     start->setStyleSheet("QDateTimeEdit {background-color: #56585a;   color: white ; selection-background-color: #c26110 ;"
                          "selection-color : white} ");
 
-    setLabelStyleSheet(startLabel);
+    setLabelColor(startLabel);
+    setLabelBackground(startLabel);
 
     addToLayout(startLayout,startLabel,start);
 
@@ -321,7 +328,10 @@ void tableWidget::setupExercises(QVBoxLayout *mainL, const Repetition *training)
         auxEdit->setAlignment(Qt::AlignCenter);
         auxEdit->setFixedWidth(120);
         nameEx.push_back(auxEdit);
-        setLabelStyleSheet(nameExLabel[i]);
+
+        setLabelColor(nameExLabel[i]);
+        setLabelBackground(nameExLabel[i]);
+
         addToLayout(nameExLayout[i],nameExLabel[i],auxEdit);
 
         //Setup delle durate
@@ -336,7 +346,10 @@ void tableWidget::setupExercises(QVBoxLayout *mainL, const Repetition *training)
         auxDuration->setAlignment(Qt::AlignCenter);
         auxDuration->setFixedWidth(120);
         exDuration.push_back(auxDuration);
-        setLabelStyleSheet(exDurationLabel);
+
+        setLabelColor(exDurationLabel);
+        setLabelBackground(exDurationLabel);
+
         addToLayout(exDurationLayout[i],exDurationLabel,auxDuration);
 
         //Setup dei recuperi
@@ -350,7 +363,10 @@ void tableWidget::setupExercises(QVBoxLayout *mainL, const Repetition *training)
         auxRecovery->setAlignment(Qt::AlignCenter);
         auxRecovery->setFixedWidth(120);
         exRecovery.push_back(auxRecovery);
-        setLabelStyleSheet(exRecoveryLabel);
+
+        setLabelColor(exRecoveryLabel);
+        setLabelBackground(exRecoveryLabel);
+
         addToLayout(exRecoveryLayout[i],exRecoveryLabel,auxRecovery);
 
         //Setup layout
@@ -366,9 +382,7 @@ void tableWidget::setupExercises(QVBoxLayout *mainL, const Repetition *training)
 
 void tableWidget::showExercises()
 {
-    //showTrainingExercises();
     QDialog* dialog = new QDialog(this);
-    dialog->setModal(true);
     dialog->setStyleSheet("QDialog{background-color: #404244}");
     QVBoxLayout* mainLayout = new QVBoxLayout;
     bool ok, found = false;
@@ -571,10 +585,8 @@ void tableWidget::showData()
         adaptDoubleTableHeight(22,table2);
     }
     else
-    {
         adaptSingleTableHeight(22,table1);
-        adaptSingleTableHeight(22,table2);
-    }
+
     adaptTableWidth(15,table1);
     adaptTableWidth(15,table2);
 
@@ -587,25 +599,3 @@ void tableWidget::setData(const std::list<const Training *> *data)
 {
     trainings = data;
 }
-
-/*FUNZIONE PER FARE IL RESIZE DELLA TABELLA (COLONNE, RIGHE E "SFONDO BIANCO")
- *     //da qui
-    table1->insertRow(0);
-    table1->insertRow(0);
-    QLineEdit* it = new QLineEdit("35:42");
-        it->setFlags(it->flags() ^ Qt::ItemIsEditable1);                             //per rendere non editabile un campo
-        table1->setCellWidget(0, 2, it);
-        table1->resizeColumnToContents(2);
-        //table1->resizeColumnsToContents();
-        table1->resizeRowsToContents();
-        w = 17, h = 25;     //W ha 17 invece di 2 a causa dei numeri sui lati della tabella--> vedi te
-        for(int i = 0; i < table1->columnCount() ; i++)
-            w += table1->columnWidth(i);
-        for(int i = 0; i < table1->rowCount() ; i++)
-            h += table1->rowHeight(i);
-        if(w > 800)
-            w = 800;
-        if(h > 600)
-            h = 600;
-        table1->setFixedSize(w,h);
-    //a qui*/

@@ -37,20 +37,17 @@ private:
     QComboBox* chartBox;
     QComboBox* dataBox;
     QVBoxLayout * mainLayout;
-    QHBoxLayout * controlsLayout;
 
-    void addDefaultChart(QVBoxLayout * mainLayout);
-    void addControls(QVBoxLayout * mainLayout);
-    void hideDataEntry(int x);
-    void unhideDataEntry(int x);
-
-    void checkDataBoxValue(bool enduranceFound, bool repetitionFound);
+    void addDefaultChart();
+    void addControls();
+    void hideDataBoxEntry(int x);
+    void unhideDataBoxEntry(int x);
 
     void checkDataBoxValues();
 
-    void extractValues1(std::vector<double>& values, std::vector<DateTime*>& start, const std::string& data);
+    void extractValues(std::vector<double>& values, std::vector<DateTime*>& start, const std::string& data);
 
-    void extractValues2(std::vector<double>& values, const std::string& data);
+    void extractValues(std::vector<double>& values, const std::string& data);
 
 public:
     explicit chartWidget(QWidget *parent = nullptr);

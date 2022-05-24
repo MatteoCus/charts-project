@@ -46,15 +46,12 @@ void lineChart::addSeries(const std::vector<double> *values, const std::vector<D
     graph->removeSeries(series);
     axisX->setTickCount(values->size() > 1? values->size() : 2);
 
+    axisY->setTitleVisible(false);
+    axisY->setVisible(false);
+
     if(duration)
     {
-        axisY->setTitleVisible(false);
-        axisY->setVisible(false);
-
         axisY = axisYDateTime;
-
-        axisY->setVisible(true);
-        axisY->setTitleVisible(true);
 
         unsigned int mx = (*values)[0];
         for(unsigned int i = 0; i < values->size(); ++i)
@@ -78,13 +75,7 @@ void lineChart::addSeries(const std::vector<double> *values, const std::vector<D
     }
     else
     {
-        axisY->setTitleVisible(false);
-        axisY->setVisible(false);
-
         axisY = axisYInt;
-
-        axisY->setVisible(true);
-        axisY->setTitleVisible(true);
 
         double max = (*values)[0];
         for(unsigned int i = 0; i < values->size(); ++i)
@@ -96,6 +87,8 @@ void lineChart::addSeries(const std::vector<double> *values, const std::vector<D
         axisYInt->setMin(0);
         axisYInt->setMax(max);
     }
+    axisY->setVisible(true);
+    axisY->setTitleVisible(true);
 
     axisX->setMin(*convertDateTime((*start)[0]));
     axisX->setMax(*convertDateTime((*start)[start->size() -1]));

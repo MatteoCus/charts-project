@@ -35,13 +35,13 @@ void pieChart::addSeries(const std::vector<double> *values, bool repetition, boo
     for (auto it = values->begin(); it != values->end(); ++it)
         total += *it;
 
-    if (total != 0 || (repetition && endurance))
+    if (total != 0)
     {
         slices.erase(slices.begin(), slices.end()--);
         graph->removeSeries(series);
         series->clear();
 
-        if (repetition)
+        if (repetition) //se allenamenti sono solo di ripetizione
         {
             if ((*values)[0]/total)
                 series->append("Rugby", (*values)[0]/total);
@@ -58,7 +58,7 @@ void pieChart::addSeries(const std::vector<double> *values, bool repetition, boo
             if((*values)[2]/total)
                 series->append("Camminata", (*values)[2]/total);
 
-            if (!endurance)
+            if (!endurance)         //se allenamenti non sono solo di endurance
             {
                 if((*values)[3]/total)
                     series->append("Rugby", (*values)[3]/total);
