@@ -53,7 +53,7 @@ void lineChart::addSeries(const std::vector<double> *values, const std::vector<D
     {
         axisY = axisYDateTime;
 
-        unsigned int mx = (*values)[0];
+        unsigned int mx = 0;
         for(unsigned int i = 0; i < values->size(); ++i)
         {
             unsigned int sec = (*values)[i];

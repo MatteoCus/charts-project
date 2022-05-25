@@ -25,9 +25,11 @@ SOURCES += \
     View/chart.cpp \
     View/chartviewer.cpp \
     View/chartwidget.cpp \
+    View/endurancedialog.cpp \
     View/linechart.cpp \
     View/nonaxedchart.cpp \
     View/piechart.cpp \
+    View/repetitiondialog.cpp \
     View/selecttrainingdialog.cpp \
     View/tablewidget.cpp \
     View/trainingdialog.cpp \
@@ -50,9 +52,11 @@ HEADERS += \
     View/chart.h \
     View/chartviewer.h \
     View/chartwidget.h \
+    View/endurancedialog.h \
     View/linechart.h \
     View/nonaxedchart.h \
     View/piechart.h \
+    View/repetitiondialog.h \
     View/selecttrainingdialog.h \
     View/tablewidget.h \
     View/trainingdialog.h \

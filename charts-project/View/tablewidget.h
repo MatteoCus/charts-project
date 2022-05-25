@@ -18,7 +18,7 @@
 #include <sstream>
 #include <iomanip>
 #include "selecttrainingdialog.h"
-#include "trainingdialog.h"
+#include "repetitiondialog.h"
 
 #include <./Model/tennis.h>
 #include <./Model/rugby.h>
@@ -56,8 +56,6 @@ private:
     void setTableStyleSheet(QTableWidget* table);
     void addControlTable();
     void addControls();
-    void setupExercises(QVBoxLayout *mainL, const Repetition* training);
-    void setupCommon(QVBoxLayout* mainL, const Training* training);
 
     void setLineEdit(QLineEdit* item);
 

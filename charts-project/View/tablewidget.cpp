@@ -204,187 +204,8 @@ void tableWidget::addControls()
     mainLayout->addLayout(controlBoxLayout);
 }
 
-void tableWidget::setupCommon(QVBoxLayout* mainL, const Training* training)
-{
-    QHBoxLayout *nameLayout = new QHBoxLayout;
-    QHBoxLayout *startLayout = new QHBoxLayout;
-    QFont font;
-    font.setBold(true);
-
-    QLabel* nameLabel = new QLabel(QString("Nome"), this);
-
-    if (!training)
-            throw std::runtime_error("Allenamento non valido!");
-    Date date = training->getStart().getDate();
-    Time time = training->getStart().getTime();
-    QString trainingName = QString::fromStdString(training->getName());
-    QDateTime* qdatetime = new QDateTime(QDate(date.getYear(),date.getMonth(), date.getDay()), QTime(time.getHours(),time.getMinutes(),time.getSeconds()));
-
-    QLineEdit* name = new QLineEdit(trainingName, this);
-    QDateTimeEdit* start = new QDateTimeEdit(*qdatetime,this);
-
-    name->setReadOnly(true);
-    start->setReadOnly(true);
-    nameLabel->setFont(font);
-    name->setFixedWidth(150);
-    name->setAlignment(Qt::AlignCenter);
-
-    name->setStyleSheet("QLineEdit {background-color: #56585a; color: white ; selection-background-color: #c26110 ;"
-                        "selection-color : white} ");
-
-    start->setFixedWidth(150);
-    start->setAlignment(Qt::AlignCenter);
-
-
-    setLabelColor(nameLabel);
-    setLabelBackground(nameLabel);
-
-    addToLayout(nameLayout,nameLabel,name);
-
-    QLabel* startLabel = new QLabel(QString("Inizio"), this);
-    startLabel->setFont(font);
-    start->setStyleSheet("QDateTimeEdit {background-color: #56585a;   color: white ; selection-background-color: #c26110 ;"
-                         "selection-color : white} ");
-
-    setLabelColor(startLabel);
-    setLabelBackground(startLabel);
-
-    addToLayout(startLayout,startLabel,start);
-
-
-
-    mainL->addLayout(nameLayout);
-    mainL->addLayout(startLayout);
-}
-
-void tableWidget::setupExercises(QVBoxLayout *mainL, const Repetition *training)
-{
-    std::vector<QHBoxLayout *> nameExLayout;
-    std::vector<QHBoxLayout *> exDurationLayout;
-    std::vector<QHBoxLayout *> exRecoveryLayout;
-
-    std::vector<QLineEdit*> nameEx;
-    std::vector<QTimeEdit*> exDuration;
-    std::vector<QTimeEdit*> exRecovery;
-
-    std::vector<QLabel*> nameExLabel;
-    std::vector<QVBoxLayout *> rowLayout;
-    QVBoxLayout * firstLayout = new QVBoxLayout;
-    QFont font;
-    font.setItalic(true);
-
-    setupCommon(firstLayout,training);
-
-    firstLayout->setContentsMargins(0,0,15,0);
-    rowLayout.push_back(firstLayout);
-    unsigned int exNumber = training->getExercises().size();
-    if (exNumber > 3){
-        QHBoxLayout * horizLayout = new QHBoxLayout;
-        horizLayout->addLayout(firstLayout);
-        unsigned int numVerticalLayout = exNumber/3 + (exNumber%3==0? 0 : 1);
-        for(unsigned int i=1; i < numVerticalLayout  ; ++i)
-        {
-            QVBoxLayout * otherLayout = new QVBoxLayout;
-            rowLayout.push_back(otherLayout);
-            otherLayout->setContentsMargins(0,60,0,0);
-            otherLayout->setAlignment(Qt::AlignTop);
-            horizLayout->addLayout(otherLayout);
-        }
-        mainL->addLayout(horizLayout);
-    }
-    else
-        mainL->addLayout(firstLayout);
-
-    unsigned int i=0;
-    for (; i<exNumber ; i++){
-        QVBoxLayout* repetitionLayout = new QVBoxLayout;
-        rowLayout[(i/3)]->addLayout(repetitionLayout);
-
-        //Setup dei nomi
-        nameExLayout.push_back(new QHBoxLayout);
-        QLabel* auxLabel = new QLabel(QString("Nome esercizio " + QString::fromStdString(std::to_string(i+1)) + " :"), this);
-        nameExLabel.push_back(auxLabel);
-        auxLabel->setFont(font);
-
-        QLineEdit* auxEdit;
-        QTimeEdit* auxDuration;
-        QTimeEdit* auxRecovery;
-
-        Exercise* ex = training->getExercise(i);
-        Time dur = ex->getDuration();
-        Time rec = ex->getRecoveryTime();
-
-        auxEdit = new QLineEdit(QString::fromStdString(ex->getName()));
-        auxDuration = new QTimeEdit(QTime(dur.getHours(),dur.getMinutes(),dur.getSeconds()),this);
-        auxRecovery = new QTimeEdit(QTime(rec.getHours(),rec.getMinutes(),rec.getSeconds()),this);
-
-         auxEdit->setReadOnly(true);
-         auxDuration->setReadOnly(true);
-         auxRecovery->setReadOnly(true);
-
-
-        auxEdit->setStyleSheet("QLineEdit {background-color: #56585a; color: white ; selection-background-color: #c26110 ;"
-                              "selection-color : white} ");
-        auxEdit->setAlignment(Qt::AlignCenter);
-        auxEdit->setFixedWidth(120);
-        nameEx.push_back(auxEdit);
-
-        setLabelColor(nameExLabel[i]);
-        setLabelBackground(nameExLabel[i]);
-
-        addToLayout(nameExLayout[i],nameExLabel[i],auxEdit);
-
-        //Setup delle durate
-        exDurationLayout.push_back(new QHBoxLayout);
-        QLabel* exDurationLabel = new QLabel(QString("Durata attività"), this);
-        exDurationLabel->setFont(font);
-
-
-        auxDuration->setStyleSheet("QTimeEdit {background-color: #56585a; color: white ; selection-background-color: #c26110 ;"
-                                  "selection-color : white} ");
-        auxDuration->setDisplayFormat("hh:mm:ss");
-        auxDuration->setAlignment(Qt::AlignCenter);
-        auxDuration->setFixedWidth(120);
-        exDuration.push_back(auxDuration);
-
-        setLabelColor(exDurationLabel);
-        setLabelBackground(exDurationLabel);
-
-        addToLayout(exDurationLayout[i],exDurationLabel,auxDuration);
-
-        //Setup dei recuperi
-        exRecoveryLayout.push_back(new QHBoxLayout);
-        QLabel* exRecoveryLabel = new QLabel(QString("Durata recupero"), this);
-        exRecoveryLabel->setFont(font);
-
-        auxRecovery->setStyleSheet("QTimeEdit {background-color: #56585a; color: white ; selection-background-color: #c26110 ;"
-                                  "selection-color : white} ");
-        auxRecovery->setDisplayFormat("hh:mm:ss");
-        auxRecovery->setAlignment(Qt::AlignCenter);
-        auxRecovery->setFixedWidth(120);
-        exRecovery.push_back(auxRecovery);
-
-        setLabelColor(exRecoveryLabel);
-        setLabelBackground(exRecoveryLabel);
-
-        addToLayout(exRecoveryLayout[i],exRecoveryLabel,auxRecovery);
-
-        //Setup layout
-        repetitionLayout->setContentsMargins(0,10,5,10);
-        repetitionLayout->addLayout(nameExLayout[i]);
-        repetitionLayout->addLayout(exDurationLayout[i]);
-        repetitionLayout->addLayout(exRecoveryLayout[i]);
-
-
-    }
-}
-
-
 void tableWidget::showExercises()
 {
-    QDialog* dialog = new QDialog(this);
-    dialog->setStyleSheet("QDialog{background-color: #404244}");
-    QVBoxLayout* mainLayout = new QVBoxLayout;
     bool ok, found = false;
     QString start = selectTrainingDialog::getDate(this,&ok,trainings,"Repetition");
     if (start != "")
@@ -406,15 +227,12 @@ void tableWidget::showExercises()
         if (found && dynamic_cast<const Repetition*>(*training))
         {
             const Repetition* aux = static_cast<const Repetition*>(*training);
-            setupExercises(mainLayout,aux);
-            dialog->setLayout(mainLayout);
-            dialog->exec();
+            repetitionDialog* rep = new repetitionDialog(this,nothing,aux);
+            rep->exec();
         }
         else
             throw std::runtime_error("Tipo di allenamento selezionato non valido!");
     }
-    else
-        delete mainLayout;
 }
 
 void tableWidget::changeState(int state)
@@ -556,7 +374,7 @@ void tableWidget::showData()
         {
             if (!foundRepetition && dynamic_cast<const Repetition*>(*it))
                 foundRepetition = true;
-            else if (!foundEndurance)
+            else if (!foundEndurance && dynamic_cast<const Endurance*>(*it))
                 foundEndurance = true;
 
             showCommonData(*it);

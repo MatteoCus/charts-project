@@ -26,33 +26,25 @@
 class trainingDialog : public QDialog
 {
     Q_OBJECT
-private:
+protected:
 
     QLineEdit* name;
     QDateTimeEdit *start;
-    QDoubleSpinBox* distance;
-    QTimeEdit* duration;
-    std::vector<QLineEdit*> nameEx;
-    std::vector<QTimeEdit*> exDuration;
-    std::vector<QTimeEdit*> exRecovery;
-    QString type;
-    unsigned int pos, exPos;
-    action exAct;
+    unsigned int pos;
 
+
+    QVBoxLayout *mainL;
     void setLabelStyleSheet(QLabel* name);
 
     void addToLayout(QBoxLayout* layout, QWidget* w1, QWidget* w2);
 
-    void setupRepetition(QBoxLayout *mainL, action act, const Repetition* training = nullptr);
-
-    void setupEndurance(QBoxLayout *mainL, action act, const Endurance* training = nullptr);
-
     void setupCommon(QBoxLayout *mainL, action act, const Training* training = nullptr);
 
     int showExNumberDialog();
+    void addButtons();
+
 public:
-    explicit trainingDialog(QWidget *parent, action act, const Training* training = nullptr);
-    static trainingValues getValues(QWidget* parent, bool *ok, action act, const Training* training = nullptr);
+    explicit trainingDialog(QWidget *parent);
 };
 
 #endif // TRAININGDIALOG_H

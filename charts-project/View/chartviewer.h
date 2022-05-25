@@ -21,7 +21,8 @@
 #include "./Model/rugby.h"
 #include "./Model/walk.h"
 
-#include "trainingdialog.h"
+#include "endurancedialog.h"
+#include "repetitiondialog.h"
 #include "trainingvalues.h"
 #include "action.h"
 #include "selecttrainingdialog.h"
