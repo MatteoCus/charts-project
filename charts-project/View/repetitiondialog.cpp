@@ -14,6 +14,13 @@ repetitionDialog::repetitionDialog(QWidget *parent, action act, const Repetition
     QFont font;
     font.setItalic(true);
 
+    this -> setStyleSheet("QDialog{background-color : #404244}"
+                          "QInputDialog{background-color : #404244}"
+                          "QInputDialog QWidget{background-color: #404244; color: white ; selection-background-color: #c26110 ;"
+                          "selection-color : white}"
+                          "QInputDialog  QLabel{background-color : #404244; color: white}"
+                          "QInputDialog QLineEdit{background-color: #56585a; color: white ; selection-background-color: #c26110 ;"
+                          "selection-color : white}");
 
     firstLayout->setContentsMargins(0,0,15,0);
     rowLayout.push_back(firstLayout);
@@ -25,12 +32,6 @@ repetitionDialog::repetitionDialog(QWidget *parent, action act, const Repetition
         items << tr("Aggiungi") << tr("Inserisci") << tr("Modifica") << tr("Rimuovi");
 
         bool ok;
-        this -> setStyleSheet("QInputDialog{background-color : #404244}"
-                              "QInputDialog QWidget{background-color: #404244; color: white ; selection-background-color: #c26110 ;"
-                              "selection-color : white}"
-                              "QInputDialog  QLabel{background-color : #404244; color: white}"
-                              "QInputDialog QLineEdit{background-color: #56585a; color: white ; selection-background-color: #c26110 ;"
-                              "selection-color : white}");
         std::string item = QInputDialog::getItem(this, tr("Esercizi"),
                                              tr("Azione da effettuare sugli esercizi:"), items, 0, false, &ok).toStdString();
         if (ok && item !="")
@@ -99,7 +100,7 @@ repetitionDialog::repetitionDialog(QWidget *parent, action act, const Repetition
                 auxDuration = new QTimeEdit(QTime(dur.getHours(),dur.getMinutes(),dur.getSeconds()),this);
                 auxRecovery = new QTimeEdit(QTime(rec.getHours(),rec.getMinutes(),rec.getSeconds()),this);
 
-                if (act == eliminate)
+                if (act == eliminate || act == nothing)
                 {
                     auxEdit->setReadOnly(true);
                     auxDuration->setReadOnly(true);
@@ -157,6 +158,15 @@ repetitionDialog::repetitionDialog(QWidget *parent, action act, const Repetition
     {
         setupCommon(firstLayout,eliminate,training);
 
+        this -> setStyleSheet("QDialog{background-color : #404244; color : white}"
+                              "QInputDialog{background-color : #404244}"
+                              "QInputDialog QWidget{background-color: #56585a; color: white ; selection-background-color: #c26110 ;"
+                              "selection-color : white}"
+                              "QInputDialog QPushButton{background-color: #404244; color: white ; selection-background-color: #c26110 ;"
+                                                     "selection-color : white}"
+                              "QInputDialog QLabel{background-color: #404244; color: white ; selection-background-color: #c26110 ;"
+                              "selection-color : white}");
+
         mainL->addLayout(firstLayout);
         if (exAct == add)
             exPos = training->getSize();
@@ -171,7 +181,7 @@ repetitionDialog::repetitionDialog(QWidget *parent, action act, const Repetition
         else if (exAct == eliminate)
         {
             bool ok = false;
-            exPos = QInputDialog::getInt(this,QString("Inserimento esercizio"),QString("Posizione"),1,1,training->getSize(),1,&ok);
+            exPos = QInputDialog::getInt(this,QString("Elimina esercizio"),QString("Posizione"),1,1,training->getSize(),1,&ok);
             exPos--;
             if (!ok)
                 throw std::runtime_error("Posizione di eliminazione esercizio non valida!");

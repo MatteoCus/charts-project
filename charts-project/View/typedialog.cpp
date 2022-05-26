@@ -14,7 +14,7 @@ void typeDialog::setComboBoxStyleSheet()
                            "border-color : #81410b #df7012 #df7012 #81410b;}"
                            "QComboBox::down-arrow{image : url(/home/matteo/Documenti/GitHub/charts-project/charts-project/icons/pngwing.com.png); width: 10px;"
                            "height: 10px;}"
-                           "QComboBox QListView {background-color : #404244 ; color : white;}"
+                           "QComboBox QListView {background-color : #56585a ; color : white;}"
                            "QComboBox QAbstractItemView {selection-background-color:#c26110;}");
 }
 
@@ -48,12 +48,12 @@ typeDialog::typeDialog(QWidget* parent): QDialog(parent)
     QDialogButtonBox *buttonBox = new QDialogButtonBox(Qt::Orientation::Horizontal,this);
 
     QPushButton* first = new QPushButton(QString("Ok"), buttonBox);
-    first->setStyleSheet("QPushButton {background-color: #56585a; color: white ; selection-background-color: #c26110 ;"
+    first->setStyleSheet("QPushButton {background-color: #404244; color: white ; selection-background-color: #c26110 ;"
                          "selection-color : white} ");
     first->setDefault(true);
 
     QPushButton* second = new QPushButton(QString("Cancel"), buttonBox);
-    second->setStyleSheet("QPushButton {background-color: #56585a; color: white ; selection-background-color: #c26110 ;"
+    second->setStyleSheet("QPushButton {background-color: #404244; color: white ; selection-background-color: #c26110 ;"
                          "selection-color : white} ");
     second->setAutoDefault(false);
 

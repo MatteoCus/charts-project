@@ -15,7 +15,7 @@ void selectTrainingDialog::setComboBoxStyleSheet()
                            "border-color : #81410b #df7012 #df7012 #81410b;}"
                            "QComboBox::down-arrow{image : url(/home/matteo/Documenti/GitHub/charts-project/charts-project/icons/pngwing.com.png); width: 10px;"
                            "height: 10px;}"
-                           "QComboBox QListView {background-color : #404244 ; color : white;}"
+                           "QComboBox QListView {background-color : #56585a ; color : white;}"
                            "QComboBox QAbstractItemView {selection-background-color:#c26110;}");
 }
 
@@ -27,7 +27,13 @@ selectTrainingDialog::selectTrainingDialog(QWidget* parent, const std::list<cons
     QVBoxLayout *mainL = new QVBoxLayout;
     QHBoxLayout *dateLayout = new QHBoxLayout;
     QHBoxLayout *nameLayout = new QHBoxLayout;
+    QVBoxLayout *dataLayout = new QVBoxLayout;
     QHBoxLayout *buttonsLayout = new QHBoxLayout;
+
+    QFont font;
+    font.setBold(true);
+
+    dateLayout->setAlignment(Qt::AlignTop);
 
     nameLayout->setContentsMargins(0,0,0,10);
 
@@ -66,17 +72,19 @@ selectTrainingDialog::selectTrainingDialog(QWidget* parent, const std::list<cons
 
 
 
-    QLabel* lab = new QLabel(QString("Inizio"), this);
-    lab->setStyleSheet("QWidget {background-color: #404244; color: white}");
-    dateLayout->addWidget(lab);
+    QLabel* startLabel = new QLabel(QString("Inizio"), this);
+    startLabel->setStyleSheet("QWidget {background-color: #404244; color: white}");
+    startLabel->setFont(font);
+    dateLayout->addWidget(startLabel);
     dateLayout->addWidget(dateBox);
 
-    QLabel* nameLab = new QLabel(QString("Nome"), this);
-    nameLab->setStyleSheet("QWidget {background-color: #404244; color: white}");
-    name->setStyleSheet("QLineEdit {background-color: #56585a; color: white ; selection-background-color: #c26110 ;"
+    QLabel* nameLabel = new QLabel(QString("Nome"), this);
+    nameLabel->setStyleSheet("QWidget {background-color: #404244; color: white}");
+    nameLabel->setFont(font);
+    name->setStyleSheet("QWidget {background-color: #56585a; color: white ; selection-background-color: #c26110 ;"
                         "selection-color : white} ");
     name->setFixedWidth(150);
-    nameLayout->addWidget(nameLab);
+    nameLayout->addWidget(nameLabel);
     nameLayout->addWidget(name);
 
     QDialogButtonBox *buttonBox = new QDialogButtonBox(Qt::Orientation::Horizontal,this);
@@ -95,8 +103,9 @@ selectTrainingDialog::selectTrainingDialog(QWidget* parent, const std::list<cons
     buttonBox->addButton(second,QDialogButtonBox::RejectRole);
 
     buttonsLayout->addWidget(buttonBox);
-    mainL->addLayout(dateLayout);
-    mainL->addLayout(nameLayout);
+    dataLayout->addLayout(dateLayout);
+    dataLayout->addLayout(nameLayout);
+    mainL->addLayout(dataLayout);
     mainL->addLayout(buttonsLayout);
 
     bool conn = connect(buttonBox, &QDialogButtonBox::accepted,

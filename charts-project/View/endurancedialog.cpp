@@ -28,6 +28,7 @@ enduranceDialog::enduranceDialog(QWidget *parent, action act, const Endurance* t
         }
     }
     distance->setFixedWidth(150);
+    distance->setMinimum(0.01);
     distance->setAlignment(Qt::AlignCenter);
     distance->setStyleSheet("QDoubleSpinBox {background-color: #56585a; color: white ; selection-background-color: #c26110 ;"
                             "selection-color : white} ");
@@ -79,6 +80,8 @@ trainingValues enduranceDialog::getValues(QWidget *parent, bool *ok, action act,
         distance = dialog->distance->value();
         duration = dialog->duration->time();
     }
+    else
+        throw std::runtime_error("Operazione annullata!");
     dialog->deleteLater();
     return trainingValues("",start,name,distance,duration,std::vector<QString>(),std::vector<QTime>(),std::vector<QTime>(),act,pos,nothing, 0);
 }

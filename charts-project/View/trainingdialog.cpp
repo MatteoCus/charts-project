@@ -77,11 +77,13 @@ int trainingDialog::showExNumberDialog()
 {
     bool ok = false;
     QInputDialog* dial = new QInputDialog(this);
-    this -> setStyleSheet("QInputDialog{background-color : #404244}"
-                          "QInputDialog QWidget{background-color: #404244; color: white ; selection-background-color: #c26110 ;"
+    this -> setStyleSheet("QDialog{background-color : #404244; color : white}"
+                          "QInputDialog{background-color : #404244}"
+                          "QInputDialog QWidget{background-color: #56585a; color: white ; selection-background-color: #c26110 ;"
                           "selection-color : white}"
-                          "QInputDialog  QLabel{background-color : #404244; color: white}"
-                          "QInputDialog QLineEdit {background-color: #56585a; color: white ; selection-background-color: #c26110 ;"
+                          "QInputDialog QPushButton{background-color: #404244; color: white ; selection-background-color: #c26110 ;"
+                                                 "selection-color : white}"
+                          "QInputDialog QLabel{background-color: #404244; color: white ; selection-background-color: #c26110 ;"
                           "selection-color : white}");
     int remove = dial->getInt(this,tr("Esercizi da inserire"),"Quantità: ",1,1,15,1,&ok);
     if(!ok) throw std::runtime_error("Nessun numero scelto, inserimento annullato!");
@@ -94,20 +96,17 @@ void trainingDialog::addButtons()
     QDialogButtonBox *buttonBox = new QDialogButtonBox(Qt::Orientation::Horizontal,this);
 
     QPushButton* first = new QPushButton(QString("Ok"), buttonBox);
-    first->setStyleSheet("QPushButton {color: white ; selection-background-color: #c26110 ;"
+    first->setStyleSheet("QPushButton {background-color: #404244; color: white ; selection-background-color: #c26110 ;"
                          "selection-color : white} ");
     first->setDefault(true);
 
     QPushButton* second = new QPushButton(QString("Cancel"), buttonBox);
-    second->setStyleSheet("QPushButton {color: white ; selection-background-color: #c26110 ;"
+    second->setStyleSheet("QPushButton {background-color: #404244; color: white ; selection-background-color: #c26110 ;"
                          "selection-color : white} ");
     second->setAutoDefault(false);
 
     buttonBox->addButton(first,QDialogButtonBox::AcceptRole);
     buttonBox->addButton(second,QDialogButtonBox::RejectRole);
-
-    buttonBox->setStyleSheet("QDialogButtonBox {background-color : #404244 ; color: white ; selection-background-color: #c26110 ;"
-                             "selection-color : white} ");
 
     buttonsLayout->addWidget(buttonBox);
     mainL->addLayout(buttonsLayout);
@@ -119,11 +118,11 @@ void trainingDialog::addButtons()
         this, &trainingDialog::reject);
     Q_ASSERT(conn);
 
-    setLayout(mainL);
 }
 
 trainingDialog::trainingDialog(QWidget *parent) : QDialog(parent)
 {
     mainL = new QVBoxLayout;
-    this->setStyleSheet("QWidget{background-color : #404244; color : white}");
+    setStyleSheet("QDialog{background-color : #404244; color : white}");
+    setLayout(mainL);
 }
