@@ -41,6 +41,11 @@ unsigned int Model::getPlanSize() const { return plan->getSize(); }
 
 bool Model::isEmpty() const { return plan->isEmpty(); }
 
+void Model::removeTrainings() const
+{
+    plan->clear();
+}
+
 Model::Model(const Model &model) : plan(new Plan(*model.plan)) {}
 
 Model &Model::operator=(const Model &model) {

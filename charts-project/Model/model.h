@@ -35,6 +35,7 @@ public:
 
     unsigned int getPlanSize() const;
     bool isEmpty() const;
+    void removeTrainings() const;
 
     Model(const Model &model);
     Model &operator=(const Model &model);

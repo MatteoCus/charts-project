@@ -137,6 +137,11 @@ unsigned int Plan::getSize() const { return trainings.size(); }
 
 bool Plan::isEmpty() const { return trainings.empty(); }
 
+void Plan::clear()
+{
+    trainings.erase(trainings.begin(), trainings.end()--);
+}
+
 const std::list<Training *>* Plan::getTrainings() const { return &trainings; }
 
 std::list<Training *> Plan::copy(const Plan &plan) {
