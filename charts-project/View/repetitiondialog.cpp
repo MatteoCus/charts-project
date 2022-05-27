@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 
-repetitionDialog::repetitionDialog(QWidget *parent, action act, const Repetition *training)
+repetitionDialog::repetitionDialog(QWidget *parent, action act, Repetition *training)
     :trainingDialog(parent)
 {
     std::vector<QHBoxLayout *> exNameLayout;
@@ -268,7 +268,7 @@ repetitionDialog::repetitionDialog(QWidget *parent, action act, const Repetition
     addButtons();
 }
 
-trainingValues repetitionDialog::getValues(QWidget *parent, bool *ok, action act, const Repetition *training)
+trainingValues repetitionDialog::getValues(QWidget *parent, bool *ok, action act, Repetition *training)
 {
     repetitionDialog *dialog = new repetitionDialog(parent,act,training);
 

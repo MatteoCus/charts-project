@@ -13,8 +13,8 @@ private:
     unsigned int exPos;
 
 public:
-    explicit repetitionDialog(QWidget *parent, action act, const Repetition *training = nullptr);
-    static trainingValues getValues(QWidget* parent, bool *ok, action act, const Repetition* training = nullptr);
+    explicit repetitionDialog(QWidget *parent, action act, Repetition *training = nullptr);
+    static trainingValues getValues(QWidget* parent, bool *ok, action act, Repetition* training = nullptr);
 };
 
 #endif // REPETITIONDIALOG_H

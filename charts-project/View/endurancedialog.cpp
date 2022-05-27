@@ -1,6 +1,6 @@
 #include "endurancedialog.h"
 
-enduranceDialog::enduranceDialog(QWidget *parent, action act, const Endurance* training)
+enduranceDialog::enduranceDialog(QWidget *parent, action act, Endurance* training)
     : trainingDialog(parent)
 {
     setupCommon(mainL,act,training);
@@ -60,7 +60,7 @@ enduranceDialog::enduranceDialog(QWidget *parent, action act, const Endurance* t
     addButtons();
 }
 
-trainingValues enduranceDialog::getValues(QWidget *parent, bool *ok, action act, const Endurance *training)
+trainingValues enduranceDialog::getValues(QWidget *parent, bool *ok, action act, Endurance *training)
 {
      enduranceDialog *dialog = new enduranceDialog(parent,act,training);
 

@@ -11,7 +11,7 @@ class trainingValues
 {
 public:
     trainingValues(const QString& type, const QDateTime& start, const QString& name,double distance,
-                   const QTime& duration,std::vector<QString> exName, std::vector<QTime> exDuration, std::vector<QTime> recovery,action act = nothing, int pos = 0, action exAct = nothing, int exPos = 0);
+                   const QTime& duration,std::vector<QString> exName, std::vector<QTime> exDuration, std::vector<QTime> exRecovery,action act = nothing, int pos = 0, action exAct = nothing, int exPos = 0);
                    QString type;
                    QDateTime start;
                    QString name;
@@ -19,7 +19,7 @@ public:
                    QTime duration;
                    std::vector<QString> exName;
                    std::vector<QTime> exDuration;
-                   std::vector<QTime> recovery;
+                   std::vector<QTime> exRecovery;
                    action act;
                    int pos;
                    action exAct;

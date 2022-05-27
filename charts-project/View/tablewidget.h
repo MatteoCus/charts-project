@@ -43,7 +43,7 @@ private:
     QVBoxLayout* table1Layout, *table2Layout;
     QVBoxLayout* mainLayout, *tableLayout;
 
-    const std::list<const Training*>* trainings;
+    const std::list<Training*>* trainings;
     bool splitState;
 
     void setLabelColor(QLabel* label);
@@ -59,9 +59,9 @@ private:
 
     void setLineEdit(QLineEdit* item);
 
-    void showCommonData(const Training* it, unsigned int i = 1);
-    void showRepetitionData(const Repetition* training);
-    void showEnduranceData(const Endurance* training);
+    void showCommonData(Training* it, unsigned int i = 1);
+    void showRepetitionData(Repetition* training);
+    void showEnduranceData(Endurance* training);
     
 private slots:
     void showExercises();
@@ -69,7 +69,7 @@ private slots:
 public:
     explicit tableWidget(QWidget *parent = nullptr);
     void showData();
-    void setData(const std::list<const Training *> *data);
+    void setData(const std::list<Training *> *data);
 
 signals:
 

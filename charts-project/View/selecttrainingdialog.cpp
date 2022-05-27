@@ -19,7 +19,7 @@ void selectTrainingDialog::setComboBoxStyleSheet()
                            "QComboBox QAbstractItemView {selection-background-color:#c26110;}");
 }
 
-selectTrainingDialog::selectTrainingDialog(QWidget* parent, const std::list<const Training*>* trainings, std::string type): QDialog(parent)
+selectTrainingDialog::selectTrainingDialog(QWidget* parent, const std::list<Training*>* trainings, std::string type): QDialog(parent)
 {
     if (!trainings)
         throw std::runtime_error("Non ci sono allenamenti adatti!");
@@ -47,7 +47,7 @@ selectTrainingDialog::selectTrainingDialog(QWidget* parent, const std::list<cons
 
     auto it = trainings->begin();
     std::string trainingName = (*it)->getName();
-    std::list<const Training*> aux;
+    std::list<Training*> aux;
     it = trainings->end();
     bool foundFirst = false;
 
@@ -120,7 +120,7 @@ selectTrainingDialog::selectTrainingDialog(QWidget* parent, const std::list<cons
     setLayout(mainL);
 }
 
-QString selectTrainingDialog::getDate(QWidget *parent, bool *ok, const std::list<const Training *> *trainings, std::string type)
+QString selectTrainingDialog::getDate(QWidget *parent, bool *ok, const std::list<Training *> *trainings, std::string type)
 {
     selectTrainingDialog *dialog = new selectTrainingDialog(parent, trainings, type);
     const int ret = dialog->exec();

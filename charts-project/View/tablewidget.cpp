@@ -110,8 +110,8 @@ void tableWidget::setTableStyleSheet(QTableWidget* table)
     table->setColumnWidth(5,50);
     table->setColumnWidth(6,70);
 
-    adaptSingleTableHeight(22, table);
-    adaptTableWidth(15,table);
+    /*adaptSingleTableHeight(22, table);
+    adaptTableWidth(15,table);*/
 }
 
 
@@ -182,7 +182,7 @@ void tableWidget::addControls()
     setButton->setFixedSize(70,25);
     removeButton->setFixedSize(70,25);
     exerciseButton->setFixedSize(130,25);
-    //splitCheckBox->setFixedSize(200,25);
+    splitCheckBox->hide();
 
     addButton->setStyleSheet("QPushButton { background-color : #c26110 ; color : white; }");
     setButton->setStyleSheet("QPushButton { background-color : #c26110 ; color : white; }");
@@ -224,9 +224,9 @@ void tableWidget::showExercises()
         }
         training = trainings->begin();
         std::advance(training,n);
-        if (found && dynamic_cast<const Repetition*>(*training))
+        if (found && dynamic_cast<Repetition*>(*training))
         {
-            const Repetition* aux = static_cast<const Repetition*>(*training);
+            Repetition* aux = static_cast<Repetition*>(*training);
             repetitionDialog* rep = new repetitionDialog(this,nothing,aux);
             rep->exec();
         }
@@ -270,7 +270,7 @@ void tableWidget::setLineEdit(QLineEdit* item)
     item->setReadOnly(true);
 }
 
-void tableWidget::showCommonData(const Training* it, unsigned int i)
+void tableWidget::showCommonData(Training* it, unsigned int i)
 {
     i == 1? table1->insertRow(0) : table2->insertRow(0);
     QLineEdit* item = new QLineEdit(QString::fromStdString(it->getName()),this);
@@ -293,7 +293,7 @@ void tableWidget::showCommonData(const Training* it, unsigned int i)
     setLineEdit(item);
     i == 1? table1->setCellWidget(0,5,item) : table2->setCellWidget(0,5,item);
 
-    if (dynamic_cast<const Endurance*>(it))
+    if (dynamic_cast<Endurance*>(it))
     {
         if (dynamic_cast<const Run*>(it))
             item = new QLineEdit(QString::fromStdString("Corsa"));
@@ -313,7 +313,7 @@ void tableWidget::showCommonData(const Training* it, unsigned int i)
     i == 1? table1->setCellWidget(0,1,item) : table2->setCellWidget(0,1,item);
 }
 
-void tableWidget::showRepetitionData(const Repetition *training)
+void tableWidget::showRepetitionData(Repetition *training)
 {
 
     QLineEdit* item = new QLineEdit(QString::fromStdString(value2string(training->Intensity()) + " %"),this);
@@ -321,7 +321,7 @@ void tableWidget::showRepetitionData(const Repetition *training)
     table1->setCellWidget(0,6,item);
 }
 
-void tableWidget::showEnduranceData(const Endurance *training)
+void tableWidget::showEnduranceData(Endurance *training)
 {
     QLineEdit* item = new QLineEdit(QString::fromStdString(value2string(training->getDistance()) + " km"),this);
     setLineEdit(item);
@@ -351,15 +351,15 @@ void tableWidget::showData()
 
         for (auto it = trainings->begin(); it != trainings->end(); ++it)
         {
-            if (dynamic_cast<const Repetition*>(*it))
+            if (dynamic_cast<Repetition*>(*it))
             {
                 showCommonData(*it);
-                showRepetitionData(static_cast<const Repetition*>(*it));
+                showRepetitionData(static_cast<Repetition*>(*it));
             }
             else
             {
                 showCommonData(*it,2);
-                showEnduranceData(static_cast<const Endurance*>(*it));
+                showEnduranceData(static_cast<Endurance*>(*it));
             }
         }
     }
@@ -372,9 +372,9 @@ void tableWidget::showData()
 
         for (auto it = trainings->begin(); it != trainings->end(); ++it)
         {
-            if (!foundRepetition && dynamic_cast<const Repetition*>(*it))
+            if (!foundRepetition && dynamic_cast<Repetition*>(*it))
                 foundRepetition = true;
-            else if (!foundEndurance && dynamic_cast<const Endurance*>(*it))
+            else if (!foundEndurance && dynamic_cast<Endurance*>(*it))
                 foundEndurance = true;
 
             showCommonData(*it);
@@ -413,7 +413,7 @@ void tableWidget::showData()
     label2->setVisible(splitState);
 }
 
-void tableWidget::setData(const std::list<const Training *> *data)
+void tableWidget::setData(const std::list<Training *> *data)
 {
     trainings = data;
 }

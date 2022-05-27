@@ -38,7 +38,7 @@ protected:
 
     void addToLayout(QBoxLayout* layout, QWidget* w1, QWidget* w2);
 
-    void setupCommon(QBoxLayout *mainL, action act, const Training* training = nullptr);
+    void setupCommon(QBoxLayout *mainL, action act, Training* training = nullptr);
 
     int showExNumberDialog();
     void addButtons();

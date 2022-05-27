@@ -32,7 +32,7 @@ private:
     pieChart* pie;
 
 
-    const std::list<const Training*>* trainings;
+    const std::list<Training*>* trainings;
 
     QComboBox* chartBox;
     QComboBox* dataBox;
@@ -52,7 +52,7 @@ private:
 public:
     explicit chartWidget(QWidget *parent = nullptr);
     void showData(std::string chart = "", std::string data = "");
-    void setData(const std::list<const Training *> *data);
+    void setData(const std::list<Training *> *data);
 
 signals:
 

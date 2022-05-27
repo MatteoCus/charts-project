@@ -10,8 +10,8 @@ private:
     QTimeEdit* duration;
 
 public:
-    explicit enduranceDialog(QWidget *parent, action act, const Endurance* training = nullptr);
-    static trainingValues getValues(QWidget* parent, bool *ok, action act, const Endurance* training = nullptr);
+    explicit enduranceDialog(QWidget *parent, action act, Endurance* training = nullptr);
+    static trainingValues getValues(QWidget* parent, bool *ok, action act, Endurance* training = nullptr);
 };
 
 #endif // ENDURANCEDIALOG_H

@@ -1,5 +1,5 @@
 #include "chartviewer.h"
-#include <iostream>
+#include "../Controller/controller.h"
 
 void chartViewer::addMenu(QHBoxLayout* mainLayout)
 {
@@ -64,7 +64,7 @@ chartViewer::chartViewer(QWidget *parent) : QWidget(parent)
     setLayout(mainLayout);
     setStyleSheet("QWidget{background-color : #2e2f30}");
 
-    auto aux = new std::list<const Training*>;
+    /*auto aux = new std::list<Training*>;
     Date d = Date(21,04,2021);
     Date d2 = Date(21,05,2021);
     Time ti = Time(17);
@@ -115,7 +115,7 @@ chartViewer::chartViewer(QWidget *parent) : QWidget(parent)
     trainingValues val = showSetDialog();
     std::cout<<val.name.toStdString()<<" "<<val.exName.size()<<std::endl;
     setData(aux);
-    showData();
+    showData();*/
     resize(1200,700);
 }
 
@@ -136,7 +136,7 @@ void chartViewer::showWarning(const QString &message)
     dialog->show();
 }
 
-QString chartViewer::showImportDialog()
+QString chartViewer::showPathDialog()
 {
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),
                                                     "/home",
@@ -173,13 +173,13 @@ trainingValues chartViewer::showRemoveDialog()
     findTraining(n,found,start);
     auto training = trainings->begin();
     std::advance(training,n);
-    if (auto aux = dynamic_cast<const Endurance*>(*training))
+    if (auto aux = dynamic_cast<Endurance*>(*training))
     {
         trainingValues values = enduranceDialog::getValues(this,&ok,eliminate,aux);
         values.pos = n;
         return values;
     }
-    else if (auto aux = dynamic_cast<const Repetition*>(*training))
+    else if (auto aux = dynamic_cast<Repetition*>(*training))
     {
         trainingValues values = repetitionDialog::getValues(this,&ok,eliminate,aux);
         values.pos = n;
@@ -198,13 +198,13 @@ trainingValues chartViewer::showSetDialog()
     auto training = trainings->begin();
     std::advance(training,n);
 
-    if (auto aux = dynamic_cast<const Endurance*>(*training))
+    if (auto aux = dynamic_cast<Endurance*>(*training))
     {
         trainingValues values = enduranceDialog::getValues(this,&ok,set,aux);
         values.pos = n;
         return values;
     }
-    else if (auto aux = dynamic_cast<const Repetition*>(*training))
+    else if (auto aux = dynamic_cast<Repetition*>(*training))
     {
         trainingValues values = repetitionDialog::getValues(this,&ok,set,aux);
         values.pos = n;
@@ -214,7 +214,7 @@ trainingValues chartViewer::showSetDialog()
         throw std::runtime_error("Allenamento non corretto selezionato!");
 }
 
-void chartViewer::setData(const std::list<const Training *> *data)
+void chartViewer::setData(const std::list<Training *> *data)
 {
     trainings = data;
     tableW->setData(trainings);

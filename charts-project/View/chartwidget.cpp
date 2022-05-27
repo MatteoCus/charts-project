@@ -274,7 +274,7 @@ void chartWidget::showData(std::string chart, std::string data)
     visibleChart->getChartView()->setVisible(true);
 }
 
-void chartWidget::setData(const std::list<const Training *> *data)
+void chartWidget::setData(const std::list<Training *> *data)
 {
     trainings = data;
 }
