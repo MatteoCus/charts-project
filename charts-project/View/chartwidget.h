@@ -54,6 +54,7 @@ public:
     void showData(std::string chart = "", std::string data = "");
     void setData(const std::list<Training *> *data);
     chart* getVisibleChart() const;
+    void setChartsSize(int w, int h);
     chartWidget *clone() const;
 
 signals:

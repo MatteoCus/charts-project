@@ -122,15 +122,18 @@ selectTrainingDialog::selectTrainingDialog(QWidget* parent, const std::list<Trai
 
 QString selectTrainingDialog::getDate(QWidget *parent, bool *ok, const std::list<Training *> *trainings, std::string type)
 {
-    selectTrainingDialog *dialog = new selectTrainingDialog(parent, trainings, type);
-    const int ret = dialog->exec();
-    if (ok)
-        *ok = !!ret;
+    if (trainings->size())
+    {
+        selectTrainingDialog *dialog = new selectTrainingDialog(parent, trainings, type);
+        const int ret = dialog->exec();
+        if (ok)
+            *ok = !!ret;
 
-    if (ret)
-        return (dialog->dateBox->currentText());
-    else if (type == "Repetition")
-        return "";
+        if (ret)
+            return (dialog->dateBox->currentText());
+        else if (type == "Repetition")
+            return "";
+    }
     else
-        throw std::runtime_error("Errore nella scelta dell'allenamento");
+        throw std::runtime_error("Non vi sono allenamenti fra cui scegliere");
 }

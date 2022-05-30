@@ -29,7 +29,7 @@ QDate DateTimeConverter::toQDate(const Date &date) const
 
 TimeSpan DateTimeConverter::toTime(const QTime &time) const
 {
-    return Time(time.hour(),time.minute(),time.second());
+    return Time(time.hour(), time.minute(), time.second());
 }
 
 QTime DateTimeConverter::toQTime(const TimeSpan &time) const

@@ -1,5 +1,6 @@
 #include "tablewidget.h"
 #include <iostream>
+using namespace std;
 
 std::string value2string(double value)
 {
@@ -305,10 +306,10 @@ void tableWidget::showData()
     table1->setVisible(false);
     table2->setVisible(false);
 
-    while (table1->rowCount() != 0)
+    while (table1->rowCount() > 0)
         table1->removeRow(0);
 
-    while (table2->rowCount() != 0)
+    while (table2->rowCount() > 0)
         table2->removeRow(0);
 
     bool foundRepetition = false, foundEndurance = false;

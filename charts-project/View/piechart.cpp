@@ -32,14 +32,23 @@ pieChart::pieChart(QWidget *parent) : nonAxedChart(parent)
 void pieChart::addSeries(const std::vector<double> *values, bool repetition, bool endurance)
 {
     double total = 0;
-    for (auto it = values->begin(); it != values->end(); ++it)
-        total += *it;
+
+    if (values->size() > 0)
+    {
+        for (auto it = values->begin(); it != values->end(); ++it)
+            total += *it;
+    }
+
+    slices.erase(slices.begin(), slices.end()--);
+
+    if (!graph->series().empty())
+        graph->removeSeries(series);
+
+    if(!series->slices().empty())
+        series->clear();
 
     if (total != 0)
     {
-        slices.erase(slices.begin(), slices.end()--);
-        graph->removeSeries(series);
-        series->clear();
 
         if (repetition) //se allenamenti sono solo di ripetizione
         {
@@ -67,12 +76,10 @@ void pieChart::addSeries(const std::vector<double> *values, bool repetition, boo
             }
         }
 
+        int size = series->slices().size();
+        for (int i = 0; i < size; i++)
+            slices.push_back(series->slices().at(i));
+        connect();
+        setPieSliceStyle();
     }
-    else throw std::runtime_error("Errore durante la visualizzazione dei dati!");
-
-    int size = series->slices().size();
-    for (int i = 0; i < size; i++)
-        slices.push_back(series->slices().at(i));
-    connect();
-    setPieSliceStyle();
 }

@@ -27,15 +27,17 @@ void Controller::extractValues(trainingValues values, DateTime &start, TimeSpan 
 
     DateTimeConverter converter;
     start = converter.toDateTime(values.start);
-    duration = converter.toTime(values.duration);
+    if (values.type == QString("Endurance") || values.type == QString("Ciclismo") || values.type == QString("Corsa")
+           || values.type == QString("Camminata"))
+        duration = converter.toTime(values.duration);
 
-    for(auto it = names.end()--; it != names.begin()--; --it)
+    for(auto it = names.begin(); it != names.end(); ++it)
         exName.push_back((*it).toStdString());
 
-    for(auto it = durations.end()--; it != durations.begin()--; --it)
+    for(auto it = durations.begin(); it != durations.end(); ++it)
         exDuration.push_back(converter.toTime(*it));
 
-    for(auto it = recoveries.end()--; it != recoveries.begin()--; --it)
+    for(auto it = recoveries.begin(); it != recoveries.end(); ++it)
         exRecovery.push_back(converter.toTime(*it));
 }
 
@@ -50,15 +52,14 @@ void Controller::add() const
     std::vector<Time> exDuration;
     std::vector<Time> exRecovery;
 
-    extractValues(values,start,duration,exName,exDuration,exRecovery);
 
     try {
+        extractValues(values,start,duration,exName,exDuration,exRecovery);
         model->addNewTraining(values.type.toStdString(),values.name.toStdString(),
                               start,values.distance,duration,&exName,&exDuration,&exRecovery);
 
     }  catch (std::runtime_error e) {
             view->showWarning(QString::fromStdString(e.what()));
-            cout<<"Cosa?"<<endl;
     }
        catch (std::invalid_argument e){
             view->showWarning(QString::fromStdString(e.what()));

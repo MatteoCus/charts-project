@@ -14,9 +14,8 @@ bool Plan::check(Training *training) {
     if (training->getDuration() <= TimeSpan(20) &&
             (it == trainings.end() || (training->getEnd() < (*it)->getStart())))
     {
-        cout<<"Fino a qui"<<endl;
         auto aux = dynamic_cast<Repetition*>(training);
-        if (aux==nullptr || (aux && aux->getSize() < 16 && aux->getSize() > 0))
+        if (aux==nullptr || (aux->getSize() < 16 && aux->getSize() > 0))
             return true;
         else
             return false;
@@ -69,20 +68,20 @@ void Plan::setTraining(unsigned int pos, const std::string &name, const DateTime
 
     auto it = trainings.begin();
     std::advance(it, pos);
-    Training *newTraining = (*it)->clone();
+    Training * newTraining = (*it)->clone();
 
-    newTraining->setName(name);
-    newTraining->setStart(start);
-    if (dynamic_cast<Endurance *>(newTraining)) {
-        Endurance *endur = static_cast<Endurance *>(newTraining);
+    (*it)->setName(name);
+    (*it)->setStart(start);
+    if (dynamic_cast<Endurance *>((*it))) {
+        Endurance *endur = static_cast<Endurance *>((*it));
         endur->setDistance(distance);
         endur->setDuration(duration);
-    } else if (dynamic_cast<Repetition *>(newTraining)) {
+    } else if (dynamic_cast<Repetition *>((*it))) {
         unsigned int size = exName->size();
         if (size != exRecovery->size() || size != exDuration->size())
             throw std::runtime_error("Impossibile modificare l'allenamento: errore negli esercizi!");
 
-        Repetition *rep = static_cast<Repetition *>(newTraining);
+        Repetition *rep = static_cast<Repetition *>((*it));
         exerciseCreator *creator = new exerciseCreator();
         Exercise *aux = nullptr;
 
@@ -126,12 +125,15 @@ void Plan::setTraining(unsigned int pos, const std::string &name, const DateTime
     } else
         throw std::invalid_argument("Invalid type of training passed");
 
-    if (check(newTraining)) {
-        trainings.erase(it);
-        insertTraining(newTraining);
-    } else {
+    Training* aux = *it;
+    trainings.erase(it);
+
+    if (check(aux)) {
         delete newTraining;
-        cout<<"QUi"<<endl;
+        insertTraining(aux);
+    } else {
+        delete aux;
+        insertTraining(newTraining);
         throw std::invalid_argument(
                     "Conflict of trainings' durations during modify operation");
     }

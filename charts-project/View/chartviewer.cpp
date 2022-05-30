@@ -1,5 +1,7 @@
 #include "chartviewer.h"
 #include "../Controller/controller.h"
+#include <iostream>
+using namespace std;
 
 void chartViewer::addMenu(QHBoxLayout* mainLayout)
 {
@@ -58,39 +60,47 @@ void chartViewer::findTraining(unsigned int &n, bool found, const QString& start
 void chartViewer::showExercises()
 {
         bool ok, found = false;
-        QString start = selectTrainingDialog::getDate(this,&ok,trainings,"Repetition");
-        if (start != "")
-        {
-            unsigned int n = 0;
-            auto training = trainings->begin();
-            for (unsigned int i = 0; i < trainings->size() && !found ; ++i)
+        try{
+            QString start = selectTrainingDialog::getDate(this,&ok,trainings,"Repetition");
+            if (start != "")
             {
-                if ((*training)->getStart().toString() == start.toStdString())
+                unsigned int n = 0;
+                auto training = trainings->begin();
+                for (unsigned int i = 0; i < trainings->size() && !found ; ++i)
                 {
-                    found = true;
-                    n = i;
+                    if ((*training)->getStart().toString() == start.toStdString())
+                    {
+                        found = true;
+                        n = i;
+                    }
+                    if (training != trainings->end())
+                        std::advance(training,1);
                 }
-                if (training != trainings->end())
-                    std::advance(training,1);
+                training = trainings->begin();
+                std::advance(training,n);
+                if (found && dynamic_cast<Repetition*>(*training))
+                {
+                    Repetition* aux = static_cast<Repetition*>(*training);
+                    repetitionDialog* rep = new repetitionDialog(this,nothing,aux);
+                    rep->exec();
+                }
+                else
+                    throw std::runtime_error("Tipo di allenamento selezionato non valido!");
             }
-            training = trainings->begin();
-            std::advance(training,n);
-            if (found && dynamic_cast<Repetition*>(*training))
-            {
-                Repetition* aux = static_cast<Repetition*>(*training);
-                repetitionDialog* rep = new repetitionDialog(this,nothing,aux);
-                rep->exec();
-            }
-            else
-                throw std::runtime_error("Tipo di allenamento selezionato non valido!");
+        }
+        catch(std::runtime_error e)
+        {
+            showWarning(e.what());
         }
 }
 
 void chartViewer::showChart()
 {
+    chartWidget* aux = chartW->clone();
     dialog = new QDialog(this);
     dialog->setLayout(new QHBoxLayout);
-    dialog->layout()->addWidget(chartW->clone());
+    aux->setChartsSize(900,600);
+    dialog->layout()->addWidget(aux);
     dialog->exec();
     delete(dialog);
 }

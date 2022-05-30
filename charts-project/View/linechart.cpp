@@ -43,55 +43,68 @@ void lineChart::addSeries(const std::vector<double> *values, const std::vector<D
         throw std::runtime_error("Impossibile visualizzare i dati!");
 
     series->clear();
-    graph->removeSeries(series);
-    axisX->setTickCount(values->size() > 1? values->size() : 2);
+    if (!graph->series().empty())
+        graph->removeSeries(series);
+
+    axisX->setTickCount(values->size() > 1? values->size():2);
 
     axisY->setTitleVisible(false);
     axisY->setVisible(false);
 
-    if(duration)
+    if(values->size() > 0)
     {
-        axisY = axisYDateTime;
 
-        unsigned int mx = 0;
-        for(unsigned int i = 0; i < values->size(); ++i)
+        if(duration)
         {
-            unsigned int sec = (*values)[i];
-            unsigned int h = sec / 3600;
-            unsigned int m = (sec - (3600 * h))/ 60;
-            unsigned int s = (sec - (3600 * h) - (60 * m)) % 60;
-            QDateTime *aux = new QDateTime(QDate(1970,1,1), QTime(h,m,s));
+            axisY = axisYDateTime;
 
-            if(mx < sec)
+            unsigned int mx = 0;
+            for(unsigned int i = 0; i < values->size(); ++i)
             {
-                axisYDateTime->setMax((*aux));
-                mx = sec;
+                unsigned int sec = (*values)[i];
+                unsigned int h = sec / 3600;
+                unsigned int m = (sec - (3600 * h))/ 60;
+                unsigned int s = (sec - (3600 * h) - (60 * m)) % 60;
+                QDateTime *aux = new QDateTime(QDate(1970,1,1), QTime(h,m,s));
+
+                if(mx < sec)
+                {
+                    axisYDateTime->setMax((*aux));
+                    mx = sec;
+                }
+
+                series->append(convertDateTime((*start)[i])->toMSecsSinceEpoch(),aux->toMSecsSinceEpoch());
             }
+            axisYDateTime->setMin(QDateTime(QDate(1970,1,1),QTime(0,0)));
 
-            series->append(convertDateTime((*start)[i])->toMSecsSinceEpoch(),aux->toMSecsSinceEpoch());
         }
-        axisYDateTime->setMin(QDateTime(QDate(1970,1,1),QTime(0,0)));
+        else
+        {
+            axisY = axisYInt;
 
+            double max = (*values)[0];
+            for(unsigned int i = 0; i < values->size(); ++i)
+            {
+                if (max < (*values)[i])
+                    max = (*values)[i];
+                series->append(convertDateTime((*start)[i])->toMSecsSinceEpoch(),(*values)[i]);
+            }
+            axisYInt->setMin(0);
+            axisYInt->setMax(max);
+        }
+        axisY->setVisible();
+        axisY->setTitleVisible();
+
+        axisX->setTitleVisible();
+        axisX->setVisible();
+
+        axisX->setMin(*convertDateTime((*start)[0]));
+        axisX->setMax(*convertDateTime((*start)[start->size() -1]));
+        connect();
     }
     else
     {
-        axisY = axisYInt;
-
-        double max = (*values)[0];
-        for(unsigned int i = 0; i < values->size(); ++i)
-        {
-            if (max < (*values)[i])
-                max = (*values)[i];
-            series->append(convertDateTime((*start)[i])->toMSecsSinceEpoch(),(*values)[i]);
-        }
-        axisYInt->setMin(0);
-        axisYInt->setMax(max);
+        axisX->setTitleVisible(false);
+        axisX->setVisible(false);
     }
-    axisY->setVisible(true);
-    axisY->setTitleVisible(true);
-
-    axisX->setMin(*convertDateTime((*start)[0]));
-    axisX->setMax(*convertDateTime((*start)[start->size() -1]));
-
-    connect();
 }

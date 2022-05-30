@@ -282,6 +282,13 @@ chart *chartWidget::getVisibleChart() const
     return visibleChart;
 }
 
+void chartWidget::setChartsSize(int w, int h)
+{
+    line->getChartView()->setFixedSize(w,h);
+    bar->getChartView()->setFixedSize(w,h);
+    pie->getChartView()->setFixedSize(w,h);
+}
+
 chartWidget *chartWidget::clone() const
 {
     chartWidget* aux = new chartWidget();

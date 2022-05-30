@@ -42,8 +42,12 @@ void barChart::addSeries(const std::vector<double> *values, const std::vector<Da
     if (values->size() != start->size())
         throw std::runtime_error("Impossibile visualizzare i dati!");
 
-    graph->removeSeries(series);
-    series->remove(set);
+    if (!graph->series().empty())
+        graph->removeSeries(series);
+
+    if (!series->barSets().empty())
+        series->remove(set);
+
     set = new QBarSet("", this);
     set->setColor(QColor(194,97,16));
 
@@ -53,54 +57,65 @@ void barChart::addSeries(const std::vector<double> *values, const std::vector<Da
     axisY->setTitleVisible(false);
     axisY->setVisible(false);
 
-    if(duration)
+    if(values->size() > 0)
     {
-        axisY = axisYDateTime;
-
-        unsigned int mx = (*values)[0];
-        for(unsigned int i = 0; i < values->size(); ++i)
+        if(duration)
         {
-            categories.append(QString::fromStdString((*start)[i]->getDate().toString()));
+            axisY = axisYDateTime;
 
-            unsigned int sec = (*values)[i];
-            unsigned int h = sec / 3600;
-            unsigned int m = (sec - (3600 * h))/ 60;
-            unsigned int s = (sec - (3600 * h) - (60 * m)) % 60;
-
-            QDateTime *aux = new QDateTime(QDate(1970,1,2), QTime(h,m,s));
-
-
-            if(mx < sec)
+            unsigned int mx = (*values)[0];
+            for(unsigned int i = 0; i < values->size(); ++i)
             {
-                axisYDateTime->setMax(*aux);
-                mx = sec;
+                categories.append(QString::fromStdString((*start)[i]->getDate().toString()));
+
+                unsigned int sec = (*values)[i];
+                unsigned int h = sec / 3600;
+                unsigned int m = (sec - (3600 * h))/ 60;
+                unsigned int s = (sec - (3600 * h) - (60 * m)) % 60;
+
+                QDateTime *aux = new QDateTime(QDate(1970,1,2), QTime(h,m,s));
+
+
+                if(mx < sec)
+                {
+                    axisYDateTime->setMax(*aux);
+                    mx = sec;
+                }
+                int msSinceEpoch = aux->toMSecsSinceEpoch();
+                *set<<msSinceEpoch;
+                delete aux;
             }
-            int msSinceEpoch = aux->toMSecsSinceEpoch();
-            *set<<msSinceEpoch;
-            delete aux;
+            axisYDateTime->setMin(QDateTime(QDate(1970,1,2),QTime(0,0)));
         }
-        axisYDateTime->setMin(QDateTime(QDate(1970,1,2),QTime(0,0)));
+        else
+        {
+            axisY = axisYInt;
+
+            double max = (*values)[0];
+            for(unsigned int i = 0; i < values->size(); ++i)
+            {
+                categories.append(QString::fromStdString((*start)[i]->getDate().toString()));
+                if (max < (*values)[i])
+                    max = (*values)[i];
+                *set<<(*values)[i];
+            }
+            axisYInt->setMin(0);
+            axisYInt->setMax(max);
+        }
+        axisY->setVisible();
+        axisY->setTitleVisible();
+
+        axisX->setTitleVisible();
+        axisX->setVisible();
+
+        series->append(set);
+        axisX->append(categories);
+        connect();
     }
     else
     {
-        axisY = axisYInt;
-
-        double max = (*values)[0];
-        for(unsigned int i = 0; i < values->size(); ++i)
-        {
-            categories.append(QString::fromStdString((*start)[i]->getDate().toString()));
-            if (max < (*values)[i])
-                max = (*values)[i];
-            *set<<(*values)[i];
-        }
-        axisYInt->setMin(0);
-        axisYInt->setMax(max);
+        axisX->setTitleVisible(false);
+        axisX->setVisible(false);
     }
-    axisY->setVisible(true);
-    axisY->setTitleVisible(true);
-
-    series->append(set);
-    axisX->append(categories);
-    connect();
 }
 
