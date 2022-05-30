@@ -53,6 +53,8 @@ public:
     explicit chartWidget(QWidget *parent = nullptr);
     void showData(std::string chart = "", std::string data = "");
     void setData(const std::list<Training *> *data);
+    chart* getVisibleChart() const;
+    chartWidget *clone() const;
 
 signals:
 

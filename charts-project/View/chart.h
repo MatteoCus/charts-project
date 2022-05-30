@@ -25,7 +25,7 @@ protected:
     QChart * graph;
     virtual void connect() = 0;
 public:
-    explicit chart(QWidget *parent = nullptr);
+    chart(QWidget *parent = nullptr);
     QChartView *getChartView() const;
 };
 

@@ -64,7 +64,6 @@ private:
     void showEnduranceData(Endurance* training);
     
 private slots:
-    void showExercises();
     void changeState(int state);
 public:
     explicit tableWidget(QWidget *parent = nullptr);
@@ -72,7 +71,10 @@ public:
     void setData(const std::list<Training *> *data);
 
 signals:
-
+    void add();
+    void set();
+    void remove();
+    void showExercises();
 };
 
 #endif // TABLEWIDGET_H

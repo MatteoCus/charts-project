@@ -1,4 +1,6 @@
 #include "controller.h"
+#include <iostream>
+using namespace std;
 
 Controller::Controller(QObject *parent) : QObject(parent), view(nullptr), model(nullptr)
 {}
@@ -56,6 +58,7 @@ void Controller::add() const
 
     }  catch (std::runtime_error e) {
             view->showWarning(QString::fromStdString(e.what()));
+            cout<<"Cosa?"<<endl;
     }
        catch (std::invalid_argument e){
             view->showWarning(QString::fromStdString(e.what()));

@@ -198,41 +198,10 @@ void tableWidget::addControls()
     controlBoxLayout->addLayout(controlLayout);
     controlBoxLayout->addWidget(splitCheckBox);
 
-    connect(exerciseButton, SIGNAL(clicked()), this, SLOT(showExercises()));
+    connect(exerciseButton, SIGNAL(clicked()), this, SIGNAL(showExercises()));
     connect(splitCheckBox, SIGNAL(stateChanged(int)), this, SLOT(changeState(int)));
 
     mainLayout->addLayout(controlBoxLayout);
-}
-
-void tableWidget::showExercises()
-{
-    bool ok, found = false;
-    QString start = selectTrainingDialog::getDate(this,&ok,trainings,"Repetition");
-    if (start != "")
-    {
-        unsigned int n = 0;
-        auto training = trainings->begin();
-        for (unsigned int i = 0; i < trainings->size() && !found ; ++i)
-        {
-            if ((*training)->getStart().toString() == start.toStdString())
-            {
-                found = true;
-                n = i;
-            }
-            if (training != trainings->end())
-                std::advance(training,1);
-        }
-        training = trainings->begin();
-        std::advance(training,n);
-        if (found && dynamic_cast<Repetition*>(*training))
-        {
-            Repetition* aux = static_cast<Repetition*>(*training);
-            repetitionDialog* rep = new repetitionDialog(this,nothing,aux);
-            rep->exec();
-        }
-        else
-            throw std::runtime_error("Tipo di allenamento selezionato non valido!");
-    }
 }
 
 void tableWidget::changeState(int state)
@@ -262,6 +231,9 @@ tableWidget::tableWidget(QWidget *parent) : QWidget(parent)
 
     setLayout(mainLayout);
 
+    connect(addButton,SIGNAL(clicked()), this, SIGNAL(add()));
+    connect(removeButton,SIGNAL(clicked()), this, SIGNAL(remove()));
+    connect(setButton,SIGNAL(clicked()), this, SIGNAL(set()));
 }
 
 void tableWidget::setLineEdit(QLineEdit* item)

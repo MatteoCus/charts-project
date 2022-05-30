@@ -1,4 +1,6 @@
 #include "plan.h"
+#include <iostream>
+using namespace std;
 
 bool Plan::check(Training *training) {
     if (!training)
@@ -12,8 +14,9 @@ bool Plan::check(Training *training) {
     if (training->getDuration() <= TimeSpan(20) &&
             (it == trainings.end() || (training->getEnd() < (*it)->getStart())))
     {
+        cout<<"Fino a qui"<<endl;
         auto aux = dynamic_cast<Repetition*>(training);
-        if (!aux || (aux && aux->getSize() < 16 && aux->getSize() > 0))
+        if (aux==nullptr || (aux && aux->getSize() < 16 && aux->getSize() > 0))
             return true;
         else
             return false;
@@ -128,6 +131,7 @@ void Plan::setTraining(unsigned int pos, const std::string &name, const DateTime
         insertTraining(newTraining);
     } else {
         delete newTraining;
+        cout<<"QUi"<<endl;
         throw std::invalid_argument(
                     "Conflict of trainings' durations during modify operation");
     }

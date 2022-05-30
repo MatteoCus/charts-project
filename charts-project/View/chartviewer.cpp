@@ -3,16 +3,16 @@
 
 void chartViewer::addMenu(QHBoxLayout* mainLayout)
 {
-    QMenuBar* menuBar = new QMenuBar(this);
+    menuBar = new QMenuBar(this);
 
     menuBar->setStyleSheet("QMenuBar {background-color : #404244 ; color: white; }"
                            "QMenuBar::item:selected {background-color : #c26110;}"
                            "QMenu {background-color : #404244 ; color: white; }"
                            "QMenu::item:selected {background-color : #c26110;}");
 
-    QMenu *file = new QMenu("File", menuBar);
-    QMenu *visualizza = new QMenu("Visualizza", menuBar);
-    QMenu *allenamenti= new QMenu("Allenamenti", menuBar);
+    file = new QMenu("File", menuBar);
+    visualizza = new QMenu("Visualizza", menuBar);
+    allenamenti= new QMenu("Allenamenti", menuBar);
 
     menuBar->addMenu(file);
     menuBar->addMenu(visualizza);
@@ -35,6 +35,11 @@ void chartViewer::addMenu(QHBoxLayout* mainLayout)
     allenamenti->addAction(new QAction("Modifica", allenamenti));
     allenamenti->addAction(new QAction("Rimuovi", allenamenti));
 
+    connect(file->actions()[5],SIGNAL(triggered()),this,SLOT(close()));
+
+    connect(visualizza->actions()[0],SIGNAL(triggered()),this,SLOT(showChart()));
+    connect(visualizza->actions()[1],SIGNAL(triggered()),this,SLOT(showExercises()));
+
     mainLayout->setMenuBar(menuBar);
 }
 
@@ -48,6 +53,46 @@ void chartViewer::findTraining(unsigned int &n, bool found, const QString& start
             found = true;
     }
     n = i-1;
+}
+
+void chartViewer::showExercises()
+{
+        bool ok, found = false;
+        QString start = selectTrainingDialog::getDate(this,&ok,trainings,"Repetition");
+        if (start != "")
+        {
+            unsigned int n = 0;
+            auto training = trainings->begin();
+            for (unsigned int i = 0; i < trainings->size() && !found ; ++i)
+            {
+                if ((*training)->getStart().toString() == start.toStdString())
+                {
+                    found = true;
+                    n = i;
+                }
+                if (training != trainings->end())
+                    std::advance(training,1);
+            }
+            training = trainings->begin();
+            std::advance(training,n);
+            if (found && dynamic_cast<Repetition*>(*training))
+            {
+                Repetition* aux = static_cast<Repetition*>(*training);
+                repetitionDialog* rep = new repetitionDialog(this,nothing,aux);
+                rep->exec();
+            }
+            else
+                throw std::runtime_error("Tipo di allenamento selezionato non valido!");
+        }
+}
+
+void chartViewer::showChart()
+{
+    dialog = new QDialog(this);
+    dialog->setLayout(new QHBoxLayout);
+    dialog->layout()->addWidget(chartW->clone());
+    dialog->exec();
+    delete(dialog);
 }
 
 chartViewer::chartViewer(QWidget *parent) : QWidget(parent)
@@ -113,16 +158,28 @@ chartViewer::chartViewer(QWidget *parent) : QWidget(parent)
     Training* tr4 = new Cycling("C",DateTime(d4,t4) ,7.59,TimeSpan(0,15));
     aux->push_back(tr4);
     trainingValues val = showSetDialog();
-    std::cout<<val.name.toStdString()<<" "<<val.exName.size()<<std::endl;
+    //std::cout<<val.name.toStdString()<<" "<<val.exName.size()<<std::endl;
     setData(aux);
     showData();*/
     resize(1200,700);
+
+    connect(tableW, SIGNAL(showExercises()), this, SLOT(showExercises()));
+    connect(tableW,SIGNAL(add()), this, SIGNAL(addTrainings()));
+    connect(tableW,SIGNAL(remove()), this, SIGNAL(removeTrainings()));
+    connect(tableW,SIGNAL(set()), this, SIGNAL(setTrainings()));
+}
+
+void chartViewer::setController(Controller *c)
+{
+    controller = c;
+    connect(this, SIGNAL(addTrainings()), controller, SLOT(add()));
+    connect(this, SIGNAL(setTrainings()), controller, SLOT(set()));
+    connect(this, SIGNAL(removeTrainings()), controller, SLOT(remove()));
 }
 
 void chartViewer::showWarning(const QString &message)
 {
     dialog = new QDialog(this);
-    dialog->setModal(true);
     QFont serifFont("Arial", 11);
     dialog->setLayout(new QHBoxLayout);
     QLabel* label = new QLabel(message, dialog);
@@ -133,7 +190,8 @@ void chartViewer::showWarning(const QString &message)
     dialog->setMaximumWidth(500);
     dialog->setMaximumHeight(400);
     dialog->setStyleSheet("QWidget {background-color: #404244 ; color: white}");
-    dialog->show();
+    dialog->exec();
+    delete(dialog);
 }
 
 QString chartViewer::showPathDialog()

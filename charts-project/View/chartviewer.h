@@ -38,13 +38,19 @@ private:
     tableWidget* tableW;
     chartWidget* chartW;
     QDialog* dialog;
+    QMenuBar* menuBar;
+    QMenu *file, *visualizza, *allenamenti;
     const std::list<Training*>* trainings;
     void addMenu(QHBoxLayout* mainLayout);
     void findTraining(unsigned int &n, bool found, const QString& start);
 
+private slots:
+    void showExercises();
+    void showChart();
+
 public:
     explicit chartViewer(QWidget *parent = nullptr);
-
+    void setController(Controller* c);
     void showWarning(const QString& message);
     QString showPathDialog();
     trainingValues showAddDialog();
@@ -54,7 +60,9 @@ public:
     void showData();
 
 signals:
-
+    void addTrainings() const;
+    void setTrainings() const;
+    void removeTrainings() const;
 };
 
 #endif // CHARTVIEWER_H

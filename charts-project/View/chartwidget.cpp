@@ -124,8 +124,7 @@ chartWidget::chartWidget(QWidget *parent) : QWidget(parent)
 void chartWidget::checkDataBoxValues()
 {
     bool repetitionFound = false, enduranceFound = false;
-
-    for (auto it = trainings->begin(); it != trainings->end() && (!repetitionFound || !enduranceFound); ++it)
+    for (auto it = trainings->begin(); it != trainings->end()-- && (!repetitionFound || !enduranceFound); ++it)
     {
         if (dynamic_cast<const Endurance*>(*it))
             enduranceFound = true;
@@ -230,7 +229,6 @@ void chartWidget::showData(std::string chart, std::string data)
         chart = chartBox->currentText().toStdString();
         data = dataBox->currentText().toStdString();
     }
-
     std::vector<double> values;
     std::vector<DateTime*> start;
 
@@ -277,4 +275,17 @@ void chartWidget::showData(std::string chart, std::string data)
 void chartWidget::setData(const std::list<Training *> *data)
 {
     trainings = data;
+}
+
+chart *chartWidget::getVisibleChart() const
+{
+    return visibleChart;
+}
+
+chartWidget *chartWidget::clone() const
+{
+    chartWidget* aux = new chartWidget();
+    aux->setData(trainings);
+    aux->showData();
+    return aux;
 }

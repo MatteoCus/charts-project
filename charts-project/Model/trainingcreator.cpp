@@ -1,5 +1,7 @@
 #include "trainingcreator.h"
 #include "exercisecreator.h"
+#include <iostream>
+using namespace std;
 
 Training *trainingCreator::createTraining(const std::string &type,
                                           const std::string &name, const DateTime &start,
@@ -7,11 +9,12 @@ Training *trainingCreator::createTraining(const std::string &type,
                                           const std::vector<std::string>* exName,
                                           const std::vector<TimeSpan>* exDuration,
                                           const std::vector<TimeSpan>* exRecovery) const {
-    if (type == "Cycling")
+
+    if (type == "Ciclismo")
         return new Cycling(name, start, distance, duration);
-     else if (type == "Run")
+     else if (type == "Corsa")
         return new Run(name, start, distance, duration);
-     else if (type == "Walk")
+     else if (type == "Camminata")
         return new Walk(name, start, distance, duration);
 
     Repetition *aux = nullptr;
