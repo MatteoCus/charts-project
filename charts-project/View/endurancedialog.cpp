@@ -83,5 +83,5 @@ trainingValues enduranceDialog::getValues(QWidget *parent, bool *ok, action act,
     else
         throw std::runtime_error("Operazione annullata!");
     dialog->deleteLater();
-    return trainingValues("",start,name,distance,duration,std::vector<QString>(),std::vector<QTime>(),std::vector<QTime>(),act,pos,nothing, 0);
+    return trainingValues("",start,name,distance,duration,std::vector<QString>(),std::vector<QTime>(),std::vector<QTime>(),pos,nothing, 0);
 }

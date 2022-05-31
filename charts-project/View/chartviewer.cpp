@@ -42,6 +42,10 @@ void chartViewer::addMenu(QHBoxLayout* mainLayout)
     connect(visualizza->actions()[0],SIGNAL(triggered()),this,SLOT(showChart()));
     connect(visualizza->actions()[1],SIGNAL(triggered()),this,SLOT(showExercises()));
 
+    connect(allenamenti->actions()[0], SIGNAL(triggered()), this, SIGNAL(addTrainings()));
+    connect(allenamenti->actions()[1], SIGNAL(triggered()), this, SIGNAL(setTrainings()));
+    connect(allenamenti->actions()[2], SIGNAL(triggered()), this, SIGNAL(removeTrainings()));
+
     mainLayout->setMenuBar(menuBar);
 }
 
@@ -270,12 +274,14 @@ trainingValues chartViewer::showSetDialog()
     {
         trainingValues values = enduranceDialog::getValues(this,&ok,set,aux);
         values.pos = n;
+        values.type = "Endurance";
         return values;
     }
     else if (auto aux = dynamic_cast<Repetition*>(*training))
     {
         trainingValues values = repetitionDialog::getValues(this,&ok,set,aux);
         values.pos = n;
+        values.type = "Repetition";
         return values;
     }
     else

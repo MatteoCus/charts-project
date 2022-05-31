@@ -51,8 +51,8 @@ void tableWidget::adaptSingleTableHeight(unsigned int h, QTableWidget* table)
     for(int i = 0; i < table->rowCount() ; i++)
         h += table->rowHeight(i);
 
-    if(h > 600)
-        h = 600;
+    if(h > 460)
+        h = 460;
 
     table->setFixedHeight(h);
 }
@@ -62,8 +62,8 @@ void tableWidget::adaptDoubleTableHeight(unsigned int h, QTableWidget *table)
     for(int i = 0; i < table->rowCount() ; i++)
         h += table->rowHeight(i);
 
-    if(h > 300)
-        h = 300;
+    if(h > 200)
+        h = 200;
 
     table->setFixedHeight(h);
 }
@@ -111,8 +111,6 @@ void tableWidget::setTableStyleSheet(QTableWidget* table)
     table->setColumnWidth(5,50);
     table->setColumnWidth(6,70);
 
-    /*adaptSingleTableHeight(22, table);
-    adaptTableWidth(15,table);*/
 }
 
 
@@ -140,6 +138,9 @@ void tableWidget::addControlTable()
     table1Layout->addWidget(label1);
     table1Layout->addWidget(table1);
     table1->hideColumn(6);
+    adaptSingleTableHeight(22,table1);
+    adaptTableWidth(15,table1);
+    adaptTableWidth(15,table2);
 
 
     label2 = new QLabel("Allenamenti di resistenza in ordine cronologico",this);
@@ -374,12 +375,26 @@ void tableWidget::showData()
     {
         adaptDoubleTableHeight(22,table1);
         adaptDoubleTableHeight(22,table2);
+
+        if (table1->rowCount() > 5)
+            table1->setFixedWidth(698);
+        else
+            adaptTableWidth(15,table1);
+
+        if(table2->rowCount() > 5)
+            table2->setFixedWidth(698);
+        else
+            adaptTableWidth(15,table2);
     }
     else
+    {
         adaptSingleTableHeight(22,table1);
+        if(table1->rowCount() > 9)
+            table1->setFixedWidth(622);
+        else
+            adaptTableWidth(15,table1);
+    }
 
-    adaptTableWidth(15,table1);
-    adaptTableWidth(15,table2);
 
     table1->setVisible(true);
     table2->setVisible(splitState);

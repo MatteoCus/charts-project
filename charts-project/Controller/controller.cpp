@@ -69,17 +69,18 @@ void Controller::add() const
 
 void Controller::set() const
 {
-    trainingValues values = view->showSetDialog();
-    DateTimeConverter converter;
-    DateTime start;
-    TimeSpan duration;
-    std::vector<std::string> exName;
-    std::vector<Time> exDuration;
-    std::vector<Time> exRecovery;
-
-    extractValues(values,start,duration,exName,exDuration,exRecovery);
-
     try {
+        trainingValues values = view->showSetDialog();
+
+        DateTimeConverter converter;
+        DateTime start;
+        TimeSpan duration;
+        std::vector<std::string> exName;
+        std::vector<Time> exDuration;
+        std::vector<Time> exRecovery;
+
+        extractValues(values,start,duration,exName,exDuration,exRecovery);
+
         model->setTraining(values.pos,values.name.toStdString(),start,values.distance,duration,values.exPos,values.exAct
                            ,&exName,&exDuration, &exRecovery);
     }  catch (std::runtime_error e) {

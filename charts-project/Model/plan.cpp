@@ -69,73 +69,78 @@ void Plan::setTraining(unsigned int pos, const std::string &name, const DateTime
     auto it = trainings.begin();
     std::advance(it, pos);
     Training * newTraining = (*it)->clone();
-
-    (*it)->setName(name);
-    (*it)->setStart(start);
-    if (dynamic_cast<Endurance *>((*it))) {
-        Endurance *endur = static_cast<Endurance *>((*it));
-        endur->setDistance(distance);
-        endur->setDuration(duration);
-    } else if (dynamic_cast<Repetition *>((*it))) {
-        unsigned int size = exName->size();
-        if (size != exRecovery->size() || size != exDuration->size())
-            throw std::runtime_error("Impossibile modificare l'allenamento: errore negli esercizi!");
-
-        Repetition *rep = static_cast<Repetition *>((*it));
-        exerciseCreator *creator = new exerciseCreator();
-        Exercise *aux = nullptr;
-
-        switch (operation) {
-        case add:
-            if (size != 1)
-                throw std::runtime_error("Impossibile aggiungere l'esercizio");
-            aux = creator->createExercise((*exName)[0], (*exDuration)[0], (*exRecovery)[0]);
-            rep->addExercise(aux);
-            break;
-
-        case insert:
-            if (size != 1)
-                throw std::runtime_error("Impossibile inserire l'esercizio");
-            aux = creator->createExercise((*exName)[0], (*exDuration)[0], (*exRecovery)[0]);
-            rep->insertExercise(exPos, aux);
-            break;
-
-        case set:
-            if (size != rep->getSize())
-                throw std::runtime_error("Impossibile modificare gli esercizi");
-            for (unsigned int i = 0; i < rep->getSize(); ++i)
-            {
-                aux = creator->createExercise((*exName)[i], (*exDuration)[i], (*exRecovery)[i]);
-                rep->setExercise(i, aux);
-            }
-            break;
-
-        case eliminate:
-            rep->removeExercise(exPos);
-            break;
-
-        case nothing:
-            break;
-
-        default:
-            throw std::invalid_argument(
-                        "Invalid action on the exercises of a repetition training");
-        }
-        delete creator;
-    } else
-        throw std::invalid_argument("Invalid type of training passed");
-
-    Training* aux = *it;
+    Training * oldTraining = (*it)->clone();
     trainings.erase(it);
 
-    if (check(aux)) {
+    try {
+        newTraining->setName(name);
+        newTraining->setStart(start);
+        if (dynamic_cast<Endurance *>(newTraining)) {
+            Endurance *endur = static_cast<Endurance *>(newTraining);
+            endur->setDistance(distance);
+            endur->setDuration(duration);
+        } else if (dynamic_cast<Repetition *>(newTraining)) {
+            unsigned int size = exName->size();
+            if (size != exRecovery->size() || size != exDuration->size())
+                throw std::runtime_error("Impossibile modificare l'allenamento: errore negli esercizi!");
+
+            Repetition *rep = static_cast<Repetition *>(newTraining);
+            exerciseCreator *creator = new exerciseCreator();
+            Exercise *aux = nullptr;
+
+            switch (operation) {
+            case add:
+                if (size != 1)
+                    throw std::runtime_error("Impossibile aggiungere l'esercizio");
+                aux = creator->createExercise((*exName)[0], (*exDuration)[0], (*exRecovery)[0]);
+                rep->addExercise(aux);
+                break;
+
+            case insert:
+                if (size != 1)
+                    throw std::runtime_error("Impossibile inserire l'esercizio");
+                aux = creator->createExercise((*exName)[0], (*exDuration)[0], (*exRecovery)[0]);
+                rep->insertExercise(exPos, aux);
+                break;
+
+            case set:
+                if (size != rep->getSize())
+                    throw std::runtime_error("Impossibile modificare gli esercizi");
+                for (unsigned int i = 0; i < rep->getSize(); ++i)
+                {
+                    aux = creator->createExercise((*exName)[i], (*exDuration)[i], (*exRecovery)[i]);
+                    rep->setExercise(i, aux);
+                }
+                break;
+
+            case eliminate:
+                rep->removeExercise(exPos);
+                break;
+
+            case nothing:
+                break;
+
+            default:
+                throw std::invalid_argument(
+                            "Invalid action on the exercises of a repetition training");
+            }
+            delete creator;
+        } else
+            throw std::invalid_argument("Invalid type of training passed");
+        if (check(newTraining)) {
+            delete oldTraining;
+            insertTraining(newTraining);
+        } else
+            throw std::invalid_argument("Non è possibile svolgere l'operazione richiesta!");
+
+    }  catch (std::runtime_error) {
+        insertTraining(oldTraining);
         delete newTraining;
-        insertTraining(aux);
-    } else {
-        delete aux;
-        insertTraining(newTraining);
-        throw std::invalid_argument(
-                    "Conflict of trainings' durations during modify operation");
+        throw;
+    } catch (std::invalid_argument) {
+        insertTraining(oldTraining);
+        delete newTraining;
+        throw;
     }
 }
 

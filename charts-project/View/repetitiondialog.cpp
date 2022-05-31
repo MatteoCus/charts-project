@@ -29,7 +29,7 @@ repetitionDialog::repetitionDialog(QWidget *parent, action act, Repetition *trai
     if (act == set)
     {
         QStringList items;
-        items << tr("Aggiungi") << tr("Inserisci") << tr("Modifica") << tr("Rimuovi");
+        items << tr("Aggiungi") << tr("Inserisci") << tr("Modifica (anche nome e inizio allenamento)") << tr("Rimuovi");
 
         bool ok;
         std::string item = QInputDialog::getItem(this, tr("Esercizi"),
@@ -40,7 +40,7 @@ repetitionDialog::repetitionDialog(QWidget *parent, action act, Repetition *trai
                 exAct = add;
             else if (item == "Inserisci")
                 exAct = insert;
-            else if (item == "Modifica")
+            else if (item == "Modifica (anche nome e inizio allenamento)")
                 exAct = set;
             else //if (item == "Rimuovi")
                 exAct = eliminate;
@@ -297,6 +297,8 @@ trainingValues repetitionDialog::getValues(QWidget *parent, bool *ok, action act
         }
 
     }
+    else
+        throw std::runtime_error("Operazione annullata!");
     dialog->deleteLater();
-    return trainingValues("",start,name,0,QTime(),exName,exDuration,recovery,act,pos,exAct, exPos);
+    return trainingValues("",start,name,0,QTime(),exName,exDuration,recovery,pos,exAct, exPos);
 }
