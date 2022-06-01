@@ -29,18 +29,18 @@ repetitionDialog::repetitionDialog(QWidget *parent, action act, Repetition *trai
     if (act == set)
     {
         QStringList items;
-        items << tr("Aggiungi") << tr("Inserisci") << tr("Modifica (anche nome e inizio allenamento)") << tr("Rimuovi");
+        items << tr("Aggiungi esercizio") << tr("Inserisci esercizio") << tr("Modifica") << tr("Rimuovi esercizio");
 
         bool ok;
         std::string item = QInputDialog::getItem(this, tr("Esercizi"),
-                                             tr("Azione da effettuare sugli esercizi:"), items, 0, false, &ok).toStdString();
+                                             tr("Azione da effettuare:"), items, 0, false, &ok).toStdString();
         if (ok && item !="")
         {
-            if (item == "Aggiungi")
+            if (item == items.at(0).toStdString())
                 exAct = add;
-            else if (item == "Inserisci")
+            else if (item == items.at(1).toStdString())
                 exAct = insert;
-            else if (item == "Modifica (anche nome e inizio allenamento)")
+            else if (item == items.at(2).toStdString())
                 exAct = set;
             else //if (item == "Rimuovi")
                 exAct = eliminate;

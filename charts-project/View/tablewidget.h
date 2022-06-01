@@ -63,6 +63,8 @@ private:
     void showRepetitionData(Repetition* training);
     void showEnduranceData(Endurance* training);
     
+    void insertEmptyRow(QTableWidget* table);
+    
 private slots:
     void changeState(int state);
 public:

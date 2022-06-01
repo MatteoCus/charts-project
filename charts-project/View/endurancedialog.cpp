@@ -62,7 +62,7 @@ enduranceDialog::enduranceDialog(QWidget *parent, action act, Endurance* trainin
 
 trainingValues enduranceDialog::getValues(QWidget *parent, bool *ok, action act, Endurance *training)
 {
-     enduranceDialog *dialog = new enduranceDialog(parent,act,training);
+    enduranceDialog *dialog = new enduranceDialog(parent,act,training);
 
     const int ret = dialog->exec();
     if (ok)

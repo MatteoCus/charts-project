@@ -221,71 +221,86 @@ QString chartViewer::showPathDialog()
 
 trainingValues chartViewer::showAddDialog()
 {
-    bool ok;
+    bool ok = false;
     QString type = typeDialog::getType(this,&ok);
-    if (type == "Camminata" || type == "Corsa" || type == "Ciclismo")
+    if(ok)
     {
-        trainingValues values = enduranceDialog::getValues(this,&ok,add);
-        values.type = type;
-        return values;
+        if (type == "Camminata" || type == "Corsa" || type == "Ciclismo")
+        {
+            trainingValues values = enduranceDialog::getValues(this,&ok,add);
+            values.type = type;
+            return values;
+        }
+        else
+        {
+            trainingValues values = repetitionDialog::getValues(this,&ok,add);
+            values.type = type;
+            return values;
+        }
     }
     else
-    {
-        trainingValues values = repetitionDialog::getValues(this,&ok,add);
-        values.type = type;
-        return values;
-    }
+        throw std::runtime_error("Nessun tipo scelto, operazione annullata!");
 }
 
 trainingValues chartViewer::showRemoveDialog()
 {
-    bool ok, found = false;
+    bool ok = false, found = false;
     QString start = selectTrainingDialog::getDate(this,&ok,trainings);
-    unsigned int n = 0;
-    findTraining(n,found,start);
-    auto training = trainings->begin();
-    std::advance(training,n);
-    if (auto aux = dynamic_cast<Endurance*>(*training))
+    if(ok)
     {
-        trainingValues values = enduranceDialog::getValues(this,&ok,eliminate,aux);
-        values.pos = n;
-        return values;
-    }
-    else if (auto aux = dynamic_cast<Repetition*>(*training))
-    {
-        trainingValues values = repetitionDialog::getValues(this,&ok,eliminate,aux);
-        values.pos = n;
-        return values;
+        unsigned int n = 0;
+        findTraining(n,found,start);
+        auto training = trainings->begin();
+        std::advance(training,n);
+        if (auto aux = dynamic_cast<Endurance*>(*training))
+        {
+            trainingValues values = enduranceDialog::getValues(this,&ok,eliminate,aux);
+            values.pos = n;
+            return values;
+        }
+        else if (auto aux = dynamic_cast<Repetition*>(*training))
+        {
+            trainingValues values = repetitionDialog::getValues(this,&ok,eliminate,aux);
+            values.pos = n;
+            return values;
+        }
+        else
+            throw std::runtime_error("Allenamento non corretto selezionato!");
     }
     else
-        throw std::runtime_error("Allenamento non corretto selezionato!");
+        throw std::runtime_error("Nessun allenamento scelto, operazione annullata!");
 }
 
 trainingValues chartViewer::showSetDialog()
 {
-    bool ok, found = false;
+    bool ok = false, found = false;
     QString start = selectTrainingDialog::getDate(this,&ok,trainings);
-    unsigned int n = 0;
-    findTraining(n,found,start);
-    auto training = trainings->begin();
-    std::advance(training,n);
+    if(ok)
+    {
+        unsigned int n = 0;
+        findTraining(n,found,start);
+        auto training = trainings->begin();
+        std::advance(training,n);
 
-    if (auto aux = dynamic_cast<Endurance*>(*training))
-    {
-        trainingValues values = enduranceDialog::getValues(this,&ok,set,aux);
-        values.pos = n;
-        values.type = "Endurance";
-        return values;
-    }
-    else if (auto aux = dynamic_cast<Repetition*>(*training))
-    {
-        trainingValues values = repetitionDialog::getValues(this,&ok,set,aux);
-        values.pos = n;
-        values.type = "Repetition";
-        return values;
+        if (auto aux = dynamic_cast<Endurance*>(*training))
+        {
+            trainingValues values = enduranceDialog::getValues(this,&ok,set,aux);
+            values.pos = n;
+            values.type = "Endurance";
+            return values;
+        }
+        else if (auto aux = dynamic_cast<Repetition*>(*training))
+        {
+            trainingValues values = repetitionDialog::getValues(this,&ok,set,aux);
+            values.pos = n;
+            values.type = "Repetition";
+            return values;
+        }
+        else
+            throw std::runtime_error("Allenamento non corretto selezionato!");
     }
     else
-        throw std::runtime_error("Allenamento non corretto selezionato!");
+        throw std::runtime_error("Nessun allenamento scelto, operazione annullata!");
 }
 
 void chartViewer::setData(const std::list<Training *> *data)

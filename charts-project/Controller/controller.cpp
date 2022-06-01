@@ -43,35 +43,31 @@ void Controller::extractValues(trainingValues values, DateTime &start, TimeSpan 
 
 void Controller::add() const
 {
-    trainingValues values = view->showAddDialog();
-
-    DateTimeConverter converter;
-    DateTime start;
-    TimeSpan duration;
-    std::vector<std::string> exName;
-    std::vector<Time> exDuration;
-    std::vector<Time> exRecovery;
-
-
     try {
+        trainingValues values = view->showAddDialog();
+        DateTimeConverter converter;
+        DateTime start;
+        TimeSpan duration;
+        std::vector<std::string> exName;
+        std::vector<Time> exDuration;
+        std::vector<Time> exRecovery;
         extractValues(values,start,duration,exName,exDuration,exRecovery);
         model->addNewTraining(values.type.toStdString(),values.name.toStdString(),
                               start,values.distance,duration,&exName,&exDuration,&exRecovery);
 
+        view->showData();
     }  catch (std::runtime_error e) {
             view->showWarning(QString::fromStdString(e.what()));
     }
        catch (std::invalid_argument e){
             view->showWarning(QString::fromStdString(e.what()));
     }
-    view->showData();
 }
 
 void Controller::set() const
 {
     try {
         trainingValues values = view->showSetDialog();
-
         DateTimeConverter converter;
         DateTime start;
         TimeSpan duration;
@@ -83,26 +79,25 @@ void Controller::set() const
 
         model->setTraining(values.pos,values.name.toStdString(),start,values.distance,duration,values.exPos,values.exAct
                            ,&exName,&exDuration, &exRecovery);
+        view->showData();
     }  catch (std::runtime_error e) {
         view->showWarning(QString::fromStdString(e.what()));
     }
     catch (std::invalid_argument e){
         view->showWarning(QString::fromStdString(e.what()));
     }
-    view->showData();
 }
 
 void Controller::remove() const
 {
-    trainingValues values = view->showRemoveDialog();
     try {
+        trainingValues values = view->showRemoveDialog();
         model->removeTraining(values.pos);
-
+        view->showData();
     }  catch (std::runtime_error e) {
             view->showWarning(QString::fromStdString(e.what()));
     }
        catch (std::invalid_argument e){
             view->showWarning(QString::fromStdString(e.what()));
     }
-    view->showData();
 }

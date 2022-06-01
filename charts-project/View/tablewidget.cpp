@@ -80,6 +80,20 @@ void tableWidget::adaptTableWidth(unsigned int w, QTableWidget *table)
     table->setFixedWidth(w);
 }
 
+void tableWidget::insertEmptyRow(QTableWidget* table)
+{
+    table->insertRow(0);
+
+    QTableWidgetItem* it;
+    for(unsigned int i = 0 ; i < 7 ; i++)
+    {
+        it = new QTableWidgetItem;
+        it->setFlags(it->flags() ^ Qt::ItemIsEditable);
+        table->setItem(0, i, it);
+    }
+   delete it;
+}
+
 void tableWidget::setTableStyleSheet(QTableWidget* table)
 {
 
@@ -92,23 +106,15 @@ void tableWidget::setTableStyleSheet(QTableWidget* table)
                          "QLineEdit {color : white ; background-color : #404244; selection-background-color: #c26110 ;"
                          "selection-color : white}");
 
-    table->insertRow(0);
-
-    QTableWidgetItem* it1[7];
-    for(unsigned int i = 0 ; i < 7 ; i++)
-    {
-        it1[i] = new QTableWidgetItem();
-        it1[i]->setFlags(it1[i]->flags() ^ Qt::ItemIsEditable);                             //per rendere non editabile un campo
-        table->setItem(0, i, it1[i]);
-    }
+    insertEmptyRow(table);
 
     table->horizontalHeader()->setSectionResizeMode(QHeaderView::Fixed);
     table->setColumnWidth(0,150);
-    table->setColumnWidth(1,65);
-    table->setColumnWidth(2,135);
-    table->setColumnWidth(3,65);
-    table->setColumnWidth(4,135);
-    table->setColumnWidth(5,50);
+    table->setColumnWidth(1,75);
+    table->setColumnWidth(2,133);
+    table->setColumnWidth(3,64);
+    table->setColumnWidth(4,133);
+    table->setColumnWidth(5,45);
     table->setColumnWidth(6,70);
 
 }
@@ -184,6 +190,8 @@ void tableWidget::addControls()
     setButton->setFixedSize(70,25);
     removeButton->setFixedSize(70,25);
     exerciseButton->setFixedSize(130,25);
+
+    exerciseButton->hide();
     splitCheckBox->hide();
 
     addButton->setStyleSheet("QPushButton { background-color : #c26110 ; color : white; }");
@@ -355,7 +363,8 @@ void tableWidget::showData()
         }
     }
 
-
+    if (trainings->size() == 0)
+        insertEmptyRow(table1);
 
     if (!foundRepetition)
     {
@@ -394,6 +403,7 @@ void tableWidget::showData()
         else
             adaptTableWidth(15,table1);
     }
+
 
 
     table1->setVisible(true);

@@ -1,5 +1,6 @@
 #include "selecttrainingdialog.h"
 #include <iostream>
+using namespace std;
 
 void selectTrainingDialog::setComboBoxStyleSheet()
 {
@@ -131,7 +132,7 @@ QString selectTrainingDialog::getDate(QWidget *parent, bool *ok, const std::list
 
         if (ret)
             return (dialog->dateBox->currentText());
-        else if (type == "Repetition")
+        else
             return "";
     }
     else

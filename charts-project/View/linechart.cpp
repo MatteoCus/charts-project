@@ -46,7 +46,7 @@ void lineChart::addSeries(const std::vector<double> *values, const std::vector<D
     if (!graph->series().empty())
         graph->removeSeries(series);
 
-    //axisX->setTickCount(values->size() > 1? values->size():2);
+    axisX->setTickCount(values->size() != 1? values->size() : 2);
 
     axisY->setTitleVisible(false);
     axisY->setVisible(false);
@@ -58,6 +58,7 @@ void lineChart::addSeries(const std::vector<double> *values, const std::vector<D
         {
             axisY = axisYDateTime;
 
+            QDateTime* max = new QDateTime();
             unsigned int mx = 0;
             for(unsigned int i = 0; i < values->size(); ++i)
             {
@@ -65,17 +66,19 @@ void lineChart::addSeries(const std::vector<double> *values, const std::vector<D
                 unsigned int h = sec / 3600;
                 unsigned int m = (sec - (3600 * h))/ 60;
                 unsigned int s = (sec - (3600 * h) - (60 * m)) % 60;
-                QDateTime *aux = new QDateTime(QDate(1970,1,1), QTime(h,m,s));
+                QDateTime aux = QDateTime(QDate(1970,1,1), QTime(h,m,s));
 
                 if(mx < sec)
                 {
-                    axisYDateTime->setMax((*aux));
+                    delete max;
+                    max = new QDateTime(aux);
                     mx = sec;
                 }
 
-                series->append(convertDateTime((*start)[i])->toMSecsSinceEpoch(),aux->toMSecsSinceEpoch());
+                series->append(convertDateTime((*start)[i])->toMSecsSinceEpoch(),aux.toMSecsSinceEpoch());
             }
-            axisYDateTime->setMin(QDateTime(QDate(1970,1,1),QTime(0,0)));
+            axisYDateTime->setRange(QDateTime(QDate(1970,1,1),QTime(0,0)),*max);
+            delete max;
 
         }
         else
@@ -89,25 +92,24 @@ void lineChart::addSeries(const std::vector<double> *values, const std::vector<D
                     max = (*values)[i];
                 series->append(convertDateTime((*start)[i])->toMSecsSinceEpoch(),(*values)[i]);
             }
-            axisYInt->setMin(0);
-            axisYInt->setMax(max);
+            axisYInt->setRange(0,max);
         }
         axisY->setVisible();
         axisY->setTitleVisible();
 
-        axisX->setTitleVisible();
-        axisX->setVisible();
-
         if (start->size() > 1)
-        {
-            axisX->setMin(*convertDateTime((*start)[0]));
-            axisX->setMax(*convertDateTime((*start)[start->size() -1]));
-        }
+            axisX->setRange(*convertDateTime((*start)[0]),*convertDateTime((*start)[start->size() -1]));
+        else
+            axisX->setRange(*convertDateTime((*start)[0]),(*convertDateTime((*start)[0])).addDays(1));
+
+        axisX->setVisible();
+        axisX->setTitleVisible();
+
         connect();
     }
-    /*else
+    else
     {
         axisX->setTitleVisible(false);
         axisX->setVisible(false);
-    }*/
+    }
 }

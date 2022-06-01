@@ -84,5 +84,5 @@ QString typeDialog::getType(QWidget *parent, bool *ok)
     if (ret)
         return (dialog->typeBox->currentText());
     else
-        throw std::runtime_error("Errore nella scelta del tipo di allenamento");
+        throw std::runtime_error("Nessun tipo scelto, operazione annullata!");
 }

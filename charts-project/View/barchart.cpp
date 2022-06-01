@@ -63,7 +63,8 @@ void barChart::addSeries(const std::vector<double> *values, const std::vector<Da
         {
             axisY = axisYDateTime;
 
-            unsigned int mx = (*values)[0];
+            QDateTime* max = new QDateTime();
+            unsigned int mx = 0;
             for(unsigned int i = 0; i < values->size(); ++i)
             {
                 categories.append(QString::fromStdString((*start)[i]->getDate().toString()));
@@ -73,19 +74,20 @@ void barChart::addSeries(const std::vector<double> *values, const std::vector<Da
                 unsigned int m = (sec - (3600 * h))/ 60;
                 unsigned int s = (sec - (3600 * h) - (60 * m)) % 60;
 
-                QDateTime *aux = new QDateTime(QDate(1970,1,2), QTime(h,m,s));
-
+                QDateTime aux = QDateTime(QDate(1970,1,2), QTime(h,m,s));
 
                 if(mx < sec)
                 {
-                    axisYDateTime->setMax(*aux);
+                    delete max;
+                    max = new QDateTime(aux);
                     mx = sec;
                 }
-                int msSinceEpoch = aux->toMSecsSinceEpoch();
+                int msSinceEpoch = aux.toMSecsSinceEpoch();
                 *set<<msSinceEpoch;
-                delete aux;
+
             }
-            axisYDateTime->setMin(QDateTime(QDate(1970,1,2),QTime(0,0)));
+            axisYDateTime->setRange(QDateTime(QDate(1970,1,2),QTime(0,0)),*max);
+            delete max;
         }
         else
         {
