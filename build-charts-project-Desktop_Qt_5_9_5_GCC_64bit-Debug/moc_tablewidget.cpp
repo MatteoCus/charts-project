@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_tableWidget_t {
-    QByteArrayData data[8];
-    char stringdata0[60];
+    QByteArrayData data[9];
+    char stringdata0[65];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -38,11 +38,12 @@ QT_MOC_LITERAL(3, 17, 3), // "set"
 QT_MOC_LITERAL(4, 21, 6), // "remove"
 QT_MOC_LITERAL(5, 28, 13), // "showExercises"
 QT_MOC_LITERAL(6, 42, 11), // "changeState"
-QT_MOC_LITERAL(7, 54, 5) // "state"
+QT_MOC_LITERAL(7, 54, 5), // "state"
+QT_MOC_LITERAL(8, 60, 4) // "show"
 
     },
     "tableWidget\0add\0\0set\0remove\0showExercises\0"
-    "changeState\0state"
+    "changeState\0state\0show"
 };
 #undef QT_MOC_LITERAL
 
@@ -66,7 +67,7 @@ static const uint qt_meta_data_tableWidget[] = {
        5,    0,   42,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       6,    1,   43,    2, 0x08 /* Private */,
+       6,    2,   43,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void,
@@ -75,7 +76,7 @@ static const uint qt_meta_data_tableWidget[] = {
     QMetaType::Void,
 
  // slots: parameters
-    QMetaType::Void, QMetaType::Int,    7,
+    QMetaType::Void, QMetaType::Int, QMetaType::Bool,    7,    8,
 
        0        // eod
 };
@@ -90,7 +91,7 @@ void tableWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
         case 1: _t->set(); break;
         case 2: _t->remove(); break;
         case 3: _t->showExercises(); break;
-        case 4: _t->changeState((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 4: _t->changeState((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< bool(*)>(_a[2]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {

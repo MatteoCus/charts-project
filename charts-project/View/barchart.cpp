@@ -67,7 +67,7 @@ void barChart::addSeries(const std::vector<double> *values, const std::vector<Da
             unsigned int mx = 0;
             for(unsigned int i = 0; i < values->size(); ++i)
             {
-                categories.append(QString::fromStdString((*start)[i]->getDate().toString()));
+                categories.append(QString::fromStdString((*start)[i]->toString()));
 
                 unsigned int sec = (*values)[i];
                 unsigned int h = sec / 3600;
@@ -96,7 +96,7 @@ void barChart::addSeries(const std::vector<double> *values, const std::vector<Da
             double max = (*values)[0];
             for(unsigned int i = 0; i < values->size(); ++i)
             {
-                categories.append(QString::fromStdString((*start)[i]->getDate().toString()));
+                categories.append(QString::fromStdString((*start)[i]->toString()));
                 if (max < (*values)[i])
                     max = (*values)[i];
                 *set<<(*values)[i];

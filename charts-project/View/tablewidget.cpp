@@ -114,8 +114,8 @@ void tableWidget::setTableStyleSheet(QTableWidget* table)
     table->setColumnWidth(2,133);
     table->setColumnWidth(3,64);
     table->setColumnWidth(4,133);
-    table->setColumnWidth(5,45);
-    table->setColumnWidth(6,70);
+    table->setColumnWidth(5,48);
+    table->setColumnWidth(6,67);
 
 }
 
@@ -143,7 +143,7 @@ void tableWidget::addControlTable()
     setTableStyleSheet(table1);
     table1Layout->addWidget(label1);
     table1Layout->addWidget(table1);
-    table1->hideColumn(6);
+
     adaptSingleTableHeight(22,table1);
     adaptTableWidth(15,table1);
     adaptTableWidth(15,table2);
@@ -158,9 +158,7 @@ void tableWidget::addControlTable()
     table2Layout->addWidget(label2);
     table2Layout->addWidget(table2);
 
-    table2->setColumnCount(7);
     table2->setHorizontalHeaderLabels(QStringList()<<"Nome"<<"Tipo"<<"Inizio"<<"Durata"<<"Fine"<<"Calorie"<<"Distanza");
-    table2->setColumnWidth(6,70);
 
     tableLayout->addLayout(table1Layout);
     tableLayout->addLayout(table2Layout);
@@ -209,23 +207,24 @@ void tableWidget::addControls()
     controlBoxLayout->addWidget(splitCheckBox);
 
     connect(exerciseButton, SIGNAL(clicked()), this, SIGNAL(showExercises()));
-    connect(splitCheckBox, SIGNAL(stateChanged(int)), this, SLOT(changeState(int)));
+    connect(splitCheckBox, &QCheckBox::stateChanged, [this](int state){changeState(state,true);});
 
     mainLayout->addLayout(controlBoxLayout);
 }
 
-void tableWidget::changeState(int state)
+void tableWidget::changeState(int state, bool show)
 {
     splitState = (state == Qt::CheckState::Unchecked ? false : true);
 
     if (splitState)
         label1->setText(QString::fromStdString("Allenamenti di ripetizione in ordine cronologico"));
-    else
+    else        
         label1->setText(QString::fromStdString("Allenamenti in ordine cronologico"));
+
     label1->adjustSize();
 
-
-    showData();
+    if(show)
+        showData();
 }
 
 tableWidget::tableWidget(QWidget *parent) : QWidget(parent)
@@ -295,19 +294,26 @@ void tableWidget::showCommonData(Training* it, unsigned int i)
     i == 1? table1->setCellWidget(0,1,item) : table2->setCellWidget(0,1,item);
 }
 
-void tableWidget::showRepetitionData(Repetition *training)
+void tableWidget::showRepetitionData(Repetition *training, unsigned int i)
 {
 
     QLineEdit* item = new QLineEdit(QString::fromStdString(value2string(training->Intensity()) + " %"),this);
     setLineEdit(item);
-    table1->setCellWidget(0,6,item);
+    if(i == 1)
+        table1->setCellWidget(0,6,item);
+    else
+        table2->setCellWidget(0,6,item);
 }
 
-void tableWidget::showEnduranceData(Endurance *training)
+void tableWidget::showEnduranceData(Endurance *training, unsigned int i)
 {
     QLineEdit* item = new QLineEdit(QString::fromStdString(value2string(training->getDistance()) + " km"),this);
     setLineEdit(item);
-    table2->setCellWidget(0,6,item);
+
+    if(i == 1)
+        table1->setCellWidget(0,6,item);
+    else
+        table2->setCellWidget(0,6,item);
 }
 
 void tableWidget::showData()
@@ -323,13 +329,22 @@ void tableWidget::showData()
 
     bool foundRepetition = false, foundEndurance = false;
 
+    for(auto it = trainings->begin(); it != trainings->end(); ++it)
+    {
+        if (!foundRepetition && dynamic_cast<Repetition*>(*it))
+            foundRepetition = true;
+        else if (!foundEndurance && dynamic_cast<Endurance*>(*it))
+            foundEndurance = true;
+    }
+
+    if(splitState && foundEndurance != foundRepetition)
+        changeState(Qt::CheckState::Unchecked,false);
+
     if (splitState)
     {
+        table1->showColumn(6);
+        table1->setHorizontalHeaderLabels(QStringList()<<"Nome"<<"Tipo"<<"Inizio"<<"Durata"<<"Fine"<<"Calorie"<<"Intensità");
         tableLayout->setContentsMargins(0,0,0,0);
-        foundEndurance = foundRepetition = true;
-
-        if(table1->isColumnHidden(6))
-            table1->showColumn(6);
 
         for (auto it = trainings->begin(); it != trainings->end(); ++it)
         {
@@ -341,7 +356,7 @@ void tableWidget::showData()
             else
             {
                 showCommonData(*it,2);
-                showEnduranceData(static_cast<Endurance*>(*it));
+                showEnduranceData(static_cast<Endurance*>(*it),2);
             }
         }
     }
@@ -349,22 +364,39 @@ void tableWidget::showData()
     {
         tableLayout->setContentsMargins(0,0,70,0);
 
-        if(!table1->isColumnHidden(6))
-            table1->setColumnHidden(6,true);
+
+        if(foundRepetition && !foundEndurance)
+        {
+            table1->showColumn(6);
+            table1->setHorizontalHeaderLabels(QStringList()<<"Nome"<<"Tipo"<<"Inizio"<<"Durata"<<"Fine"<<"Calorie"<<"Intensità");
+        }
+        else if(foundEndurance && !foundRepetition)
+        {
+            table1->showColumn(6);
+            table1->setHorizontalHeaderLabels(QStringList()<<"Nome"<<"Tipo"<<"Inizio"<<"Durata"<<"Fine"<<"Calorie"<<"Distanza");
+        }
+        else
+            table1->hideColumn(6);
 
         for (auto it = trainings->begin(); it != trainings->end(); ++it)
         {
-            if (!foundRepetition && dynamic_cast<Repetition*>(*it))
-                foundRepetition = true;
-            else if (!foundEndurance && dynamic_cast<Endurance*>(*it))
-                foundEndurance = true;
-
             showCommonData(*it);
+
+            if (foundRepetition != foundEndurance)
+            {
+                if(foundRepetition)
+                    showRepetitionData(static_cast<Repetition*>(*it));
+                else
+                    showEnduranceData(static_cast<Endurance*>(*it));
+            }
         }
     }
 
     if (trainings->size() == 0)
+    {
+        table1->hideColumn(6);
         insertEmptyRow(table1);
+    }
 
     if (!foundRepetition)
     {

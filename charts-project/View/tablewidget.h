@@ -60,13 +60,13 @@ private:
     void setLineEdit(QLineEdit* item);
 
     void showCommonData(Training* it, unsigned int i = 1);
-    void showRepetitionData(Repetition* training);
-    void showEnduranceData(Endurance* training);
+    void showRepetitionData(Repetition* training, unsigned int i = 1);
+    void showEnduranceData(Endurance* training, unsigned int i = 1);
     
     void insertEmptyRow(QTableWidget* table);
     
 private slots:
-    void changeState(int state);
+    void changeState(int state, bool show);
 public:
     explicit tableWidget(QWidget *parent = nullptr);
     void showData();

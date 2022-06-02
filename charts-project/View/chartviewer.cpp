@@ -314,4 +314,18 @@ void chartViewer::showData()
 {
     tableW->showData();
     chartW->showData();
+
+    bool repetition = false;
+
+    for (auto it = trainings->begin(); it != trainings->end() && !repetition; ++it)
+    {
+        if (dynamic_cast<Repetition*>(*it))
+            repetition = true;
+    }
+
+    if(repetition)
+       visualizza->actions()[1]->setVisible(true);
+    else
+        visualizza->actions()[1]->setVisible(false);
+
 }

@@ -12,7 +12,10 @@ unsigned int Tennis::CaloriesBurned() const {
 
 double Tennis::Intensity() const {
     if(totalRecovery() != TimeSpan())
-        return (c2 * (getDuration()/totalRecovery())/4);
+    {
+        double res = c2 * (getDuration()/totalRecovery())/4;
+        return (res < 100? res : 98.25);
+    }
     else
         throw std::runtime_error("Trying to calculate intensity with a null recovery time (division by 0");
 }
