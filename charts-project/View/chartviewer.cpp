@@ -8,9 +8,9 @@ void chartViewer::addMenu(QHBoxLayout* mainLayout)
     menuBar = new QMenuBar(this);
 
     menuBar->setStyleSheet("QMenuBar {background-color : #404244 ; color: white; }"
-                           "QMenuBar::item:selected {background-color : #c26110;}"
+                           "QMenuBar::item:selected {background-color : green;}"
                            "QMenu {background-color : #404244 ; color: white; }"
-                           "QMenu::item:selected {background-color : #c26110;}");
+                           "QMenu::item:selected {background-color : green;}");
 
     file = new QMenu("File", menuBar);
     visualizza = new QMenu("Visualizza", menuBar);
@@ -104,7 +104,10 @@ void chartViewer::showChart()
     dialog = new QDialog(this);
     dialog->setLayout(new QHBoxLayout);
     aux->setChartsSize(900,600);
+    aux->setGeometry(0,0,0,0);
     dialog->layout()->addWidget(aux);
+    dialog->layout()->setAlignment(Qt::AlignCenter);
+    //dialog->setFixedSize(920,650);
     dialog->exec();
     delete(dialog);
 }
@@ -115,10 +118,11 @@ chartViewer::chartViewer(QWidget *parent) : QWidget(parent)
 
     tableW = new tableWidget(this);
     chartW = new chartWidget(this);
-    mainLayout->setSpacing(40);
+
+    mainLayout->setSpacing(20);
     mainLayout->addWidget(tableW);
     mainLayout->addWidget(chartW);
-    mainLayout->setContentsMargins(10,90,10,20);
+    mainLayout->setContentsMargins(10,50,10,20);
     addMenu(mainLayout);
     setLayout(mainLayout);
     setStyleSheet("QWidget{background-color : #2e2f30}");
@@ -175,7 +179,7 @@ chartViewer::chartViewer(QWidget *parent) : QWidget(parent)
     //std::cout<<val.name.toStdString()<<" "<<val.exName.size()<<std::endl;
     setData(aux);
     showData();*/
-    resize(1200,700);
+    showMaximized();
 
     connect(tableW, SIGNAL(showExercises()), this, SLOT(showExercises()));
     connect(tableW,SIGNAL(add()), this, SIGNAL(addTrainings()));
@@ -200,9 +204,9 @@ void chartViewer::showWarning(const QString &message)
     label->setFont(serifFont);
     dialog->layout()->addWidget(label);
     dialog->layout()->setAlignment(Qt::AlignCenter);
-    dialog->setMinimumWidth(120);
-    dialog->setMaximumWidth(500);
-    dialog->setMaximumHeight(400);
+    dialog->layout()->setSizeConstraint(QLayout::SetMinimumSize);
+    dialog->setFixedHeight(label->height());
+    dialog->setFixedWidth(dialog->width());
     dialog->setStyleSheet("QWidget {background-color: #404244 ; color: white}");
     dialog->exec();
     delete(dialog);
@@ -312,8 +316,8 @@ void chartViewer::setData(const std::list<Training *> *data)
 
 void chartViewer::showData()
 {
-    tableW->showData();
     chartW->showData();
+    tableW->showData();
 
     bool repetition = false;
 

@@ -4,9 +4,9 @@ using namespace std;
 
 void selectTrainingDialog::setComboBoxStyleSheet()
 {
-    dateBox->setStyleSheet("QComboBox {background-color : #404244 ; color: white ; selection-background-color: #c26110 ;"
+    dateBox->setStyleSheet("QComboBox {background-color : #404244 ; color: white ; selection-background-color: green ;"
                            "selection-color : white} "
-                           "QComboBox::drop-down{background-color : #c26110 ;}"
+                           "QComboBox::drop-down{background-color : green ;}"
                            "QComboBox::drop-down"
                            "{"
                            "border : 2px solid;"
@@ -17,7 +17,7 @@ void selectTrainingDialog::setComboBoxStyleSheet()
                            "QComboBox::down-arrow{image : url(/home/matteo/Documenti/GitHub/charts-project/charts-project/icons/pngwing.com.png); width: 10px;"
                            "height: 10px;}"
                            "QComboBox QListView {background-color : #56585a ; color : white;}"
-                           "QComboBox QAbstractItemView {selection-background-color:#c26110;}");
+                           "QComboBox QAbstractItemView {selection-background-color:green;}");
 }
 
 selectTrainingDialog::selectTrainingDialog(QWidget* parent, const std::list<Training*>* trainings, std::string type): QDialog(parent)
@@ -82,7 +82,7 @@ selectTrainingDialog::selectTrainingDialog(QWidget* parent, const std::list<Trai
     QLabel* nameLabel = new QLabel(QString("Nome"), this);
     nameLabel->setStyleSheet("QWidget {background-color: #404244; color: white}");
     nameLabel->setFont(font);
-    name->setStyleSheet("QWidget {background-color: #56585a; color: white ; selection-background-color: #c26110 ;"
+    name->setStyleSheet("QWidget {background-color: #56585a; color: white ; selection-background-color: green ;"
                         "selection-color : white} ");
     name->setFixedWidth(150);
     nameLayout->addWidget(nameLabel);
@@ -91,12 +91,12 @@ selectTrainingDialog::selectTrainingDialog(QWidget* parent, const std::list<Trai
     QDialogButtonBox *buttonBox = new QDialogButtonBox(Qt::Orientation::Horizontal,this);
 
     QPushButton* first = new QPushButton(QString("Ok"), buttonBox);
-    first->setStyleSheet("QPushButton {background-color : #404244 ; color: white ; selection-background-color: #c26110 ;"
+    first->setStyleSheet("QPushButton {background-color : #404244 ; color: white ; selection-background-color: green ;"
                          "selection-color : white} ");
     first->setDefault(true);
 
     QPushButton* second = new QPushButton(QString("Cancel"), buttonBox);
-    second->setStyleSheet("QPushButton {background-color : #404244 ; color: white ; selection-background-color: #c26110 ;"
+    second->setStyleSheet("QPushButton {background-color : #404244 ; color: white ; selection-background-color: green ;"
                          "selection-color : white} ");
     second->setAutoDefault(false);
 

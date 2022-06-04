@@ -46,7 +46,7 @@ void lineChart::addSeries(const std::vector<double> *values, const std::vector<D
     if (!graph->series().empty())
         graph->removeSeries(series);
 
-    axisX->setTickCount(values->size() != 1? values->size() : 2);
+    //axisX->setTickCount(values->size() != 1? values->size() : 2);
 
     axisY->setTitleVisible(false);
     axisY->setVisible(false);

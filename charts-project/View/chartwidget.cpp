@@ -30,9 +30,10 @@ void chartWidget::addControls()
     chartBox->addItem("Bar Chart");
     chartBox->addItem("Pie Chart");
     chartBox->setFixedSize(100,25);
-    chartBox->setStyleSheet("QComboBox {background-color : #404244 ; color: white ; selection-background-color: #c26110;"
+
+    chartBox->setStyleSheet("QComboBox {background-color : #404244 ; color: white ; selection-background-color: green;"
                             "selection-color : white} "
-                            "QComboBox::drop-down{background-color : #c26110 ;}"
+                            "QComboBox::drop-down{background-color : green ;}"
                             "QComboBox::drop-down"
                             "{"
                             "border : 2px solid;"
@@ -40,10 +41,10 @@ void chartWidget::addControls()
                             "QComboBox::drop-down:pressed{"
                             "border : 2px solid;"
                             "border-color : #81410b #df7012 #df7012 #81410b;}"
-                            "QComboBox::down-arrow{image : url(/home/matteo/Documenti/GitHub/charts-project/charts-project/icons/pngwing.com.png); width: 10px;"
+                            "QComboBox::down-arrow{image : url(/home/matteo/Documenti/GitHub/charts-project/charts-project/images/pngwing.com.png); width: 10px;"
                             "height: 10px;}"
                             "QComboBox QListView {background-color : #404244 ; color : white;}"
-                            "QComboBox QAbstractItemView {selection-background-color:#c26110;}");   //IMPORTANTE
+                            "QComboBox QAbstractItemView {selection-background-color:green;}");
 
     dataBox = new QComboBox(this);
     dataBox->addItem("Durata");
@@ -51,9 +52,9 @@ void chartWidget::addControls()
     dataBox->addItem("Intensità");
     dataBox->addItem("Distanza");
     dataBox->setFixedSize(100,25);
-    dataBox->setStyleSheet("QComboBox {background-color : #404244 ; color: white ; selection-background-color: #c26110 ;"
+    dataBox->setStyleSheet("QComboBox {background-color : #404244 ; color: white ; selection-background-color: green ;"
                            "selection-color : white} "
-                           "QComboBox::drop-down{background-color : #c26110 ;}"
+                           "QComboBox::drop-down{background-color : green ;}"
                            "QComboBox::drop-down"
                            "{"
                            "border : 2px solid;"
@@ -61,10 +62,10 @@ void chartWidget::addControls()
                            "QComboBox::drop-down:pressed{"
                            "border : 2px solid;"
                            "border-color : #81410b #df7012 #df7012 #81410b;}"
-                           "QComboBox::down-arrow{image : url(/home/matteo/Documenti/GitHub/charts-project/charts-project/icons/pngwing.com.png); width: 10px;"
+                           "QComboBox::down-arrow{image : url(/home/matteo/Documenti/GitHub/charts-project/charts-project/images/pngwing.com.png); width: 10px;"
                            "height: 10px;}"
                            "QComboBox QListView {background-color : #404244 ; color : white;}"
-                           "QComboBox QAbstractItemView {selection-background-color:#c26110;}");   //IMPORTANTE
+                           "QComboBox QAbstractItemView {selection-background-color:green;}");
 
     controlsLayout->addWidget(chartBox);
     controlsLayout->addWidget(dataBox);
@@ -117,7 +118,6 @@ chartWidget::chartWidget(QWidget *parent) : QWidget(parent)
     addControls();
 
     setStyleSheet("QWidget{background-color : #2e2f30}");
-    mainLayout->setAlignment(Qt::AlignTop);
     setLayout(mainLayout);
 }
 

@@ -24,18 +24,18 @@ void tableWidget::setLabelBackground(QLabel *label)
 void tableWidget::setCheckBoxStyleSheet(QCheckBox *checkBox)
 {
     checkBox->setStyleSheet("QCheckBox { color : white} "
-                                "QCheckBox::indicator {background-color: #c26110 ; border : 1px solid #c26110}"
+                                "QCheckBox::indicator {background-color: green ; border : 1px solid green}"
                                  "QCheckBox::indicator:unchecked:pressed {"
-                                     "background-color : #ca7833;"
+                                     "background-color : #92b372;"
                                  "}"
 
                                  "QCheckBox::indicator:checked {"
-                                     "image: url(/home/matteo/Documenti/GitHub/charts-project/charts-project/icons/tick.png);"
+                                     "image: url(/home/matteo/Documenti/GitHub/charts-project/charts-project/images/tick.png);"
                                     " width : 12 px; height : 12 px"
                                  "}"
 
                                  "QCheckBox::indicator:checked:pressed {"
-                                     "image: url(/home/matteo/Documenti/GitHub/charts-project/charts-project/icons/tickPressed.png);"
+                                     "image: url(/home/matteo/Documenti/GitHub/charts-project/charts-project/images/tickPressed.png);"
                                     ""
                                  "}" );
 }
@@ -68,18 +68,6 @@ void tableWidget::adaptDoubleTableHeight(unsigned int h, QTableWidget *table)
     table->setFixedHeight(h);
 }
 
-void tableWidget::adaptTableWidth(unsigned int w, QTableWidget *table)
-{
-    for(int i = 0; i < table->columnCount() ; i++)
-    {
-            w += table->columnWidth(i);
-            //table1->resizeColumnsToContents();
-    }
-    if(w > 700)
-        w = 700;
-    table->setFixedWidth(w);
-}
-
 void tableWidget::insertEmptyRow(QTableWidget* table)
 {
     table->insertRow(0);
@@ -91,7 +79,6 @@ void tableWidget::insertEmptyRow(QTableWidget* table)
         it->setFlags(it->flags() ^ Qt::ItemIsEditable);
         table->setItem(0, i, it);
     }
-   delete it;
 }
 
 void tableWidget::setTableStyleSheet(QTableWidget* table)
@@ -100,16 +87,29 @@ void tableWidget::setTableStyleSheet(QTableWidget* table)
     table->setColumnCount(7);
 
     table->setHorizontalHeaderLabels(QStringList()<<"Nome"<<"Tipo"<<"Inizio"<<"Durata"<<"Fine"<<"Calorie"<<"Intensità");
-    table->setStyleSheet("QHeaderView::section { color : white ; background-color: #c26110}  "
-                         "QTableWidget::item {color : white ;  gridline-color: #c26110 ; background-color : #404244; selection-background-color: #c26110 ;"
+    table->setStyleSheet("QHeaderView::section { color : white ; background-color: green}  "
+                         "QTableWidget::item {color : white ;  gridline-color: green ; background-color : #404244; selection-background-color: green ;"
                          "selection-color : white}"
-                         "QLineEdit {color : white ; background-color : #404244; selection-background-color: #c26110 ;"
+                         "QLineEdit {color : white ; background-color : #404244; selection-background-color: green ;"
                          "selection-color : white}");
 
     insertEmptyRow(table);
 
-    table->horizontalHeader()->setSectionResizeMode(QHeaderView::Fixed);
-    table->setColumnWidth(0,150);
+    table->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);
+
+    QHeaderView* vertHeader = table->verticalHeader();
+    vertHeader->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);
+
+    QHeaderView* horizHeader = table->horizontalHeader();
+    horizHeader->setSectionResizeMode(0,QHeaderView::Fixed);
+    horizHeader->setSectionResizeMode(1,QHeaderView::Stretch);
+    horizHeader->setSectionResizeMode(2,QHeaderView::Fixed);
+    horizHeader->setSectionResizeMode(3,QHeaderView::Stretch);
+    horizHeader->setSectionResizeMode(4,QHeaderView::Fixed);
+    horizHeader->setSectionResizeMode(5,QHeaderView::Stretch);
+    horizHeader->setSectionResizeMode(6,QHeaderView::Stretch);
+
+    table->setColumnWidth(0,140);
     table->setColumnWidth(1,75);
     table->setColumnWidth(2,133);
     table->setColumnWidth(3,64);
@@ -132,7 +132,10 @@ void tableWidget::addControlTable()
     table1Layout = new QVBoxLayout();
     table2Layout = new QVBoxLayout();
 
-    table1Layout->setContentsMargins(0,0,0,20);
+    table1->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    table2->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+    table1Layout->setContentsMargins(0,0,0,0);
     addControls();
 
 
@@ -145,8 +148,6 @@ void tableWidget::addControlTable()
     table1Layout->addWidget(table1);
 
     adaptSingleTableHeight(22,table1);
-    adaptTableWidth(15,table1);
-    adaptTableWidth(15,table2);
 
 
     label2 = new QLabel("Allenamenti di resistenza in ordine cronologico",this);
@@ -192,10 +193,10 @@ void tableWidget::addControls()
     exerciseButton->hide();
     splitCheckBox->hide();
 
-    addButton->setStyleSheet("QPushButton { background-color : #c26110 ; color : white; }");
-    setButton->setStyleSheet("QPushButton { background-color : #c26110 ; color : white; }");
-    removeButton->setStyleSheet("QPushButton { background-color : #c26110 ; color : white; }");
-    exerciseButton->setStyleSheet("QPushButton { background-color : #c26110 ; color : white; }");
+    addButton->setStyleSheet("QPushButton { background-color : green ; color : white; }");
+    setButton->setStyleSheet("QPushButton { background-color : green ; color : white; }");
+    removeButton->setStyleSheet("QPushButton { background-color : green ; color : white; }");
+    exerciseButton->setStyleSheet("QPushButton { background-color : green ; color : white; }");
     setCheckBoxStyleSheet(splitCheckBox);
 
     controlLayout->addWidget(addButton);
@@ -344,7 +345,6 @@ void tableWidget::showData()
     {
         table1->showColumn(6);
         table1->setHorizontalHeaderLabels(QStringList()<<"Nome"<<"Tipo"<<"Inizio"<<"Durata"<<"Fine"<<"Calorie"<<"Intensità");
-        tableLayout->setContentsMargins(0,0,0,0);
 
         for (auto it = trainings->begin(); it != trainings->end(); ++it)
         {
@@ -362,7 +362,7 @@ void tableWidget::showData()
     }
     else
     {
-        tableLayout->setContentsMargins(0,0,70,0);
+        QSize size = table1->size();
 
 
         if(foundRepetition && !foundEndurance)
@@ -376,7 +376,12 @@ void tableWidget::showData()
             table1->setHorizontalHeaderLabels(QStringList()<<"Nome"<<"Tipo"<<"Inizio"<<"Durata"<<"Fine"<<"Calorie"<<"Distanza");
         }
         else
+        {
             table1->hideColumn(6);
+            cout<<size.height()<<", "<<size.width()<<endl;
+            table1->setHorizontalHeaderLabels(QStringList()<<"Nome"<<"Tipo"<<"Inizio"<<"Durata"<<"Fine"<<"Calorie");
+        }
+
 
         for (auto it = trainings->begin(); it != trainings->end(); ++it)
         {
@@ -416,25 +421,9 @@ void tableWidget::showData()
     {
         adaptDoubleTableHeight(22,table1);
         adaptDoubleTableHeight(22,table2);
-
-        if (table1->rowCount() > 5)
-            table1->setFixedWidth(698);
-        else
-            adaptTableWidth(15,table1);
-
-        if(table2->rowCount() > 5)
-            table2->setFixedWidth(698);
-        else
-            adaptTableWidth(15,table2);
     }
     else
-    {
         adaptSingleTableHeight(22,table1);
-        if(table1->rowCount() > 9)
-            table1->setFixedWidth(622);
-        else
-            adaptTableWidth(15,table1);
-    }
 
 
 
