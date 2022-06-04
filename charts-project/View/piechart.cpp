@@ -22,11 +22,11 @@ pieChart::pieChart(QWidget *parent) : nonAxedChart(parent)
     series = new QPieSeries();
     graph->addSeries(series);
 
-    colors.push_back(QColor(201, 70, 26));
-    colors.push_back(QColor(194,97,16));
-    colors.push_back(QColor(201, 140, 26));
-    colors.push_back(QColor(201, 193, 26));
-    colors.push_back(QColor(178, 201, 26));
+    colors.push_back(QColor(0, 128, 0));
+    colors.push_back(QColor(2, 184, 2));
+    colors.push_back(QColor(111, 214, 15));
+    colors.push_back(QColor(191, 214, 15));
+    colors.push_back(QColor(219, 216, 46));
 }
 
 void pieChart::addSeries(const std::vector<double> *values, bool repetition, bool endurance)

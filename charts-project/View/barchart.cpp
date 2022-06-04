@@ -49,7 +49,7 @@ void barChart::addSeries(const std::vector<double> *values, const std::vector<Da
         series->remove(set);
 
     set = new QBarSet("", this);
-    set->setColor(QColor(194,97,16));
+    set->setColor(QColor(0, 128, 0));
 
     axisX->clear();
     categories.clear();

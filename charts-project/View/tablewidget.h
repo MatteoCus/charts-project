@@ -65,7 +65,7 @@ private:
     void insertEmptyRow(QTableWidget* table);
     
 private slots:
-    void changeState(int state, bool show);
+    void changeState(bool state, bool show);
 public:
     explicit tableWidget(QWidget *parent = nullptr);
     void showData();

@@ -26,16 +26,16 @@ void tableWidget::setCheckBoxStyleSheet(QCheckBox *checkBox)
     checkBox->setStyleSheet("QCheckBox { color : white} "
                                 "QCheckBox::indicator {background-color: green ; border : 1px solid green}"
                                  "QCheckBox::indicator:unchecked:pressed {"
-                                     "background-color : #92b372;"
+                                     "background-color : #269226;"
                                  "}"
 
                                  "QCheckBox::indicator:checked {"
-                                     "image: url(/home/matteo/Documenti/GitHub/charts-project/charts-project/images/tick.png);"
+                                     "image: url(:/images/tick.png);"
                                     " width : 12 px; height : 12 px"
                                  "}"
 
                                  "QCheckBox::indicator:checked:pressed {"
-                                     "image: url(/home/matteo/Documenti/GitHub/charts-project/charts-project/images/tickPressed.png);"
+                                     "image: url(:/images/tick_pressed.png);"
                                     ""
                                  "}" );
 }
@@ -51,8 +51,8 @@ void tableWidget::adaptSingleTableHeight(unsigned int h, QTableWidget* table)
     for(int i = 0; i < table->rowCount() ; i++)
         h += table->rowHeight(i);
 
-    if(h > 460)
-        h = 460;
+    if(h > 440)
+        h = 440;
 
     table->setFixedHeight(h);
 }
@@ -62,8 +62,8 @@ void tableWidget::adaptDoubleTableHeight(unsigned int h, QTableWidget *table)
     for(int i = 0; i < table->rowCount() ; i++)
         h += table->rowHeight(i);
 
-    if(h > 200)
-        h = 200;
+    if(h > 202)
+        h = 202;
 
     table->setFixedHeight(h);
 }
@@ -102,18 +102,18 @@ void tableWidget::setTableStyleSheet(QTableWidget* table)
 
     QHeaderView* horizHeader = table->horizontalHeader();
     horizHeader->setSectionResizeMode(0,QHeaderView::Fixed);
-    horizHeader->setSectionResizeMode(1,QHeaderView::Stretch);
+    horizHeader->setSectionResizeMode(1,QHeaderView::Fixed);
     horizHeader->setSectionResizeMode(2,QHeaderView::Fixed);
     horizHeader->setSectionResizeMode(3,QHeaderView::Stretch);
     horizHeader->setSectionResizeMode(4,QHeaderView::Fixed);
     horizHeader->setSectionResizeMode(5,QHeaderView::Stretch);
     horizHeader->setSectionResizeMode(6,QHeaderView::Stretch);
 
-    table->setColumnWidth(0,140);
+    table->setColumnWidth(0,125);
     table->setColumnWidth(1,75);
-    table->setColumnWidth(2,133);
+    table->setColumnWidth(2,128);
     table->setColumnWidth(3,64);
-    table->setColumnWidth(4,133);
+    table->setColumnWidth(4,128);
     table->setColumnWidth(5,48);
     table->setColumnWidth(6,67);
 
@@ -132,10 +132,11 @@ void tableWidget::addControlTable()
     table1Layout = new QVBoxLayout();
     table2Layout = new QVBoxLayout();
 
+    table1Layout->setContentsMargins(0,20,0,200);   //20 di margine + 180 per le righe
+
     table1->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     table2->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-    table1Layout->setContentsMargins(0,0,0,0);
     addControls();
 
 
@@ -144,6 +145,7 @@ void tableWidget::addControlTable()
     label1->setFixedSize(300,25);
 
     setTableStyleSheet(table1);
+    table1->hideColumn(6);
     table1Layout->addWidget(label1);
     table1Layout->addWidget(table1);
 
@@ -208,14 +210,14 @@ void tableWidget::addControls()
     controlBoxLayout->addWidget(splitCheckBox);
 
     connect(exerciseButton, SIGNAL(clicked()), this, SIGNAL(showExercises()));
-    connect(splitCheckBox, &QCheckBox::stateChanged, [this](int state){changeState(state,true);});
+    connect(splitCheckBox, &QCheckBox::clicked, [this](bool state){changeState(state,true);});
 
     mainLayout->addLayout(controlBoxLayout);
 }
 
-void tableWidget::changeState(int state, bool show)
+void tableWidget::changeState(bool state, bool show)
 {
-    splitState = (state == Qt::CheckState::Unchecked ? false : true);
+    splitState = state;
 
     if (splitState)
         label1->setText(QString::fromStdString("Allenamenti di ripetizione in ordine cronologico"));
@@ -319,6 +321,23 @@ void tableWidget::showEnduranceData(Endurance *training, unsigned int i)
 
 void tableWidget::showData()
 {
+    bool foundRepetition = false, foundEndurance = false;
+
+    for(auto it = trainings->begin(); it != trainings->end() && (!foundEndurance || !foundRepetition); ++it)
+    {
+        if (!foundRepetition && dynamic_cast<Repetition*>(*it))
+            foundRepetition = true;
+        else if (!foundEndurance && dynamic_cast<Endurance*>(*it))
+            foundEndurance = true;
+    }
+
+    if(splitState && foundEndurance != foundRepetition)
+    {
+        changeState(!splitState, false);
+        splitCheckBox->setCheckState(Qt::CheckState::Unchecked);
+    }
+
+
     table1->setVisible(false);
     table2->setVisible(false);
 
@@ -328,18 +347,6 @@ void tableWidget::showData()
     while (table2->rowCount() > 0)
         table2->removeRow(0);
 
-    bool foundRepetition = false, foundEndurance = false;
-
-    for(auto it = trainings->begin(); it != trainings->end(); ++it)
-    {
-        if (!foundRepetition && dynamic_cast<Repetition*>(*it))
-            foundRepetition = true;
-        else if (!foundEndurance && dynamic_cast<Endurance*>(*it))
-            foundEndurance = true;
-    }
-
-    if(splitState && foundEndurance != foundRepetition)
-        changeState(Qt::CheckState::Unchecked,false);
 
     if (splitState)
     {
@@ -359,12 +366,15 @@ void tableWidget::showData()
                 showEnduranceData(static_cast<Endurance*>(*it),2);
             }
         }
+
+        if (table1->rowCount() < 6)
+            table1Layout->setContentsMargins(0,20,0,200 - 30 * table1->rowCount());
+        else
+            table1Layout->setContentsMargins(0,20,0,20);
     }
     else
     {
-        QSize size = table1->size();
-
-
+        table1Layout->setContentsMargins(0,20,0,20);
         if(foundRepetition && !foundEndurance)
         {
             table1->showColumn(6);
@@ -378,7 +388,6 @@ void tableWidget::showData()
         else
         {
             table1->hideColumn(6);
-            cout<<size.height()<<", "<<size.width()<<endl;
             table1->setHorizontalHeaderLabels(QStringList()<<"Nome"<<"Tipo"<<"Inizio"<<"Durata"<<"Fine"<<"Calorie");
         }
 

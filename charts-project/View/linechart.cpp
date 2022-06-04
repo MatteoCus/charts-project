@@ -19,7 +19,7 @@ lineChart::lineChart(QWidget *parent) : axedChart(parent)
 
     axisY = axisYDateTime;
 
-    pen = QPen(QRgb(0xc26110));
+    pen = QPen(QRgb(0x008000));
     pen.setWidth(3);
     series->setPen(pen);
 }
@@ -42,10 +42,10 @@ void lineChart::addSeries(const std::vector<double> *values, const std::vector<D
     if (values->size() != start->size())
         throw std::runtime_error("Impossibile visualizzare i dati!");
 
-    series->clear();
     if (!graph->series().empty())
         graph->removeSeries(series);
 
+    series->clear();
     //axisX->setTickCount(values->size() != 1? values->size() : 2);
 
     axisY->setTitleVisible(false);

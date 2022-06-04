@@ -76,7 +76,7 @@ static const uint qt_meta_data_tableWidget[] = {
     QMetaType::Void,
 
  // slots: parameters
-    QMetaType::Void, QMetaType::Int, QMetaType::Bool,    7,    8,
+    QMetaType::Void, QMetaType::Bool, QMetaType::Bool,    7,    8,
 
        0        // eod
 };
@@ -91,7 +91,7 @@ void tableWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
         case 1: _t->set(); break;
         case 2: _t->remove(); break;
         case 3: _t->showExercises(); break;
-        case 4: _t->changeState((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< bool(*)>(_a[2]))); break;
+        case 4: _t->changeState((*reinterpret_cast< bool(*)>(_a[1])),(*reinterpret_cast< bool(*)>(_a[2]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {

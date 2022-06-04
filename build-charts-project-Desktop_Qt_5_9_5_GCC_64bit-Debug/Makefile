@@ -83,7 +83,8 @@ SOURCES       = ../charts-project/Controller/controller.cpp \
 		../charts-project/Model/training.cpp \
 		../charts-project/Model/walk.cpp \
 		../charts-project/View/typedialog.cpp \
-		../charts-project/trainingvalues.cpp moc_controller.cpp \
+		../charts-project/trainingvalues.cpp qrc_resources.cpp \
+		moc_controller.cpp \
 		moc_axedchart.cpp \
 		moc_chartviewer.cpp \
 		moc_chartwidget.cpp \
@@ -125,6 +126,7 @@ OBJECTS       = controller.o \
 		walk.o \
 		typedialog.o \
 		trainingvalues.o \
+		qrc_resources.o \
 		moc_controller.o \
 		moc_axedchart.o \
 		moc_chartviewer.o \
@@ -574,6 +576,7 @@ Makefile: ../charts-project/charts-project.pro ../../../../Qt/5.9.5/gcc_64/mkspe
 		../../../../Qt/5.9.5/gcc_64/mkspecs/features/yacc.prf \
 		../../../../Qt/5.9.5/gcc_64/mkspecs/features/lex.prf \
 		../charts-project/charts-project.pro \
+		../charts-project/resources.qrc \
 		../../../../Qt/5.9.5/gcc_64/lib/libQt5Charts.prl \
 		../../../../Qt/5.9.5/gcc_64/lib/libQt5Widgets.prl \
 		../../../../Qt/5.9.5/gcc_64/lib/libQt5Gui.prl \
@@ -761,6 +764,7 @@ Makefile: ../charts-project/charts-project.pro ../../../../Qt/5.9.5/gcc_64/mkspe
 ../../../../Qt/5.9.5/gcc_64/mkspecs/features/yacc.prf:
 ../../../../Qt/5.9.5/gcc_64/mkspecs/features/lex.prf:
 ../charts-project/charts-project.pro:
+../charts-project/resources.qrc:
 ../../../../Qt/5.9.5/gcc_64/lib/libQt5Charts.prl:
 ../../../../Qt/5.9.5/gcc_64/lib/libQt5Widgets.prl:
 ../../../../Qt/5.9.5/gcc_64/lib/libQt5Gui.prl:
@@ -779,6 +783,7 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
+	$(COPY_FILE) --parents ../charts-project/resources.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents ../../../../Qt/5.9.5/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../charts-project/Controller/controller.h ../charts-project/DateTime/date.h ../charts-project/DateTime/datetime.h ../charts-project/DateTime/datetimeconverter.h ../charts-project/View/axedchart.h ../charts-project/View/barchart.h ../charts-project/View/chart.h ../charts-project/View/chartviewer.h ../charts-project/View/chartwidget.h ../charts-project/View/endurancedialog.h ../charts-project/View/linechart.h ../charts-project/View/nonaxedchart.h ../charts-project/View/piechart.h ../charts-project/View/repetitiondialog.h ../charts-project/View/selecttrainingdialog.h ../charts-project/View/tablewidget.h ../charts-project/View/trainingdialog.h ../charts-project/action.h ../charts-project/Model/cycling.h ../charts-project/Model/endurance.h ../charts-project/Model/exercise.h ../charts-project/Model/exercisecreator.h ../charts-project/Model/model.h ../charts-project/DateTime/timespan.h ../charts-project/Model/trainingcreator.h ../charts-project/Model/plan.h ../charts-project/Model/repetition.h ../charts-project/Model/rugby.h ../charts-project/Model/run.h ../charts-project/Model/tennis.h ../charts-project/Model/training.h ../charts-project/Model/walk.h ../charts-project/View/typedialog.h ../charts-project/trainingvalues.h $(DISTDIR)/
 	$(COPY_FILE) --parents ../charts-project/Controller/controller.cpp ../charts-project/DateTime/date.cpp ../charts-project/DateTime/datetime.cpp ../charts-project/DateTime/datetimeconverter.cpp ../charts-project/Model/cycling.cpp ../charts-project/Model/endurance.cpp ../charts-project/Model/exercise.cpp ../charts-project/Model/exercisecreator.cpp ../charts-project/Model/model.cpp ../charts-project/DateTime/timespan.cpp ../charts-project/Model/trainingcreator.cpp ../charts-project/View/axedchart.cpp ../charts-project/View/barchart.cpp ../charts-project/View/chart.cpp ../charts-project/View/chartviewer.cpp ../charts-project/View/chartwidget.cpp ../charts-project/View/endurancedialog.cpp ../charts-project/View/linechart.cpp ../charts-project/View/nonaxedchart.cpp ../charts-project/View/piechart.cpp ../charts-project/View/repetitiondialog.cpp ../charts-project/View/selecttrainingdialog.cpp ../charts-project/View/tablewidget.cpp ../charts-project/View/trainingdialog.cpp ../charts-project/main.cpp ../charts-project/Model/plan.cpp ../charts-project/Model/repetition.cpp ../charts-project/Model/rugby.cpp ../charts-project/Model/run.cpp ../charts-project/Model/tennis.cpp ../charts-project/Model/training.cpp ../charts-project/Model/walk.cpp ../charts-project/View/typedialog.cpp ../charts-project/trainingvalues.cpp $(DISTDIR)/
@@ -805,8 +810,16 @@ check: first
 
 benchmark: first
 
-compiler_rcc_make_all:
+compiler_rcc_make_all: qrc_resources.cpp
 compiler_rcc_clean:
+	-$(DEL_FILE) qrc_resources.cpp
+qrc_resources.cpp: ../charts-project/resources.qrc \
+		../../../../Qt/5.9.5/gcc_64/bin/rcc \
+		../charts-project/images/down-arrow.png \
+		../charts-project/images/tick.png \
+		../charts-project/images/tick_pressed.png
+	/home/matteo/Qt/5.9.5/gcc_64/bin/rcc -name resources ../charts-project/resources.qrc -o qrc_resources.cpp
+
 compiler_moc_predefs_make_all: moc_predefs.h
 compiler_moc_predefs_clean:
 	-$(DEL_FILE) moc_predefs.h
@@ -3777,7 +3790,7 @@ compiler_yacc_impl_make_all:
 compiler_yacc_impl_clean:
 compiler_lex_make_all:
 compiler_lex_clean:
-compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean 
+compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_header_clean 
 
 ####### Compile
 
@@ -10600,6 +10613,9 @@ trainingvalues.o: ../charts-project/trainingvalues.cpp ../charts-project/trainin
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/QDateTime \
 		../charts-project/action.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o trainingvalues.o ../charts-project/trainingvalues.cpp
+
+qrc_resources.o: qrc_resources.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_resources.o qrc_resources.cpp
 
 moc_controller.o: moc_controller.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_controller.o moc_controller.cpp

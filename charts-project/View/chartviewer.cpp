@@ -101,15 +101,17 @@ void chartViewer::showExercises()
 void chartViewer::showChart()
 {
     chartWidget* aux = chartW->clone();
-    dialog = new QDialog(this);
+    dialog = new QDialog( this);
+
+    Qt::WindowFlags flags = Qt::Window | Qt::WindowMinimizeButtonHint | Qt::WindowMaximizeButtonHint| Qt::WindowCloseButtonHint;
+    dialog->setWindowFlags(flags);
+
     dialog->setLayout(new QHBoxLayout);
-    aux->setChartsSize(900,600);
-    aux->setGeometry(0,0,0,0);
     dialog->layout()->addWidget(aux);
     dialog->layout()->setAlignment(Qt::AlignCenter);
-    //dialog->setFixedSize(920,650);
-    dialog->exec();
-    delete(dialog);
+    dialog->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    dialog->resize(800,450);
+    dialog->show();
 }
 
 chartViewer::chartViewer(QWidget *parent) : QWidget(parent)
@@ -180,6 +182,7 @@ chartViewer::chartViewer(QWidget *parent) : QWidget(parent)
     setData(aux);
     showData();*/
     showMaximized();
+
 
     connect(tableW, SIGNAL(showExercises()), this, SLOT(showExercises()));
     connect(tableW,SIGNAL(add()), this, SIGNAL(addTrainings()));
@@ -316,8 +319,14 @@ void chartViewer::setData(const std::list<Training *> *data)
 
 void chartViewer::showData()
 {
-    chartW->showData();
+    tableW->hide();
+    chartW->hide();
+
     tableW->showData();
+    chartW->showData();
+
+    tableW->show();
+    chartW->show();
 
     bool repetition = false;
 
