@@ -42,6 +42,7 @@ private:
     void addControls();
     void hideDataBoxEntry(int x);
     void unhideDataBoxEntry(int x);
+    void setComboBoxStyleSheet(QComboBox* box);
 
     void checkDataBoxValues();
 
@@ -57,6 +58,7 @@ public:
     void setChartsSize(int w, int h);
     chartWidget *clone() const;
 
+    
 signals:
 
 };

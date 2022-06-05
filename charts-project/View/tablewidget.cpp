@@ -51,8 +51,8 @@ void tableWidget::adaptSingleTableHeight(unsigned int h, QTableWidget* table)
     for(int i = 0; i < table->rowCount() ; i++)
         h += table->rowHeight(i);
 
-    if(h > 440)
-        h = 440;
+    if(h > 442)
+        h = 442;
 
     table->setFixedHeight(h);
 }
@@ -109,11 +109,11 @@ void tableWidget::setTableStyleSheet(QTableWidget* table)
     horizHeader->setSectionResizeMode(5,QHeaderView::Stretch);
     horizHeader->setSectionResizeMode(6,QHeaderView::Stretch);
 
-    table->setColumnWidth(0,125);
+    table->setColumnWidth(0,120);
     table->setColumnWidth(1,75);
-    table->setColumnWidth(2,128);
-    table->setColumnWidth(3,64);
-    table->setColumnWidth(4,128);
+    table->setColumnWidth(2,127);
+    table->setColumnWidth(3,60);
+    table->setColumnWidth(4,127);
     table->setColumnWidth(5,48);
     table->setColumnWidth(6,67);
 
@@ -300,7 +300,7 @@ void tableWidget::showCommonData(Training* it, unsigned int i)
 void tableWidget::showRepetitionData(Repetition *training, unsigned int i)
 {
 
-    QLineEdit* item = new QLineEdit(QString::fromStdString(value2string(training->Intensity()) + " %"),this);
+    QLineEdit* item = new QLineEdit(QString::fromStdString(value2string(training->Intensity()) + "%"),this);
     setLineEdit(item);
     if(i == 1)
         table1->setCellWidget(0,6,item);
@@ -310,7 +310,7 @@ void tableWidget::showRepetitionData(Repetition *training, unsigned int i)
 
 void tableWidget::showEnduranceData(Endurance *training, unsigned int i)
 {
-    QLineEdit* item = new QLineEdit(QString::fromStdString(value2string(training->getDistance()) + " km"),this);
+    QLineEdit* item = new QLineEdit(QString::fromStdString(value2string(training->getDistance()) + "km"),this);
     setLineEdit(item);
 
     if(i == 1)
@@ -435,6 +435,9 @@ void tableWidget::showData()
         adaptSingleTableHeight(22,table1);
 
 
+
+    table1->scrollToTop();
+    table2->scrollToTop();
 
     table1->setVisible(true);
     table2->setVisible(splitState);

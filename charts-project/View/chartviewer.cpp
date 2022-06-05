@@ -127,7 +127,11 @@ chartViewer::chartViewer(QWidget *parent) : QWidget(parent)
     mainLayout->setContentsMargins(10,50,10,20);
     addMenu(mainLayout);
     setLayout(mainLayout);
-    setStyleSheet("QWidget{background-color : #2e2f30}");
+    setStyleSheet("QWidget{background-color : #2e2f30} "
+                  "QMessageBox {background-color : #404244}"
+                  "QMessageBox QPushButton {background-color: #404244; color: white ; selection-background-color: green ;"
+                  "selection-color : white}"
+                  "QMessageBox QLabel{background-color : #404244}");
 
     /*auto aux = new std::list<Training*>;
     Date d = Date(21,04,2021);
@@ -200,19 +204,7 @@ void chartViewer::setController(Controller *c)
 
 void chartViewer::showWarning(const QString &message)
 {
-    dialog = new QDialog(this);
-    QFont serifFont("Arial", 11);
-    dialog->setLayout(new QHBoxLayout);
-    QLabel* label = new QLabel(message, dialog);
-    label->setFont(serifFont);
-    dialog->layout()->addWidget(label);
-    dialog->layout()->setAlignment(Qt::AlignCenter);
-    dialog->layout()->setSizeConstraint(QLayout::SetMinimumSize);
-    dialog->setFixedHeight(label->height());
-    dialog->setFixedWidth(dialog->width());
-    dialog->setStyleSheet("QWidget {background-color: #404244 ; color: white}");
-    dialog->exec();
-    delete(dialog);
+    QMessageBox::warning(this, "Warning", "<FONT COLOR='#ffffff'>"+message+"</FONT>",QMessageBox::Ok);
 }
 
 QString chartViewer::showPathDialog()

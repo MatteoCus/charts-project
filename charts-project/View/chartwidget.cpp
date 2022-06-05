@@ -22,16 +22,11 @@ void chartWidget::addDefaultChart()
     mainLayout->setContentsMargins(0,0,0,0);
 }
 
-void chartWidget::addControls()
+void chartWidget::setComboBoxStyleSheet(QComboBox* box)
 {
-    QHBoxLayout * controlsLayout = new QHBoxLayout();
-    chartBox = new QComboBox(this);
-    chartBox->addItem("Line Chart");
-    chartBox->addItem("Bar Chart");
-    chartBox->addItem("Pie Chart");
-    chartBox->setFixedSize(100,25);
+    box->setFixedSize(100,25);
 
-    chartBox->setStyleSheet("QComboBox {background-color : #404244 ; color: white ; selection-background-color: green;"
+    box->setStyleSheet("QComboBox {background-color : #404244 ; color: white ; selection-background-color: green;"
                             "selection-color : white} "
                             "QComboBox::drop-down{background-color : green ;}"
                             "QComboBox::drop-down"
@@ -41,33 +36,28 @@ void chartWidget::addControls()
                             "border-color : #77c213 #335407 #335407 #77c213 ;}"
                             "QComboBox::drop-down:pressed{"
                             "border : 1px solid;"
-                            "border-color : #335407 #df7012 #df7012 #335407;}"
+                            "border-color : #77c213 #335407 #335407 #77c213;}"
                             "QComboBox::down-arrow{image : url(:/images/down-arrow.png); width: 10px;"
                             "height: 10px;}"
                             "QComboBox QListView {background-color : #404244 ; color : white;}"
                             "QComboBox QAbstractItemView {selection-background-color:green;}");
+}
+
+void chartWidget::addControls()
+{
+    QHBoxLayout * controlsLayout = new QHBoxLayout();
+    chartBox = new QComboBox(this);
+    chartBox->addItem("Line Chart");
+    chartBox->addItem("Bar Chart");
+    chartBox->addItem("Pie Chart");
+    setComboBoxStyleSheet(chartBox);
 
     dataBox = new QComboBox(this);
     dataBox->addItem("Durata");
     dataBox->addItem("Calorie");
     dataBox->addItem("Intensità");
     dataBox->addItem("Distanza");
-    dataBox->setFixedSize(100,25);
-    dataBox->setStyleSheet("QComboBox {background-color : #404244 ; color: white ; selection-background-color: green ;"
-                           "selection-color : white} "
-                           "QComboBox::drop-down{background-color : green ;}"
-                           "QComboBox::drop-down"
-                           "{"
-                           "border : 1px solid;"
-                           "border-bottom: 0px;"
-                           "border-color : #77c213 #335407 #335407 #77c213 ;}"
-                           "QComboBox::drop-down:pressed{"
-                           "border : 1px solid;"
-                           "border-color : #335407 #df7012 #df7012 #335407;}"
-                           "QComboBox::down-arrow{image : url(:/images/down-arrow.png); width: 10px;"
-                           "height: 10px;}"
-                           "QComboBox QListView {background-color : #404244 ; color : white;}"
-                           "QComboBox QAbstractItemView {selection-background-color:green;}");
+    setComboBoxStyleSheet(dataBox);
 
     controlsLayout->addWidget(chartBox);
     controlsLayout->addWidget(dataBox);

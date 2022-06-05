@@ -12,6 +12,7 @@ CONFIG += c++11
 
 SOURCES += \
     Controller/controller.cpp \
+    Controller/xmlfilehandler.cpp \
     DateTime/date.cpp \
     DateTime/datetime.cpp \
     DateTime/datetimeconverter.cpp \
@@ -48,6 +49,7 @@ SOURCES += \
 
 HEADERS += \
     Controller/controller.h \
+    Controller/xmlfilehandler.h \
     DateTime/date.h \
     DateTime/datetime.h \
     DateTime/datetimeconverter.h \
