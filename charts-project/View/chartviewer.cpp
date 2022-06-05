@@ -37,6 +37,7 @@ void chartViewer::addMenu(QHBoxLayout* mainLayout)
     allenamenti->addAction(new QAction("Modifica", allenamenti));
     allenamenti->addAction(new QAction("Rimuovi", allenamenti));
 
+    connect(file->actions()[2],SIGNAL(triggered()),this,SIGNAL(save()));
     connect(file->actions()[5],SIGNAL(triggered()),this,SLOT(close()));
 
     connect(visualizza->actions()[0],SIGNAL(triggered()),this,SLOT(showChart()));
@@ -200,22 +201,12 @@ void chartViewer::setController(Controller *c)
     connect(this, SIGNAL(addTrainings()), controller, SLOT(add()));
     connect(this, SIGNAL(setTrainings()), controller, SLOT(set()));
     connect(this, SIGNAL(removeTrainings()), controller, SLOT(remove()));
+    connect(this, SIGNAL(save()), controller, SLOT(save()));
 }
 
 void chartViewer::showWarning(const QString &message)
 {
     QMessageBox::warning(this, "Warning", "<FONT COLOR='#ffffff'>"+message+"</FONT>",QMessageBox::Ok);
-}
-
-QString chartViewer::showPathDialog()
-{
-    QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),
-                                                    "/home",
-                                                    tr("Documenti (*.xml)"));
-    if (fileName == "")
-        throw std::runtime_error("Nessun file scelto, aggiunta annullata!");
-
-    return fileName;
 }
 
 trainingValues chartViewer::showAddDialog()

@@ -51,6 +51,7 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = ../charts-project/Controller/controller.cpp \
+		../charts-project/Controller/xmlfilehandler.cpp \
 		../charts-project/DateTime/date.cpp \
 		../charts-project/DateTime/datetime.cpp \
 		../charts-project/DateTime/datetimeconverter.cpp \
@@ -93,6 +94,7 @@ SOURCES       = ../charts-project/Controller/controller.cpp \
 		moc_trainingdialog.cpp \
 		moc_typedialog.cpp
 OBJECTS       = controller.o \
+		xmlfilehandler.o \
 		date.o \
 		datetime.o \
 		datetimeconverter.o \
@@ -317,6 +319,7 @@ DIST          = ../../../../Qt/5.9.5/gcc_64/mkspecs/features/spec_pre.prf \
 		../../../../Qt/5.9.5/gcc_64/mkspecs/features/yacc.prf \
 		../../../../Qt/5.9.5/gcc_64/mkspecs/features/lex.prf \
 		../charts-project/charts-project.pro ../charts-project/Controller/controller.h \
+		../charts-project/Controller/xmlfilehandler.h \
 		../charts-project/DateTime/date.h \
 		../charts-project/DateTime/datetime.h \
 		../charts-project/DateTime/datetimeconverter.h \
@@ -350,6 +353,7 @@ DIST          = ../../../../Qt/5.9.5/gcc_64/mkspecs/features/spec_pre.prf \
 		../charts-project/Model/walk.h \
 		../charts-project/View/typedialog.h \
 		../charts-project/trainingvalues.h ../charts-project/Controller/controller.cpp \
+		../charts-project/Controller/xmlfilehandler.cpp \
 		../charts-project/DateTime/date.cpp \
 		../charts-project/DateTime/datetime.cpp \
 		../charts-project/DateTime/datetimeconverter.cpp \
@@ -785,8 +789,8 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../charts-project/resources.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents ../../../../Qt/5.9.5/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../charts-project/Controller/controller.h ../charts-project/DateTime/date.h ../charts-project/DateTime/datetime.h ../charts-project/DateTime/datetimeconverter.h ../charts-project/View/axedchart.h ../charts-project/View/barchart.h ../charts-project/View/chart.h ../charts-project/View/chartviewer.h ../charts-project/View/chartwidget.h ../charts-project/View/endurancedialog.h ../charts-project/View/linechart.h ../charts-project/View/nonaxedchart.h ../charts-project/View/piechart.h ../charts-project/View/repetitiondialog.h ../charts-project/View/selecttrainingdialog.h ../charts-project/View/tablewidget.h ../charts-project/View/trainingdialog.h ../charts-project/action.h ../charts-project/Model/cycling.h ../charts-project/Model/endurance.h ../charts-project/Model/exercise.h ../charts-project/Model/exercisecreator.h ../charts-project/Model/model.h ../charts-project/DateTime/timespan.h ../charts-project/Model/trainingcreator.h ../charts-project/Model/plan.h ../charts-project/Model/repetition.h ../charts-project/Model/rugby.h ../charts-project/Model/run.h ../charts-project/Model/tennis.h ../charts-project/Model/training.h ../charts-project/Model/walk.h ../charts-project/View/typedialog.h ../charts-project/trainingvalues.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../charts-project/Controller/controller.cpp ../charts-project/DateTime/date.cpp ../charts-project/DateTime/datetime.cpp ../charts-project/DateTime/datetimeconverter.cpp ../charts-project/Model/cycling.cpp ../charts-project/Model/endurance.cpp ../charts-project/Model/exercise.cpp ../charts-project/Model/exercisecreator.cpp ../charts-project/Model/model.cpp ../charts-project/DateTime/timespan.cpp ../charts-project/Model/trainingcreator.cpp ../charts-project/View/axedchart.cpp ../charts-project/View/barchart.cpp ../charts-project/View/chart.cpp ../charts-project/View/chartviewer.cpp ../charts-project/View/chartwidget.cpp ../charts-project/View/endurancedialog.cpp ../charts-project/View/linechart.cpp ../charts-project/View/nonaxedchart.cpp ../charts-project/View/piechart.cpp ../charts-project/View/repetitiondialog.cpp ../charts-project/View/selecttrainingdialog.cpp ../charts-project/View/tablewidget.cpp ../charts-project/View/trainingdialog.cpp ../charts-project/main.cpp ../charts-project/Model/plan.cpp ../charts-project/Model/repetition.cpp ../charts-project/Model/rugby.cpp ../charts-project/Model/run.cpp ../charts-project/Model/tennis.cpp ../charts-project/Model/training.cpp ../charts-project/Model/walk.cpp ../charts-project/View/typedialog.cpp ../charts-project/trainingvalues.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../charts-project/Controller/controller.h ../charts-project/Controller/xmlfilehandler.h ../charts-project/DateTime/date.h ../charts-project/DateTime/datetime.h ../charts-project/DateTime/datetimeconverter.h ../charts-project/View/axedchart.h ../charts-project/View/barchart.h ../charts-project/View/chart.h ../charts-project/View/chartviewer.h ../charts-project/View/chartwidget.h ../charts-project/View/endurancedialog.h ../charts-project/View/linechart.h ../charts-project/View/nonaxedchart.h ../charts-project/View/piechart.h ../charts-project/View/repetitiondialog.h ../charts-project/View/selecttrainingdialog.h ../charts-project/View/tablewidget.h ../charts-project/View/trainingdialog.h ../charts-project/action.h ../charts-project/Model/cycling.h ../charts-project/Model/endurance.h ../charts-project/Model/exercise.h ../charts-project/Model/exercisecreator.h ../charts-project/Model/model.h ../charts-project/DateTime/timespan.h ../charts-project/Model/trainingcreator.h ../charts-project/Model/plan.h ../charts-project/Model/repetition.h ../charts-project/Model/rugby.h ../charts-project/Model/run.h ../charts-project/Model/tennis.h ../charts-project/Model/training.h ../charts-project/Model/walk.h ../charts-project/View/typedialog.h ../charts-project/trainingvalues.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../charts-project/Controller/controller.cpp ../charts-project/Controller/xmlfilehandler.cpp ../charts-project/DateTime/date.cpp ../charts-project/DateTime/datetime.cpp ../charts-project/DateTime/datetimeconverter.cpp ../charts-project/Model/cycling.cpp ../charts-project/Model/endurance.cpp ../charts-project/Model/exercise.cpp ../charts-project/Model/exercisecreator.cpp ../charts-project/Model/model.cpp ../charts-project/DateTime/timespan.cpp ../charts-project/Model/trainingcreator.cpp ../charts-project/View/axedchart.cpp ../charts-project/View/barchart.cpp ../charts-project/View/chart.cpp ../charts-project/View/chartviewer.cpp ../charts-project/View/chartwidget.cpp ../charts-project/View/endurancedialog.cpp ../charts-project/View/linechart.cpp ../charts-project/View/nonaxedchart.cpp ../charts-project/View/piechart.cpp ../charts-project/View/repetitiondialog.cpp ../charts-project/View/selecttrainingdialog.cpp ../charts-project/View/tablewidget.cpp ../charts-project/View/trainingdialog.cpp ../charts-project/main.cpp ../charts-project/Model/plan.cpp ../charts-project/Model/repetition.cpp ../charts-project/Model/rugby.cpp ../charts-project/Model/run.cpp ../charts-project/Model/tennis.cpp ../charts-project/Model/training.cpp ../charts-project/Model/walk.cpp ../charts-project/View/typedialog.cpp ../charts-project/trainingvalues.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -876,25 +880,14 @@ moc_controller.cpp: ../../../../Qt/5.9.5/gcc_64/include/QtCore/QObject \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qvarlengtharray.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qcontainerfwd.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qobject_impl.h \
-		../charts-project/trainingvalues.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/QString \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/QTime \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/qdatetime.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/qshareddata.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/qhash.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/QDateTime \
-		../charts-project/action.h \
-		../charts-project/DateTime/datetimeconverter.h \
-		../charts-project/DateTime/datetime.h \
-		../charts-project/DateTime/timespan.h \
-		../charts-project/DateTime/date.h \
-		../charts-project/View/chartviewer.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QWidget \
-		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qwidget.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QMessageBox \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qmessagebox.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qtguiglobal.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qtgui-config.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qdialog.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qwidget.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qwindowdefs.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qwindowdefs_win.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qmargins.h \
@@ -920,6 +913,8 @@ moc_controller.cpp: ../../../../Qt/5.9.5/gcc_64/include/QtCore/QObject \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qpixelformat.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qpixmap.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qsharedpointer.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qshareddata.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qhash.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qsharedpointer_impl.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qfont.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qfontmetrics.h \
@@ -941,6 +936,21 @@ moc_controller.cpp: ../../../../Qt/5.9.5/gcc_64/include/QtCore/QObject \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qfiledevice.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qvector2d.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qtouchdevice.h \
+		../charts-project/trainingvalues.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/QString \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/QTime \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qdatetime.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/QDateTime \
+		../charts-project/action.h \
+		../charts-project/Controller/xmlfilehandler.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/QXmlStreamWriter \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qxmlstream.h \
+		../charts-project/DateTime/datetimeconverter.h \
+		../charts-project/DateTime/datetime.h \
+		../charts-project/DateTime/timespan.h \
+		../charts-project/DateTime/date.h \
+		../charts-project/View/chartviewer.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QWidget \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QHBoxLayout \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qboxlayout.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qlayout.h \
@@ -955,7 +965,6 @@ moc_controller.cpp: ../../../../Qt/5.9.5/gcc_64/include/QtCore/QObject \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QMenuBar \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qmenubar.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QDialog \
-		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qdialog.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QFileDialog \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qfiledialog.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qdir.h \
@@ -1144,7 +1153,6 @@ moc_controller.cpp: ../../../../Qt/5.9.5/gcc_64/include/QtCore/QObject \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/quuid.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qwaitcondition.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qwineventnotifier.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/qxmlstream.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qtcoreversion.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/QtGui \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/QtGuiDepends \
@@ -1286,7 +1294,6 @@ moc_controller.cpp: ../../../../Qt/5.9.5/gcc_64/include/QtCore/QObject \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qmainwindow.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qmdiarea.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qmdisubwindow.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qmessagebox.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qmouseeventtransition.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qopenglwidget.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qprogressbar.h \
@@ -3842,25 +3849,14 @@ controller.o: ../charts-project/Controller/controller.cpp ../charts-project/Cont
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qvarlengtharray.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qcontainerfwd.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qobject_impl.h \
-		../charts-project/trainingvalues.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/QString \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/QTime \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/qdatetime.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/qshareddata.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/qhash.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/QDateTime \
-		../charts-project/action.h \
-		../charts-project/DateTime/datetimeconverter.h \
-		../charts-project/DateTime/datetime.h \
-		../charts-project/DateTime/timespan.h \
-		../charts-project/DateTime/date.h \
-		../charts-project/View/chartviewer.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QWidget \
-		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qwidget.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QMessageBox \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qmessagebox.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qtguiglobal.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qtgui-config.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qdialog.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qwidget.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qwindowdefs.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qwindowdefs_win.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qmargins.h \
@@ -3886,6 +3882,8 @@ controller.o: ../charts-project/Controller/controller.cpp ../charts-project/Cont
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qpixelformat.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qpixmap.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qsharedpointer.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qshareddata.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qhash.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qsharedpointer_impl.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qfont.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qfontmetrics.h \
@@ -3907,6 +3905,21 @@ controller.o: ../charts-project/Controller/controller.cpp ../charts-project/Cont
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qfiledevice.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qvector2d.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qtouchdevice.h \
+		../charts-project/trainingvalues.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/QString \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/QTime \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qdatetime.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/QDateTime \
+		../charts-project/action.h \
+		../charts-project/Controller/xmlfilehandler.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/QXmlStreamWriter \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qxmlstream.h \
+		../charts-project/DateTime/datetimeconverter.h \
+		../charts-project/DateTime/datetime.h \
+		../charts-project/DateTime/timespan.h \
+		../charts-project/DateTime/date.h \
+		../charts-project/View/chartviewer.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QWidget \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QHBoxLayout \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qboxlayout.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qlayout.h \
@@ -3921,7 +3934,6 @@ controller.o: ../charts-project/Controller/controller.cpp ../charts-project/Cont
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QMenuBar \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qmenubar.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QDialog \
-		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qdialog.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QFileDialog \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qfiledialog.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qdir.h \
@@ -4110,7 +4122,6 @@ controller.o: ../charts-project/Controller/controller.cpp ../charts-project/Cont
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/quuid.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qwaitcondition.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qwineventnotifier.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/qxmlstream.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qtcoreversion.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/QtGui \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/QtGuiDepends \
@@ -4252,7 +4263,6 @@ controller.o: ../charts-project/Controller/controller.cpp ../charts-project/Cont
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qmainwindow.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qmdiarea.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qmdisubwindow.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qmessagebox.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qmouseeventtransition.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qopenglwidget.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qprogressbar.h \
@@ -4393,6 +4403,60 @@ controller.o: ../charts-project/Controller/controller.cpp ../charts-project/Cont
 		../charts-project/Model/plan.h \
 		../charts-project/Model/trainingcreator.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o controller.o ../charts-project/Controller/controller.cpp
+
+xmlfilehandler.o: ../charts-project/Controller/xmlfilehandler.cpp ../charts-project/Controller/xmlfilehandler.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/QXmlStreamWriter \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qxmlstream.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qiodevice.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qglobal.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qconfig.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qtcore-config.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qsystemdetection.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qprocessordetection.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qtypeinfo.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qsysinfo.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qlogging.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qflags.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qatomic.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qbasicatomic.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qgenericatomic.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qatomic_msvc.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qglobalstatic.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qmutex.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qnumeric.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qversiontagging.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qobject.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qobjectdefs.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qnamespace.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qstring.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qchar.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qbytearray.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qrefcount.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qarraydata.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qstringbuilder.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qlist.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qalgorithms.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qiterator.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qhashfunctions.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qpair.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qbytearraylist.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qstringlist.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qregexp.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qstringmatcher.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qcoreevent.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qscopedpointer.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qmetatype.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qvarlengtharray.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qcontainerfwd.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qobject_impl.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qvector.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qpoint.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o xmlfilehandler.o ../charts-project/Controller/xmlfilehandler.cpp
 
 date.o: ../charts-project/DateTime/date.cpp ../charts-project/DateTime/date.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o date.o ../charts-project/DateTime/date.cpp
@@ -6736,6 +6800,9 @@ chartviewer.o: ../charts-project/View/chartviewer.cpp ../charts-project/View/cha
 		../charts-project/View/nonaxedchart.h \
 		../charts-project/View/endurancedialog.h \
 		../charts-project/Controller/controller.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QMessageBox \
+		../charts-project/Controller/xmlfilehandler.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/QXmlStreamWriter \
 		../charts-project/DateTime/datetimeconverter.h \
 		../charts-project/Model/model.h \
 		../charts-project/Model/exercisecreator.h \
@@ -10369,6 +10436,9 @@ main.o: ../charts-project/main.cpp ../../../../Qt/5.9.5/gcc_64/include/QtWidgets
 		../charts-project/View/nonaxedchart.h \
 		../charts-project/View/endurancedialog.h \
 		../charts-project/Controller/controller.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QMessageBox \
+		../charts-project/Controller/xmlfilehandler.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/QXmlStreamWriter \
 		../charts-project/DateTime/datetimeconverter.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../charts-project/main.cpp
 

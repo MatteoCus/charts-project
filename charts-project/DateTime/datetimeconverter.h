@@ -7,13 +7,15 @@
 class DateTimeConverter
 {
 public:
-    DateTimeConverter();
-    DateTime toDateTime(const QDateTime& dateTime) const;
-    QDateTime toQDateTime(const DateTime& dateTime) const;
-    Date toDate(const QDate& date) const;
-    QDate toQDate(const Date& date) const;
-    Time toTime(const QTime& time) const;
-    QTime toQTime(const TimeSpan& time) const;
+    explicit DateTimeConverter() = delete;
+    explicit DateTimeConverter(const DateTimeConverter&) = delete;
+
+    static DateTime toDateTime(const QDateTime& dateTime) ;
+    static QDateTime toQDateTime(const DateTime& dateTime) ;
+    static Date toDate(const QDate& date) ;
+    static QDate toQDate(const Date& date) ;
+    static Time toTime(const QTime& time) ;
+    static QTime toQTime(const TimeSpan& time) ;
 };
 
 #endif // DateTimeConverter_H

@@ -1,13 +1,25 @@
 #ifndef XMLFILEHANDLER_H
 #define XMLFILEHANDLER_H
 
-#include <QWidget>
+#include <QXmlStreamWriter>
+#include <QFileDialog>
+#include "./Model/tennis.h"
+#include "./Model/rugby.h"
+#include "./Model/walk.h"
+#include "./Model/run.h"
+#include "./Model/cycling.h"
+#include "trainingvalues.h"
 
-class xmlFileHandler : public QWidget
+class xmlFileHandler
 {
-    Q_OBJECT
+private:
+    QXmlStreamWriter writer;
 public:
-    explicit xmlFileHandler(QWidget *parent = nullptr);
+    explicit xmlFileHandler() = delete;
+    explicit xmlFileHandler(const xmlFileHandler&) = delete;
+
+    static void write(QIODevice *device, std::vector<trainingValues> trainings);
+    static QString getWriteFileName();
 
 signals:
 

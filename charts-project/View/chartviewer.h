@@ -20,6 +20,7 @@
 #include "./Model/tennis.h"
 #include "./Model/rugby.h"
 #include "./Model/walk.h"
+#include "./Model/exercise.h"
 
 #include "endurancedialog.h"
 #include "repetitiondialog.h"
@@ -52,7 +53,6 @@ public:
     explicit chartViewer(QWidget *parent = nullptr);
     void setController(Controller* c);
     void showWarning(const QString& message);
-    QString showPathDialog();
     trainingValues showAddDialog();
     trainingValues showRemoveDialog();
     trainingValues showSetDialog();
@@ -63,6 +63,7 @@ signals:
     void addTrainings() const;
     void setTrainings() const;
     void removeTrainings() const;
+    void save() const;
 };
 
 #endif // CHARTVIEWER_H
