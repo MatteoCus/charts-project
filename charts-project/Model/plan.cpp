@@ -150,7 +150,7 @@ bool Plan::isEmpty() const { return trainings.empty(); }
 
 void Plan::clear()
 {
-    trainings.erase(trainings.begin(), trainings.end()--);
+    trainings.erase(trainings.begin(), trainings.end());
 }
 
 const std::list<Training *>* Plan::getTrainings() const { return &trainings; }

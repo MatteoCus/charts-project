@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 
-Controller::Controller(QObject *parent) : QObject(parent), view(nullptr), model(nullptr)
+Controller::Controller(QObject *parent) : QObject(parent), view(nullptr), model(nullptr), saved(false), filenameSaved("")
 {}
 
 void Controller::setView(chartViewer *v)
@@ -111,7 +111,7 @@ std::vector<trainingValues> Controller::extractFromModelValues(const std::list<T
     return vector;
 }
 
-void Controller::add() const
+void Controller::add()
 {
     try {
         trainingValues values = view->showAddDialog();
@@ -123,7 +123,7 @@ void Controller::add() const
         extractFromViewValues(values,start,duration,exName,exDuration,exRecovery);
         model->addNewTraining(values.type.toStdString(),values.name.toStdString(),
                               start,values.distance,duration,&exName,&exDuration,&exRecovery);
-
+        saved = false;
         view->showData();
     }  catch (std::runtime_error e) {
             view->showWarning(QString::fromStdString(e.what()));
@@ -133,7 +133,7 @@ void Controller::add() const
     }
 }
 
-void Controller::set() const
+void Controller::set()
 {
     try {
         trainingValues values = view->showSetDialog();
@@ -147,6 +147,7 @@ void Controller::set() const
 
         model->setTraining(values.pos,values.name.toStdString(),start,values.distance,duration,values.exPos,values.exAct
                            ,&exName,&exDuration, &exRecovery);
+        saved = false;
         view->showData();
     }  catch (std::runtime_error e) {
         view->showWarning(QString::fromStdString(e.what()));
@@ -156,11 +157,12 @@ void Controller::set() const
     }
 }
 
-void Controller::remove() const
+void Controller::remove()
 {
     try {
         trainingValues values = view->showRemoveDialog();
         model->removeTraining(values.pos);
+        saved = false;
         view->showData();
     }  catch (std::runtime_error e) {
             view->showWarning(QString::fromStdString(e.what()));
@@ -170,7 +172,49 @@ void Controller::remove() const
     }
 }
 
-void Controller::save() const
+void Controller::newPlan()
+{
+    try {
+        if(!saved && QMessageBox::information(view,"Salvataggio", "I dati non sono salvati, salvare?", QMessageBox::Yes,QMessageBox::No) == QMessageBox::Yes)
+            save();
+        model->removeTrainings();
+        saved = false;
+        view->showData();
+
+    }  catch (std::runtime_error e) {
+        view->showWarning(e.what());
+    }
+}
+
+void Controller::save()
+{
+    try{
+        if(!saved && filenameSaved=="")
+            filenameSaved = xmlFileHandler::getWriteFileName();
+        QFile file(filenameSaved);
+        if (!file.open(QFile::WriteOnly | QFile::Text)) {
+            QMessageBox::warning(view, tr("QXmlStream"),
+                                 tr("Cannot write file %1:\n%2.")
+                                 .arg(QDir::toNativeSeparators(filenameSaved),
+                                      file.errorString()));
+            throw std::runtime_error("Errore all'apertura del file!");
+        }
+
+        std::vector<trainingValues> trainings = extractFromModelValues(model->getTrainings());
+        xmlFileHandler::write(&file,trainings);
+
+        QMessageBox::information(view,"Salvataggio","Salvataggio avvenuto correttamente!");
+        saved = true;
+
+    }  catch (std::runtime_error e) {
+        if(!saved)
+            filenameSaved = "";
+
+        view->showWarning(e.what());
+    }
+}
+
+void Controller::saveAs() const
 {
     try {
 
@@ -186,8 +230,52 @@ void Controller::save() const
 
         std::vector<trainingValues> trainings = extractFromModelValues(model->getTrainings());
         xmlFileHandler::write(&file,trainings);
+
+        QMessageBox::information(view,"Salvataggio","Salvataggio avvenuto correttamente!");
     }  catch (std::runtime_error e) {
         view->showWarning(e.what());
     }
 
+}
+
+void Controller::open()
+{
+    try {
+        if(!saved && QMessageBox::information(view,"Salvataggio", "I dati non sono salvati, salvare?", QMessageBox::Yes,QMessageBox::No) == QMessageBox::Yes)
+            save();
+        model->removeTrainings();
+        saved = false;
+
+        QString fileName = xmlFileHandler::getReadFileName();
+        QFile file(fileName);
+
+        if (!file.open(QFile::ReadOnly | QFile::Text)) {
+            QMessageBox::warning(view, tr("QXmlStream"),
+                                 tr("Cannot read file %1:\n%2.")
+                                 .arg(QDir::toNativeSeparators(fileName),
+                                      file.errorString()));
+            throw std::runtime_error("Errore all'apertura del file!");
+        }
+
+        std::vector<trainingValues> values = xmlFileHandler::read(&file);
+
+
+        for(auto it : values)
+        {
+            DateTime start;
+            TimeSpan duration;
+            std::vector<std::string> exName;
+            std::vector<Time> exDuration;
+            std::vector<Time> exRecovery;
+
+            extractFromViewValues(it,start,duration,exName,exDuration,exRecovery);
+            model->addNewTraining(it.type.toStdString(),it.name.toStdString(),
+                              start,it.distance,duration,&exName,&exDuration,&exRecovery);
+        }
+        saved = false;
+        view->showData();
+
+    }  catch (std::runtime_error e) {
+        view->showWarning(e.what());
+    }
 }

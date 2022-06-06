@@ -16,6 +16,8 @@ class Controller : public QObject
 private:
     chartViewer* view;
     Model* model;
+    bool saved;
+    QString filenameSaved;
 
     void extractFromViewValues(trainingValues values, DateTime& start, TimeSpan& duration,std::vector<std::string>& exName,
                 std::vector<Time>& exDuration,std::vector<Time>& exRecovery) const;
@@ -27,10 +29,13 @@ public:
     void setModel(Model* m);
 
 public slots:
-    void add() const;
-    void set() const;
-    void remove() const;
-    void save() const;
+    void add();
+    void set();
+    void remove();
+    void newPlan();
+    void save();        //modifica i campi "saved" e "filenameSaved"
+    void saveAs() const;
+    void open();
 };
 
 #endif // CONTROLLER_H

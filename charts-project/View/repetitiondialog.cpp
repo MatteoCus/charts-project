@@ -19,8 +19,21 @@ repetitionDialog::repetitionDialog(QWidget *parent, action act, Repetition *trai
                           "QInputDialog QWidget{background-color: #404244; color: white ; selection-background-color: green ;"
                           "selection-color : white}"
                           "QInputDialog  QLabel{background-color : #404244; color: white}"
-                          "QInputDialog QLineEdit{background-color: #56585a; color: white ; selection-background-color: green ;"
-                          "selection-color : white}");
+                          "QInputDialog QComboBox {background-color : #404244 ; color: white ; selection-background-color: green ;"
+                                       "selection-color : white} "
+                                       "QComboBox::drop-down{background-color : green ;}"
+                                       "QComboBox::drop-down"
+                                       "{"
+                                       "border : 1px solid;"
+                                       "border-bottom: 0px;"
+                                       "border-color : #77c213 #335407 #335407 #77c213 ;}"
+                                       "QComboBox::drop-down:pressed{"
+                                       "border : 1px solid;"
+                                       "border-color : #77c213 #335407 #335407 #77c213;}"
+                                       "QComboBox::down-arrow{image : url(:/images/down-arrow.png); width: 10px;"
+                                       "height: 10px;}"
+                                       "QComboBox QListView {background-color : #56585a ; color : white;}"
+                                       "QComboBox QAbstractItemView {selection-background-color:green;}");
 
     firstLayout->setContentsMargins(0,0,15,0);
     rowLayout.push_back(firstLayout);

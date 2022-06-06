@@ -64,6 +64,9 @@ signals:
     void setTrainings() const;
     void removeTrainings() const;
     void save() const;
+    void saveAs() const;
+    void newPlan() const;
+    void open() const;
 };
 
 #endif // CHARTVIEWER_H

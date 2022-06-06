@@ -25,7 +25,6 @@ void chartViewer::addMenu(QHBoxLayout* mainLayout)
     file->addAction(new QAction("Nuovo", file));
     file->addAction(new QAction("Salva", file));
     file->addAction(new QAction("Salva col nome", file));
-    file->addAction(new QAction("Chiudi", file));
     file->addAction(new QAction("Esci", file));
 
     //Menù "visualizza"
@@ -37,8 +36,11 @@ void chartViewer::addMenu(QHBoxLayout* mainLayout)
     allenamenti->addAction(new QAction("Modifica", allenamenti));
     allenamenti->addAction(new QAction("Rimuovi", allenamenti));
 
+    connect(file->actions()[0],SIGNAL(triggered()),this,SIGNAL(open()));
+    connect(file->actions()[1],SIGNAL(triggered()),this,SIGNAL(newPlan()));
     connect(file->actions()[2],SIGNAL(triggered()),this,SIGNAL(save()));
-    connect(file->actions()[5],SIGNAL(triggered()),this,SLOT(close()));
+    connect(file->actions()[3],SIGNAL(triggered()),this,SIGNAL(saveAs()));
+    connect(file->actions()[4],SIGNAL(triggered()),this,SLOT(close()));
 
     connect(visualizza->actions()[0],SIGNAL(triggered()),this,SLOT(showChart()));
     connect(visualizza->actions()[1],SIGNAL(triggered()),this,SLOT(showExercises()));
@@ -132,60 +134,7 @@ chartViewer::chartViewer(QWidget *parent) : QWidget(parent)
                   "QMessageBox {background-color : #404244}"
                   "QMessageBox QPushButton {background-color: #404244; color: white ; selection-background-color: green ;"
                   "selection-color : white}"
-                  "QMessageBox QLabel{background-color : #404244}");
-
-    /*auto aux = new std::list<Training*>;
-    Date d = Date(21,04,2021);
-    Date d2 = Date(21,05,2021);
-    Time ti = Time(17);
-    Training* t = new Run("C",DateTime(d,ti) ,17.59,TimeSpan(1,25));
-    aux->push_back(t);
-    trainings = aux;
-
-    Tennis* tr = new Tennis("Tennis del martedì",DateTime(d2,ti));
-    Exercise* ex = new Exercise("Primo", Time(0,15,0),Time(0,5,0));
-    tr->addExercise(ex);
-    ex = new Exercise("Secondo", Time(0,15,1),Time(0,16,0));
-    tr->addExercise(ex);
-    ex = new Exercise("Secondo", Time(0,15,1),Time(0,6,0));
-    tr->addExercise(ex);
-    ex = new Exercise("Secondo", Time(0,15,1),Time(0,16,0));
-    tr->addExercise(ex);
-    ex = new Exercise("Secondo", Time(0,15,1),Time(0,6,0));
-    tr->addExercise(ex);
-    ex = new Exercise("Secondo", Time(0,15,1),Time(0,16,0));
-    tr->addExercise(ex);
-    ex = new Exercise("Secondo", Time(0,15,1),Time(0,6,0));
-    tr->addExercise(ex);
-    aux->push_back(tr);
-
-    Date d3 = Date(21,06,2021);
-    Time tim = Time(17);
-    Rugby* tr2 = new Rugby("Cristo",DateTime(d3,tim));
-    Exercise* ex2 = new Exercise("Primo", Time(0,15,0),Time(0,5,0));
-    tr2->addExercise(ex2);
-    ex2 = new Exercise("Secondo", Time(0,15,1),Time(0,6,0));
-    tr2->addExercise(ex2);
-    ex2 = new Exercise("Secondo", Time(0,15,1),Time(0,6,0));
-    tr2->addExercise(ex2);
-    ex2 = new Exercise("Secondo", Time(0,15,1),Time(0,6,0));
-    tr2->addExercise(ex2);
-    ex2 = new Exercise("Secondo", Time(0,15,1),Time(0,6,0));
-    tr2->addExercise(ex2);
-    ex2 = new Exercise("Secondo", Time(0,15,1),Time(0,6,0));
-    tr2->addExercise(ex2);
-    ex2 = new Exercise("Secondo", Time(0,15,1),Time(0,6,0));
-    tr2->addExercise(ex2);
-    aux->push_back(tr2);
-
-    Date d4 = Date(29,07,2021);
-    Time t4 = Time(17);
-    Training* tr4 = new Cycling("C",DateTime(d4,t4) ,7.59,TimeSpan(0,15));
-    aux->push_back(tr4);
-    trainingValues val = showSetDialog();
-    //std::cout<<val.name.toStdString()<<" "<<val.exName.size()<<std::endl;
-    setData(aux);
-    showData();*/
+                  "QMessageBox QLabel{color: white; background-color : #404244}");
     showMaximized();
 
 
@@ -201,7 +150,10 @@ void chartViewer::setController(Controller *c)
     connect(this, SIGNAL(addTrainings()), controller, SLOT(add()));
     connect(this, SIGNAL(setTrainings()), controller, SLOT(set()));
     connect(this, SIGNAL(removeTrainings()), controller, SLOT(remove()));
+    connect(this, SIGNAL(newPlan()), controller, SLOT(newPlan()));
+    connect(this, SIGNAL(open()), controller, SLOT(open()));
     connect(this, SIGNAL(save()), controller, SLOT(save()));
+    connect(this, SIGNAL(saveAs()), controller, SLOT(saveAs()));
 }
 
 void chartViewer::showWarning(const QString &message)
