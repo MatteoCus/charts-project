@@ -70,6 +70,7 @@ public:
     explicit tableWidget(QWidget *parent = nullptr);
     void showData();
     void setData(const std::list<Training *> *data);
+    void setSplitState(bool state);
 
 signals:
     void add();

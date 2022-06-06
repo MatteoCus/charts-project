@@ -241,7 +241,7 @@ std::vector<trainingValues> xmlFileHandler::read(QIODevice *device)
     if (reader.readNextStartElement() && reader.name() == "plan")
         return readTrainings(reader);
     else
-      throwReadError();
+      throw std::runtime_error("Il file non è leggibile!");
 
 }
 

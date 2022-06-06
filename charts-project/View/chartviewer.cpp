@@ -263,17 +263,22 @@ void chartViewer::showData()
     tableW->show();
     chartW->show();
 
-    bool repetition = false;
+    bool repetition = false, endurance = false;
 
-    for (auto it = trainings->begin(); it != trainings->end() && !repetition; ++it)
+    for (auto it = trainings->begin(); it != trainings->end() && (!repetition || !endurance); ++it)
     {
         if (dynamic_cast<Repetition*>(*it))
             repetition = true;
+        else
+            endurance = true;
     }
 
     if(repetition)
        visualizza->actions()[1]->setVisible(true);
     else
         visualizza->actions()[1]->setVisible(false);
+
+    if(repetition != endurance)
+        tableW->setSplitState(false);
 
 }

@@ -272,7 +272,8 @@ void Controller::open()
             model->addNewTraining(it.type.toStdString(),it.name.toStdString(),
                               start,it.distance,duration,&exName,&exDuration,&exRecovery);
         }
-        saved = false;
+        saved = true;
+        filenameSaved = fileName;
         view->showData();
 
     }  catch (std::runtime_error e) {

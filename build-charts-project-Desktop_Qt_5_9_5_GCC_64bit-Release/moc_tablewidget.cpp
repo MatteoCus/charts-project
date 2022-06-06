@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_tableWidget_t {
-    QByteArrayData data[5];
-    char stringdata0[45];
+    QByteArrayData data[9];
+    char stringdata0[65];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -32,14 +32,18 @@ struct qt_meta_stringdata_tableWidget_t {
 static const qt_meta_stringdata_tableWidget_t qt_meta_stringdata_tableWidget = {
     {
 QT_MOC_LITERAL(0, 0, 11), // "tableWidget"
-QT_MOC_LITERAL(1, 12, 13), // "showExercises"
-QT_MOC_LITERAL(2, 26, 0), // ""
-QT_MOC_LITERAL(3, 27, 11), // "changeState"
-QT_MOC_LITERAL(4, 39, 5) // "state"
+QT_MOC_LITERAL(1, 12, 3), // "add"
+QT_MOC_LITERAL(2, 16, 0), // ""
+QT_MOC_LITERAL(3, 17, 3), // "set"
+QT_MOC_LITERAL(4, 21, 6), // "remove"
+QT_MOC_LITERAL(5, 28, 13), // "showExercises"
+QT_MOC_LITERAL(6, 42, 11), // "changeState"
+QT_MOC_LITERAL(7, 54, 5), // "state"
+QT_MOC_LITERAL(8, 60, 4) // "show"
 
     },
-    "tableWidget\0showExercises\0\0changeState\0"
-    "state"
+    "tableWidget\0add\0\0set\0remove\0showExercises\0"
+    "changeState\0state\0show"
 };
 #undef QT_MOC_LITERAL
 
@@ -49,20 +53,30 @@ static const uint qt_meta_data_tableWidget[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       2,   14, // methods
+       5,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       0,       // signalCount
+       4,       // signalCount
+
+ // signals: name, argc, parameters, tag, flags
+       1,    0,   39,    2, 0x06 /* Public */,
+       3,    0,   40,    2, 0x06 /* Public */,
+       4,    0,   41,    2, 0x06 /* Public */,
+       5,    0,   42,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   24,    2, 0x08 /* Private */,
-       3,    1,   25,    2, 0x08 /* Private */,
+       6,    2,   43,    2, 0x08 /* Private */,
+
+ // signals: parameters
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
 
  // slots: parameters
-    QMetaType::Void,
-    QMetaType::Void, QMetaType::Int,    4,
+    QMetaType::Void, QMetaType::Bool, QMetaType::Bool,    7,    8,
 
        0        // eod
 };
@@ -73,9 +87,42 @@ void tableWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
         tableWidget *_t = static_cast<tableWidget *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->showExercises(); break;
-        case 1: _t->changeState((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 0: _t->add(); break;
+        case 1: _t->set(); break;
+        case 2: _t->remove(); break;
+        case 3: _t->showExercises(); break;
+        case 4: _t->changeState((*reinterpret_cast< bool(*)>(_a[1])),(*reinterpret_cast< bool(*)>(_a[2]))); break;
         default: ;
+        }
+    } else if (_c == QMetaObject::IndexOfMethod) {
+        int *result = reinterpret_cast<int *>(_a[0]);
+        {
+            typedef void (tableWidget::*_t)();
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&tableWidget::add)) {
+                *result = 0;
+                return;
+            }
+        }
+        {
+            typedef void (tableWidget::*_t)();
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&tableWidget::set)) {
+                *result = 1;
+                return;
+            }
+        }
+        {
+            typedef void (tableWidget::*_t)();
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&tableWidget::remove)) {
+                *result = 2;
+                return;
+            }
+        }
+        {
+            typedef void (tableWidget::*_t)();
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&tableWidget::showExercises)) {
+                *result = 3;
+                return;
+            }
         }
     }
 }
@@ -105,15 +152,39 @@ int tableWidget::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 2)
+        if (_id < 5)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 2;
+        _id -= 5;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 2)
+        if (_id < 5)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 2;
+        _id -= 5;
     }
     return _id;
+}
+
+// SIGNAL 0
+void tableWidget::add()
+{
+    QMetaObject::activate(this, &staticMetaObject, 0, nullptr);
+}
+
+// SIGNAL 1
+void tableWidget::set()
+{
+    QMetaObject::activate(this, &staticMetaObject, 1, nullptr);
+}
+
+// SIGNAL 2
+void tableWidget::remove()
+{
+    QMetaObject::activate(this, &staticMetaObject, 2, nullptr);
+}
+
+// SIGNAL 3
+void tableWidget::showExercises()
+{
+    QMetaObject::activate(this, &staticMetaObject, 3, nullptr);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE

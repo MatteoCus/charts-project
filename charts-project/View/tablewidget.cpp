@@ -448,3 +448,8 @@ void tableWidget::setData(const std::list<Training *> *data)
 {
     trainings = data;
 }
+
+void tableWidget::setSplitState(bool state)
+{
+    splitState = state;
+}
