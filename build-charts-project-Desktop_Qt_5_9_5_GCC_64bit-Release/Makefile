@@ -816,6 +816,7 @@ compiler_rcc_clean:
 	-$(DEL_FILE) qrc_resources.cpp
 qrc_resources.cpp: ../charts-project/resources.qrc \
 		../../../../Qt/5.9.5/gcc_64/bin/rcc \
+		../charts-project/jogging.png \
 		../charts-project/images/down-arrow.png \
 		../charts-project/images/tick.png \
 		../charts-project/images/tick_pressed.png
