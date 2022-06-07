@@ -185,7 +185,7 @@ void tableWidget::addControls()
     setButton = new QPushButton("Modifica", this);
     removeButton = new QPushButton("Rimuovi", this);
     exerciseButton = new QPushButton("Visualizza esercizi", this);
-    splitCheckBox = new QCheckBox("Split allenamenti resistenza");
+    splitCheckBox = new QCheckBox("Visualizzazione alternativa");
 
     addButton->setFixedSize(70,25);
     setButton->setFixedSize(70,25);
@@ -451,5 +451,8 @@ void tableWidget::setData(const std::list<Training *> *data)
 
 void tableWidget::setSplitState(bool state)
 {
-    splitState = state;
+    changeState(state,false);
+
+    if(!state)
+        splitCheckBox->setCheckState(Qt::CheckState::Unchecked);
 }

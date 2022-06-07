@@ -254,15 +254,6 @@ void chartViewer::setData(const std::list<Training *> *data)
 
 void chartViewer::showData()
 {
-    tableW->hide();
-    chartW->hide();
-
-    tableW->showData();
-    chartW->showData();
-
-    tableW->show();
-    chartW->show();
-
     bool repetition = false, endurance = false;
 
     for (auto it = trainings->begin(); it != trainings->end() && (!repetition || !endurance); ++it)
@@ -278,7 +269,17 @@ void chartViewer::showData()
     else
         visualizza->actions()[1]->setVisible(false);
 
-    if(repetition != endurance)
+    if(!repetition || !endurance)
         tableW->setSplitState(false);
+
+
+    tableW->hide();
+    chartW->hide();
+
+    tableW->showData();
+    chartW->showData();
+
+    tableW->show();
+    chartW->show();
 
 }
