@@ -8,6 +8,7 @@
 #include <QLabel>
 #include <QPushButton>
 #include <QTableWidget>
+#include <QScrollBar>
 #include <QTableWidgetItem>
 #include <QHeaderView>
 #include <QSizePolicy>
@@ -44,7 +45,7 @@ private:
     QVBoxLayout* mainLayout, *tableLayout;
 
     const std::list<Training*>* trainings;
-    bool splitState;
+    bool splitState, firstShow;
 
     void setLabelColor(QLabel* label);
     void setCheckBoxStyleSheet(QCheckBox* checkBox);

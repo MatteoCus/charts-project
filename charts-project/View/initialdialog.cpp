@@ -7,8 +7,14 @@ void initialDialog::addButtons()
     buttonsLayout->setContentsMargins(25,50,12,50);
     buttonsLayout->setAlignment(Qt::AlignTop);
 
+    QFont font;
+    font.setBold(true);
+
     newButton = new QPushButton("Nuovo",this);
     openButton = new QPushButton("Apri",this);
+
+    newButton->setFont(font);
+    openButton->setFont(font);
 
     newButton->setFixedSize(150,70);
     openButton->setFixedSize(150,70);
@@ -61,7 +67,7 @@ void initialDialog::closeEvent(QCloseEvent *event)
         return;
     else
     {
-        if(QMessageBox::question(this,"Chiusura", "Sei sicuro di voler uscire?", QMessageBox::Cancel | QMessageBox::Yes) == QMessageBox::Yes)
+        if(QMessageBox::question(this,"Chiusura", "Sei sicuro di voler uscire?", QMessageBox::Close | QMessageBox::Yes) == QMessageBox::Yes)
         {
             event->accept();
             emit closeAll();

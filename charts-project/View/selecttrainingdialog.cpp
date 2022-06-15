@@ -67,7 +67,7 @@ selectTrainingDialog::selectTrainingDialog(QWidget* parent, const std::list<Trai
     nameLayout->addWidget(name);
 
     QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok
-                                                       | QDialogButtonBox::Cancel,this);
+                                                       | QDialogButtonBox::Close,this);
 
     buttonsLayout->addWidget(buttonBox);
     dataLayout->addLayout(dateLayout);

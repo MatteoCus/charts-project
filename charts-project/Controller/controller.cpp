@@ -328,5 +328,5 @@ void Controller::closePlan()
 
 void Controller::first_response()
 {
-   firstResponse = false;
+    firstResponse = false;
 }

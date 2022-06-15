@@ -69,7 +69,7 @@ void trainingDialog::addButtons()
 {
     QHBoxLayout *buttonsLayout = new QHBoxLayout;
     QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok
-                                                       | QDialogButtonBox::Cancel,this);
+                                                       | QDialogButtonBox::Close,this);
 
     buttonsLayout->addWidget(buttonBox);
     mainL->addLayout(buttonsLayout);

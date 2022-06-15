@@ -59,12 +59,12 @@ void tableWidget::setTableStyleSheet(QTableWidget* table)
 
     insertEmptyRow(table);
 
-    table->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);
-
-    QHeaderView* vertHeader = table->verticalHeader();
-    vertHeader->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);
 
     QHeaderView* horizHeader = table->horizontalHeader();
+    horizHeader->setMaximumSectionSize(130);
+
+    horizHeader->setSectionResizeMode(5,QHeaderView::Stretch);
+
     horizHeader->setSectionResizeMode(0,QHeaderView::ResizeToContents);
     horizHeader->setSectionResizeMode(1,QHeaderView::ResizeToContents);
     horizHeader->setSectionResizeMode(2,QHeaderView::ResizeToContents);
@@ -73,15 +73,9 @@ void tableWidget::setTableStyleSheet(QTableWidget* table)
     horizHeader->setSectionResizeMode(5,QHeaderView::Stretch);
     horizHeader->setSectionResizeMode(6,QHeaderView::Stretch);
 
-    table->setColumnWidth(0,120);
-    table->setColumnWidth(1,75);
-    table->setColumnWidth(2,127);
-    table->setColumnWidth(3,60);
-    table->setColumnWidth(4,127);
-    table->setColumnWidth(5,48);
-    table->setColumnWidth(6,67);
+    table->verticalHeader()->hide();
 
-   // table->verticalHeader()->hide();
+    table->verticalScrollBar()->setFixedWidth(13);
 
 }
 
@@ -192,14 +186,9 @@ void tableWidget::changeState(bool state, bool show)
         showData();
 }
 
-tableWidget::tableWidget(QWidget *parent) : QWidget(parent)
+tableWidget::tableWidget(QWidget *parent) : QWidget(parent), mainLayout(new QVBoxLayout()), trainings(nullptr),splitState(false), firstShow(false)
 {
-    mainLayout = new QVBoxLayout();
     mainLayout->setAlignment(Qt::AlignTop);
-
-    splitState = false;
-
-    trainings = nullptr;
 
     addControlTable();
 
@@ -219,7 +208,7 @@ void tableWidget::setLineEdit(QLabel* item)
 void tableWidget::showCommonData(Training* it, unsigned int i)
 {
     i == 1? table1->insertRow(0) : table2->insertRow(0);
-    QLabel* item = new QLabel(QString::fromStdString(" "+it->getName()+" "),this);
+    QLabel* item = new QLabel(QString::fromStdString(it->getName()),this);
     setLineEdit(item);
     i == 1? table1->setCellWidget(0,0,item) : table2->setCellWidget(0,0,item);
 
@@ -272,7 +261,7 @@ void tableWidget::showRepetitionData(Repetition *training, unsigned int i)
 
 void tableWidget::showEnduranceData(Endurance *training, unsigned int i)
 {
-    QLabel* item = new QLabel(QString::fromStdString(value2string(training->getDistance()) + "km"),this);
+    QLabel* item = new QLabel("  "+ QString::fromStdString(value2string(training->getDistance()) + "km "),this);
     setLineEdit(item);
 
     if(i == 1)
@@ -284,6 +273,27 @@ void tableWidget::showEnduranceData(Endurance *training, unsigned int i)
 void tableWidget::showData()
 {
     bool foundRepetition = false, foundEndurance = false;
+    QHeaderView* horizHeader = table1->horizontalHeader();
+    if(trainings->size())
+    {
+        horizHeader->setSectionResizeMode(0,QHeaderView::ResizeToContents);
+        horizHeader->setSectionResizeMode(1,QHeaderView::ResizeToContents);
+        horizHeader->setSectionResizeMode(2,QHeaderView::ResizeToContents);
+        horizHeader->setSectionResizeMode(3,QHeaderView::Stretch);
+        horizHeader->setSectionResizeMode(4,QHeaderView::ResizeToContents);
+        horizHeader->setSectionResizeMode(5,QHeaderView::Stretch);
+        horizHeader->setSectionResizeMode(6,QHeaderView::Stretch);
+    }
+    else
+    {
+        horizHeader->setSectionResizeMode(0,QHeaderView::Stretch);
+        horizHeader->setSectionResizeMode(1,QHeaderView::Stretch);
+        horizHeader->setSectionResizeMode(2,QHeaderView::Stretch);
+        horizHeader->setSectionResizeMode(3,QHeaderView::Stretch);
+        horizHeader->setSectionResizeMode(4,QHeaderView::Stretch);
+        horizHeader->setSectionResizeMode(5,QHeaderView::Stretch);
+        horizHeader->setSectionResizeMode(6,QHeaderView::Stretch);
+    }
 
     for(auto it = trainings->begin(); it != trainings->end() && (!foundEndurance || !foundRepetition); ++it)
     {

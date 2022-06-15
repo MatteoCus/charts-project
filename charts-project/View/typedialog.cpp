@@ -25,7 +25,7 @@ typeDialog::typeDialog(QWidget* parent): QDialog(parent)
     typeLayout->addWidget(typeBox);
 
     QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok
-                                                       | QDialogButtonBox::Cancel,this);
+                                                       | QDialogButtonBox::Close,this);
 
     buttonsLayout->addWidget(buttonBox);
     mainL->addLayout(typeLayout);

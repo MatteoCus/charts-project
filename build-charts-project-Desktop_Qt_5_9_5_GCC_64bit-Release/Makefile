@@ -1029,6 +1029,8 @@ moc_controller.cpp: ../../../../Qt/5.9.5/gcc_64/include/QtCore/QObject \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qtabbar.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qtabwidget.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qrubberband.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QScrollBar \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qscrollbar.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QTableWidgetItem \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QHeaderView \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qheaderview.h \
@@ -1313,7 +1315,6 @@ moc_controller.cpp: ../../../../Qt/5.9.5/gcc_64/include/QtCore/QObject \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qproxystyle.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QCommonStyle \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qradiobutton.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qscrollbar.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qscroller.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/QPointF \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QScrollerProperties \
@@ -2157,6 +2158,8 @@ moc_chartviewer.cpp: ../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QWidget \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qtabbar.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qtabwidget.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qrubberband.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QScrollBar \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qscrollbar.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QTableWidgetItem \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QHeaderView \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qheaderview.h \
@@ -2462,7 +2465,6 @@ moc_chartviewer.cpp: ../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QWidget \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qproxystyle.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QCommonStyle \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qradiobutton.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qscrollbar.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qscroller.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/QPointF \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QScrollerProperties \
@@ -3567,6 +3569,8 @@ moc_tablewidget.cpp: ../../../../Qt/5.9.5/gcc_64/include/QtCore/QObject \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qtabbar.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qtabwidget.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qrubberband.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QScrollBar \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qscrollbar.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QTableWidgetItem \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QHeaderView \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qheaderview.h \
@@ -4129,6 +4133,8 @@ controller.o: ../charts-project/Controller/controller.cpp ../charts-project/Cont
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qtabbar.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qtabwidget.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qrubberband.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QScrollBar \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qscrollbar.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QTableWidgetItem \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QHeaderView \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qheaderview.h \
@@ -4413,7 +4419,6 @@ controller.o: ../charts-project/Controller/controller.cpp ../charts-project/Cont
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qproxystyle.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QCommonStyle \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qradiobutton.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qscrollbar.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qscroller.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/QPointF \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QScrollerProperties \
@@ -6586,6 +6591,8 @@ chartviewer.o: ../charts-project/View/chartviewer.cpp ../charts-project/View/cha
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qtabbar.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qtabwidget.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qrubberband.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QScrollBar \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qscrollbar.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QTableWidgetItem \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QHeaderView \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qheaderview.h \
@@ -6891,7 +6898,6 @@ chartviewer.o: ../charts-project/View/chartviewer.cpp ../charts-project/View/cha
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qproxystyle.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QCommonStyle \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qradiobutton.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qscrollbar.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qscroller.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/QPointF \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QScrollerProperties \
@@ -9968,6 +9974,8 @@ tablewidget.o: ../charts-project/View/tablewidget.cpp ../charts-project/View/tab
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qtabbar.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qtabwidget.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qrubberband.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QScrollBar \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qscrollbar.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QTableWidgetItem \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QHeaderView \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qheaderview.h \
@@ -10419,6 +10427,8 @@ main.o: ../charts-project/main.cpp ../../../../Qt/5.9.5/gcc_64/include/QtWidgets
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qtabbar.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qtabwidget.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qrubberband.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QScrollBar \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qscrollbar.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QTableWidgetItem \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QHeaderView \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qheaderview.h \
@@ -10705,7 +10715,6 @@ main.o: ../charts-project/main.cpp ../../../../Qt/5.9.5/gcc_64/include/QtWidgets
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qproxystyle.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QCommonStyle \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qradiobutton.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qscrollbar.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qscroller.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/QPointF \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QScrollerProperties \

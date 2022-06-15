@@ -76,7 +76,7 @@ void chartViewer::findTraining(unsigned int &n, const QDateTime& start)
 
 void chartViewer::closeEvent(QCloseEvent *event)
 {
-    if(QMessageBox::question(this,"Chiusura", "Sei sicuro di voler uscire?", QMessageBox::Cancel | QMessageBox::Yes) == QMessageBox::Yes)
+    if(QMessageBox::question(this,"Chiusura", "Sei sicuro di voler uscire?", QMessageBox::Close | QMessageBox::Yes) == QMessageBox::Yes)
     {
         emit closeAll();
         event->accept();
@@ -165,8 +165,7 @@ void chartViewer::setStyle()
                   "QCheckBox::indicator:checked:pressed {"
                   "image: url(:/images/tick_pressed.png);"
                   "} "
-                  "QPushButton {background-color : green ; color: white ; selection-background-color: green ;"
-                  "selection-color : white}  "
+                  "QPushButton {background-color : green ; color: white ; selection-background-color: green; selection-color : white}  "
                   "QHeaderView::section { color : white ; background-color: green}  "
                   "QTableWidget::item {color : white ;  gridline-color: green ; background-color : #404244; selection-background-color: green ;"
                   "selection-color : white}"
@@ -187,7 +186,7 @@ void chartViewer::setStyle()
                   "QMenuBar::item:selected {background-color : green;}"
                   "QMenu {background-color : #404244 ; color: white; }"
                   "QMenu::item:selected {background-color : green;} "
-                  "QGroupBox {background-color : #404244 ; color: white; }");
+                  "QMessageBox QPushButton {background-color : green ; color: white ; selection-background-color: green; selection-color : white}");
 }
 
 chartViewer::chartViewer(QWidget *parent) : QWidget(parent)
@@ -226,7 +225,7 @@ void chartViewer::setController(Controller *c)
 
 void chartViewer::showWarning(const QString &message)
 {
-    QMessageBox::warning(this, "Warning", "<FONT COLOR='#ffffff'>"+message+"</FONT>",QMessageBox::Ok);
+    QMessageBox::warning(this, "Errore", "<FONT COLOR='#ffffff'>"+message+"</FONT>",QMessageBox::Ok);
 }
 
 dialogValues chartViewer::showAddDialog()
