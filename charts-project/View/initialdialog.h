@@ -8,7 +8,7 @@
 #include <QVBoxLayout>
 #include <QPushButton>
 #include <QLabel>
-#include <QGroupBox>
+#include <QMessageBox>
 #include <QCloseEvent>
 
 class initialDialog : public QDialog

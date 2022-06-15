@@ -1442,7 +1442,6 @@ moc_controller.cpp: ../../../../Qt/5.9.5/gcc_64/include/QtCore/QObject \
 		../charts-project/View/nonaxedchart.h \
 		../charts-project/View/endurancedialog.h \
 		../charts-project/View/initialdialog.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QGroupBox \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/QCloseEvent \
 		../charts-project/Model/model.h \
 		../charts-project/Model/exercisecreator.h \
@@ -3278,8 +3277,8 @@ moc_initialdialog.cpp: ../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QDialog \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QLabel \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qlabel.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qframe.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QGroupBox \
-		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qgroupbox.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QMessageBox \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qmessagebox.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/QCloseEvent \
 		../charts-project/View/initialdialog.h \
 		moc_predefs.h \
@@ -4543,7 +4542,6 @@ controller.o: ../charts-project/Controller/controller.cpp ../charts-project/Cont
 		../charts-project/View/nonaxedchart.h \
 		../charts-project/View/endurancedialog.h \
 		../charts-project/View/initialdialog.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QGroupBox \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/QCloseEvent \
 		../charts-project/Model/model.h \
 		../charts-project/Model/exercisecreator.h \
@@ -7028,7 +7026,6 @@ chartviewer.o: ../charts-project/View/chartviewer.cpp ../charts-project/View/cha
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/QXmlStreamReader \
 		../charts-project/DateTime/datetimeconverter.h \
 		../charts-project/View/initialdialog.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QGroupBox \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/QCloseEvent \
 		../charts-project/Model/model.h \
 		../charts-project/Model/exercisecreator.h \
@@ -7884,8 +7881,8 @@ initialdialog.o: ../charts-project/View/initialdialog.cpp ../charts-project/View
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QLabel \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qlabel.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qframe.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QGroupBox \
-		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qgroupbox.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QMessageBox \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qmessagebox.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/QCloseEvent
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o initialdialog.o ../charts-project/View/initialdialog.cpp
 
@@ -10843,7 +10840,6 @@ main.o: ../charts-project/main.cpp ../../../../Qt/5.9.5/gcc_64/include/QtWidgets
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/QXmlStreamReader \
 		../charts-project/DateTime/datetimeconverter.h \
 		../charts-project/View/initialdialog.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QGroupBox \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/QCloseEvent
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../charts-project/main.cpp
 

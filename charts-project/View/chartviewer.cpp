@@ -74,6 +74,17 @@ void chartViewer::findTraining(unsigned int &n, const QDateTime& start)
     n = i-1;
 }
 
+void chartViewer::closeEvent(QCloseEvent *event)
+{
+    if(QMessageBox::question(this,"Chiusura", "Sei sicuro di voler uscire?", QMessageBox::Cancel | QMessageBox::Yes) == QMessageBox::Yes)
+    {
+        emit closeAll();
+        event->accept();
+    }
+    else
+        event->ignore();
+}
+
 void chartViewer::showExercises()
 {
         bool ok;
@@ -210,6 +221,7 @@ void chartViewer::setController(Controller *c)
     connect(this, SIGNAL(open()), controller, SLOT(open()));
     connect(this, SIGNAL(save()), controller, SLOT(save()));
     connect(this, SIGNAL(saveAs()), controller, SLOT(saveAs()));
+    connect(this, SIGNAL(closeAll()), controller, SLOT(closePlan()));
 }
 
 void chartViewer::showWarning(const QString &message)

@@ -39,6 +39,7 @@ public slots:
     void save();
     void saveAs() const;
     void open();
+    void closePlan();
     void first_response();
 };
 

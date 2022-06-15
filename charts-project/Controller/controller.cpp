@@ -219,7 +219,7 @@ void Controller::newPlan()
 void Controller::save()
 {
     try{
-        if(!saved || filenameSaved=="")
+        if(filenameSaved=="")
             filenameSaved = xmlFileHandler::getWriteFileName();
         QFile file(filenameSaved);
         if (!file.open(QFile::WriteOnly | QFile::Text)) {
@@ -307,11 +307,23 @@ void Controller::open()
         }
         saved = true;
         filenameSaved = fileName;
+
         view->showData();
 
     }  catch (std::runtime_error e) {
         view->showWarning(e.what());
     }
+}
+
+void Controller::closePlan()
+{
+    try {
+        if(!saved && QMessageBox::information(view,"Salvataggio", "I dati non sono salvati, salvare?", QMessageBox::Yes,QMessageBox::No) == QMessageBox::Yes)
+            save();
+    }
+    catch (std::runtime_error e) {
+            view->showWarning(e.what());
+        }
 }
 
 void Controller::first_response()

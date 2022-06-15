@@ -61,8 +61,13 @@ void initialDialog::closeEvent(QCloseEvent *event)
         return;
     else
     {
-        event->accept();
-        emit closeAll();
+        if(QMessageBox::question(this,"Chiusura", "Sei sicuro di voler uscire?", QMessageBox::Cancel | QMessageBox::Yes) == QMessageBox::Yes)
+        {
+            event->accept();
+            emit closeAll();
+        }
+        else
+            event->ignore();
     }
 }
 

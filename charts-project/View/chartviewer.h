@@ -43,6 +43,7 @@ private:
     const std::list<Training*>* trainings;
     void addMenu(QHBoxLayout* mainLayout);
     void findTraining(unsigned int &n, const QDateTime& start);
+    void closeEvent(QCloseEvent *event) override;
 
     void setStyle();
     
@@ -68,6 +69,7 @@ signals:
     void saveAs() const;
     void newPlan() const;
     void open() const;
+    void closeAll() const;
 };
 
 #endif // CHARTVIEWER_H
