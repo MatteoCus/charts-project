@@ -47,7 +47,6 @@ private:
     bool splitState;
 
     void setLabelColor(QLabel* label);
-    void setLabelBackground(QLabel* label);
     void setCheckBoxStyleSheet(QCheckBox* checkBox);
     void addToLayout(QBoxLayout* layout, QWidget* w1, QWidget* w2);
     void adaptSingleTableHeight(unsigned int h, QTableWidget* table);

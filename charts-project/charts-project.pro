@@ -29,6 +29,7 @@ SOURCES += \
     View/chartviewer.cpp \
     View/chartwidget.cpp \
     View/endurancedialog.cpp \
+    View/initialdialog.cpp \
     View/linechart.cpp \
     View/nonaxedchart.cpp \
     View/piechart.cpp \
@@ -60,6 +61,7 @@ HEADERS += \
     View/chartviewer.h \
     View/chartwidget.h \
     View/endurancedialog.h \
+    View/initialdialog.h \
     View/linechart.h \
     View/nonaxedchart.h \
     View/piechart.h \

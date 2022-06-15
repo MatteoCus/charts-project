@@ -22,27 +22,6 @@ void chartWidget::addDefaultChart()
     mainLayout->setContentsMargins(0,0,0,0);
 }
 
-void chartWidget::setComboBoxStyleSheet(QComboBox* box)
-{
-    box->setFixedSize(100,25);
-
-    box->setStyleSheet("QComboBox {background-color : #404244 ; color: white ; selection-background-color: green;"
-                            "selection-color : white} "
-                            "QComboBox::drop-down{background-color : green ;}"
-                            "QComboBox::drop-down"
-                            "{"
-                            "border : 1px solid;"
-                            "border-bottom: 0px;"
-                            "border-color : #77c213 #335407 #335407 #77c213 ;}"
-                            "QComboBox::drop-down:pressed{"
-                            "border : 1px solid;"
-                            "border-color : #77c213 #335407 #335407 #77c213;}"
-                            "QComboBox::down-arrow{image : url(:/images/down-arrow.png); width: 10px;"
-                            "height: 10px;}"
-                            "QComboBox QListView {background-color : #404244 ; color : white;}"
-                            "QComboBox QAbstractItemView {selection-background-color:green;}");
-}
-
 void chartWidget::addControls()
 {
     QHBoxLayout * controlsLayout = new QHBoxLayout();
@@ -50,14 +29,14 @@ void chartWidget::addControls()
     chartBox->addItem("Line Chart");
     chartBox->addItem("Bar Chart");
     chartBox->addItem("Pie Chart");
-    setComboBoxStyleSheet(chartBox);
+    chartBox->setFixedSize(100,25);
 
     dataBox = new QComboBox(this);
     dataBox->addItem("Durata");
     dataBox->addItem("Calorie");
     dataBox->addItem("Intensità");
     dataBox->addItem("Distanza");
-    setComboBoxStyleSheet(dataBox);
+    dataBox->setFixedSize(100,25);
 
     controlsLayout->addWidget(chartBox);
     controlsLayout->addWidget(dataBox);
@@ -109,7 +88,6 @@ chartWidget::chartWidget(QWidget *parent) : QWidget(parent)
 
     addControls();
 
-    setStyleSheet("QWidget{background-color : #2e2f30}");
     setLayout(mainLayout);
 }
 

@@ -34,7 +34,6 @@ protected:
 
 
     QVBoxLayout *mainL;
-    void setLabelStyleSheet(QLabel* name);
 
     void addToLayout(QBoxLayout* layout, QWidget* w1, QWidget* w2);
 

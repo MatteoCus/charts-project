@@ -9,17 +9,22 @@
 #include "View/chartviewer.h"
 #include "Controller/controller.h"
 
+#include <iostream>
+using namespace std;
+
 int main(int argc, char *argv[])
 {
 
     QApplication a(argc, argv);
-    a.setWindowIcon(QIcon(":/jogging.png"));
-    chartViewer w;
-    Controller c;
-    Model m;
-    c.setModel(&m);
-    c.setView(&w);
-    w.setController(&c);
-    w.show();
-    return a.exec();
+    a.setWindowIcon(QIcon(":/images/jogging.png"));
+    Model* m = new Model();
+    chartViewer* w = new chartViewer();
+    Controller* c = new Controller();
+    c->setModel(m);
+    c->setView(w);
+    w->setController(c);
+    if(c->startView())
+        return a.exec();
+    else
+        return 0;
 }

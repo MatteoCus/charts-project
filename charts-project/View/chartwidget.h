@@ -42,7 +42,6 @@ private:
     void addControls();
     void hideDataBoxEntry(int x);
     void unhideDataBoxEntry(int x);
-    void setComboBoxStyleSheet(QComboBox* box);
 
     void checkDataBoxValues();
 

@@ -3,7 +3,8 @@
         <file>images/down-arrow.png</file>
         <file>images/tick.png</file>
         <file>images/tick_pressed.png</file>
-        <file>jogging.png</file>
+        <file>images/jogging.png</file>
+        <file>images/sport.jpg</file>
+        <file>images/sport.png</file>
     </qresource>
-    <qresource prefix="/new/prefix1"/>
 </RCC>

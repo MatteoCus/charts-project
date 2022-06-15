@@ -9,37 +9,6 @@ std::string value2string(double value)
   return out.str();
 }
 
-void tableWidget::setLabelColor(QLabel *label)
-{
-    label->setStyleSheet("QLabel { color: white}");
-}
-
-void tableWidget::setLabelBackground(QLabel *label)
-{
-    QString style = label->styleSheet();
-    style +=" QLabel{background-color: #404244 }";
-    label->setStyleSheet(style);
-}
-
-void tableWidget::setCheckBoxStyleSheet(QCheckBox *checkBox)
-{
-    checkBox->setStyleSheet("QCheckBox { color : white} "
-                                "QCheckBox::indicator {background-color: green ; border : 1px solid green}"
-                                 "QCheckBox::indicator:unchecked:pressed {"
-                                     "background-color : #269226;"
-                                 "}"
-
-                                 "QCheckBox::indicator:checked {"
-                                     "image: url(:/images/tick.png);"
-                                    " width : 12 px; height : 12 px"
-                                 "}"
-
-                                 "QCheckBox::indicator:checked:pressed {"
-                                     "image: url(:/images/tick_pressed.png);"
-                                    ""
-                                 "}" );
-}
-
 void tableWidget::addToLayout(QBoxLayout *layout, QWidget *w1, QWidget *w2)
 {
     layout->addWidget(w1);
@@ -87,11 +56,6 @@ void tableWidget::setTableStyleSheet(QTableWidget* table)
     table->setColumnCount(7);
 
     table->setHorizontalHeaderLabels(QStringList()<<"Nome"<<"Tipo"<<"Inizio"<<"Durata"<<"Fine"<<"Calorie"<<"Intensità");
-    table->setStyleSheet("QHeaderView::section { color : white ; background-color: green}  "
-                         "QTableWidget::item {color : white ;  gridline-color: green ; background-color : #404244; selection-background-color: green ;"
-                         "selection-color : white}"
-                         "QLabel {color : white ; background-color : #404244; selection-background-color: green ;"
-                         "selection-color : white}");
 
     insertEmptyRow(table);
 
@@ -143,7 +107,8 @@ void tableWidget::addControlTable()
 
 
     label1 = new QLabel("Allenamenti in ordine cronologico",this);
-    setLabelColor(label1);
+    label1->setStyleSheet("QLabel {color : white ; background-color : #323235; selection-background-color: green ;"
+                          "selection-color : white} ");
     label1->setFixedSize(300,25);
 
     setTableStyleSheet(table1);
@@ -155,8 +120,9 @@ void tableWidget::addControlTable()
 
 
     label2 = new QLabel("Allenamenti di resistenza in ordine cronologico",this);
+    label2->setStyleSheet("QLabel {color : white ; background-color : #323235; selection-background-color: green ;"
+                          "selection-color : white} ");
     label2->setVisible(false);
-    setLabelColor(label2);
     label2->setFixedSize(300,25);
 
     setTableStyleSheet(table2);
@@ -196,12 +162,6 @@ void tableWidget::addControls()
 
     exerciseButton->hide();
     splitCheckBox->hide();
-
-    addButton->setStyleSheet("QPushButton { background-color : green ; color : white; }");
-    setButton->setStyleSheet("QPushButton { background-color : green ; color : white; }");
-    removeButton->setStyleSheet("QPushButton { background-color : green ; color : white; }");
-    exerciseButton->setStyleSheet("QPushButton { background-color : green ; color : white; }");
-    setCheckBoxStyleSheet(splitCheckBox);
 
     controlLayout->addWidget(addButton);
     controlLayout->addWidget(setButton);

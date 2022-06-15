@@ -68,6 +68,7 @@ SOURCES       = ../charts-project/Controller/controller.cpp \
 		../charts-project/View/chartviewer.cpp \
 		../charts-project/View/chartwidget.cpp \
 		../charts-project/View/endurancedialog.cpp \
+		../charts-project/View/initialdialog.cpp \
 		../charts-project/View/linechart.cpp \
 		../charts-project/View/nonaxedchart.cpp \
 		../charts-project/View/piechart.cpp \
@@ -90,6 +91,7 @@ SOURCES       = ../charts-project/Controller/controller.cpp \
 		moc_axedchart.cpp \
 		moc_chartviewer.cpp \
 		moc_chartwidget.cpp \
+		moc_initialdialog.cpp \
 		moc_selecttrainingdialog.cpp \
 		moc_tablewidget.cpp \
 		moc_trainingdialog.cpp \
@@ -112,6 +114,7 @@ OBJECTS       = controller.o \
 		chartviewer.o \
 		chartwidget.o \
 		endurancedialog.o \
+		initialdialog.o \
 		linechart.o \
 		nonaxedchart.o \
 		piechart.o \
@@ -135,6 +138,7 @@ OBJECTS       = controller.o \
 		moc_axedchart.o \
 		moc_chartviewer.o \
 		moc_chartwidget.o \
+		moc_initialdialog.o \
 		moc_selecttrainingdialog.o \
 		moc_tablewidget.o \
 		moc_trainingdialog.o \
@@ -330,6 +334,7 @@ DIST          = ../../../../Qt/5.9.5/gcc_64/mkspecs/features/spec_pre.prf \
 		../charts-project/View/chartviewer.h \
 		../charts-project/View/chartwidget.h \
 		../charts-project/View/endurancedialog.h \
+		../charts-project/View/initialdialog.h \
 		../charts-project/View/linechart.h \
 		../charts-project/View/nonaxedchart.h \
 		../charts-project/View/piechart.h \
@@ -372,6 +377,7 @@ DIST          = ../../../../Qt/5.9.5/gcc_64/mkspecs/features/spec_pre.prf \
 		../charts-project/View/chartviewer.cpp \
 		../charts-project/View/chartwidget.cpp \
 		../charts-project/View/endurancedialog.cpp \
+		../charts-project/View/initialdialog.cpp \
 		../charts-project/View/linechart.cpp \
 		../charts-project/View/nonaxedchart.cpp \
 		../charts-project/View/piechart.cpp \
@@ -790,8 +796,8 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../charts-project/resources.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents ../../../../Qt/5.9.5/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../charts-project/Controller/controller.h ../charts-project/Controller/xmlfilehandler.h ../charts-project/DateTime/date.h ../charts-project/DateTime/datetime.h ../charts-project/DateTime/datetimeconverter.h ../charts-project/View/axedchart.h ../charts-project/View/barchart.h ../charts-project/View/chart.h ../charts-project/View/chartviewer.h ../charts-project/View/chartwidget.h ../charts-project/View/endurancedialog.h ../charts-project/View/linechart.h ../charts-project/View/nonaxedchart.h ../charts-project/View/piechart.h ../charts-project/View/repetitiondialog.h ../charts-project/View/selecttrainingdialog.h ../charts-project/View/tablewidget.h ../charts-project/View/trainingdialog.h ../charts-project/action.h ../charts-project/Model/cycling.h ../charts-project/Model/endurance.h ../charts-project/Model/exercise.h ../charts-project/Model/exercisecreator.h ../charts-project/Model/model.h ../charts-project/DateTime/timespan.h ../charts-project/Model/trainingcreator.h ../charts-project/Model/plan.h ../charts-project/Model/repetition.h ../charts-project/Model/rugby.h ../charts-project/Model/run.h ../charts-project/Model/tennis.h ../charts-project/Model/training.h ../charts-project/Model/walk.h ../charts-project/View/typedialog.h ../charts-project/dialogvalues.h ../charts-project/trainingvalues.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../charts-project/Controller/controller.cpp ../charts-project/Controller/xmlfilehandler.cpp ../charts-project/DateTime/date.cpp ../charts-project/DateTime/datetime.cpp ../charts-project/DateTime/datetimeconverter.cpp ../charts-project/Model/cycling.cpp ../charts-project/Model/endurance.cpp ../charts-project/Model/exercise.cpp ../charts-project/Model/exercisecreator.cpp ../charts-project/Model/model.cpp ../charts-project/DateTime/timespan.cpp ../charts-project/Model/trainingcreator.cpp ../charts-project/View/axedchart.cpp ../charts-project/View/barchart.cpp ../charts-project/View/chart.cpp ../charts-project/View/chartviewer.cpp ../charts-project/View/chartwidget.cpp ../charts-project/View/endurancedialog.cpp ../charts-project/View/linechart.cpp ../charts-project/View/nonaxedchart.cpp ../charts-project/View/piechart.cpp ../charts-project/View/repetitiondialog.cpp ../charts-project/View/selecttrainingdialog.cpp ../charts-project/View/tablewidget.cpp ../charts-project/View/trainingdialog.cpp ../charts-project/dialogvalues.cpp ../charts-project/main.cpp ../charts-project/Model/plan.cpp ../charts-project/Model/repetition.cpp ../charts-project/Model/rugby.cpp ../charts-project/Model/run.cpp ../charts-project/Model/tennis.cpp ../charts-project/Model/training.cpp ../charts-project/Model/walk.cpp ../charts-project/View/typedialog.cpp ../charts-project/trainingvalues.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../charts-project/Controller/controller.h ../charts-project/Controller/xmlfilehandler.h ../charts-project/DateTime/date.h ../charts-project/DateTime/datetime.h ../charts-project/DateTime/datetimeconverter.h ../charts-project/View/axedchart.h ../charts-project/View/barchart.h ../charts-project/View/chart.h ../charts-project/View/chartviewer.h ../charts-project/View/chartwidget.h ../charts-project/View/endurancedialog.h ../charts-project/View/initialdialog.h ../charts-project/View/linechart.h ../charts-project/View/nonaxedchart.h ../charts-project/View/piechart.h ../charts-project/View/repetitiondialog.h ../charts-project/View/selecttrainingdialog.h ../charts-project/View/tablewidget.h ../charts-project/View/trainingdialog.h ../charts-project/action.h ../charts-project/Model/cycling.h ../charts-project/Model/endurance.h ../charts-project/Model/exercise.h ../charts-project/Model/exercisecreator.h ../charts-project/Model/model.h ../charts-project/DateTime/timespan.h ../charts-project/Model/trainingcreator.h ../charts-project/Model/plan.h ../charts-project/Model/repetition.h ../charts-project/Model/rugby.h ../charts-project/Model/run.h ../charts-project/Model/tennis.h ../charts-project/Model/training.h ../charts-project/Model/walk.h ../charts-project/View/typedialog.h ../charts-project/dialogvalues.h ../charts-project/trainingvalues.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../charts-project/Controller/controller.cpp ../charts-project/Controller/xmlfilehandler.cpp ../charts-project/DateTime/date.cpp ../charts-project/DateTime/datetime.cpp ../charts-project/DateTime/datetimeconverter.cpp ../charts-project/Model/cycling.cpp ../charts-project/Model/endurance.cpp ../charts-project/Model/exercise.cpp ../charts-project/Model/exercisecreator.cpp ../charts-project/Model/model.cpp ../charts-project/DateTime/timespan.cpp ../charts-project/Model/trainingcreator.cpp ../charts-project/View/axedchart.cpp ../charts-project/View/barchart.cpp ../charts-project/View/chart.cpp ../charts-project/View/chartviewer.cpp ../charts-project/View/chartwidget.cpp ../charts-project/View/endurancedialog.cpp ../charts-project/View/initialdialog.cpp ../charts-project/View/linechart.cpp ../charts-project/View/nonaxedchart.cpp ../charts-project/View/piechart.cpp ../charts-project/View/repetitiondialog.cpp ../charts-project/View/selecttrainingdialog.cpp ../charts-project/View/tablewidget.cpp ../charts-project/View/trainingdialog.cpp ../charts-project/dialogvalues.cpp ../charts-project/main.cpp ../charts-project/Model/plan.cpp ../charts-project/Model/repetition.cpp ../charts-project/Model/rugby.cpp ../charts-project/Model/run.cpp ../charts-project/Model/tennis.cpp ../charts-project/Model/training.cpp ../charts-project/Model/walk.cpp ../charts-project/View/typedialog.cpp ../charts-project/trainingvalues.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -820,10 +826,12 @@ compiler_rcc_clean:
 	-$(DEL_FILE) qrc_resources.cpp
 qrc_resources.cpp: ../charts-project/resources.qrc \
 		../../../../Qt/5.9.5/gcc_64/bin/rcc \
-		../charts-project/jogging.png \
 		../charts-project/images/down-arrow.png \
 		../charts-project/images/tick.png \
-		../charts-project/images/tick_pressed.png
+		../charts-project/images/sport.jpg \
+		../charts-project/images/tick_pressed.png \
+		../charts-project/images/sport.png \
+		../charts-project/images/jogging.png
 	/home/matteo/Qt/5.9.5/gcc_64/bin/rcc -name resources ../charts-project/resources.qrc -o qrc_resources.cpp
 
 compiler_moc_predefs_make_all: moc_predefs.h
@@ -832,9 +840,9 @@ compiler_moc_predefs_clean:
 moc_predefs.h: ../../../../Qt/5.9.5/gcc_64/mkspecs/features/data/dummy.cpp
 	g++ -pipe -O2 -std=gnu++11 -Wall -W -dM -E -o moc_predefs.h ../../../../Qt/5.9.5/gcc_64/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_controller.cpp moc_axedchart.cpp moc_chartviewer.cpp moc_chartwidget.cpp moc_selecttrainingdialog.cpp moc_tablewidget.cpp moc_trainingdialog.cpp moc_typedialog.cpp
+compiler_moc_header_make_all: moc_controller.cpp moc_axedchart.cpp moc_chartviewer.cpp moc_chartwidget.cpp moc_initialdialog.cpp moc_selecttrainingdialog.cpp moc_tablewidget.cpp moc_trainingdialog.cpp moc_typedialog.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_controller.cpp moc_axedchart.cpp moc_chartviewer.cpp moc_chartwidget.cpp moc_selecttrainingdialog.cpp moc_tablewidget.cpp moc_trainingdialog.cpp moc_typedialog.cpp
+	-$(DEL_FILE) moc_controller.cpp moc_axedchart.cpp moc_chartviewer.cpp moc_chartwidget.cpp moc_initialdialog.cpp moc_selecttrainingdialog.cpp moc_tablewidget.cpp moc_trainingdialog.cpp moc_typedialog.cpp
 moc_controller.cpp: ../../../../Qt/5.9.5/gcc_64/include/QtCore/QObject \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qobject.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qobjectdefs.h \
@@ -1433,6 +1441,9 @@ moc_controller.cpp: ../../../../Qt/5.9.5/gcc_64/include/QtCore/QObject \
 		../charts-project/View/piechart.h \
 		../charts-project/View/nonaxedchart.h \
 		../charts-project/View/endurancedialog.h \
+		../charts-project/View/initialdialog.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QGroupBox \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/QCloseEvent \
 		../charts-project/Model/model.h \
 		../charts-project/Model/exercisecreator.h \
 		../charts-project/Model/plan.h \
@@ -3151,6 +3162,130 @@ moc_chartwidget.cpp: ../../../../Qt/5.9.5/gcc_64/include/QtCore/QObject \
 		../../../../Qt/5.9.5/gcc_64/bin/moc
 	/home/matteo/Qt/5.9.5/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/matteo/Qt/5.9.5/gcc_64/mkspecs/linux-g++ -I/home/matteo/Documenti/GitHub/charts-project/charts-project -I/home/matteo/Qt/5.9.5/gcc_64/include -I/home/matteo/Qt/5.9.5/gcc_64/include/QtCharts -I/home/matteo/Qt/5.9.5/gcc_64/include/QtWidgets -I/home/matteo/Qt/5.9.5/gcc_64/include/QtGui -I/home/matteo/Qt/5.9.5/gcc_64/include/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../charts-project/View/chartwidget.h -o moc_chartwidget.cpp
 
+moc_initialdialog.cpp: ../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QDialog \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qdialog.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qtguiglobal.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qglobal.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qconfig.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qtcore-config.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qsystemdetection.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qprocessordetection.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qtypeinfo.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qsysinfo.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qlogging.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qflags.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qatomic.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qbasicatomic.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qgenericatomic.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qatomic_msvc.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qglobalstatic.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qmutex.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qnumeric.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qversiontagging.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qtgui-config.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qwidget.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qwindowdefs.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qobjectdefs.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qnamespace.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qwindowdefs_win.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qobject.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qstring.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qchar.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qbytearray.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qrefcount.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qarraydata.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qstringbuilder.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qlist.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qalgorithms.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qiterator.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qhashfunctions.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qpair.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qbytearraylist.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qstringlist.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qregexp.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qstringmatcher.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qcoreevent.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qscopedpointer.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qmetatype.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qvarlengtharray.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qcontainerfwd.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qobject_impl.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qmargins.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qpaintdevice.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qrect.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qsize.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qpoint.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qpalette.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qcolor.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qrgb.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qrgba64.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qbrush.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qvector.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qmatrix.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qpolygon.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qregion.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qdatastream.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qiodevice.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qline.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qtransform.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qpainterpath.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qimage.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qpixelformat.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qpixmap.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qsharedpointer.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qshareddata.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qhash.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qfont.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qfontmetrics.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qfontinfo.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qsizepolicy.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qcursor.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qkeysequence.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qevent.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qvariant.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qmap.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qdebug.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qtextstream.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qlocale.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qset.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qcontiguouscache.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qurl.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qurlquery.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qfile.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qfiledevice.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qvector2d.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qtouchdevice.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/QObject \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QWidget \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QHBoxLayout \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qboxlayout.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qlayout.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qlayoutitem.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qgridlayout.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QVBoxLayout \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QPushButton \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qpushbutton.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qabstractbutton.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qicon.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QLabel \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qlabel.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qframe.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QGroupBox \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qgroupbox.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/QCloseEvent \
+		../charts-project/View/initialdialog.h \
+		moc_predefs.h \
+		../../../../Qt/5.9.5/gcc_64/bin/moc
+	/home/matteo/Qt/5.9.5/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/matteo/Qt/5.9.5/gcc_64/mkspecs/linux-g++ -I/home/matteo/Documenti/GitHub/charts-project/charts-project -I/home/matteo/Qt/5.9.5/gcc_64/include -I/home/matteo/Qt/5.9.5/gcc_64/include/QtCharts -I/home/matteo/Qt/5.9.5/gcc_64/include/QtWidgets -I/home/matteo/Qt/5.9.5/gcc_64/include/QtGui -I/home/matteo/Qt/5.9.5/gcc_64/include/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../charts-project/View/initialdialog.h -o moc_initialdialog.cpp
+
 moc_selecttrainingdialog.cpp: ../../../../Qt/5.9.5/gcc_64/include/QtCore/QObject \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qobject.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qobjectdefs.h \
@@ -4407,6 +4542,9 @@ controller.o: ../charts-project/Controller/controller.cpp ../charts-project/Cont
 		../charts-project/View/piechart.h \
 		../charts-project/View/nonaxedchart.h \
 		../charts-project/View/endurancedialog.h \
+		../charts-project/View/initialdialog.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QGroupBox \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/QCloseEvent \
 		../charts-project/Model/model.h \
 		../charts-project/Model/exercisecreator.h \
 		../charts-project/Model/plan.h \
@@ -6889,6 +7027,9 @@ chartviewer.o: ../charts-project/View/chartviewer.cpp ../charts-project/View/cha
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/QXmlStreamWriter \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/QXmlStreamReader \
 		../charts-project/DateTime/datetimeconverter.h \
+		../charts-project/View/initialdialog.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QGroupBox \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/QCloseEvent \
 		../charts-project/Model/model.h \
 		../charts-project/Model/exercisecreator.h \
 		../charts-project/Model/plan.h \
@@ -7625,6 +7766,128 @@ endurancedialog.o: ../charts-project/View/endurancedialog.cpp ../charts-project/
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QInputDialog \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qinputdialog.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o endurancedialog.o ../charts-project/View/endurancedialog.cpp
+
+initialdialog.o: ../charts-project/View/initialdialog.cpp ../charts-project/View/initialdialog.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QDialog \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qdialog.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qtguiglobal.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qglobal.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qconfig.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qtcore-config.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qsystemdetection.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qprocessordetection.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qtypeinfo.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qsysinfo.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qlogging.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qflags.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qatomic.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qbasicatomic.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qgenericatomic.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qatomic_msvc.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qglobalstatic.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qmutex.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qnumeric.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qversiontagging.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qtgui-config.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qwidget.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qwindowdefs.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qobjectdefs.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qnamespace.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qwindowdefs_win.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qobject.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qstring.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qchar.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qbytearray.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qrefcount.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qarraydata.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qstringbuilder.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qlist.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qalgorithms.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qiterator.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qhashfunctions.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qpair.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qbytearraylist.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qstringlist.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qregexp.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qstringmatcher.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qcoreevent.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qscopedpointer.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qmetatype.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qvarlengtharray.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qcontainerfwd.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qobject_impl.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qmargins.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qpaintdevice.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qrect.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qsize.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qpoint.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qpalette.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qcolor.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qrgb.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qrgba64.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qbrush.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qvector.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qmatrix.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qpolygon.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qregion.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qdatastream.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qiodevice.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qline.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qtransform.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qpainterpath.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qimage.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qpixelformat.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qpixmap.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qsharedpointer.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qshareddata.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qhash.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qfont.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qfontmetrics.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qfontinfo.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qsizepolicy.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qcursor.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qkeysequence.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qevent.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qvariant.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qmap.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qdebug.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qtextstream.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qlocale.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qset.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qcontiguouscache.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qurl.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qurlquery.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qfile.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qfiledevice.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qvector2d.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qtouchdevice.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/QObject \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QWidget \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QHBoxLayout \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qboxlayout.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qlayout.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qlayoutitem.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qgridlayout.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QVBoxLayout \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QPushButton \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qpushbutton.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qabstractbutton.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qicon.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QLabel \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qlabel.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qframe.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QGroupBox \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qgroupbox.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/QCloseEvent
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o initialdialog.o ../charts-project/View/initialdialog.cpp
 
 linechart.o: ../charts-project/View/linechart.cpp ../charts-project/View/linechart.h \
 		../charts-project/View/axedchart.h \
@@ -10578,7 +10841,10 @@ main.o: ../charts-project/main.cpp ../../../../Qt/5.9.5/gcc_64/include/QtWidgets
 		../charts-project/Controller/xmlfilehandler.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/QXmlStreamWriter \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/QXmlStreamReader \
-		../charts-project/DateTime/datetimeconverter.h
+		../charts-project/DateTime/datetimeconverter.h \
+		../charts-project/View/initialdialog.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QGroupBox \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/QCloseEvent
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../charts-project/main.cpp
 
 plan.o: ../charts-project/Model/plan.cpp ../charts-project/Model/plan.h \
@@ -10837,6 +11103,9 @@ moc_chartviewer.o: moc_chartviewer.cpp
 
 moc_chartwidget.o: moc_chartwidget.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_chartwidget.o moc_chartwidget.cpp
+
+moc_initialdialog.o: moc_initialdialog.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_initialdialog.o moc_initialdialog.cpp
 
 moc_selecttrainingdialog.o: moc_selecttrainingdialog.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_selecttrainingdialog.o moc_selecttrainingdialog.cpp

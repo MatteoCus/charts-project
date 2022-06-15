@@ -1,11 +1,6 @@
 #include "trainingdialog.h"
 #include <iostream>
 
-void trainingDialog::setLabelStyleSheet(QLabel* name)
-{
-    name->setStyleSheet("QLabel {background-color: #404244; color: white}");
-}
-
 void trainingDialog::addToLayout(QBoxLayout* layout, QWidget* w1, QWidget* w2)
 {
     layout->addWidget(w1);
@@ -47,27 +42,15 @@ void trainingDialog::setupCommon(QBoxLayout* mainL, action act, Training* traini
     name->setFixedWidth(150);
     name->setAlignment(Qt::AlignCenter);
 
-    name->setStyleSheet("QLineEdit {background-color: #56585a; color: white ; selection-background-color: green ;"
-                        "selection-color : white} ");
-
     start->setFixedWidth(150);
     start->setAlignment(Qt::AlignCenter);
-
-
-    setLabelStyleSheet(nameLabel);
 
     addToLayout(nameLayout,nameLabel,name);
 
     QLabel* startLabel = new QLabel(QString("Inizio"), this);
     startLabel->setFont(font);
-    start->setStyleSheet("QDateTimeEdit {background-color: #56585a;   color: white ; selection-background-color: green ;"
-                         "selection-color : white} ");
-
-    setLabelStyleSheet(startLabel);
 
     addToLayout(startLayout,startLabel,start);
-
-
 
     mainL->addLayout(nameLayout);
     mainL->addLayout(startLayout);
@@ -77,14 +60,6 @@ int trainingDialog::showExNumberDialog()
 {
     bool ok = false;
     QInputDialog* dial = new QInputDialog(this);
-    this -> setStyleSheet("QDialog{background-color : #404244; color : white}"
-                          "QInputDialog{background-color : #404244}"
-                          "QInputDialog QWidget{background-color: #56585a; color: white ; selection-background-color: green ;"
-                          "selection-color : white}"
-                          "QInputDialog QPushButton{background-color: #404244; color: white ; selection-background-color: green ;"
-                                                 "selection-color : white}"
-                          "QInputDialog QLabel{background-color: #404244; color: white ; selection-background-color: green ;"
-                          "selection-color : white}");
     int remove = dial->getInt(this,tr("Esercizi da inserire"),"Quantità: ",1,1,15,1,&ok);
     if(!ok) throw std::runtime_error("Nessun numero scelto, inserimento annullato!");
     return remove;
@@ -93,36 +68,21 @@ int trainingDialog::showExNumberDialog()
 void trainingDialog::addButtons()
 {
     QHBoxLayout *buttonsLayout = new QHBoxLayout;
-    QDialogButtonBox *buttonBox = new QDialogButtonBox(Qt::Orientation::Horizontal,this);
-
-    QPushButton* first = new QPushButton(QString("Ok"), buttonBox);
-    first->setStyleSheet("QPushButton {background-color: #404244; color: white ; selection-background-color: green ;"
-                         "selection-color : white} ");
-    first->setDefault(true);
-
-    QPushButton* second = new QPushButton(QString("Cancel"), buttonBox);
-    second->setStyleSheet("QPushButton {background-color: #404244; color: white ; selection-background-color: green ;"
-                         "selection-color : white} ");
-    second->setAutoDefault(false);
-
-    buttonBox->addButton(first,QDialogButtonBox::AcceptRole);
-    buttonBox->addButton(second,QDialogButtonBox::RejectRole);
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok
+                                                       | QDialogButtonBox::Cancel,this);
 
     buttonsLayout->addWidget(buttonBox);
     mainL->addLayout(buttonsLayout);
 
-    bool conn = connect(buttonBox, &QDialogButtonBox::accepted,
+    connect(buttonBox, &QDialogButtonBox::accepted,
                       this, &trainingDialog::accept);
-    Q_ASSERT(conn);
-    conn = connect(buttonBox, &QDialogButtonBox::rejected,
+    connect(buttonBox, &QDialogButtonBox::rejected,
         this, &trainingDialog::reject);
-    Q_ASSERT(conn);
 
 }
 
 trainingDialog::trainingDialog(QWidget *parent) : QDialog(parent)
 {
     mainL = new QVBoxLayout;
-    setStyleSheet("QDialog{background-color : #404244; color : white}");
     setLayout(mainL);
 }

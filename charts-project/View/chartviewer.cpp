@@ -7,11 +7,6 @@ void chartViewer::addMenu(QHBoxLayout* mainLayout)
 {
     menuBar = new QMenuBar(this);
 
-    menuBar->setStyleSheet("QMenuBar {background-color : #404244 ; color: white; }"
-                           "QMenuBar::item:selected {background-color : green;}"
-                           "QMenu {background-color : #404244 ; color: white; }"
-                           "QMenu::item:selected {background-color : green;}");
-
     file = new QMenu("File", menuBar);
     visualizza = new QMenu("Visualizza", menuBar);
     allenamenti= new QMenu("Allenamenti", menuBar);
@@ -81,26 +76,16 @@ void chartViewer::findTraining(unsigned int &n, const QDateTime& start)
 
 void chartViewer::showExercises()
 {
-        bool ok, found = false;
+        bool ok;
         try{
             QString start = selectTrainingDialog::getDate(this,&ok,trainings,"Repetition");
             if (start != "")
             {
                 unsigned int n = 0;
+                findTraining(n,QDateTime::fromString(start, "dd/MM/yyyy hh:mm:ss"));
                 auto training = trainings->begin();
-                for (unsigned int i = 0; i < trainings->size() && !found ; ++i)
-                {
-                    if ((*training)->getStart().toString() == start.toStdString())
-                    {
-                        found = true;
-                        n = i;
-                    }
-                    if (training != trainings->end())
-                        std::advance(training,1);
-                }
-                training = trainings->begin();
                 std::advance(training,n);
-                if (found && dynamic_cast<Repetition*>(*training))
+                if (dynamic_cast<Repetition*>(*training))
                 {
                     Repetition* aux = static_cast<Repetition*>(*training);
                     repetitionDialog* rep = new repetitionDialog(this,nothing,aux);
@@ -119,7 +104,11 @@ void chartViewer::showExercises()
 void chartViewer::showChart()
 {
     chartWidget* aux = chartW->clone();
-    dialog = new QDialog( this);
+    QDialog *dialog = new QDialog(this);
+
+    aux->setStyleSheet("QWidget{background-color: #404244}");
+    dialog->setStyleSheet("QDialog{background-color: #404244}");
+
 
     Qt::WindowFlags flags = Qt::Window | Qt::WindowMinimizeButtonHint | Qt::WindowMaximizeButtonHint| Qt::WindowCloseButtonHint;
     dialog->setWindowFlags(flags);
@@ -130,6 +119,64 @@ void chartViewer::showChart()
     dialog->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     dialog->resize(800,450);
     dialog->show();
+}
+
+void chartViewer::setStyle()
+{
+    setStyleSheet("QWidget{background-color : #323235} "
+                  "QMessageBox {background-color : #404244} "
+                  "QMessageBox QPushButton {background-color: #404244; color: white ; selection-background-color: green ; "
+                  "selection-color : white}"
+                  "QMessageBox QLabel{color: white; background-color : #404244}"
+                  "QComboBox {background-color : #404244; color: white ; selection-background-color: green; "
+                  "selection-color : white} "
+                  "QComboBox::drop-down"
+                  "{"
+                  "background-color : green;"
+                  "border : 1px solid;"
+                  "border-bottom: 0px;"
+                  "border-color : #77c213 #335407 #335407 #77c213 ;} "
+                  "QComboBox::drop-down:pressed{"
+                  "border : 1px solid;"
+                  "border-color : #77c213 #335407 #335407 #77c213} "
+                  "QComboBox::down-arrow{image : url(:/images/down-arrow.png); width: 10px;"
+                  "height: 10px} "
+                  "QComboBox QAbstractItemView {background-color : #404244 ; color : green; selection-background-color:green} "
+                  "QCheckBox { color : white} "
+                  "QCheckBox::indicator {background-color: green ; border : 1px solid green}"
+                  "QCheckBox::indicator:unchecked:pressed {"
+                  "background-color : #269226;"
+                  "} "
+                  "QCheckBox::indicator:checked {"
+                  "image: url(:/images/tick.png);"
+                  " width : 12 px; height : 12 px"
+                  "} "
+                  "QCheckBox::indicator:checked:pressed {"
+                  "image: url(:/images/tick_pressed.png);"
+                  "} "
+                  "QPushButton {background-color : green ; color: white ; selection-background-color: green ;"
+                  "selection-color : white}  "
+                  "QHeaderView::section { color : white ; background-color: green}  "
+                  "QTableWidget::item {color : white ;  gridline-color: green ; background-color : #404244; selection-background-color: green ;"
+                  "selection-color : white}"
+                  "QLabel {color : white ; background-color : #404244; selection-background-color: green ;"
+                  "selection-color : white} "
+                  "QTimeEdit {background-color: #56585a; color: white ; selection-background-color: green ;"
+                  "selection-color : white} "
+                  "QLineEdit {background-color: #56585a; color: white ; selection-background-color: green ;"
+                  "selection-color : white} "
+                  "QDateTimeEdit {background-color: #56585a;   color: white ; selection-background-color: green ;"
+                  "selection-color : white} "
+                  "QDialog {background-color : #404244;} "
+                  "QDoubleSpinBox {background-color: #56585a; color: white ; selection-background-color: green ;"
+                  "selection-color : white} "
+                  "QSpinBox {background-color: #56585a; color: white ; selection-background-color: green ;"
+                  "selection-color : white} "
+                  "QMenuBar {background-color : #404244 ; color: white; }"
+                  "QMenuBar::item:selected {background-color : green;}"
+                  "QMenu {background-color : #404244 ; color: white; }"
+                  "QMenu::item:selected {background-color : green;} "
+                  "QGroupBox {background-color : #404244 ; color: white; }");
 }
 
 chartViewer::chartViewer(QWidget *parent) : QWidget(parent)
@@ -145,13 +192,7 @@ chartViewer::chartViewer(QWidget *parent) : QWidget(parent)
     mainLayout->setContentsMargins(10,50,10,20);
     addMenu(mainLayout);
     setLayout(mainLayout);
-    setStyleSheet("QWidget{background-color : #2e2f30} "
-                  "QMessageBox {background-color : #404244}"
-                  "QMessageBox QPushButton {background-color: #404244; color: white ; selection-background-color: green ;"
-                  "selection-color : white}"
-                  "QMessageBox QLabel{color: white; background-color : #404244}");
-    showMaximized();
-
+    setStyle();
 
     connect(tableW, SIGNAL(showExercises()), this, SLOT(showExercises()));
     connect(tableW,SIGNAL(add()), this, SIGNAL(addTrainings()));

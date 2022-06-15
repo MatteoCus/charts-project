@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 
-Controller::Controller(QObject *parent) : QObject(parent), view(nullptr), model(nullptr), saved(false), filenameSaved("")
+Controller::Controller(QObject *parent) : QObject(parent), view(nullptr), model(nullptr), saved(true), firstResponse(true), filenameSaved("")
 {}
 
 void Controller::setView(chartViewer *v)
@@ -17,6 +17,25 @@ void Controller::setModel(Model *m)
     model = m;
     if (view != nullptr && model != nullptr)
         view->setData(model->getTrainings());
+}
+
+bool Controller::startView()
+{
+    view->hide();
+    initialDialog* dialog = new initialDialog(view);
+    connect(dialog,SIGNAL(openFile()),this,SLOT(open()));
+    connect(dialog,SIGNAL(showView()), this, SLOT(newPlan()));
+    connect(dialog,SIGNAL(closeAll()), this, SLOT(first_response()));
+    dialog->exec();
+    if(firstResponse)
+        view->showMaximized();
+    return firstResponse;
+}
+
+Controller::~Controller()
+{
+    delete model;
+    delete view;
 }
 
 void Controller::extractFromViewValues(dialogValues values, DateTime& start, TimeSpan& duration,std::vector<std::string>& exName,
@@ -189,7 +208,7 @@ void Controller::newPlan()
         if(!saved && QMessageBox::information(view,"Salvataggio", "I dati non sono salvati, salvare?", QMessageBox::Yes,QMessageBox::No) == QMessageBox::Yes)
             save();
         model->removeTrainings();
-        saved = false;
+        saved = true;
         view->showData();
 
     }  catch (std::runtime_error e) {
@@ -200,7 +219,7 @@ void Controller::newPlan()
 void Controller::save()
 {
     try{
-        if(!saved && filenameSaved=="")
+        if(!saved || filenameSaved=="")
             filenameSaved = xmlFileHandler::getWriteFileName();
         QFile file(filenameSaved);
         if (!file.open(QFile::WriteOnly | QFile::Text)) {
@@ -255,7 +274,6 @@ void Controller::open()
         if(!saved && QMessageBox::information(view,"Salvataggio", "I dati non sono salvati, salvare?", QMessageBox::Yes,QMessageBox::No) == QMessageBox::Yes)
             save();
         model->removeTrainings();
-        saved = false;
 
         QString fileName = xmlFileHandler::getReadFileName();
         QFile file(fileName);
@@ -294,4 +312,9 @@ void Controller::open()
     }  catch (std::runtime_error e) {
         view->showWarning(e.what());
     }
+}
+
+void Controller::first_response()
+{
+   firstResponse = false;
 }

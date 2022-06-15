@@ -8,6 +8,7 @@
 #include "../DateTime/datetimeconverter.h"
 #include "../DateTime/datetime.h"
 #include "../View/chartviewer.h"
+#include "../View/initialdialog.h"
 #include "../Model/model.h"
 
 class Controller : public QObject
@@ -16,7 +17,7 @@ class Controller : public QObject
 private:
     chartViewer* view;
     Model* model;
-    bool saved;
+    bool saved, firstResponse;
     QString filenameSaved;
 
     void extractFromViewValues(dialogValues values, DateTime& start, TimeSpan& duration,std::vector<std::string>& exName,
@@ -27,15 +28,18 @@ public:
     explicit Controller(QObject *parent = nullptr);
     void setView(chartViewer* v);
     void setModel(Model* m);
+    bool startView();
+    ~Controller();
 
 public slots:
     void add();
     void set();
     void remove();
     void newPlan();
-    void save();        //modifica i campi "saved" e "filenameSaved"
+    void save();
     void saveAs() const;
     void open();
+    void first_response();
 };
 
 #endif // CONTROLLER_H
