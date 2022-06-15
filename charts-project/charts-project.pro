@@ -36,6 +36,7 @@ SOURCES += \
     View/selecttrainingdialog.cpp \
     View/tablewidget.cpp \
     View/trainingdialog.cpp \
+    dialogvalues.cpp \
     main.cpp \
     Model/plan.cpp \
     Model/repetition.cpp \
@@ -82,6 +83,7 @@ HEADERS += \
     Model/training.h \
     Model/walk.h \
     View/typedialog.h \
+    dialogvalues.h \
     trainingvalues.h
 
 # Default rules for deployment.

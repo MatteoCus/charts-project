@@ -19,11 +19,15 @@ void Controller::setModel(Model *m)
         view->setData(model->getTrainings());
 }
 
-void Controller::extractFromViewValues(trainingValues values, DateTime &start, TimeSpan &duration, std::vector<std::string> &exName, std::vector<TimeSpan> &exDuration, std::vector<TimeSpan> &exRecovery) const
+void Controller::extractFromViewValues(dialogValues values, DateTime& start, TimeSpan& duration,std::vector<std::string>& exName,
+                                       std::vector<Time>& exDuration,std::vector<Time>& exRecovery, int& pos, action& exAct, int& exPos) const
 {
     std::vector<QString> names = values.exName;
     std::vector<QTime> durations = values.exDuration;
     std::vector<QTime> recoveries = values.exRecovery;
+    pos = values.pos;
+    exAct = values.exAct;
+    exPos = values.exPos;
 
     start = DateTimeConverter::toDateTime(values.start);
     if (values.type == QString("Endurance") || values.type == QString("Ciclismo") || values.type == QString("Corsa")
@@ -114,13 +118,17 @@ std::vector<trainingValues> Controller::extractFromModelValues(const std::list<T
 void Controller::add()
 {
     try {
-        trainingValues values = view->showAddDialog();
+        dialogValues values = view->showAddDialog();
         DateTime start;
         TimeSpan duration;
+        int pos = 0;
+        action exAct = nothing;
+        int exPos = 0;
         std::vector<std::string> exName;
         std::vector<Time> exDuration;
         std::vector<Time> exRecovery;
-        extractFromViewValues(values,start,duration,exName,exDuration,exRecovery);
+
+        extractFromViewValues(values,start,duration,exName,exDuration,exRecovery,pos,exAct,exPos);
         model->addNewTraining(values.type.toStdString(),values.name.toStdString(),
                               start,values.distance,duration,&exName,&exDuration,&exRecovery);
         saved = false;
@@ -136,14 +144,17 @@ void Controller::add()
 void Controller::set()
 {
     try {
-        trainingValues values = view->showSetDialog();
+        dialogValues values = view->showSetDialog();
         DateTime start;
         TimeSpan duration;
+        int pos = 0;
+        action exAct = nothing;
+        int exPos = 0;
         std::vector<std::string> exName;
         std::vector<Time> exDuration;
         std::vector<Time> exRecovery;
 
-        extractFromViewValues(values,start,duration,exName,exDuration,exRecovery);
+        extractFromViewValues(values,start,duration,exName,exDuration,exRecovery,pos,exAct,exPos);
 
         model->setTraining(values.pos,values.name.toStdString(),start,values.distance,duration,values.exPos,values.exAct
                            ,&exName,&exDuration, &exRecovery);
@@ -160,7 +171,7 @@ void Controller::set()
 void Controller::remove()
 {
     try {
-        trainingValues values = view->showRemoveDialog();
+        dialogValues values = view->showRemoveDialog();
         model->removeTraining(values.pos);
         saved = false;
         view->showData();
@@ -264,11 +275,15 @@ void Controller::open()
         {
             DateTime start;
             TimeSpan duration;
+            int pos = 0;
+            action exAct = nothing;
+            int exPos = 0;
             std::vector<std::string> exName;
             std::vector<Time> exDuration;
             std::vector<Time> exRecovery;
 
-            extractFromViewValues(it,start,duration,exName,exDuration,exRecovery);
+            extractFromViewValues(dialogValues(it.type,it.start,it.name,it.distance,it.duration,it.exName,it.exDuration,it.exRecovery,0,nothing,0),
+                                  start,duration,exName,exDuration,exRecovery,pos,exAct,exPos);
             model->addNewTraining(it.type.toStdString(),it.name.toStdString(),
                               start,it.distance,duration,&exName,&exDuration,&exRecovery);
         }

@@ -24,7 +24,7 @@
 
 #include "endurancedialog.h"
 #include "repetitiondialog.h"
-#include "trainingvalues.h"
+#include "dialogvalues.h"
 #include "action.h"
 #include "selecttrainingdialog.h"
 
@@ -53,9 +53,9 @@ public:
     explicit chartViewer(QWidget *parent = nullptr);
     void setController(Controller* c);
     void showWarning(const QString& message);
-    trainingValues showAddDialog();
-    trainingValues showRemoveDialog();
-    trainingValues showSetDialog();
+    dialogValues showAddDialog();
+    dialogValues showRemoveDialog();
+    dialogValues showSetDialog();
     void setData(const std::list<Training*>* data);
     void showData();
 

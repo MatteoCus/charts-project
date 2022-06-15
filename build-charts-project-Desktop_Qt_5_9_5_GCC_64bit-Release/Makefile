@@ -75,6 +75,7 @@ SOURCES       = ../charts-project/Controller/controller.cpp \
 		../charts-project/View/selecttrainingdialog.cpp \
 		../charts-project/View/tablewidget.cpp \
 		../charts-project/View/trainingdialog.cpp \
+		../charts-project/dialogvalues.cpp \
 		../charts-project/main.cpp \
 		../charts-project/Model/plan.cpp \
 		../charts-project/Model/repetition.cpp \
@@ -118,6 +119,7 @@ OBJECTS       = controller.o \
 		selecttrainingdialog.o \
 		tablewidget.o \
 		trainingdialog.o \
+		dialogvalues.o \
 		main.o \
 		plan.o \
 		repetition.o \
@@ -351,6 +353,7 @@ DIST          = ../../../../Qt/5.9.5/gcc_64/mkspecs/features/spec_pre.prf \
 		../charts-project/Model/training.h \
 		../charts-project/Model/walk.h \
 		../charts-project/View/typedialog.h \
+		../charts-project/dialogvalues.h \
 		../charts-project/trainingvalues.h ../charts-project/Controller/controller.cpp \
 		../charts-project/Controller/xmlfilehandler.cpp \
 		../charts-project/DateTime/date.cpp \
@@ -376,6 +379,7 @@ DIST          = ../../../../Qt/5.9.5/gcc_64/mkspecs/features/spec_pre.prf \
 		../charts-project/View/selecttrainingdialog.cpp \
 		../charts-project/View/tablewidget.cpp \
 		../charts-project/View/trainingdialog.cpp \
+		../charts-project/dialogvalues.cpp \
 		../charts-project/main.cpp \
 		../charts-project/Model/plan.cpp \
 		../charts-project/Model/repetition.cpp \
@@ -786,8 +790,8 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../charts-project/resources.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents ../../../../Qt/5.9.5/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../charts-project/Controller/controller.h ../charts-project/Controller/xmlfilehandler.h ../charts-project/DateTime/date.h ../charts-project/DateTime/datetime.h ../charts-project/DateTime/datetimeconverter.h ../charts-project/View/axedchart.h ../charts-project/View/barchart.h ../charts-project/View/chart.h ../charts-project/View/chartviewer.h ../charts-project/View/chartwidget.h ../charts-project/View/endurancedialog.h ../charts-project/View/linechart.h ../charts-project/View/nonaxedchart.h ../charts-project/View/piechart.h ../charts-project/View/repetitiondialog.h ../charts-project/View/selecttrainingdialog.h ../charts-project/View/tablewidget.h ../charts-project/View/trainingdialog.h ../charts-project/action.h ../charts-project/Model/cycling.h ../charts-project/Model/endurance.h ../charts-project/Model/exercise.h ../charts-project/Model/exercisecreator.h ../charts-project/Model/model.h ../charts-project/DateTime/timespan.h ../charts-project/Model/trainingcreator.h ../charts-project/Model/plan.h ../charts-project/Model/repetition.h ../charts-project/Model/rugby.h ../charts-project/Model/run.h ../charts-project/Model/tennis.h ../charts-project/Model/training.h ../charts-project/Model/walk.h ../charts-project/View/typedialog.h ../charts-project/trainingvalues.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../charts-project/Controller/controller.cpp ../charts-project/Controller/xmlfilehandler.cpp ../charts-project/DateTime/date.cpp ../charts-project/DateTime/datetime.cpp ../charts-project/DateTime/datetimeconverter.cpp ../charts-project/Model/cycling.cpp ../charts-project/Model/endurance.cpp ../charts-project/Model/exercise.cpp ../charts-project/Model/exercisecreator.cpp ../charts-project/Model/model.cpp ../charts-project/DateTime/timespan.cpp ../charts-project/Model/trainingcreator.cpp ../charts-project/View/axedchart.cpp ../charts-project/View/barchart.cpp ../charts-project/View/chart.cpp ../charts-project/View/chartviewer.cpp ../charts-project/View/chartwidget.cpp ../charts-project/View/endurancedialog.cpp ../charts-project/View/linechart.cpp ../charts-project/View/nonaxedchart.cpp ../charts-project/View/piechart.cpp ../charts-project/View/repetitiondialog.cpp ../charts-project/View/selecttrainingdialog.cpp ../charts-project/View/tablewidget.cpp ../charts-project/View/trainingdialog.cpp ../charts-project/main.cpp ../charts-project/Model/plan.cpp ../charts-project/Model/repetition.cpp ../charts-project/Model/rugby.cpp ../charts-project/Model/run.cpp ../charts-project/Model/tennis.cpp ../charts-project/Model/training.cpp ../charts-project/Model/walk.cpp ../charts-project/View/typedialog.cpp ../charts-project/trainingvalues.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../charts-project/Controller/controller.h ../charts-project/Controller/xmlfilehandler.h ../charts-project/DateTime/date.h ../charts-project/DateTime/datetime.h ../charts-project/DateTime/datetimeconverter.h ../charts-project/View/axedchart.h ../charts-project/View/barchart.h ../charts-project/View/chart.h ../charts-project/View/chartviewer.h ../charts-project/View/chartwidget.h ../charts-project/View/endurancedialog.h ../charts-project/View/linechart.h ../charts-project/View/nonaxedchart.h ../charts-project/View/piechart.h ../charts-project/View/repetitiondialog.h ../charts-project/View/selecttrainingdialog.h ../charts-project/View/tablewidget.h ../charts-project/View/trainingdialog.h ../charts-project/action.h ../charts-project/Model/cycling.h ../charts-project/Model/endurance.h ../charts-project/Model/exercise.h ../charts-project/Model/exercisecreator.h ../charts-project/Model/model.h ../charts-project/DateTime/timespan.h ../charts-project/Model/trainingcreator.h ../charts-project/Model/plan.h ../charts-project/Model/repetition.h ../charts-project/Model/rugby.h ../charts-project/Model/run.h ../charts-project/Model/tennis.h ../charts-project/Model/training.h ../charts-project/Model/walk.h ../charts-project/View/typedialog.h ../charts-project/dialogvalues.h ../charts-project/trainingvalues.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../charts-project/Controller/controller.cpp ../charts-project/Controller/xmlfilehandler.cpp ../charts-project/DateTime/date.cpp ../charts-project/DateTime/datetime.cpp ../charts-project/DateTime/datetimeconverter.cpp ../charts-project/Model/cycling.cpp ../charts-project/Model/endurance.cpp ../charts-project/Model/exercise.cpp ../charts-project/Model/exercisecreator.cpp ../charts-project/Model/model.cpp ../charts-project/DateTime/timespan.cpp ../charts-project/Model/trainingcreator.cpp ../charts-project/View/axedchart.cpp ../charts-project/View/barchart.cpp ../charts-project/View/chart.cpp ../charts-project/View/chartviewer.cpp ../charts-project/View/chartwidget.cpp ../charts-project/View/endurancedialog.cpp ../charts-project/View/linechart.cpp ../charts-project/View/nonaxedchart.cpp ../charts-project/View/piechart.cpp ../charts-project/View/repetitiondialog.cpp ../charts-project/View/selecttrainingdialog.cpp ../charts-project/View/tablewidget.cpp ../charts-project/View/trainingdialog.cpp ../charts-project/dialogvalues.cpp ../charts-project/main.cpp ../charts-project/Model/plan.cpp ../charts-project/Model/repetition.cpp ../charts-project/Model/rugby.cpp ../charts-project/Model/run.cpp ../charts-project/Model/tennis.cpp ../charts-project/Model/training.cpp ../charts-project/Model/walk.cpp ../charts-project/View/typedialog.cpp ../charts-project/trainingvalues.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -934,6 +938,7 @@ moc_controller.cpp: ../../../../Qt/5.9.5/gcc_64/include/QtCore/QObject \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qfiledevice.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qvector2d.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qtouchdevice.h \
+		../charts-project/dialogvalues.h \
 		../charts-project/trainingvalues.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/QString \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/QTime \
@@ -2177,6 +2182,7 @@ moc_chartviewer.cpp: ../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QWidget \
 		../charts-project/Model/run.h \
 		../charts-project/Model/walk.h \
 		../charts-project/View/typedialog.h \
+		../charts-project/dialogvalues.h \
 		../charts-project/trainingvalues.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/QString \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/QTime \
@@ -3468,6 +3474,7 @@ moc_tablewidget.cpp: ../../../../Qt/5.9.5/gcc_64/include/QtCore/QObject \
 		../charts-project/Model/run.h \
 		../charts-project/Model/walk.h \
 		../charts-project/View/typedialog.h \
+		../charts-project/dialogvalues.h \
 		../charts-project/trainingvalues.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/QString \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/QTime \
@@ -3636,6 +3643,7 @@ moc_trainingdialog.cpp: ../../../../Qt/5.9.5/gcc_64/include/QtCore/QObject \
 		../charts-project/Model/run.h \
 		../charts-project/Model/walk.h \
 		../charts-project/View/typedialog.h \
+		../charts-project/dialogvalues.h \
 		../charts-project/trainingvalues.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/QString \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/QTime \
@@ -3904,6 +3912,7 @@ controller.o: ../charts-project/Controller/controller.cpp ../charts-project/Cont
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qfiledevice.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qvector2d.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qtouchdevice.h \
+		../charts-project/dialogvalues.h \
 		../charts-project/trainingvalues.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/QString \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/QTime \
@@ -6476,6 +6485,7 @@ chartviewer.o: ../charts-project/View/chartviewer.cpp ../charts-project/View/cha
 		../charts-project/Model/run.h \
 		../charts-project/Model/walk.h \
 		../charts-project/View/typedialog.h \
+		../charts-project/dialogvalues.h \
 		../charts-project/trainingvalues.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/QString \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/QTime \
@@ -7605,6 +7615,7 @@ endurancedialog.o: ../charts-project/View/endurancedialog.cpp ../charts-project/
 		../charts-project/Model/run.h \
 		../charts-project/Model/walk.h \
 		../charts-project/View/typedialog.h \
+		../charts-project/dialogvalues.h \
 		../charts-project/trainingvalues.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/QString \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/QTime \
@@ -9405,6 +9416,7 @@ repetitiondialog.o: ../charts-project/View/repetitiondialog.cpp ../charts-projec
 		../charts-project/Model/run.h \
 		../charts-project/Model/walk.h \
 		../charts-project/View/typedialog.h \
+		../charts-project/dialogvalues.h \
 		../charts-project/trainingvalues.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/QString \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/QTime \
@@ -9737,6 +9749,7 @@ tablewidget.o: ../charts-project/View/tablewidget.cpp ../charts-project/View/tab
 		../charts-project/Model/run.h \
 		../charts-project/Model/walk.h \
 		../charts-project/View/typedialog.h \
+		../charts-project/dialogvalues.h \
 		../charts-project/trainingvalues.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/QString \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/QTime \
@@ -9903,6 +9916,7 @@ trainingdialog.o: ../charts-project/View/trainingdialog.cpp ../charts-project/Vi
 		../charts-project/Model/run.h \
 		../charts-project/Model/walk.h \
 		../charts-project/View/typedialog.h \
+		../charts-project/dialogvalues.h \
 		../charts-project/trainingvalues.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/QString \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/QTime \
@@ -9912,6 +9926,54 @@ trainingdialog.o: ../charts-project/View/trainingdialog.cpp ../charts-project/Vi
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QInputDialog \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qinputdialog.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o trainingdialog.o ../charts-project/View/trainingdialog.cpp
+
+dialogvalues.o: ../charts-project/dialogvalues.cpp ../charts-project/dialogvalues.h \
+		../charts-project/trainingvalues.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/QString \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qstring.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qchar.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qglobal.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qconfig.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qtcore-config.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qsystemdetection.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qprocessordetection.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qtypeinfo.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qsysinfo.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qlogging.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qflags.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qatomic.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qbasicatomic.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qgenericatomic.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qatomic_msvc.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qglobalstatic.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qmutex.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qnumeric.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qversiontagging.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qbytearray.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qrefcount.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qnamespace.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qarraydata.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qstringbuilder.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/QTime \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qdatetime.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qshareddata.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qhash.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qiterator.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qlist.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qalgorithms.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qhashfunctions.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qpair.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qbytearraylist.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qstringlist.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qregexp.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qstringmatcher.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/QDateTime \
+		../charts-project/action.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o dialogvalues.o ../charts-project/dialogvalues.cpp
 
 main.o: ../charts-project/main.cpp ../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QApplication \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qapplication.h \
@@ -10122,6 +10184,7 @@ main.o: ../charts-project/main.cpp ../../../../Qt/5.9.5/gcc_64/include/QtWidgets
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QDoubleSpinBox \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qspinbox.h \
 		../charts-project/View/typedialog.h \
+		../charts-project/dialogvalues.h \
 		../charts-project/trainingvalues.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/QString \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/QTime \

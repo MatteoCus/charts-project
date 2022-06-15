@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <QMessageBox>
-#include "../trainingvalues.h"
+#include "../dialogvalues.h"
 #include "xmlfilehandler.h"
 #include "../DateTime/datetimeconverter.h"
 #include "../DateTime/datetime.h"
@@ -19,8 +19,8 @@ private:
     bool saved;
     QString filenameSaved;
 
-    void extractFromViewValues(trainingValues values, DateTime& start, TimeSpan& duration,std::vector<std::string>& exName,
-                std::vector<Time>& exDuration,std::vector<Time>& exRecovery) const;
+    void extractFromViewValues(dialogValues values, DateTime& start, TimeSpan& duration,std::vector<std::string>& exName,
+                std::vector<Time>& exDuration,std::vector<Time>& exRecovery, int& pos, action& exAct, int& exPos) const;
     std::vector<trainingValues> extractFromModelValues(const std::list<Training*>* trainings) const;
 
 public:

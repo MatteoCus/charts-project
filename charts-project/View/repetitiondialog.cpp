@@ -281,7 +281,7 @@ repetitionDialog::repetitionDialog(QWidget *parent, action act, Repetition *trai
     addButtons();
 }
 
-trainingValues repetitionDialog::getValues(QWidget *parent, bool *ok, action act, Repetition *training)
+dialogValues repetitionDialog::getValues(QWidget *parent, bool *ok, action act, Repetition *training)
 {
     repetitionDialog *dialog = new repetitionDialog(parent,act,training);
 
@@ -313,5 +313,5 @@ trainingValues repetitionDialog::getValues(QWidget *parent, bool *ok, action act
     else
         throw std::runtime_error("Operazione annullata!");
     dialog->deleteLater();
-    return trainingValues("",start,name,0,QTime(),exName,exDuration,recovery,pos,exAct, exPos);
+    return dialogValues("",start,name,0,QTime(),exName,exDuration,recovery,pos,exAct, exPos);
 }

@@ -14,7 +14,7 @@ private:
 
 public:
     explicit repetitionDialog(QWidget *parent, action act, Repetition *training = nullptr);
-    static trainingValues getValues(QWidget* parent, bool *ok, action act, Repetition* training = nullptr);
+    static dialogValues getValues(QWidget* parent, bool *ok, action act, Repetition* training = nullptr);
 };
 
 #endif // REPETITIONDIALOG_H

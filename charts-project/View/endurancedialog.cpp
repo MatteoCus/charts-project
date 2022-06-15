@@ -60,7 +60,7 @@ enduranceDialog::enduranceDialog(QWidget *parent, action act, Endurance* trainin
     addButtons();
 }
 
-trainingValues enduranceDialog::getValues(QWidget *parent, bool *ok, action act, Endurance *training)
+dialogValues enduranceDialog::getValues(QWidget *parent, bool *ok, action act, Endurance *training)
 {
     enduranceDialog *dialog = new enduranceDialog(parent,act,training);
 
@@ -83,5 +83,5 @@ trainingValues enduranceDialog::getValues(QWidget *parent, bool *ok, action act,
     else
         throw std::runtime_error("Operazione annullata!");
     dialog->deleteLater();
-    return trainingValues("",start,name,distance,duration,std::vector<QString>(),std::vector<QTime>(),std::vector<QTime>(),pos,nothing, 0);
+    return dialogValues("",start,name,distance,duration,std::vector<QString>(),std::vector<QTime>(),std::vector<QTime>(),pos,nothing, 0);
 }

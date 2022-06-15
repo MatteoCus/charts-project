@@ -176,7 +176,7 @@ void chartViewer::showWarning(const QString &message)
     QMessageBox::warning(this, "Warning", "<FONT COLOR='#ffffff'>"+message+"</FONT>",QMessageBox::Ok);
 }
 
-trainingValues chartViewer::showAddDialog()
+dialogValues chartViewer::showAddDialog()
 {
     bool ok = false;
     QString type = typeDialog::getType(this,&ok);
@@ -184,13 +184,13 @@ trainingValues chartViewer::showAddDialog()
     {
         if (type == "Camminata" || type == "Corsa" || type == "Ciclismo")
         {
-            trainingValues values = enduranceDialog::getValues(this,&ok,add);
+            dialogValues values = enduranceDialog::getValues(this,&ok,add);
             values.type = type;
             return values;
         }
         else
         {
-            trainingValues values = repetitionDialog::getValues(this,&ok,add);
+            dialogValues values = repetitionDialog::getValues(this,&ok,add);
             values.type = type;
             return values;
         }
@@ -199,7 +199,7 @@ trainingValues chartViewer::showAddDialog()
         throw std::runtime_error("Nessun tipo scelto, operazione annullata!");
 }
 
-trainingValues chartViewer::showRemoveDialog()
+dialogValues chartViewer::showRemoveDialog()
 {
     bool ok = false;
     QString start = selectTrainingDialog::getDate(this,&ok,trainings);
@@ -211,13 +211,13 @@ trainingValues chartViewer::showRemoveDialog()
         std::advance(training,n);
         if (auto aux = dynamic_cast<Endurance*>(*training))
         {
-            trainingValues values = enduranceDialog::getValues(this,&ok,eliminate,aux);
+            dialogValues values = enduranceDialog::getValues(this,&ok,eliminate,aux);
             values.pos = n;
             return values;
         }
         else if (auto aux = dynamic_cast<Repetition*>(*training))
         {
-            trainingValues values = repetitionDialog::getValues(this,&ok,eliminate,aux);
+            dialogValues values = repetitionDialog::getValues(this,&ok,eliminate,aux);
             values.pos = n;
             return values;
         }
@@ -228,7 +228,7 @@ trainingValues chartViewer::showRemoveDialog()
         throw std::runtime_error("Nessun allenamento scelto, operazione annullata!");
 }
 
-trainingValues chartViewer::showSetDialog()
+dialogValues chartViewer::showSetDialog()
 {
     bool ok = false;
     QString start = selectTrainingDialog::getDate(this,&ok,trainings);
@@ -243,14 +243,14 @@ trainingValues chartViewer::showSetDialog()
 
         if (auto aux = dynamic_cast<Endurance*>(*training))
         {
-            trainingValues values = enduranceDialog::getValues(this,&ok,set,aux);
+            dialogValues values = enduranceDialog::getValues(this,&ok,set,aux);
             values.pos = n;
             values.type = "Endurance";
             return values;
         }
         else if (auto aux = dynamic_cast<Repetition*>(*training))
         {
-            trainingValues values = repetitionDialog::getValues(this,&ok,set,aux);
+            dialogValues values = repetitionDialog::getValues(this,&ok,set,aux);
             values.pos = n;
             values.type = "Repetition";
             return values;

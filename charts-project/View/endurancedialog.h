@@ -11,7 +11,7 @@ private:
 
 public:
     explicit enduranceDialog(QWidget *parent, action act, Endurance* training = nullptr);
-    static trainingValues getValues(QWidget* parent, bool *ok, action act, Endurance* training = nullptr);
+    static dialogValues getValues(QWidget* parent, bool *ok, action act, Endurance* training = nullptr);
 };
 
 #endif // ENDURANCEDIALOG_H

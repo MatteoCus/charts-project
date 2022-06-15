@@ -18,7 +18,7 @@
 #include "./Model/run.h"
 #include "./Model/walk.h"
 #include "typedialog.h"
-#include "trainingvalues.h"
+#include "dialogvalues.h"
 #include "selecttrainingdialog.h"
 #include "action.h"
 #include <QInputDialog>
