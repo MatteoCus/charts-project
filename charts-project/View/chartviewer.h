@@ -43,7 +43,7 @@ private:
     QMenu *file, *visualizza, *allenamenti;
     const std::list<Training*>* trainings;
     void addMenu(QHBoxLayout* mainLayout);
-    void findTraining(unsigned int &n, bool found, const QString& start);
+    void findTraining(unsigned int &n, const QDateTime& start);
 
 private slots:
     void showExercises();

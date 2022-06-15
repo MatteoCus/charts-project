@@ -52,13 +52,28 @@ void chartViewer::addMenu(QHBoxLayout* mainLayout)
     mainLayout->setMenuBar(menuBar);
 }
 
-void chartViewer::findTraining(unsigned int &n, bool found, const QString& start)
+void chartViewer::findTraining(unsigned int &n, const QDateTime& start)
 {
     int i=0;
+    bool found = false;
+
     for (auto it = trainings->begin(); it != trainings->end() && !found ; ++it)
     {
         i++;
-        if (((*it)->getStart().toString() == start.toStdString()))
+
+        DateTime datetime = (*it)->getStart();
+
+        Date date = datetime.getDate();
+        Time time = datetime.getTime();
+
+        QDate qdate = start.date();
+        QTime qtime = start.time();
+
+
+        if (static_cast<int>(date.getDay()) == qdate.day() && static_cast<int>(date.getMonth()) == qdate.month()
+                && static_cast<int>(date.getYear()) == qdate.year()
+                && static_cast<int>(time.getHours()) == qtime.hour() && static_cast<int>(time.getMinutes()) == qtime.minute()
+                && static_cast<int>(time.getSeconds()) == qtime.second())
             found = true;
     }
     n = i-1;
@@ -186,12 +201,12 @@ trainingValues chartViewer::showAddDialog()
 
 trainingValues chartViewer::showRemoveDialog()
 {
-    bool ok = false, found = false;
+    bool ok = false;
     QString start = selectTrainingDialog::getDate(this,&ok,trainings);
     if(ok)
     {
         unsigned int n = 0;
-        findTraining(n,found,start);
+        findTraining(n,QDateTime::fromString(start, "dd/MM/yyyy hh:mm:ss"));
         auto training = trainings->begin();
         std::advance(training,n);
         if (auto aux = dynamic_cast<Endurance*>(*training))
@@ -215,12 +230,14 @@ trainingValues chartViewer::showRemoveDialog()
 
 trainingValues chartViewer::showSetDialog()
 {
-    bool ok = false, found = false;
+    bool ok = false;
     QString start = selectTrainingDialog::getDate(this,&ok,trainings);
+
     if(ok)
     {
         unsigned int n = 0;
-        findTraining(n,found,start);
+
+        findTraining(n,QDateTime::fromString(start, "dd/MM/yyyy hh:mm:ss"));
         auto training = trainings->begin();
         std::advance(training,n);
 

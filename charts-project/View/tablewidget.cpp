@@ -90,7 +90,7 @@ void tableWidget::setTableStyleSheet(QTableWidget* table)
     table->setStyleSheet("QHeaderView::section { color : white ; background-color: green}  "
                          "QTableWidget::item {color : white ;  gridline-color: green ; background-color : #404244; selection-background-color: green ;"
                          "selection-color : white}"
-                         "QLineEdit {color : white ; background-color : #404244; selection-background-color: green ;"
+                         "QLabel {color : white ; background-color : #404244; selection-background-color: green ;"
                          "selection-color : white}");
 
     insertEmptyRow(table);
@@ -101,11 +101,11 @@ void tableWidget::setTableStyleSheet(QTableWidget* table)
     vertHeader->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);
 
     QHeaderView* horizHeader = table->horizontalHeader();
-    horizHeader->setSectionResizeMode(0,QHeaderView::Fixed);
-    horizHeader->setSectionResizeMode(1,QHeaderView::Fixed);
-    horizHeader->setSectionResizeMode(2,QHeaderView::Fixed);
+    horizHeader->setSectionResizeMode(0,QHeaderView::ResizeToContents);
+    horizHeader->setSectionResizeMode(1,QHeaderView::ResizeToContents);
+    horizHeader->setSectionResizeMode(2,QHeaderView::ResizeToContents);
     horizHeader->setSectionResizeMode(3,QHeaderView::Stretch);
-    horizHeader->setSectionResizeMode(4,QHeaderView::Fixed);
+    horizHeader->setSectionResizeMode(4,QHeaderView::ResizeToContents);
     horizHeader->setSectionResizeMode(5,QHeaderView::Stretch);
     horizHeader->setSectionResizeMode(6,QHeaderView::Stretch);
 
@@ -116,6 +116,8 @@ void tableWidget::setTableStyleSheet(QTableWidget* table)
     table->setColumnWidth(4,127);
     table->setColumnWidth(5,48);
     table->setColumnWidth(6,67);
+
+   // table->verticalHeader()->hide();
 
 }
 
@@ -248,50 +250,50 @@ tableWidget::tableWidget(QWidget *parent) : QWidget(parent)
     connect(setButton,SIGNAL(clicked()), this, SIGNAL(set()));
 }
 
-void tableWidget::setLineEdit(QLineEdit* item)
+void tableWidget::setLineEdit(QLabel* item)
 {
     item->setAlignment(Qt::AlignCenter);
-    item->setReadOnly(true);
+
 }
 
 void tableWidget::showCommonData(Training* it, unsigned int i)
 {
     i == 1? table1->insertRow(0) : table2->insertRow(0);
-    QLineEdit* item = new QLineEdit(QString::fromStdString(it->getName()),this);
+    QLabel* item = new QLabel(QString::fromStdString(" "+it->getName()+" "),this);
     setLineEdit(item);
     i == 1? table1->setCellWidget(0,0,item) : table2->setCellWidget(0,0,item);
 
-    item = new QLineEdit(QString::fromStdString(it->getStart().toString()),this);
+    item = new QLabel(QString::fromStdString(" " + it->getStart().toString()+ " "),this);
     setLineEdit(item);
     i == 1? table1->setCellWidget(0,2,item) : table2->setCellWidget(0,2,item);
 
-    item = new QLineEdit(QString::fromStdString(it->getDuration().toString()),this);
+    item = new QLabel(QString::fromStdString(it->getDuration().toString()),this);
     setLineEdit(item);
     i == 1? table1->setCellWidget(0,3,item) : table2->setCellWidget(0,3,item);
 
-    item = new QLineEdit(QString::fromStdString(it->getEnd().toString()),this);
+    item = new QLabel(QString::fromStdString(" "+it->getEnd().toString()+" "),this);
     setLineEdit(item);
     i == 1? table1->setCellWidget(0,4,item) : table2->setCellWidget(0,4,item);
 
-    item = new QLineEdit(QString::fromStdString(std::to_string(it->CaloriesBurned())),this);
+    item = new QLabel(QString::fromStdString(std::to_string(it->CaloriesBurned())),this);
     setLineEdit(item);
     i == 1? table1->setCellWidget(0,5,item) : table2->setCellWidget(0,5,item);
 
     if (dynamic_cast<Endurance*>(it))
     {
         if (dynamic_cast<const Run*>(it))
-            item = new QLineEdit(QString::fromStdString("Corsa"));
+            item = new QLabel(QString::fromStdString(" Corsa "));
         else if (dynamic_cast<const Walk*>(it))
-            item = new QLineEdit(QString::fromStdString("Camminata"));
+            item = new QLabel(QString::fromStdString(" Camminata "));
         else
-            item = new QLineEdit(QString::fromStdString("Ciclismo"));
+            item = new QLabel(QString::fromStdString(" Ciclismo "));
     }
     else
     {
         if (dynamic_cast<const Tennis*>(it))
-            item = new QLineEdit(QString::fromStdString("Tennis"));
+            item = new QLabel(QString::fromStdString(" Tennis "));
         else
-            item = new QLineEdit(QString::fromStdString("Rugby"));
+            item = new QLabel(QString::fromStdString(" Rugby "));
     }
     setLineEdit(item);
     i == 1? table1->setCellWidget(0,1,item) : table2->setCellWidget(0,1,item);
@@ -300,7 +302,7 @@ void tableWidget::showCommonData(Training* it, unsigned int i)
 void tableWidget::showRepetitionData(Repetition *training, unsigned int i)
 {
 
-    QLineEdit* item = new QLineEdit(QString::fromStdString(value2string(training->Intensity()) + "%"),this);
+    QLabel* item = new QLabel(QString::fromStdString(value2string(training->Intensity()) + "%"),this);
     setLineEdit(item);
     if(i == 1)
         table1->setCellWidget(0,6,item);
@@ -310,7 +312,7 @@ void tableWidget::showRepetitionData(Repetition *training, unsigned int i)
 
 void tableWidget::showEnduranceData(Endurance *training, unsigned int i)
 {
-    QLineEdit* item = new QLineEdit(QString::fromStdString(value2string(training->getDistance()) + "km"),this);
+    QLabel* item = new QLabel(QString::fromStdString(value2string(training->getDistance()) + "km"),this);
     setLineEdit(item);
 
     if(i == 1)
@@ -438,6 +440,8 @@ void tableWidget::showData()
 
     table1->scrollToTop();
     table2->scrollToTop();
+
+    table1->resizeColumnsToContents();
 
     table1->setVisible(true);
     table2->setVisible(splitState);

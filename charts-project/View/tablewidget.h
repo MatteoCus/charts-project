@@ -13,7 +13,7 @@
 #include <QSizePolicy>
 #include <QDialog>
 #include <QTimeEdit>
-#include <QLineEdit>
+#include <QLabel>
 #include <QCheckBox>
 #include <sstream>
 #include <iomanip>
@@ -56,7 +56,7 @@ private:
     void addControlTable();
     void addControls();
 
-    void setLineEdit(QLineEdit* item);
+    void setLineEdit(QLabel* item);
 
     void showCommonData(Training* it, unsigned int i = 1);
     void showRepetitionData(Repetition* training, unsigned int i = 1);

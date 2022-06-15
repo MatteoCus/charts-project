@@ -1022,8 +1022,6 @@ moc_controller.cpp: ../../../../Qt/5.9.5/gcc_64/include/QtCore/QObject \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QSizePolicy \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QTimeEdit \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qdatetimeedit.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QLineEdit \
-		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qlineedit.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QCheckBox \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qcheckbox.h \
 		../charts-project/View/selecttrainingdialog.h \
@@ -1034,6 +1032,8 @@ moc_controller.cpp: ../../../../Qt/5.9.5/gcc_64/include/QtCore/QObject \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QLayout \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QComboBox \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qcombobox.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QLineEdit \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qlineedit.h \
 		../charts-project/View/repetitiondialog.h \
 		../charts-project/View/trainingdialog.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QDateTimeEdit \
@@ -2149,8 +2149,6 @@ moc_chartviewer.cpp: ../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QWidget \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QTimeEdit \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qdatetimeedit.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qdatetime.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QLineEdit \
-		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qlineedit.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QCheckBox \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qcheckbox.h \
 		../charts-project/View/selecttrainingdialog.h \
@@ -2161,6 +2159,8 @@ moc_chartviewer.cpp: ../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QWidget \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QLayout \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QComboBox \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qcombobox.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QLineEdit \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qlineedit.h \
 		../charts-project/Model/repetition.h \
 		../charts-project/Model/exercise.h \
 		../charts-project/DateTime/timespan.h \
@@ -3436,12 +3436,6 @@ moc_tablewidget.cpp: ../../../../Qt/5.9.5/gcc_64/include/QtCore/QObject \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QTimeEdit \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qdatetimeedit.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qdatetime.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QLineEdit \
-		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qlineedit.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtGui/qtextcursor.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtGui/qtextformat.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtGui/qpen.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtGui/qtextoption.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QCheckBox \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qcheckbox.h \
 		../charts-project/View/selecttrainingdialog.h \
@@ -3452,6 +3446,12 @@ moc_tablewidget.cpp: ../../../../Qt/5.9.5/gcc_64/include/QtCore/QObject \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QLayout \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QComboBox \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qcombobox.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QLineEdit \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qlineedit.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qtextcursor.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qtextformat.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qpen.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qtextoption.h \
 		../charts-project/Model/repetition.h \
 		../charts-project/Model/exercise.h \
 		../charts-project/DateTime/timespan.h \
@@ -3992,8 +3992,6 @@ controller.o: ../charts-project/Controller/controller.cpp ../charts-project/Cont
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QSizePolicy \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QTimeEdit \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qdatetimeedit.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QLineEdit \
-		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qlineedit.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QCheckBox \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qcheckbox.h \
 		../charts-project/View/selecttrainingdialog.h \
@@ -4004,6 +4002,8 @@ controller.o: ../charts-project/Controller/controller.cpp ../charts-project/Cont
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QLayout \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QComboBox \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qcombobox.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QLineEdit \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qlineedit.h \
 		../charts-project/View/repetitiondialog.h \
 		../charts-project/View/trainingdialog.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QDateTimeEdit \
@@ -6448,8 +6448,6 @@ chartviewer.o: ../charts-project/View/chartviewer.cpp ../charts-project/View/cha
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QTimeEdit \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qdatetimeedit.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qdatetime.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QLineEdit \
-		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qlineedit.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QCheckBox \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qcheckbox.h \
 		../charts-project/View/selecttrainingdialog.h \
@@ -6460,6 +6458,8 @@ chartviewer.o: ../charts-project/View/chartviewer.cpp ../charts-project/View/cha
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QLayout \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QComboBox \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qcombobox.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QLineEdit \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qlineedit.h \
 		../charts-project/Model/repetition.h \
 		../charts-project/Model/exercise.h \
 		../charts-project/DateTime/timespan.h \
@@ -9705,12 +9705,6 @@ tablewidget.o: ../charts-project/View/tablewidget.cpp ../charts-project/View/tab
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QTimeEdit \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qdatetimeedit.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qdatetime.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QLineEdit \
-		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qlineedit.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtGui/qtextcursor.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtGui/qtextformat.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtGui/qpen.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtGui/qtextoption.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QCheckBox \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qcheckbox.h \
 		../charts-project/View/selecttrainingdialog.h \
@@ -9721,6 +9715,12 @@ tablewidget.o: ../charts-project/View/tablewidget.cpp ../charts-project/View/tab
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QLayout \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QComboBox \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qcombobox.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QLineEdit \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qlineedit.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qtextcursor.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qtextformat.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qpen.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qtextoption.h \
 		../charts-project/Model/repetition.h \
 		../charts-project/Model/exercise.h \
 		../charts-project/DateTime/timespan.h \
@@ -10104,8 +10104,6 @@ main.o: ../charts-project/main.cpp ../../../../Qt/5.9.5/gcc_64/include/QtWidgets
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QTimeEdit \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qdatetimeedit.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qdatetime.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QLineEdit \
-		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qlineedit.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QCheckBox \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qcheckbox.h \
 		../charts-project/View/selecttrainingdialog.h \
@@ -10116,6 +10114,8 @@ main.o: ../charts-project/main.cpp ../../../../Qt/5.9.5/gcc_64/include/QtWidgets
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QLayout \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QComboBox \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qcombobox.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QLineEdit \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qlineedit.h \
 		../charts-project/View/repetitiondialog.h \
 		../charts-project/View/trainingdialog.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QDateTimeEdit \
