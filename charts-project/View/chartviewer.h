@@ -50,6 +50,7 @@ private:
 private slots:
     void showExercises();
     void showChart();
+    void screenChanged();
 
 public:
     explicit chartViewer(QWidget *parent = nullptr);

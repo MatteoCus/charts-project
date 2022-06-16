@@ -132,6 +132,11 @@ void chartViewer::showChart()
     dialog->show();
 }
 
+void chartViewer::screenChanged()
+{
+    tableW->screenChanged();
+}
+
 void chartViewer::setStyle()
 {
     setStyleSheet("QWidget{background-color : #323235} "
@@ -204,10 +209,13 @@ chartViewer::chartViewer(QWidget *parent) : QWidget(parent)
     setLayout(mainLayout);
     setStyle();
 
+    winId();
+
     connect(tableW, SIGNAL(showExercises()), this, SLOT(showExercises()));
     connect(tableW,SIGNAL(add()), this, SIGNAL(addTrainings()));
     connect(tableW,SIGNAL(remove()), this, SIGNAL(removeTrainings()));
     connect(tableW,SIGNAL(set()), this, SIGNAL(setTrainings()));
+    connect(window()->windowHandle(), SIGNAL(screenChanged(QScreen*)), this, SLOT(screenChanged()));
 }
 
 void chartViewer::setController(Controller *c)

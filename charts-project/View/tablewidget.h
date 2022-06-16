@@ -2,7 +2,10 @@
 #define TABLEWIDGET_H
 
 #include <QObject>
+#include <QWindow>
+#include <QDesktopWidget>
 #include <QWidget>
+#include <QRect>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QLabel>
@@ -56,14 +59,17 @@ private:
     void addControlTable();
     void addControls();
 
-    void setLineEdit(QLabel* item);
-
     void showCommonData(Training* it, unsigned int i = 1);
     void showRepetitionData(Repetition* training, unsigned int i = 1);
     void showEnduranceData(Endurance* training, unsigned int i = 1);
     
     void insertEmptyRow(QTableWidget* table);
-    
+
+    void setContentResize(QTableWidget* table);
+
+    void setStretchResize(QTableWidget *table);
+    void adjustResizePolicy();
+
 private slots:
     void changeState(bool state, bool show);
 public:
@@ -71,6 +77,7 @@ public:
     void showData();
     void setData(const std::list<Training *> *data);
     void setSplitState(bool state);
+    void screenChanged();
 
 signals:
     void add();

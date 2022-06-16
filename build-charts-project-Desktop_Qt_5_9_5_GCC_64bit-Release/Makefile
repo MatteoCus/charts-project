@@ -1007,6 +1007,15 @@ moc_controller.cpp: ../../../../Qt/5.9.5/gcc_64/include/QtCore/QObject \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qrawfont.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qfontdatabase.h \
 		../charts-project/View/tablewidget.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/QWindow \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qwindow.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/QEvent \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/QMargins \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/QRect \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qsurface.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qsurfaceformat.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QDesktopWidget \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qdesktopwidget.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QLabel \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qlabel.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QPushButton \
@@ -1175,12 +1184,6 @@ moc_controller.cpp: ../../../../Qt/5.9.5/gcc_64/include/QtCore/QObject \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qaccessibleobject.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qaccessibleplugin.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qbackingstore.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtGui/qwindow.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/QEvent \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/QMargins \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/QRect \
-		../../../../Qt/5.9.5/gcc_64/include/QtGui/qsurface.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtGui/qsurfaceformat.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qbitmap.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qclipboard.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qdesktopservices.h \
@@ -1226,7 +1229,6 @@ moc_controller.cpp: ../../../../Qt/5.9.5/gcc_64/include/QtCore/QObject \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qopenglwindow.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/QPaintDeviceWindow \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qpaintdevicewindow.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtGui/QWindow \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/QPaintDevice \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/QOpenGLContext \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/QImage \
@@ -1260,7 +1262,6 @@ moc_controller.cpp: ../../../../Qt/5.9.5/gcc_64/include/QtCore/QObject \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QtWidgetsDepends \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qaccessiblewidget.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qapplication.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qdesktopwidget.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qbuttongroup.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qcalendarwidget.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qcolordialog.h \
@@ -2136,6 +2137,15 @@ moc_chartviewer.cpp: ../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QWidget \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qfontdatabase.h \
 		../charts-project/View/tablewidget.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/QObject \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/QWindow \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qwindow.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/QEvent \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/QMargins \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/QRect \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qsurface.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qsurfaceformat.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QDesktopWidget \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qdesktopwidget.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QLabel \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qlabel.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QPushButton \
@@ -2324,12 +2334,6 @@ moc_chartviewer.cpp: ../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QWidget \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qaccessibleobject.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qaccessibleplugin.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qbackingstore.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtGui/qwindow.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/QEvent \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/QMargins \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/QRect \
-		../../../../Qt/5.9.5/gcc_64/include/QtGui/qsurface.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtGui/qsurfaceformat.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qbitmap.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qclipboard.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qdesktopservices.h \
@@ -2375,7 +2379,6 @@ moc_chartviewer.cpp: ../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QWidget \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qopenglwindow.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/QPaintDeviceWindow \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qpaintdevicewindow.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtGui/QWindow \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/QPaintDevice \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/QOpenGLContext \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/QImage \
@@ -2409,7 +2412,6 @@ moc_chartviewer.cpp: ../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QWidget \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QtWidgetsDepends \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qaccessiblewidget.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qapplication.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qdesktopwidget.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qbuttongroup.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qcalendarwidget.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qcolordialog.h \
@@ -3484,45 +3486,54 @@ moc_tablewidget.cpp: ../../../../Qt/5.9.5/gcc_64/include/QtCore/QObject \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qvarlengtharray.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qcontainerfwd.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qobject_impl.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QWidget \
-		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qwidget.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/QWindow \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qwindow.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qtguiglobal.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qtgui-config.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qtwidgets-config.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtGui/qwindowdefs.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtGui/qwindowdefs_win.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/QEvent \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/QMargins \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qmargins.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtGui/qpaintdevice.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/QRect \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qrect.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qsize.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qpoint.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtGui/qpalette.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qsurface.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qsurfaceformat.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qwindowdefs.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qwindowdefs_win.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qicon.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qpixmap.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qpaintdevice.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qcolor.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qrgb.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qrgba64.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtGui/qbrush.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/qvector.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtGui/qmatrix.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtGui/qpolygon.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtGui/qregion.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/qdatastream.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/qiodevice.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/qline.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtGui/qtransform.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtGui/qpainterpath.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtGui/qimage.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtGui/qpixelformat.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtGui/qpixmap.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qsharedpointer.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qshareddata.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qhash.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qimage.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qpixelformat.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qtransform.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qmatrix.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qpolygon.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qvector.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qregion.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qdatastream.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qiodevice.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qline.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qpainterpath.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qcursor.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QDesktopWidget \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qwidget.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qpalette.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qbrush.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qfont.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qfontmetrics.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qfontinfo.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qsizepolicy.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtGui/qcursor.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qkeysequence.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qevent.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qvariant.h \
@@ -3538,6 +3549,7 @@ moc_tablewidget.cpp: ../../../../Qt/5.9.5/gcc_64/include/QtCore/QObject \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qfiledevice.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qvector2d.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qtouchdevice.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QWidget \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QVBoxLayout \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qboxlayout.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qlayout.h \
@@ -3550,7 +3562,6 @@ moc_tablewidget.cpp: ../../../../Qt/5.9.5/gcc_64/include/QtCore/QObject \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QPushButton \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qpushbutton.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qabstractbutton.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtGui/qicon.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QTableWidget \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qtablewidget.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qtableview.h \
@@ -4111,6 +4122,15 @@ controller.o: ../charts-project/Controller/controller.cpp ../charts-project/Cont
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qrawfont.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qfontdatabase.h \
 		../charts-project/View/tablewidget.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/QWindow \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qwindow.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/QEvent \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/QMargins \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/QRect \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qsurface.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qsurfaceformat.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QDesktopWidget \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qdesktopwidget.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QLabel \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qlabel.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QPushButton \
@@ -4279,12 +4299,6 @@ controller.o: ../charts-project/Controller/controller.cpp ../charts-project/Cont
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qaccessibleobject.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qaccessibleplugin.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qbackingstore.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtGui/qwindow.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/QEvent \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/QMargins \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/QRect \
-		../../../../Qt/5.9.5/gcc_64/include/QtGui/qsurface.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtGui/qsurfaceformat.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qbitmap.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qclipboard.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qdesktopservices.h \
@@ -4330,7 +4344,6 @@ controller.o: ../charts-project/Controller/controller.cpp ../charts-project/Cont
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qopenglwindow.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/QPaintDeviceWindow \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qpaintdevicewindow.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtGui/QWindow \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/QPaintDevice \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/QOpenGLContext \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/QImage \
@@ -4364,7 +4377,6 @@ controller.o: ../charts-project/Controller/controller.cpp ../charts-project/Cont
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QtWidgetsDepends \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qaccessiblewidget.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qapplication.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qdesktopwidget.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qbuttongroup.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qcalendarwidget.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qcolordialog.h \
@@ -6569,6 +6581,15 @@ chartviewer.o: ../charts-project/View/chartviewer.cpp ../charts-project/View/cha
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qfontdatabase.h \
 		../charts-project/View/tablewidget.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/QObject \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/QWindow \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qwindow.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/QEvent \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/QMargins \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/QRect \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qsurface.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qsurfaceformat.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QDesktopWidget \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qdesktopwidget.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QLabel \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qlabel.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QPushButton \
@@ -6757,12 +6778,6 @@ chartviewer.o: ../charts-project/View/chartviewer.cpp ../charts-project/View/cha
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qaccessibleobject.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qaccessibleplugin.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qbackingstore.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtGui/qwindow.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/QEvent \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/QMargins \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/QRect \
-		../../../../Qt/5.9.5/gcc_64/include/QtGui/qsurface.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtGui/qsurfaceformat.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qbitmap.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qclipboard.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qdesktopservices.h \
@@ -6808,7 +6823,6 @@ chartviewer.o: ../charts-project/View/chartviewer.cpp ../charts-project/View/cha
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qopenglwindow.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/QPaintDeviceWindow \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qpaintdevicewindow.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtGui/QWindow \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/QPaintDevice \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/QOpenGLContext \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/QImage \
@@ -6842,7 +6856,6 @@ chartviewer.o: ../charts-project/View/chartviewer.cpp ../charts-project/View/cha
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QtWidgetsDepends \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qaccessiblewidget.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qapplication.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qdesktopwidget.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qbuttongroup.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qcalendarwidget.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qcolordialog.h \
@@ -9889,45 +9902,54 @@ tablewidget.o: ../charts-project/View/tablewidget.cpp ../charts-project/View/tab
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qvarlengtharray.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qcontainerfwd.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qobject_impl.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QWidget \
-		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qwidget.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/QWindow \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qwindow.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qtguiglobal.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qtgui-config.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qtwidgets-config.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtGui/qwindowdefs.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtGui/qwindowdefs_win.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/QEvent \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/QMargins \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qmargins.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtGui/qpaintdevice.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/QRect \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qrect.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qsize.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qpoint.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtGui/qpalette.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qsurface.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qsurfaceformat.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qwindowdefs.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qwindowdefs_win.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qicon.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qpixmap.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qpaintdevice.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qcolor.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qrgb.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qrgba64.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtGui/qbrush.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/qvector.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtGui/qmatrix.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtGui/qpolygon.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtGui/qregion.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/qdatastream.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/qiodevice.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/qline.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtGui/qtransform.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtGui/qpainterpath.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtGui/qimage.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtGui/qpixelformat.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtGui/qpixmap.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qsharedpointer.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qshareddata.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qhash.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qimage.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qpixelformat.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qtransform.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qmatrix.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qpolygon.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qvector.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qregion.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qdatastream.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qiodevice.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/qline.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qpainterpath.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qcursor.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QDesktopWidget \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qwidget.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qpalette.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qbrush.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qfont.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qfontmetrics.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qfontinfo.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qsizepolicy.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtGui/qcursor.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qkeysequence.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qevent.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qvariant.h \
@@ -9943,6 +9965,7 @@ tablewidget.o: ../charts-project/View/tablewidget.cpp ../charts-project/View/tab
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/qfiledevice.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qvector2d.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qtouchdevice.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QWidget \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QVBoxLayout \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qboxlayout.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qlayout.h \
@@ -9955,7 +9978,6 @@ tablewidget.o: ../charts-project/View/tablewidget.cpp ../charts-project/View/tab
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QPushButton \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qpushbutton.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qabstractbutton.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtGui/qicon.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QTableWidget \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qtablewidget.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qtableview.h \
@@ -10405,6 +10427,14 @@ main.o: ../charts-project/main.cpp ../../../../Qt/5.9.5/gcc_64/include/QtWidgets
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qfontdatabase.h \
 		../charts-project/View/tablewidget.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/QObject \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/QWindow \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qwindow.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/QEvent \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/QMargins \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/QRect \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qsurface.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtGui/qsurfaceformat.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QDesktopWidget \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QLabel \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/qlabel.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QPushButton \
@@ -10578,12 +10608,6 @@ main.o: ../charts-project/main.cpp ../../../../Qt/5.9.5/gcc_64/include/QtWidgets
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qaccessibleobject.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qaccessibleplugin.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qbackingstore.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtGui/qwindow.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/QEvent \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/QMargins \
-		../../../../Qt/5.9.5/gcc_64/include/QtCore/QRect \
-		../../../../Qt/5.9.5/gcc_64/include/QtGui/qsurface.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtGui/qsurfaceformat.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qbitmap.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qclipboard.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qdesktopservices.h \
@@ -10627,7 +10651,6 @@ main.o: ../charts-project/main.cpp ../../../../Qt/5.9.5/gcc_64/include/QtWidgets
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qopenglwindow.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/QPaintDeviceWindow \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/qpaintdevicewindow.h \
-		../../../../Qt/5.9.5/gcc_64/include/QtGui/QWindow \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/QPaintDevice \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/QOpenGLContext \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/QImage \
