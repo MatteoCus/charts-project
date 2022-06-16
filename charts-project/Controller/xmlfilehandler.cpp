@@ -224,10 +224,10 @@ QString xmlFileHandler::getWriteFileName()
 
     if(fileName.size() > 4)
     {
-    QString ext = fileName.mid(fileName.size()-4);
+        QString ext = fileName.mid(fileName.size()-4);
 
-    if(ext != ".xml")
-        fileName += ".xml";
+        if(ext != ".xml")
+            fileName += ".xml";
     }
     else
         fileName += ".xml";
@@ -241,7 +241,7 @@ std::vector<trainingValues> xmlFileHandler::read(QIODevice *device)
     if (reader.readNextStartElement() && reader.name() == "plan")
         return readTrainings(reader);
     else
-      throw std::runtime_error("Il file non è leggibile!");
+        throw std::runtime_error("Il file non è leggibile!");
 
 }
 

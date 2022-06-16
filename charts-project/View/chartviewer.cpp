@@ -87,29 +87,29 @@ void chartViewer::closeEvent(QCloseEvent *event)
 
 void chartViewer::showExercises()
 {
-        bool ok;
-        try{
-            QString start = selectTrainingDialog::getDate(this,&ok,trainings,"Repetition");
-            if (start != "")
-            {
-                unsigned int n = 0;
-                findTraining(n,QDateTime::fromString(start, "dd/MM/yyyy hh:mm:ss"));
-                auto training = trainings->begin();
-                std::advance(training,n);
-                if (dynamic_cast<Repetition*>(*training))
-                {
-                    Repetition* aux = static_cast<Repetition*>(*training);
-                    repetitionDialog* rep = new repetitionDialog(this,nothing,aux);
-                    rep->exec();
-                }
-                else
-                    throw std::runtime_error("Tipo di allenamento selezionato non valido!");
-            }
-        }
-        catch(std::runtime_error e)
+    bool ok;
+    try{
+        QString start = selectTrainingDialog::getDate(this,&ok,trainings,"Repetition");
+        if (start != "")
         {
-            showWarning(e.what());
+            unsigned int n = 0;
+            findTraining(n,QDateTime::fromString(start, "dd/MM/yyyy hh:mm:ss"));
+            auto training = trainings->begin();
+            std::advance(training,n);
+            if (dynamic_cast<Repetition*>(*training))
+            {
+                Repetition* aux = static_cast<Repetition*>(*training);
+                repetitionDialog* rep = new repetitionDialog(this,nothing,aux);
+                rep->exec();
+            }
+            else
+                throw std::runtime_error("Tipo di allenamento selezionato non valido!");
         }
+    }
+    catch(std::runtime_error e)
+    {
+        showWarning(e.what());
+    }
 }
 
 void chartViewer::showChart()
@@ -342,7 +342,7 @@ void chartViewer::showData()
     }
 
     if(repetition)
-       visualizza->actions()[1]->setVisible(true);
+        visualizza->actions()[1]->setVisible(true);
     else
         visualizza->actions()[1]->setVisible(false);
 

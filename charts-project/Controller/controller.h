@@ -22,7 +22,7 @@ private:
     initialDialog* dialog;
 
     void extractFromViewValues(dialogValues values, DateTime& start, TimeSpan& duration,std::vector<std::string>& exName,
-                std::vector<Time>& exDuration,std::vector<Time>& exRecovery, int& pos, action& exAct, int& exPos) const;
+                               std::vector<Time>& exDuration,std::vector<Time>& exRecovery, int& pos, action& exAct, int& exPos) const;
     std::vector<trainingValues> extractFromModelValues(const std::list<Training*>* trainings) const;
 
 public:

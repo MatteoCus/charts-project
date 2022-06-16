@@ -25,7 +25,7 @@ repetitionDialog::repetitionDialog(QWidget *parent, action act, Repetition *trai
 
         bool ok;
         std::string item = QInputDialog::getItem(this, tr("Esercizi"),
-                                             tr("Azione da effettuare:"), items, 0, false, &ok).toStdString();
+                                                 tr("Azione da effettuare:"), items, 0, false, &ok).toStdString();
         if (ok && item !="")
         {
             if (item == items.at(0).toStdString())

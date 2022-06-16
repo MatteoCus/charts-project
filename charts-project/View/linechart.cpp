@@ -40,13 +40,12 @@ void lineChart::setAxes(const std::string &x, const std::string &y)
 void lineChart::addSeries(const std::vector<double> *values, const std::vector<DateTime *> *start, bool duration)
 {
     if (values->size() != start->size())
-        throw std::runtime_error("Impossibile visualizzare i dati!");
+        throw std::runtime_error("Tentativo di visualizzazione di dati non congrui nelle dimensioni!");
 
     if (!graph->series().empty())
         graph->removeSeries(series);
 
     series->clear();
-    //axisX->setTickCount(values->size() != 1? values->size() : 2);
 
     axisY->setTitleVisible(false);
     axisY->setVisible(false);

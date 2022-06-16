@@ -75,9 +75,9 @@ void trainingDialog::addButtons()
     mainL->addLayout(buttonsLayout);
 
     connect(buttonBox, &QDialogButtonBox::accepted,
-                      this, &trainingDialog::accept);
+            this, &trainingDialog::accept);
     connect(buttonBox, &QDialogButtonBox::rejected,
-        this, &trainingDialog::reject);
+            this, &trainingDialog::reject);
 
 }
 

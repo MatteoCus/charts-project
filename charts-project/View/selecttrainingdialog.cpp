@@ -5,7 +5,7 @@ using namespace std;
 selectTrainingDialog::selectTrainingDialog(QWidget* parent, const std::list<Training*>* trainings, std::string type): QDialog(parent)
 {
     if (!trainings)
-        throw std::runtime_error("Non ci sono allenamenti adatti!");
+        throw std::runtime_error("Non ci sono allenamenti che soddisfano la richiesta!");
 
     QVBoxLayout *mainL = new QVBoxLayout;
     QHBoxLayout *dateLayout = new QHBoxLayout;
@@ -35,7 +35,7 @@ selectTrainingDialog::selectTrainingDialog(QWidget* parent, const std::list<Trai
     for (--it; it != --trainings->begin(); --it)
     {
         if(type == "All" || (type == "Repetition" && dynamic_cast<const Repetition*>(*it))
-                         || (type == "Endurance" && dynamic_cast<const Endurance*>(*it)))
+                || (type == "Endurance" && dynamic_cast<const Endurance*>(*it)))
         {
             if (!foundFirst)
             {
@@ -76,9 +76,9 @@ selectTrainingDialog::selectTrainingDialog(QWidget* parent, const std::list<Trai
     mainL->addLayout(buttonsLayout);
 
     connect(buttonBox, &QDialogButtonBox::accepted,
-                      this, &selectTrainingDialog::accept);
+            this, &selectTrainingDialog::accept);
     connect(buttonBox, &QDialogButtonBox::rejected,
-        this, &selectTrainingDialog::reject);
+            this, &selectTrainingDialog::reject);
 
     connect(dateBox, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged),[=](int index){auto training = aux.begin(); std::advance(training, index); name->setText(QString::fromStdString((*training)->getName())); });
 

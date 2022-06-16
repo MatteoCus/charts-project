@@ -12,15 +12,15 @@ Training *trainingCreator::createTraining(const std::string &type,
 
     if (type == "Ciclismo")
         return new Cycling(name, start, distance, duration);
-     else if (type == "Corsa")
+    else if (type == "Corsa")
         return new Run(name, start, distance, duration);
-     else if (type == "Camminata")
+    else if (type == "Camminata")
         return new Walk(name, start, distance, duration);
 
     Repetition *aux = nullptr;
     if (type == "Rugby")
         aux = new Rugby(name, start);
-     else if (type == "Tennis")
+    else if (type == "Tennis")
         aux = new Tennis(name, start);
 
     if (aux && exName->size() == exDuration->size() && exDuration->size() == exRecovery->size() && exName->size() > 0 && exName->size() < 16) {
@@ -31,5 +31,5 @@ Training *trainingCreator::createTraining(const std::string &type,
         delete creator;
         return aux;
     } else
-        throw std::runtime_error("errore");
+        throw std::runtime_error("Tentativo di creazione di una serie di esercizi che non rispettano i vincoli di programma!");
 }

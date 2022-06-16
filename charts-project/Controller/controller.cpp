@@ -51,7 +51,7 @@ void Controller::extractFromViewValues(dialogValues values, DateTime& start, Tim
 
     start = DateTimeConverter::toDateTime(values.start);
     if (values.type == QString("Endurance") || values.type == QString("Ciclismo") || values.type == QString("Corsa")
-           || values.type == QString("Camminata"))
+            || values.type == QString("Camminata"))
         duration = DateTimeConverter::toTime(values.duration);
 
     for(auto it = names.begin(); it != names.end(); ++it)
@@ -153,11 +153,15 @@ void Controller::add()
                               start,values.distance,duration,&exName,&exDuration,&exRecovery);
         saved = false;
         view->showData();
-    }  catch (std::runtime_error e) {
-            view->showWarning(QString::fromStdString(e.what()));
     }
-       catch (std::invalid_argument e){
-            view->showWarning(QString::fromStdString(e.what()));
+    catch (std::runtime_error e) {
+        view->showWarning(QString::fromStdString(e.what()));
+    }
+    catch (std::invalid_argument e){
+        view->showWarning(QString::fromStdString(e.what()));
+    }
+    catch (std::out_of_range e){
+        view->showWarning(QString::fromStdString(e.what()));
     }
 }
 
@@ -180,10 +184,14 @@ void Controller::set()
                            ,&exName,&exDuration, &exRecovery);
         saved = false;
         view->showData();
-    }  catch (std::runtime_error e) {
+    }
+    catch (std::runtime_error e) {
         view->showWarning(QString::fromStdString(e.what()));
     }
     catch (std::invalid_argument e){
+        view->showWarning(QString::fromStdString(e.what()));
+    }
+    catch (std::out_of_range e){
         view->showWarning(QString::fromStdString(e.what()));
     }
 }
@@ -195,11 +203,17 @@ void Controller::remove()
         model->removeTraining(values.pos);
         saved = false;
         view->showData();
-    }  catch (std::runtime_error e) {
-            view->showWarning(QString::fromStdString(e.what()));
     }
-       catch (std::invalid_argument e){
-            view->showWarning(QString::fromStdString(e.what()));
+    catch (std::runtime_error e) {
+        view->showWarning(QString::fromStdString(e.what()));
+    }
+
+    catch (std::invalid_argument e){
+        view->showWarning(QString::fromStdString(e.what()));
+    }
+
+    catch (std::out_of_range e){
+        view->showWarning(QString::fromStdString(e.what()));
     }
 }
 
@@ -304,7 +318,7 @@ void Controller::open()
             extractFromViewValues(dialogValues(it.type,it.start,it.name,it.distance,it.duration,it.exName,it.exDuration,it.exRecovery,0,nothing,0),
                                   start,duration,exName,exDuration,exRecovery,pos,exAct,exPos);
             model->addNewTraining(it.type.toStdString(),it.name.toStdString(),
-                              start,it.distance,duration,&exName,&exDuration,&exRecovery);
+                                  start,it.distance,duration,&exName,&exDuration,&exRecovery);
         }
         saved = true;
         filenameSaved = fileName;
@@ -323,7 +337,7 @@ void Controller::closePlan()
             save();
     }
     catch (std::runtime_error e) {
-            view->showWarning(e.what());
+        view->showWarning(e.what());
     }
 }
 

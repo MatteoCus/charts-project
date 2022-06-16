@@ -4,9 +4,9 @@ using namespace std;
 
 std::string value2string(double value)
 {
-  std::ostringstream out;
-  out << std::fixed << std::setprecision(2) << value;
-  return out.str();
+    std::ostringstream out;
+    out << std::fixed << std::setprecision(2) << value;
+    return out.str();
 }
 
 void tableWidget::addToLayout(QBoxLayout *layout, QWidget *w1, QWidget *w2)
@@ -217,7 +217,7 @@ void tableWidget::changeState(bool state, bool show)
 
     if (splitState)
         label1->setText(QString::fromStdString("Allenamenti di ripetizione in ordine cronologico"));
-    else        
+    else
         label1->setText(QString::fromStdString("Allenamenti in ordine cronologico"));
 
     label1->adjustSize();

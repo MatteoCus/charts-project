@@ -17,6 +17,6 @@ double Rugby::Intensity() const {
         return (res < 100? res : 98.25);
     }
     else
-        throw std::runtime_error("Trying to calculate intensity with a null recovery time (division by 0");
+        throw std::runtime_error("Tentativo di calcolo dell'intensità di un allenamento usando una durata nulla!");
 }
 Rugby* Rugby::clone() const { return new Rugby(*this);}
