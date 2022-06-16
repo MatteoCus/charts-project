@@ -15,8 +15,9 @@ void tableWidget::addToLayout(QBoxLayout *layout, QWidget *w1, QWidget *w2)
     layout->addWidget(w2);
 }
 
-void tableWidget::adaptSingleTableHeight(unsigned int h, QTableWidget* table)
+void tableWidget::adaptSingleTableHeight(QTableWidget* table)
 {
+    unsigned int h = 22;
     for(int i = 0; i < table->rowCount() ; i++)
         h += table->rowHeight(i);
 
@@ -33,8 +34,10 @@ void tableWidget::adaptSingleTableHeight(unsigned int h, QTableWidget* table)
     table->setFixedHeight(h);
 }
 
-void tableWidget::adaptDoubleTableHeight(unsigned int h, QTableWidget *table)
+void tableWidget::adaptDoubleTableHeight(QTableWidget *table)
 {
+    unsigned int h = 22;
+
     for(int i = 0; i < table->rowCount() ; i++)
         h += table->rowHeight(i);
 
@@ -147,7 +150,7 @@ void tableWidget::addControlTable()
     table1Layout->addWidget(label1);
     table1Layout->addWidget(table1);
 
-    adaptSingleTableHeight(22,table1);
+    adaptSingleTableHeight(table1);
 
 
     label2 = new QLabel("Allenamenti di resistenza in ordine cronologico",this);
@@ -331,11 +334,11 @@ void tableWidget::adjustResizePolicy()
 
         if(splitState)
         {
-            adaptDoubleTableHeight(22,table1);
-            adaptDoubleTableHeight(22,table2);
+            adaptDoubleTableHeight(table1);
+            adaptDoubleTableHeight(table2);
         }
         else
-            adaptSingleTableHeight(22,table1);
+            adaptSingleTableHeight(table1);
     }
 }
 
@@ -356,10 +359,6 @@ void tableWidget::showData()
         changeState(!splitState, false);
         splitCheckBox->setCheckState(Qt::CheckState::Unchecked);
     }
-
-
-    table1->setVisible(false);
-    table2->setVisible(false);
 
     while (table1->rowCount() > 0)
         table1->removeRow(0);
@@ -440,22 +439,11 @@ void tableWidget::showData()
             splitCheckBox->setVisible(false);
     }
 
-    if (splitState)
-    {
-        adaptDoubleTableHeight(22,table1);
-        adaptDoubleTableHeight(22,table2);
-    }
-    else
-        adaptSingleTableHeight(22,table1);
-
     adjustResizePolicy();
 
     table1->scrollToTop();
     table2->scrollToTop();
 
-    table1->resizeColumnsToContents();
-
-    table1->setVisible(true);
     table2->setVisible(splitState);
     label2->setVisible(splitState);
 }
