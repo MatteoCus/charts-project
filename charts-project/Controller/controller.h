@@ -19,6 +19,7 @@ private:
     Model* model;
     bool saved, firstResponse;
     QString filenameSaved;
+    initialDialog* dialog;
 
     void extractFromViewValues(dialogValues values, DateTime& start, TimeSpan& duration,std::vector<std::string>& exName,
                 std::vector<Time>& exDuration,std::vector<Time>& exRecovery, int& pos, action& exAct, int& exPos) const;
@@ -41,6 +42,7 @@ public slots:
     void open();
     void closePlan();
     void first_response();
+    void first_open();
 };
 
 #endif // CONTROLLER_H

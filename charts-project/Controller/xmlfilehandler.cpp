@@ -251,7 +251,7 @@ QString xmlFileHandler::getReadFileName()
                                                     "/home",
                                                     ("XML Files (*.xml)"));
     if (fileName == "")
-        throw std::runtime_error("Nessun file scelto, aggiunta annullata!");
+        throw std::runtime_error("Nessun file scelto, apertura annullata!");
 
     return fileName;
 }

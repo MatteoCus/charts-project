@@ -97,5 +97,5 @@ initialDialog::initialDialog(QWidget *parent) :QDialog(parent)
     connect(newButton,SIGNAL(clicked()),this, SIGNAL(showView()));
     connect(newButton,SIGNAL(clicked()),this, SLOT(closeWidget()));
     connect(openButton,SIGNAL(clicked()),this, SIGNAL(openFile()));
-    connect(openButton,SIGNAL(clicked()),this, SLOT(closeWidget()));
+    //connect(openButton,SIGNAL(clicked()),this, SLOT(closeWidget()));
 }

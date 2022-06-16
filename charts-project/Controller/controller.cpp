@@ -2,7 +2,8 @@
 #include <iostream>
 using namespace std;
 
-Controller::Controller(QObject *parent) : QObject(parent), view(nullptr), model(nullptr), saved(true), firstResponse(true), filenameSaved("")
+Controller::Controller(QObject *parent) : QObject(parent), view(nullptr),
+    model(nullptr), saved(true), firstResponse(true), filenameSaved(""), dialog(nullptr)
 {}
 
 void Controller::setView(chartViewer *v)
@@ -22,8 +23,8 @@ void Controller::setModel(Model *m)
 bool Controller::startView()
 {
     view->hide();
-    initialDialog* dialog = new initialDialog(view);
-    connect(dialog,SIGNAL(openFile()),this,SLOT(open()));
+    dialog = new initialDialog(view);
+    connect(dialog,SIGNAL(openFile()),this,SLOT(first_open()));
     connect(dialog,SIGNAL(showView()), this, SLOT(newPlan()));
     connect(dialog,SIGNAL(closeAll()), this, SLOT(first_response()));
     dialog->exec();
@@ -323,7 +324,15 @@ void Controller::closePlan()
     }
     catch (std::runtime_error e) {
             view->showWarning(e.what());
-        }
+    }
+}
+
+void Controller::first_open()
+{
+    open();
+
+    if(filenameSaved != "")
+        dialog->close();
 }
 
 void Controller::first_response()
