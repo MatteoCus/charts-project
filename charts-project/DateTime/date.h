@@ -8,7 +8,6 @@ private:
     static bool checkDate(unsigned int day, unsigned int month, unsigned int year);
 public:
     Date();
-    Date(const Date& d)  = default;
     Date(unsigned int d, unsigned int m, unsigned int y);
     void setDate(unsigned int day, unsigned int month, unsigned int year);
     void setDay(unsigned int day);

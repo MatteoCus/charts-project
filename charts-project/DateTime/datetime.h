@@ -16,7 +16,8 @@ private:
     void setTime(const Time& time);
     void setDate(const Date& date);
 public:
-    DateTime();                                                     //constructs 1-1-2000 00:00
+    DateTime();
+    DateTime(const DateTime& datetime);
     DateTime(const Date& date, const Time& time);
 
     Date getDate() const;

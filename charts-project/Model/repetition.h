@@ -11,7 +11,7 @@ using std::string;
 class Repetition : public Training {
 private:
     std::vector<Exercise *> exercises;
-    static std::vector<Exercise *> copy(const Repetition &repTraining);
+    static std::vector<Exercise *> *copy(const Repetition &repTraining);
     static void destroy(const Repetition &repTraining);
     bool isEmpty() const;
 

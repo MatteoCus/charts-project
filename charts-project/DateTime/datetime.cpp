@@ -3,6 +3,9 @@
 DateTime::DateTime()
     :date(1,1,2000), time(){}
 
+DateTime::DateTime(const DateTime & datetime)
+    :date(datetime.date), time(datetime.time){}
+
 DateTime::DateTime(const Date& d, const Time& t)
     :date(d), time(t){}
 

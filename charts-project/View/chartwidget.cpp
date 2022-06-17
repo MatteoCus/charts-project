@@ -117,7 +117,8 @@ void chartWidget::extractValues(std::vector<double>& values, std::vector<DateTim
 
     for (auto it = trainings->begin(); it != trainings->end(); ++it)
     {
-        start.push_back(new DateTime((*it)->getStart()));
+        DateTime* aux = new DateTime((*it)->getStart());
+        start.push_back(aux);
         if (data == "Durata")
             values.push_back((*it)->getDuration().getTotalSeconds());
         else if (data == "Calorie")
@@ -126,13 +127,19 @@ void chartWidget::extractValues(std::vector<double>& values, std::vector<DateTim
         {
             if (auto rep = dynamic_cast<const Repetition*>(*it))
                 values.push_back(rep->Intensity());
-            else{ start.pop_back();}
+            else{
+                delete aux;
+                start.pop_back();
+            }
         }
         else if (data == "Distanza")
         {
             if (auto end = dynamic_cast<const Endurance*>(*it))
                 values.push_back(end->getDistance());
-            else {start.pop_back();}
+            else {
+                delete aux;
+                start.pop_back();
+            }
         }
     }
 }
@@ -240,6 +247,9 @@ void chartWidget::showData(std::string chart, std::string data)
         throw std::runtime_error("Errore nella visualizzazione del grafico!");
 
     visibleChart->getChartView()->setVisible(true);
+
+    for (auto values : start)
+        delete values;
 }
 
 void chartWidget::setData(const std::list<Training *> *data)

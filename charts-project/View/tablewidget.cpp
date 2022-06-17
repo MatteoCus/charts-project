@@ -332,14 +332,15 @@ void tableWidget::adjustResizePolicy()
             table1Layout->setContentsMargins(0,40,0,340 - 30 * table1->rowCount());
         }
 
-        if(splitState)
-        {
-            adaptDoubleTableHeight(table1);
-            adaptDoubleTableHeight(table2);
-        }
-        else
-            adaptSingleTableHeight(table1);
     }
+
+    if(splitState)
+    {
+        adaptDoubleTableHeight(table1);
+        adaptDoubleTableHeight(table2);
+    }
+    else
+        adaptSingleTableHeight(table1);
 }
 
 void tableWidget::showData()

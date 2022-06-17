@@ -14,6 +14,7 @@
 #include <QCategoryAxis>
 #include <QDateTimeAxis>
 #include <DateTime/datetime.h>
+#include "DateTime/datetimeconverter.h"
 
 #include <vector>
 QT_CHARTS_USE_NAMESPACE

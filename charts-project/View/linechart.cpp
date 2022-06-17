@@ -37,7 +37,7 @@ void lineChart::setAxes(const std::string &x, const std::string &y)
     axisY->setTitleText(QString::fromStdString(y));
 }
 
-void lineChart::addSeries(const std::vector<double> *values, const std::vector<DateTime *> *start, bool duration)
+void lineChart::addSeries(const std::vector<double> *values, const std::vector<DateTime*> *start, bool duration)
 {
     if (values->size() != start->size())
         throw std::runtime_error("Tentativo di visualizzazione di dati non congrui nelle dimensioni!");
@@ -53,9 +53,9 @@ void lineChart::addSeries(const std::vector<double> *values, const std::vector<D
     if(values->size() > 0)
     {
         if (start->size() > 1)
-            axisX->setRange(*convertDateTime((*start)[0]),*convertDateTime((*start)[start->size() -1]));
+            axisX->setRange(DateTimeConverter::toQDateTime(*start->at(0)),DateTimeConverter::toQDateTime(*start->at(start->size() -1)));
         else
-            axisX->setRange((*convertDateTime((*start)[0])).addDays(-1),*convertDateTime((*start)[0]));
+            axisX->setRange(DateTimeConverter::toQDateTime(*start->at(0)).addDays(-1),DateTimeConverter::toQDateTime(*start->at(0)));
 
         if(duration)
         {
@@ -65,7 +65,7 @@ void lineChart::addSeries(const std::vector<double> *values, const std::vector<D
             unsigned int mx = 0;
 
             if(start->size() == 1)
-                series->append((*convertDateTime((*start)[0])).addDays(-1).toMSecsSinceEpoch(), QDateTime(QDate(1970,1,1),QTime(0,0)).toMSecsSinceEpoch());
+                series->append(DateTimeConverter::toQDateTime(*start->at(0)).addDays(-1).toMSecsSinceEpoch(), QDateTime(QDate(1970,1,1),QTime(0,0)).toMSecsSinceEpoch());
 
             for(unsigned int i = 0; i < values->size(); ++i)
             {
@@ -82,7 +82,7 @@ void lineChart::addSeries(const std::vector<double> *values, const std::vector<D
                     mx = sec;
                 }
 
-                series->append(convertDateTime((*start)[i])->toMSecsSinceEpoch(),aux.toMSecsSinceEpoch());
+                series->append(DateTimeConverter::toQDateTime(*start->at(i)).toMSecsSinceEpoch(),aux.toMSecsSinceEpoch());
             }
             axisYDateTime->setRange(QDateTime(QDate(1970,1,1),QTime(0,0)),*max);
             delete max;
@@ -93,14 +93,14 @@ void lineChart::addSeries(const std::vector<double> *values, const std::vector<D
             axisY = axisYInt;
 
             if(start->size() == 1)
-                series->append((*convertDateTime((*start)[0])).addDays(-1).toMSecsSinceEpoch(), 0);
+                series->append(DateTimeConverter::toQDateTime(*start->at(0)).addDays(-1).toMSecsSinceEpoch(), 0);
 
             double max = (*values)[0];
-            for(unsigned int i = 0; i < values->size(); ++i)
+            for(unsigned int i = 0; i < values->size(); i++)
             {
                 if (max < (*values)[i])
                     max = (*values)[i];
-                series->append(convertDateTime((*start)[i])->toMSecsSinceEpoch(),(*values)[i]);
+                series->append(DateTimeConverter::toQDateTime(*start->at(i)).toMSecsSinceEpoch(),(*values)[i]);
             }
             axisYInt->setRange(0,max);
         }

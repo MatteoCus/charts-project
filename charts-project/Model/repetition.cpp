@@ -1,4 +1,6 @@
 #include "repetition.h"
+#include <iostream>
+using namespace std;
 
 Repetition::Repetition(const std::string &name, const DateTime &start)
     : Training(name, start), exercises() {}
@@ -15,12 +17,14 @@ void Repetition::insertExercise(unsigned int pos, Exercise *ex) {
 }
 
 void Repetition::removeExercise(unsigned int pos) {
-    if (pos >= exercises.size())
+
+    if (pos >= exercises.size() || exercises.size() == 1)
         throw std::out_of_range("Tentativo di rimozione di un esercizio da una posizione non esistente!");
-    if (pos == exercises.size() - 1)
-        exercises.pop_back();
-    else
-        exercises.erase(exercises.begin() + pos);
+
+    auto exer = exercises.begin();
+    std::advance(exer,pos);
+    delete *exer;
+    exercises.erase(exer);
 }
 
 Exercise *Repetition::getExercise(unsigned int pos) const {
@@ -37,6 +41,8 @@ void Repetition::setExercise(unsigned int pos, Exercise *ex) {
     exercises[pos]->setName(ex->getName());
     exercises[pos]->setDuration(ex->getDuration());
     exercises[pos]->setRecovery(ex->getRecoveryTime());
+
+    delete ex;
 }
 
 unsigned int Repetition::getSize() const { return exercises.size(); }
@@ -57,10 +63,10 @@ TimeSpan Repetition::getDuration() const {
     return duration;
 }
 
-std::vector<Exercise *> Repetition::copy(const Repetition &rep) {
-    std::vector<Exercise *> aux;
+std::vector<Exercise *>* Repetition::copy(const Repetition &rep) {
+    std::vector<Exercise *>* aux = new std::vector<Exercise*>();
     for (auto it = rep.exercises.begin(); it != rep.exercises.end(); ++it)
-        aux.push_back((*it)->clone());
+        aux->push_back((*it)->clone());
     return aux;
 }
 
@@ -70,13 +76,20 @@ void Repetition::destroy(const Repetition &rep) {
 }
 
 Repetition::Repetition(const Repetition &rep)
-    : Training(rep), exercises(copy(rep)) {}
+    : Training(rep), exercises() {
+    auto vec = copy(rep);
+    exercises = *vec;
+    delete vec;
+}
 
 Repetition &Repetition::operator=(const Repetition &rep) {
     if (this != &rep) {
         Training::operator=(rep);
         destroy(*this);
-        exercises = copy(rep);
+        auto vec = copy(rep);
+        exercises = *vec;
+        delete vec;
+
     }
     return *this;
 }

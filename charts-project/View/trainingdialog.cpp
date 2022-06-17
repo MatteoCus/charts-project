@@ -28,10 +28,10 @@ void trainingDialog::setupCommon(QBoxLayout* mainL, action act, Training* traini
         Date date = training->getStart().getDate();
         Time time = training->getStart().getTime();
         QString trainingName = QString::fromStdString(training->getName());
-        QDateTime* qdatetime = new QDateTime(QDate(date.getYear(),date.getMonth(), date.getDay()), QTime(time.getHours(),time.getMinutes(),time.getSeconds()));
+        QDateTime qdatetime(QDate(date.getYear(),date.getMonth(), date.getDay()), QTime(time.getHours(),time.getMinutes(),time.getSeconds()));
 
         name = new QLineEdit(trainingName, this);
-        start = new QDateTimeEdit(*qdatetime,this);
+        start = new QDateTimeEdit(qdatetime,this);
 
         if( act == eliminate || act == nothing)
         {   name->setReadOnly(true);

@@ -29,22 +29,21 @@ void Plan::insertTraining(Training *training) {
         while (it != trainings.end() && (training->getStart() > (*it)->getStart()))
             ++it;
         trainings.insert(it, training);
-    } else
+    }
+    else
+    {
+        delete training;
         throw std::invalid_argument("L'allenamento non rispetta i vincoli di programma!");
+    }
 }
 
 void Plan::removeTraining(unsigned int pos) {
     if (pos >= trainings.size())
         throw std::out_of_range("Tentativo di rimozione di un allenamento usando un indice non valido!");
-    if (pos == trainings.size() - 1)
-        trainings.pop_back();
-    else if (pos == 0)
-        trainings.pop_front();
-    else {
-        auto it = trainings.begin();
-        std::advance(it, pos);
-        trainings.erase(it);
-    }
+    auto it = trainings.begin();
+    std::advance(it, pos);
+    delete *it;
+    trainings.erase(it);
 }
 
 Training *Plan::getTraining(unsigned int pos) const {
@@ -62,7 +61,7 @@ void Plan::setTraining(unsigned int pos, const std::string &name, const DateTime
                        const std::vector<TimeSpan>*exDuration,
                        const std::vector<TimeSpan>* exRecovery) {
     if (pos >= getSize())
-        throw std::out_of_range("Tentativo di modifica di un allenamento usando un indice non valido!");
+        throw std::out_of_range("Tentativo di modifica di un allenamento in una posizione non valida!");
 
     auto it = trainings.begin();
     std::advance(it, pos);
@@ -80,24 +79,23 @@ void Plan::setTraining(unsigned int pos, const std::string &name, const DateTime
         } else if (dynamic_cast<Repetition *>(newTraining)) {
             unsigned int size = exName->size();
             if (size != exRecovery->size() || size != exDuration->size())
-                throw std::runtime_error("Tentativo di modifica di un allenamento errato!");
+                throw std::runtime_error("Tentativo di modifica di un allenamento con valori errati!");
 
             Repetition *rep = static_cast<Repetition *>(newTraining);
-            exerciseCreator *creator = new exerciseCreator();
             Exercise *aux = nullptr;
 
             switch (operation) {
             case add:
                 if (size != 1)
                     throw std::runtime_error("Tentativo di aggiunta di più di un esercizio alla volta!");
-                aux = creator->createExercise((*exName)[0], (*exDuration)[0], (*exRecovery)[0]);
+                aux = exerciseCreator::createExercise((*exName)[0], (*exDuration)[0], (*exRecovery)[0]);
                 rep->addExercise(aux);
                 break;
 
             case insert:
                 if (size != 1)
                     throw std::runtime_error("Tentativo di inserimento di più di un esercizio alla volta!");
-                aux = creator->createExercise((*exName)[0], (*exDuration)[0], (*exRecovery)[0]);
+                aux = exerciseCreator::createExercise((*exName)[0], (*exDuration)[0], (*exRecovery)[0]);
                 rep->insertExercise(exPos, aux);
                 break;
 
@@ -106,7 +104,7 @@ void Plan::setTraining(unsigned int pos, const std::string &name, const DateTime
                     throw std::runtime_error("Tentativo di modifica di esercizi di un allenamento usando un numero di dati errato!");
                 for (unsigned int i = 0; i < rep->getSize(); ++i)
                 {
-                    aux = creator->createExercise((*exName)[i], (*exDuration)[i], (*exRecovery)[i]);
+                    aux = exerciseCreator::createExercise((*exName)[i], (*exDuration)[i], (*exRecovery)[i]);
                     rep->setExercise(i, aux);
                 }
                 break;
@@ -122,7 +120,6 @@ void Plan::setTraining(unsigned int pos, const std::string &name, const DateTime
                 throw std::invalid_argument(
                             "Tentativo di effettuare un'azione non valida sugli esercizi di un allenamento!");
             }
-            delete creator;
         } else
             throw std::invalid_argument("Tentativo di modifica di un allenamento di tipo non valido!");
         if (check(newTraining)) {
@@ -135,7 +132,11 @@ void Plan::setTraining(unsigned int pos, const std::string &name, const DateTime
         insertTraining(oldTraining);
         delete newTraining;
         throw;
-    } catch (std::invalid_argument) {
+    } catch (std::invalid_argument e) {
+        insertTraining(oldTraining);
+        delete newTraining;
+        throw;
+    } catch(std::out_of_range){
         insertTraining(oldTraining);
         delete newTraining;
         throw;
@@ -148,6 +149,8 @@ bool Plan::isEmpty() const { return trainings.empty(); }
 
 void Plan::clear()
 {
+    for (auto values : trainings)
+        delete values;
     trainings.erase(trainings.begin(), trainings.end());
 }
 
@@ -156,7 +159,7 @@ const std::list<Training *>* Plan::getTrainings() const { return &trainings; }
 std::list<Training *> Plan::copy(const Plan &plan) {
     std::list<Training *> aux;
     for (auto it = plan.trainings.begin(); it != plan.trainings.end(); ++it)
-        aux.push_back((*it)->clone()); // clone pattern su gerarchia di Training
+        aux.push_back((*it)->clone());
     return aux;
 }
 

@@ -7,9 +7,6 @@
 class axedChart : public chart
 {
     Q_OBJECT
-protected:
-    static QTime *convertTime(Time* time);
-    static QDateTime *convertDateTime(DateTime* dateTime);
 public:
     explicit axedChart(QWidget *parent = nullptr);
     virtual void setAxes(const std::string& x, const std::string& y) = 0;

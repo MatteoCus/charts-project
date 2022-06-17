@@ -17,5 +17,5 @@ void Endurance::setDistance(double dist){
 }
 
 void Endurance::setDuration(const TimeSpan& dur) {
-    duration = (!dur.isNull()? dur : throw std::invalid_argument("Tentatico di modifica di un allenamento usando una durata nulla!"));
+    duration = (!dur.isNull()? dur : throw std::invalid_argument("Tentativo di modifica di un allenamento usando una durata nulla!"));
 }

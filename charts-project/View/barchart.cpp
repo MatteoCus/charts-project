@@ -37,7 +37,7 @@ void barChart::setAxes(const std::string &x, const std::string &y)
     axisY->setTitleText(QString::fromStdString(y));
 }
 
-void barChart::addSeries(const std::vector<double> *values, const std::vector<DateTime *> *start, bool duration)
+void barChart::addSeries(const std::vector<double> *values, const std::vector<DateTime*> *start, bool duration)
 {
     if (values->size() != start->size())
         throw std::runtime_error("Tentativo di visualizzazione di dati non congrui nelle dimensioni!");
@@ -67,7 +67,7 @@ void barChart::addSeries(const std::vector<double> *values, const std::vector<Da
             unsigned int mx = 0;
             for(unsigned int i = 0; i < values->size(); ++i)
             {
-                categories.append(QString::fromStdString((*start)[i]->toString()));
+                categories.append(QString::fromStdString(start->at(i)->toString()));
 
                 unsigned int sec = (*values)[i];
                 unsigned int h = sec / 3600;
