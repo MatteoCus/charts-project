@@ -38,6 +38,9 @@ void trainingDialog::setupCommon(QBoxLayout* mainL, action act, Training* traini
             start->setReadOnly(true);
         }
     }
+    start->setDisplayFormat("dd/MM/yyyy hh:mm:ss");
+    start->setCalendarPopup(true);
+
     nameLabel->setFont(font);
     name->setFixedWidth(150);
     name->setAlignment(Qt::AlignCenter);

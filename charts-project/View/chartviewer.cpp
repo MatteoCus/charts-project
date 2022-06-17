@@ -191,7 +191,33 @@ void chartViewer::setStyle()
                   "QMenuBar::item:selected {background-color : green;}"
                   "QMenu {background-color : #404244 ; color: white; }"
                   "QMenu::item:selected {background-color : green;} "
-                  "QMessageBox QPushButton {background-color : green ; color: white ; selection-background-color: green; selection-color : white}");
+                  "QMessageBox QPushButton {background-color : green ; color: white ; selection-background-color: green; selection-color : white} "
+                  "QCalendarWidget QToolButton { "
+                      "color: white; "
+                  "} "
+                  "QCalendarWidget QMenu { "
+                      "color: white; "
+                     " background-color: #404244 "
+                  "} "
+                  "QCalendarWidget QSpinBox { "
+                      "color: white; "
+                      "selection-background-color: green; "
+                      "selection-color: white; "
+                      " background-color: #404244 "
+                 " } "
+                  "QCalendarWidget QSpinBox::up-button { subcontrol-origin: border;  subcontrol-position: top right;  } "
+                  "QCalendarWidget QSpinBox::down-button {subcontrol-origin: border; subcontrol-position: bottom right; } "
+                  "QCalendarWidget QWidget { alternate-background-color: #3b3c3d; } "
+
+                  "QCalendarWidget QAbstractItemView:enabled  "
+                  "{ "
+                      "color: white; "
+                      "background-color: #404244;  "
+                      "selection-background-color: #323235; "
+                      "selection-color: rgb(0, 255, 0); "
+                  "} "
+
+                  "QCalendarWidget QAbstractItemView:disabled { color: orange; }");
 }
 
 chartViewer::chartViewer(QWidget *parent) : QWidget(parent)
