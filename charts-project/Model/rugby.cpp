@@ -3,8 +3,8 @@
 Rugby::Rugby(const std::string &name, const DateTime& start)
     :Repetition(name, start){}
 
-const double Rugby::c1 = 1.15;
-const unsigned int Rugby::c2 = 105;
+const double Repetition::c1 = 1.15;
+const unsigned int Repetition::c2 = 105;
 
 unsigned int Rugby::CaloriesBurned() const {
     return (c1 * Intensity()/100 * avgWeight * (getDuration().getTotalMinutes())/10);

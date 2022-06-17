@@ -3,8 +3,8 @@
 Tennis::Tennis(const std::string &name, const DateTime& start)
     :Repetition(name, start){}
 
-const double Tennis::c1 = 1.05;
-const unsigned int Tennis::c2 = 100;
+const double Repetition::c1 = 1.05;
+const unsigned int Repetition::c2 = 100;
 
 unsigned int Tennis::CaloriesBurned() const {
     return (c1 * Intensity()/100 * avgWeight * getDuration().getTotalMinutes()/10);

@@ -17,7 +17,6 @@ private:
     void setDate(const Date& date);
 public:
     DateTime();
-    DateTime(const DateTime& datetime);
     DateTime(const Date& date, const Time& time);
 
     Date getDate() const;

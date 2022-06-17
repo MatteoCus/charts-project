@@ -1,7 +1,7 @@
 #include "endurance.h"
 
 Endurance::Endurance()
-    :Training(), distance(1), duration(){}
+    :Training(), distance(1), duration(0,0,1){}
 
 Endurance::Endurance(const std::string &name, const DateTime& start, double dist, const TimeSpan& dur)
     : Training(name, start),
