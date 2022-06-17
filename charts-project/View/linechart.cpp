@@ -69,7 +69,7 @@ void lineChart::addSeries(const std::vector<double> *values, const std::vector<D
 
             for(unsigned int i = 0; i < values->size(); ++i)
             {
-                unsigned int sec = (*values)[i];
+                unsigned int sec = values->at(i);
                 unsigned int h = sec / 3600;
                 unsigned int m = (sec - (3600 * h))/ 60;
                 unsigned int s = (sec - (3600 * h) - (60 * m)) % 60;
@@ -95,12 +95,12 @@ void lineChart::addSeries(const std::vector<double> *values, const std::vector<D
             if(start->size() == 1)
                 series->append(DateTimeConverter::toQDateTime(*start->at(0)).addDays(-1).toMSecsSinceEpoch(), 0);
 
-            double max = (*values)[0];
+            double max = values->at(0);
             for(unsigned int i = 0; i < values->size(); i++)
             {
-                if (max < (*values)[i])
-                    max = (*values)[i];
-                series->append(DateTimeConverter::toQDateTime(*start->at(i)).toMSecsSinceEpoch(),(*values)[i]);
+                if (max < values->at(i))
+                    max = values->at(i);
+                series->append(DateTimeConverter::toQDateTime(*start->at(i)).toMSecsSinceEpoch(),values->at(i));
             }
             axisYInt->setRange(0,max);
         }

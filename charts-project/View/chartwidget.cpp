@@ -173,18 +173,18 @@ void chartWidget::extractValues(std::vector<double>& values, const std::string& 
         if (j >= 0)
         {
             if (data == "Durata")
-                values[j] += (*it)->getDuration().getTotalSeconds();
+                values.at(j) += (*it)->getDuration().getTotalSeconds();
             else if (data == "Calorie")
-                values[j] += (*it)->CaloriesBurned();
+                values.at(j) += (*it)->CaloriesBurned();
             else if (data == "Intensità")
             {
                 if (auto rep = dynamic_cast<const Repetition*>(*it))
-                    values[j] += rep->Intensity();
+                    values.at(j) += rep->Intensity();
             }
             else if (data == "Distanza")
             {
                 if (auto end = dynamic_cast<const Endurance*>(*it))
-                    values[j] += end->getDistance();
+                    values.at(j) += end->getDistance();
             }
         }
     }

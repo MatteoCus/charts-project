@@ -92,10 +92,13 @@ initialDialog::initialDialog(QWidget *parent) :QDialog(parent)
 
     setLayout(mainLayout);
 
+    setStyleSheet(""
+    "QWidget{background-color : #404244; color : white} "
+    "QPushButton {background-color : green ; color: white ; selection-background-color: green; selection-color : white}  ");
+
     setFixedSize(600,600);
 
     connect(newButton,SIGNAL(clicked()),this, SIGNAL(showView()));
     connect(newButton,SIGNAL(clicked()),this, SLOT(closeWidget()));
     connect(openButton,SIGNAL(clicked()),this, SIGNAL(openFile()));
-    //connect(openButton,SIGNAL(clicked()),this, SLOT(closeWidget()));
 }

@@ -64,7 +64,7 @@ repetitionDialog::repetitionDialog(QWidget *parent, action act, Repetition *trai
         unsigned int i=0;
         for (; i<exNumber ; i++){
             QVBoxLayout* repetitionLayout = new QVBoxLayout;
-            rowLayout[(i/3)]->addLayout(repetitionLayout);
+            rowLayout.at(i/3)->addLayout(repetitionLayout);
 
             //Setup dei nomi
             exNameLayout.push_back(new QHBoxLayout);
@@ -103,7 +103,7 @@ repetitionDialog::repetitionDialog(QWidget *parent, action act, Repetition *trai
             auxEdit->setAlignment(Qt::AlignCenter);
             auxEdit->setFixedWidth(120);
             exName.push_back(auxEdit);
-            addToLayout(exNameLayout[i],exNameLabel[i],auxEdit);
+            addToLayout(exNameLayout.at(i),exNameLabel.at(i),auxEdit);
 
             //Setup delle durate
             exDurationLayout.push_back(new QHBoxLayout);
@@ -115,7 +115,7 @@ repetitionDialog::repetitionDialog(QWidget *parent, action act, Repetition *trai
             auxDuration->setAlignment(Qt::AlignCenter);
             auxDuration->setFixedWidth(120);
             exDuration.push_back(auxDuration);
-            addToLayout(exDurationLayout[i],exDurationLabel,auxDuration);
+            addToLayout(exDurationLayout.at(i),exDurationLabel,auxDuration);
 
             //Setup dei recuperi
             exRecoveryLayout.push_back(new QHBoxLayout);
@@ -126,13 +126,13 @@ repetitionDialog::repetitionDialog(QWidget *parent, action act, Repetition *trai
             auxRecovery->setAlignment(Qt::AlignCenter);
             auxRecovery->setFixedWidth(120);
             exRecovery.push_back(auxRecovery);
-            addToLayout(exRecoveryLayout[i],exRecoveryLabel,auxRecovery);
+            addToLayout(exRecoveryLayout.at(i),exRecoveryLabel,auxRecovery);
 
             //Setup layout
             repetitionLayout->setContentsMargins(0,10,5,10);
-            repetitionLayout->addLayout(exNameLayout[i]);
-            repetitionLayout->addLayout(exDurationLayout[i]);
-            repetitionLayout->addLayout(exRecoveryLayout[i]);
+            repetitionLayout->addLayout(exNameLayout.at(i));
+            repetitionLayout->addLayout(exDurationLayout.at(i));
+            repetitionLayout->addLayout(exRecoveryLayout.at(i));
         }
 
     }
@@ -197,7 +197,7 @@ repetitionDialog::repetitionDialog(QWidget *parent, action act, Repetition *trai
         auxEdit->setAlignment(Qt::AlignCenter);
         auxEdit->setFixedWidth(120);
         exName.push_back(auxEdit);
-        addToLayout(exNameLayout[0],exNameLabel[0],auxEdit);
+        addToLayout(exNameLayout.at(0),exNameLabel.at(0),auxEdit);
 
         //Setup delle durate
         exDurationLayout.push_back(new QHBoxLayout);
@@ -208,7 +208,7 @@ repetitionDialog::repetitionDialog(QWidget *parent, action act, Repetition *trai
         auxDuration->setAlignment(Qt::AlignCenter);
         auxDuration->setFixedWidth(120);
         exDuration.push_back(auxDuration);
-        addToLayout(exDurationLayout[0],exDurationLabel,auxDuration);
+        addToLayout(exDurationLayout.at(0),exDurationLabel,auxDuration);
 
         //Setup dei recuperi
         exRecoveryLayout.push_back(new QHBoxLayout);
@@ -219,13 +219,13 @@ repetitionDialog::repetitionDialog(QWidget *parent, action act, Repetition *trai
         auxRecovery->setAlignment(Qt::AlignCenter);
         auxRecovery->setFixedWidth(120);
         exRecovery.push_back(auxRecovery);
-        addToLayout(exRecoveryLayout[0],exRecoveryLabel,auxRecovery);
+        addToLayout(exRecoveryLayout.at(0),exRecoveryLabel,auxRecovery);
 
         //Setup layout
         firstLayout->setContentsMargins(0,10,5,10);
-        firstLayout->addLayout(exNameLayout[0]);
-        firstLayout->addLayout(exDurationLayout[0]);
-        firstLayout->addLayout(exRecoveryLayout[0]);
+        firstLayout->addLayout(exNameLayout.at(0));
+        firstLayout->addLayout(exDurationLayout.at(0));
+        firstLayout->addLayout(exRecoveryLayout.at(0));
     }
     addButtons();
 
@@ -254,9 +254,9 @@ dialogValues repetitionDialog::getValues(QWidget *parent, bool *ok, action act, 
         exAct = dialog->exAct;
         for (unsigned int i = 0; i < dialog->exName.size(); ++i)
         {
-            exName.push_back(dialog->exName[i]->text());
-            exDuration.push_back(dialog->exDuration[i]->time());
-            recovery.push_back(dialog->exRecovery[i]->time());
+            exName.push_back(dialog->exName.at(i)->text());
+            exDuration.push_back(dialog->exDuration.at(i)->time());
+            recovery.push_back(dialog->exRecovery.at(i)->time());
         }
 
     }

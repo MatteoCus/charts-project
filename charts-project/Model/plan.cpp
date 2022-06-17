@@ -88,14 +88,14 @@ void Plan::setTraining(unsigned int pos, const std::string &name, const DateTime
             case add:
                 if (size != 1)
                     throw std::runtime_error("Tentativo di aggiunta di più di un esercizio alla volta!");
-                aux = exerciseCreator::createExercise((*exName)[0], (*exDuration)[0], (*exRecovery)[0]);
+                aux = exerciseCreator::createExercise(exName->at(0), exDuration->at(0), exRecovery->at(0));
                 rep->addExercise(aux);
                 break;
 
             case insert:
                 if (size != 1)
                     throw std::runtime_error("Tentativo di inserimento di più di un esercizio alla volta!");
-                aux = exerciseCreator::createExercise((*exName)[0], (*exDuration)[0], (*exRecovery)[0]);
+                aux = exerciseCreator::createExercise(exName->at(0), exDuration->at(0), exRecovery->at(0));
                 rep->insertExercise(exPos, aux);
                 break;
 
@@ -104,7 +104,7 @@ void Plan::setTraining(unsigned int pos, const std::string &name, const DateTime
                     throw std::runtime_error("Tentativo di modifica di esercizi di un allenamento usando un numero di dati errato!");
                 for (unsigned int i = 0; i < rep->getSize(); ++i)
                 {
-                    aux = exerciseCreator::createExercise((*exName)[i], (*exDuration)[i], (*exRecovery)[i]);
+                    aux = exerciseCreator::createExercise(exName->at(i), exDuration->at(i), exRecovery->at(i));
                     rep->setExercise(i, aux);
                 }
                 break;

@@ -31,18 +31,18 @@ void chartViewer::addMenu(QHBoxLayout* mainLayout)
     allenamenti->addAction(new QAction("Modifica", allenamenti));
     allenamenti->addAction(new QAction("Rimuovi", allenamenti));
 
-    connect(file->actions()[0],SIGNAL(triggered()),this,SIGNAL(open()));
-    connect(file->actions()[1],SIGNAL(triggered()),this,SIGNAL(newPlan()));
-    connect(file->actions()[2],SIGNAL(triggered()),this,SIGNAL(save()));
-    connect(file->actions()[3],SIGNAL(triggered()),this,SIGNAL(saveAs()));
-    connect(file->actions()[4],SIGNAL(triggered()),this,SLOT(close()));
+    connect(file->actions().at(0),SIGNAL(triggered()),this,SIGNAL(open()));
+    connect(file->actions().at(1),SIGNAL(triggered()),this,SIGNAL(newPlan()));
+    connect(file->actions().at(2),SIGNAL(triggered()),this,SIGNAL(save()));
+    connect(file->actions().at(3),SIGNAL(triggered()),this,SIGNAL(saveAs()));
+    connect(file->actions().at(4),SIGNAL(triggered()),this,SLOT(close()));
 
-    connect(visualizza->actions()[0],SIGNAL(triggered()),this,SLOT(showChart()));
-    connect(visualizza->actions()[1],SIGNAL(triggered()),this,SLOT(showExercises()));
+    connect(visualizza->actions().at(0),SIGNAL(triggered()),this,SLOT(showChart()));
+    connect(visualizza->actions().at(1),SIGNAL(triggered()),this,SLOT(showExercises()));
 
-    connect(allenamenti->actions()[0], SIGNAL(triggered()), this, SIGNAL(addTrainings()));
-    connect(allenamenti->actions()[1], SIGNAL(triggered()), this, SIGNAL(setTrainings()));
-    connect(allenamenti->actions()[2], SIGNAL(triggered()), this, SIGNAL(removeTrainings()));
+    connect(allenamenti->actions().at(0), SIGNAL(triggered()), this, SIGNAL(addTrainings()));
+    connect(allenamenti->actions().at(1), SIGNAL(triggered()), this, SIGNAL(setTrainings()));
+    connect(allenamenti->actions().at(2), SIGNAL(triggered()), this, SIGNAL(removeTrainings()));
 
     mainLayout->setMenuBar(menuBar);
 }
@@ -368,9 +368,9 @@ void chartViewer::showData()
     }
 
     if(repetition)
-        visualizza->actions()[1]->setVisible(true);
+        visualizza->actions().at(1)->setVisible(true);
     else
-        visualizza->actions()[1]->setVisible(false);
+        visualizza->actions().at(1)->setVisible(false);
 
     if(!repetition || !endurance)
         tableW->setSplitState(false);

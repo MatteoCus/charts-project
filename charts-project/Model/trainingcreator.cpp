@@ -28,7 +28,7 @@ Training *trainingCreator::createTraining(const std::string &type,
 
                 if (aux && exName->size() == exDuration->size() && exDuration->size() == exRecovery->size() && exName->size() > 0 && exName->size() < 16) {
                     for (unsigned int i = 0; i < exName->size(); ++i )
-                        aux->addExercise(exerciseCreator::createExercise((*exName)[i], (*exDuration)[i], (*exRecovery)[i]));
+                        aux->addExercise(exerciseCreator::createExercise(exName->at(i), exDuration->at(i), exRecovery->at(i)));
                 }
                 else
                     throw std::runtime_error("Tentativo di creazione di una serie di esercizi che non rispettano i vincoli di programma!");

@@ -23,7 +23,7 @@ void Controller::setModel(Model *m)
 bool Controller::startView()
 {
     view->hide();
-    dialog = new initialDialog(view);
+    dialog = new initialDialog();
     connect(dialog,SIGNAL(openFile()),this,SLOT(first_open()));
     connect(dialog,SIGNAL(showView()), this, SLOT(newPlan()));
     connect(dialog,SIGNAL(closeAll()), this, SLOT(first_response()));

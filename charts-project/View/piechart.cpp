@@ -12,7 +12,7 @@ void pieChart::setPieSliceStyle()
     for (auto it = slices.begin(); it != slices.end(); ++it)
     {
         (*it)->setLabelVisible();
-        (*it)->setColor(colors[i]);
+        (*it)->setColor(colors.at(i));
         i++;
     }
 }
@@ -52,27 +52,27 @@ void pieChart::addSeries(const std::vector<double> *values, bool repetition, boo
 
         if (repetition) //se allenamenti sono solo di ripetizione
         {
-            if ((*values)[0]/total)
-                series->append("Rugby", (*values)[0]/total);
+            if (values->at(0)/total)
+                series->append("Rugby", values->at(0)/total);
 
-            if((*values)[1]/total)
-                series->append("Tennis", (*values)[1]/total);
+            if(values->at(1)/total)
+                series->append("Tennis", values->at(1)/total);
         }
         else
         {
-            if((*values)[0]/total)
-                series->append("Ciclismo", (*values)[0]/total);
-            if((*values)[1]/total)
-                series->append("Corsa", (*values)[1]/total);
-            if((*values)[2]/total)
-                series->append("Camminata", (*values)[2]/total);
+            if(values->at(0)/total)
+                series->append("Ciclismo", values->at(0)/total);
+            if(values->at(1)/total)
+                series->append("Corsa", values->at(1)/total);
+            if(values->at(2)/total)
+                series->append("Camminata", values->at(2)/total);
 
             if (!endurance)         //se allenamenti non sono solo di endurance
             {
-                if((*values)[3]/total)
-                    series->append("Rugby", (*values)[3]/total);
-                if((*values)[4]/total)
-                    series->append("Tennis", (*values)[4]/total);
+                if(values->at(3)/total)
+                    series->append("Rugby", values->at(3)/total);
+                if(values->at(4)/total)
+                    series->append("Tennis", values->at(4)/total);
             }
         }
 

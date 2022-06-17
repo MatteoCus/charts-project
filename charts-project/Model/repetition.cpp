@@ -30,7 +30,7 @@ void Repetition::removeExercise(unsigned int pos) {
 Exercise *Repetition::getExercise(unsigned int pos) const {
     if (pos >= exercises.size())
         throw std::out_of_range("Richiesta di un esercizio in una posizione non esistente!");
-    return exercises[pos];
+    return exercises.at(pos);
 }
 
 std::vector<Exercise *> Repetition::getExercises() const { return exercises; }
@@ -38,9 +38,9 @@ std::vector<Exercise *> Repetition::getExercises() const { return exercises; }
 void Repetition::setExercise(unsigned int pos, Exercise *ex) {
     if (pos >= exercises.size())
         throw std::out_of_range("Tentativo di modifica di un esercizio in una posizione non esistente!");
-    exercises[pos]->setName(ex->getName());
-    exercises[pos]->setDuration(ex->getDuration());
-    exercises[pos]->setRecovery(ex->getRecoveryTime());
+    exercises.at(pos)->setName(ex->getName());
+    exercises.at(pos)->setDuration(ex->getDuration());
+    exercises.at(pos)->setRecovery(ex->getRecoveryTime());
 
     delete ex;
 }
