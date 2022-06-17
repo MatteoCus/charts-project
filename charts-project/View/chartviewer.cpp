@@ -3,7 +3,7 @@
 #include <iostream>
 using namespace std;
 
-void chartViewer::addMenu(QHBoxLayout* mainLayout)
+void chartViewer::addMenu()
 {
     menuBar = new QMenuBar(this);
 
@@ -231,7 +231,7 @@ chartViewer::chartViewer(QWidget *parent) : QWidget(parent)
     mainLayout->addWidget(tableW);
     mainLayout->addWidget(chartW);
     mainLayout->setContentsMargins(10,50,10,20);
-    addMenu(mainLayout);
+    addMenu();
     setLayout(mainLayout);
     setStyle();
 

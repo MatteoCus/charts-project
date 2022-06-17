@@ -7,7 +7,7 @@ void trainingDialog::addToLayout(QBoxLayout* layout, QWidget* w1, QWidget* w2)
     layout->addWidget(w2);
 }
 
-void trainingDialog::setupCommon(QBoxLayout* mainL, action act, Training* training)
+void trainingDialog::setupCommon(QBoxLayout* layout, action act, Training* training)
 {
     QHBoxLayout *nameLayout = new QHBoxLayout;
     QHBoxLayout *startLayout = new QHBoxLayout;
@@ -55,8 +55,8 @@ void trainingDialog::setupCommon(QBoxLayout* mainL, action act, Training* traini
 
     addToLayout(startLayout,startLabel,start);
 
-    mainL->addLayout(nameLayout);
-    mainL->addLayout(startLayout);
+    layout->addLayout(nameLayout);
+    layout->addLayout(startLayout);
 }
 
 int trainingDialog::showExNumberDialog()

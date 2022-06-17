@@ -97,7 +97,7 @@ void tableWidget::setStretchResize(QTableWidget* table)
     horizHeader->setSectionResizeMode(6,QHeaderView::Stretch);
 }
 
-void tableWidget::setTableStyleSheet(QTableWidget* table)
+void tableWidget::setTableResize(QTableWidget* table)
 {
 
     table->setColumnCount(7);
@@ -145,7 +145,7 @@ void tableWidget::addControlTable()
                           "selection-color : white} ");
     label1->setFixedSize(300,25);
 
-    setTableStyleSheet(table1);
+    setTableResize(table1);
     table1->hideColumn(6);
     table1Layout->addWidget(label1);
     table1Layout->addWidget(table1);
@@ -159,7 +159,7 @@ void tableWidget::addControlTable()
     label2->setVisible(false);
     label2->setFixedSize(300,25);
 
-    setTableStyleSheet(table2);
+    setTableResize(table2);
     table2Layout->addWidget(label2);
     table2Layout->addWidget(table2);
 
@@ -231,7 +231,7 @@ void tableWidget::screenChanged()
     adjustResizePolicy();
 }
 
-tableWidget::tableWidget(QWidget *parent) : QWidget(parent), mainLayout(new QVBoxLayout()), trainings(nullptr),splitState(false), firstShow(false)
+tableWidget::tableWidget(QWidget *parent) : QWidget(parent), mainLayout(new QVBoxLayout()), trainings(nullptr),splitState(false)
 {
     mainLayout->setAlignment(Qt::AlignTop);
 
