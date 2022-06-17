@@ -78,7 +78,7 @@ repetitionDialog::repetitionDialog(QWidget *parent, action act, Repetition *trai
 
             if (act == add)
             {
-                auxEdit = new QLineEdit(this);
+                auxEdit = new QLineEdit("Nome esercizio", this);
                 auxDuration = new QTimeEdit(QTime(1,0,0),this);
                 auxRecovery= new QTimeEdit(QTime(1,0,0),this);
             }
@@ -172,7 +172,7 @@ repetitionDialog::repetitionDialog(QWidget *parent, action act, Repetition *trai
 
         if (exAct == add || exAct == insert)
         {
-            auxEdit = new QLineEdit(this);
+            auxEdit = new QLineEdit("Nome esercizio",this);
             auxDuration = new QTimeEdit(QTime(1,0,0),this);
             auxRecovery= new QTimeEdit(QTime(1,0,0),this);
         }

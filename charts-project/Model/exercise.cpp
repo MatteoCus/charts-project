@@ -9,7 +9,7 @@ Exercise::Exercise(const Exercise &ex) : name(ex.getName()), duration(ex.getDura
 Exercise::Exercise(const std::string& exName, const TimeSpan& exDuration, const TimeSpan& exRecovery)
     : name(exName != ""? exName : throw std::invalid_argument("Tentativo di creazione di un esercizio usando un nome nullo!")),
       duration(!exDuration.isNull()? exDuration : throw std::invalid_argument("Tentativo di creazione di un esercizio usando una durata nulla!")),
-      recovery(!exRecovery.isNull()? exRecovery : throw std::invalid_argument("Tentativo di creazione di un esercizio usando un tempo di recupero nullo!")){}
+      recovery(!exRecovery.isNull()? exRecovery : throw std::invalid_argument("Tentativo di creazione di un esercizio usando un recupero nullo!")){}
 
 std::string Exercise::getName() const {return name;}
 
