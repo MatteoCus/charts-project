@@ -212,7 +212,7 @@ void chartViewer::setStyle()
                   "QCalendarWidget QAbstractItemView:enabled  "
                   "{ "
                       "color: white; "
-                      "background-color: #404244;  "
+                      "background-color: #56585a;  "
                       "selection-background-color: #323235; "
                       "selection-color: rgb(0, 255, 0); "
                   "} "

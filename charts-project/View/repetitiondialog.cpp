@@ -68,7 +68,7 @@ repetitionDialog::repetitionDialog(QWidget *parent, action act, Repetition *trai
 
             //Setup dei nomi
             exNameLayout.push_back(new QHBoxLayout);
-            QLabel* auxLabel = new QLabel(QString("Nome esercizio " + QString::fromStdString(std::to_string(i+1)) + " :"), this);
+            QLabel* auxLabel = new QLabel(QString("Nome esercizio " + QString::fromStdString(std::to_string(i+1))), this);
             exNameLabel.push_back(auxLabel);
             auxLabel->setFont(font);
 
@@ -162,7 +162,7 @@ repetitionDialog::repetitionDialog(QWidget *parent, action act, Repetition *trai
 
         //Setup dei nomi
         exNameLayout.push_back(new QHBoxLayout);
-        QLabel* auxLabel = new QLabel(QString("Nome esercizio " + QString::fromStdString(std::to_string(exPos+1)) + " :"), this);
+        QLabel* auxLabel = new QLabel(QString("Nome esercizio " + QString::fromStdString(std::to_string(exPos+1))), this);
         exNameLabel.push_back(auxLabel);
         auxLabel->setFont(font);
 
@@ -228,12 +228,13 @@ repetitionDialog::repetitionDialog(QWidget *parent, action act, Repetition *trai
         firstLayout->addLayout(exRecoveryLayout[0]);
     }
     addButtons();
+
+    setFixedSize((exName.size()+2)/3 * 250 + 15, exName.size() < 3? 100 + exName.size() * 110 : 440);
 }
 
 dialogValues repetitionDialog::getValues(QWidget *parent, bool *ok, action act, Repetition *training)
 {
     repetitionDialog *dialog = new repetitionDialog(parent,act,training);
-
     const int ret = dialog->exec();
     if (ok)
         *ok = !!ret;
