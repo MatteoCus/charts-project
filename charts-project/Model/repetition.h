@@ -31,13 +31,6 @@ private:
      * @return bool:                    indica se l'allenamento ha almeno un esercizio
      */
     bool isEmpty() const;
-
-protected:
-    //parametro per il calcolo delle calorie bruciate durante l'allenamento
-    static const double c1;
-
-    //parametro per il calcolo dell'intensità dell'allenamento
-    static const unsigned int c2;
 public:
     /**
      * @brief Repetition:               costruisce un allenamento con nome generico, data uguale a "01/01/2000 00:00",

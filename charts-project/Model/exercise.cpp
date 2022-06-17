@@ -1,10 +1,7 @@
 #include "exercise.h"
 
 Exercise::Exercise()
-    : name(""), duration(), recovery(){}
-
-Exercise::Exercise(const Exercise &ex) : name(ex.getName()), duration(ex.getDuration()), recovery(ex.getRecoveryTime())
-{}
+    : name("Nome esercizio"), duration(0,0,1), recovery(0,0,1){}
 
 Exercise::Exercise(const std::string& exName, const TimeSpan& exDuration, const TimeSpan& exRecovery)
     : name(exName != ""? exName : throw std::invalid_argument("Tentativo di creazione di un esercizio usando un nome nullo!")),

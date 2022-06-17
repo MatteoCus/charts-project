@@ -21,7 +21,7 @@ protected:
 public:
 
     /**
-     * @brief Training: costruisce un allenamento con nome generico e data uguale a "01/01/2000 00:00"
+     * @brief Training: costruisce un allenamento con nome generico e data uguale a "01/01/2000 00:00:00"
      */
     Training();
 

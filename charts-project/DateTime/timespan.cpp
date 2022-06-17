@@ -65,7 +65,7 @@ TimeSpan TimeSpan::operator/(double n) const {
                 s = totSec % secInMinute;
         return TimeSpan(h, m, s);
     }
-    throw std::invalid_argument("Tentatico di divisione di una durata di tempo usando un divisore negativo!");
+    throw std::invalid_argument("Tentativo di divisione di una durata di tempo usando un divisore negativo!");
 }
 
 double TimeSpan::operator/(const TimeSpan &time) const {

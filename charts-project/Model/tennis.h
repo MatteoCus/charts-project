@@ -5,6 +5,13 @@
 
 class Tennis : public Repetition
 {
+
+protected:
+    //parametro per il calcolo delle calorie bruciate durante l'allenamento
+    static const double c1;
+
+    //parametro per il calcolo dell'intensità dell'allenamento
+    static const unsigned int c2;
 public:
 
     /**

@@ -4,9 +4,9 @@
 Date::Date()
     : day(1), month(1), year(2000) {}
 
-Date::Date(unsigned int d, unsigned int m, unsigned int y)
-    : day(checkDate(d,m,y)? d : throw std::invalid_argument("Tentativo di creazione di una data non valida!")),
-      month(m), year(y) {}
+Date::Date(unsigned int day, unsigned int month, unsigned int year)
+    : day(checkDate(day,month,year)? day : throw std::invalid_argument("Tentativo di creazione di una data non valida!")),
+      month(month), year(year) {}
 
 bool Date::isLeap(unsigned int year){
     if (((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0))
