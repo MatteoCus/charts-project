@@ -16,7 +16,7 @@ private:
     /**
      * @brief copy:                     costruisce una lista di puntatori ad esercizi equivalenti a quelli dell'allenamento passato in ingresso
      * @param repTraining:              allenamento di ripetizione da cui copiare la collezione di esercizi
-     * @return std::vector<Exercise *>: lista di puntatori ad esercizi equivalenti a quelli dell'allenamento passato in ingresso
+     * @return std::vector<Exercise *>: collezione di puntatori ad esercizi equivalenti a quelli dell'allenamento passato in ingresso
      */
     static std::vector<Exercise *> *copy(const Repetition &repTraining);
 
@@ -125,7 +125,7 @@ public:
     Repetition &operator=(const Repetition &repTraining);
 
     /**
-     * @brief ~Repetition:                 distruttore virtuale per la gerarchia sottostante
+     * @brief ~Repetition:                 distruttore profondo virtuale per la gerarchia sottostante
      */
     virtual ~Repetition();
 };

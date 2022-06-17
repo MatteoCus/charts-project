@@ -31,11 +31,8 @@ Training *trainingCreator::createTraining(const std::string &type,
                         aux->addExercise(exerciseCreator::createExercise(exName->at(i), exDuration->at(i), exRecovery->at(i)));
                 }
                 else
-                    throw std::runtime_error("Tentativo di creazione di una serie di esercizi che non rispettano i vincoli di programma!");
+                    throw std::invalid_argument("Tentativo di creazione di una serie di esercizi che non rispettano i vincoli di programma!");
 
-            }   catch (std::runtime_error) {
-                delete aux;
-                throw;
             }   catch (std::invalid_argument) {
                 delete aux;
                 throw;

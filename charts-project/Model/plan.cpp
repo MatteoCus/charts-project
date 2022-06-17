@@ -46,25 +46,25 @@ void Plan::removeTraining(unsigned int pos) {
     trainings.erase(it);
 }
 
-Training *Plan::getTraining(unsigned int pos) const {
-    if (pos >= trainings.size())
+Training *Plan::getTraining(unsigned int position) const {
+    if (position >= trainings.size())
         throw std::out_of_range("Richiesta di un allenamento effettuata usando un indice non valido!");
     auto it = trainings.begin();
-    std::advance(it, pos);
+    std::advance(it, position);
     return *it;
 }
 
-void Plan::setTraining(unsigned int pos, const std::string &name, const DateTime &start,
+void Plan::setTraining(unsigned int position, const std::string &name, const DateTime &start,
                        double distance, const TimeSpan &duration,
                        unsigned int exPos, action operation,
                        const std::vector<std::string>* exName,
                        const std::vector<TimeSpan>*exDuration,
                        const std::vector<TimeSpan>* exRecovery) {
-    if (pos >= getSize())
+    if (position >= getSize())
         throw std::out_of_range("Tentativo di modifica di un allenamento in una posizione non valida!");
 
     auto it = trainings.begin();
-    std::advance(it, pos);
+    std::advance(it, position);
     Training * newTraining = (*it)->clone();
     Training * oldTraining = (*it)->clone();
     trainings.erase(it);
@@ -79,7 +79,7 @@ void Plan::setTraining(unsigned int pos, const std::string &name, const DateTime
         } else if (dynamic_cast<Repetition *>(newTraining)) {
             unsigned int size = exName->size();
             if (size != exRecovery->size() || size != exDuration->size())
-                throw std::runtime_error("Tentativo di modifica di un allenamento con valori errati!");
+                throw std::invalid_argument("Tentativo di modifica di un allenamento con valori errati!");
 
             Repetition *rep = static_cast<Repetition *>(newTraining);
             Exercise *aux = nullptr;
@@ -87,21 +87,21 @@ void Plan::setTraining(unsigned int pos, const std::string &name, const DateTime
             switch (operation) {
             case add:
                 if (size != 1)
-                    throw std::runtime_error("Tentativo di aggiunta di più di un esercizio alla volta!");
+                    throw std::invalid_argument("Tentativo di aggiunta di più di un esercizio alla volta!");
                 aux = exerciseCreator::createExercise(exName->at(0), exDuration->at(0), exRecovery->at(0));
                 rep->addExercise(aux);
                 break;
 
             case insert:
                 if (size != 1)
-                    throw std::runtime_error("Tentativo di inserimento di più di un esercizio alla volta!");
+                    throw std::invalid_argument("Tentativo di inserimento di più di un esercizio alla volta!");
                 aux = exerciseCreator::createExercise(exName->at(0), exDuration->at(0), exRecovery->at(0));
                 rep->insertExercise(exPos, aux);
                 break;
 
             case set:
                 if (size != rep->getSize())
-                    throw std::runtime_error("Tentativo di modifica di esercizi di un allenamento usando un numero di dati errato!");
+                    throw std::invalid_argument("Tentativo di modifica di esercizi di un allenamento usando un numero di dati errato!");
                 for (unsigned int i = 0; i < rep->getSize(); ++i)
                 {
                     aux = exerciseCreator::createExercise(exName->at(i), exDuration->at(i), exRecovery->at(i));
@@ -128,11 +128,7 @@ void Plan::setTraining(unsigned int pos, const std::string &name, const DateTime
         } else
             throw std::invalid_argument("Tentativo di modifica di un allenamento con valori non validi!");
 
-    }  catch (std::runtime_error) {
-        insertTraining(oldTraining);
-        delete newTraining;
-        throw;
-    } catch (std::invalid_argument e) {
+    }  catch (std::invalid_argument e) {
         insertTraining(oldTraining);
         delete newTraining;
         throw;

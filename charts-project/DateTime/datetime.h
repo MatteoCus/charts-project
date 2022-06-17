@@ -123,7 +123,7 @@ public:
     /**
      * @brief operator>:                ritorna un booleano che indica se la data-ora attuale è maggiore o uguale della data-ora in ingresso
      * @param dateTime:                 data-ora in ingresso
-     * @return bool:                    booleano che indica se la data-ora attuale è maggiore o uguale  della data-ora in ingresso
+     * @return bool:                    booleano che indica se la data-ora attuale è maggiore o uguale della data-ora in ingresso
      */
     bool operator>=(const DateTime& dateTime) const;
 };
