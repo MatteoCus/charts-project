@@ -14,6 +14,9 @@ int main(int argc, char *argv[])
 
     QApplication a(argc, argv);
     a.setWindowIcon(QIcon(":/images/jogging.png"));
+    QFont font;
+    font.setPixelSize(13);
+    a.setFont(font);
     Model* m = new Model();
     chartViewer* w = new chartViewer();
     Controller* c = new Controller();

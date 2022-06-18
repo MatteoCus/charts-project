@@ -133,10 +133,11 @@ public:
 
     /**
      * @brief getWriteFileName:     gestisce la richiesta del path del file su cui scrivere gli allenamenti
+     * @param parent:               widget genitore del dialog di richiesta del path
      * @throw std::runtime_error:   se la richiesta del path va a vuoto (utente esce dal dialog specifico)
      * @return QString:             path del file su cui scrivere
      */
-    static QString getWriteFileName();
+    static QString getWriteFileName(QWidget* parent);
 
     /**
      * @brief read:                                     gestisce l'apertura di uno stream XML sul device di IO in ingresso
@@ -148,10 +149,11 @@ public:
 
     /**
      * @brief getReadFileName:      gestisce la richiesta del path del file da cui leggere gli allenamenti
+     * @param parent:               widget genitore del dialog di richiesta del path
      * @throw std::runtime_error:   se la richiesta del path va a vuoto (utente esce dal dialog specifico)
      * @return QString:             path del file su cui leggere
      */
-    static QString getReadFileName();
+    static QString getReadFileName(QWidget* parent);
 
 signals:
 };

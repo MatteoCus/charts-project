@@ -241,7 +241,7 @@ void Controller::save()
 {
     try{
         if(filenameSaved=="")
-            filenameSaved = xmlFileHandler::getWriteFileName();
+            filenameSaved = xmlFileHandler::getWriteFileName(view);
         QFile file(filenameSaved);
         if (!file.open(QFile::WriteOnly | QFile::Text)) {
             QMessageBox::warning(view, tr("QXmlStream"),
@@ -269,7 +269,7 @@ void Controller::saveAs() const
 {
     try {
 
-        QString fileName = xmlFileHandler::getWriteFileName();
+        QString fileName = xmlFileHandler::getWriteFileName(view);
         QFile file(fileName);
         if (!file.open(QFile::WriteOnly | QFile::Text)) {
             QMessageBox::warning(view, tr("QXmlStream"),
@@ -329,7 +329,7 @@ void Controller::open()
             save();
         model->removeTrainings();
 
-        QString fileName = xmlFileHandler::getReadFileName();
+        QString fileName = xmlFileHandler::getReadFileName(view);
         QFile file(fileName);
 
         if (!file.open(QFile::ReadOnly | QFile::Text)) {

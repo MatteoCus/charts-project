@@ -212,9 +212,9 @@ void xmlFileHandler::write(QIODevice *device, std::vector<trainingValues> traini
 
 }
 
-QString xmlFileHandler::getWriteFileName()
+QString xmlFileHandler::getWriteFileName(QWidget* parent)
 {
-    QString fileName = QFileDialog::getSaveFileName(nullptr, ("Save File"),
+    QString fileName = QFileDialog::getSaveFileName(parent, ("Save File"),
                                                     "/home",
                                                     ("XML Files (*.xml)"));
     if (fileName == "")
@@ -243,9 +243,9 @@ std::vector<trainingValues> xmlFileHandler::read(QIODevice *device)
 
 }
 
-QString xmlFileHandler::getReadFileName()
+QString xmlFileHandler::getReadFileName(QWidget* parent)
 {
-    QString fileName = QFileDialog::getOpenFileName(nullptr, ("Open file"),
+    QString fileName = QFileDialog::getOpenFileName(parent, ("Open file"),
                                                     "/home",
                                                     ("XML Files (*.xml)"));
     if (fileName == "")
