@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_Controller_t {
-    QByteArrayData data[12];
-    char stringdata0[88];
+    QByteArrayData data[23];
+    char stringdata0[204];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -34,20 +34,34 @@ static const qt_meta_stringdata_Controller_t qt_meta_stringdata_Controller = {
 QT_MOC_LITERAL(0, 0, 10), // "Controller"
 QT_MOC_LITERAL(1, 11, 3), // "add"
 QT_MOC_LITERAL(2, 15, 0), // ""
-QT_MOC_LITERAL(3, 16, 3), // "set"
-QT_MOC_LITERAL(4, 20, 6), // "remove"
-QT_MOC_LITERAL(5, 27, 7), // "newPlan"
-QT_MOC_LITERAL(6, 35, 4), // "save"
-QT_MOC_LITERAL(7, 40, 6), // "saveAs"
-QT_MOC_LITERAL(8, 47, 4), // "open"
-QT_MOC_LITERAL(9, 52, 9), // "closePlan"
-QT_MOC_LITERAL(10, 62, 14), // "first_response"
-QT_MOC_LITERAL(11, 77, 10) // "first_open"
+QT_MOC_LITERAL(3, 16, 16), // "changeSplitState"
+QT_MOC_LITERAL(4, 33, 5), // "state"
+QT_MOC_LITERAL(5, 39, 3), // "set"
+QT_MOC_LITERAL(6, 43, 6), // "remove"
+QT_MOC_LITERAL(7, 50, 7), // "newPlan"
+QT_MOC_LITERAL(8, 58, 4), // "save"
+QT_MOC_LITERAL(9, 63, 6), // "saveAs"
+QT_MOC_LITERAL(10, 70, 13), // "showExercises"
+QT_MOC_LITERAL(11, 84, 9), // "showChart"
+QT_MOC_LITERAL(12, 94, 13), // "screenChanged"
+QT_MOC_LITERAL(13, 108, 4), // "open"
+QT_MOC_LITERAL(14, 113, 9), // "closePlan"
+QT_MOC_LITERAL(15, 123, 14), // "first_response"
+QT_MOC_LITERAL(16, 138, 10), // "first_open"
+QT_MOC_LITERAL(17, 149, 11), // "updateChart"
+QT_MOC_LITERAL(18, 161, 12), // "chartWidget&"
+QT_MOC_LITERAL(19, 174, 6), // "widget"
+QT_MOC_LITERAL(20, 181, 11), // "std::string"
+QT_MOC_LITERAL(21, 193, 5), // "chart"
+QT_MOC_LITERAL(22, 199, 4) // "data"
 
     },
-    "Controller\0add\0\0set\0remove\0newPlan\0"
-    "save\0saveAs\0open\0closePlan\0first_response\0"
-    "first_open"
+    "Controller\0add\0\0changeSplitState\0state\0"
+    "set\0remove\0newPlan\0save\0saveAs\0"
+    "showExercises\0showChart\0screenChanged\0"
+    "open\0closePlan\0first_response\0first_open\0"
+    "updateChart\0chartWidget&\0widget\0"
+    "std::string\0chart\0data"
 };
 #undef QT_MOC_LITERAL
 
@@ -57,7 +71,7 @@ static const uint qt_meta_data_Controller[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      10,   14, // methods
+      15,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -65,19 +79,25 @@ static const uint qt_meta_data_Controller[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   64,    2, 0x0a /* Public */,
-       3,    0,   65,    2, 0x0a /* Public */,
-       4,    0,   66,    2, 0x0a /* Public */,
-       5,    0,   67,    2, 0x0a /* Public */,
-       6,    0,   68,    2, 0x0a /* Public */,
-       7,    0,   69,    2, 0x0a /* Public */,
-       8,    0,   70,    2, 0x0a /* Public */,
-       9,    0,   71,    2, 0x0a /* Public */,
-      10,    0,   72,    2, 0x0a /* Public */,
-      11,    0,   73,    2, 0x0a /* Public */,
+       1,    0,   89,    2, 0x0a /* Public */,
+       3,    1,   90,    2, 0x0a /* Public */,
+       5,    0,   93,    2, 0x0a /* Public */,
+       6,    0,   94,    2, 0x0a /* Public */,
+       7,    0,   95,    2, 0x0a /* Public */,
+       8,    0,   96,    2, 0x0a /* Public */,
+       9,    0,   97,    2, 0x0a /* Public */,
+      10,    0,   98,    2, 0x0a /* Public */,
+      11,    0,   99,    2, 0x0a /* Public */,
+      12,    0,  100,    2, 0x0a /* Public */,
+      13,    0,  101,    2, 0x0a /* Public */,
+      14,    0,  102,    2, 0x0a /* Public */,
+      15,    0,  103,    2, 0x0a /* Public */,
+      16,    0,  104,    2, 0x0a /* Public */,
+      17,    3,  105,    2, 0x0a /* Public */,
 
  // slots: parameters
     QMetaType::Void,
+    QMetaType::Void, QMetaType::Bool,    4,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -87,6 +107,10 @@ static const uint qt_meta_data_Controller[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 18, 0x80000000 | 20, 0x80000000 | 20,   19,   21,   22,
 
        0        // eod
 };
@@ -98,19 +122,23 @@ void Controller::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->add(); break;
-        case 1: _t->set(); break;
-        case 2: _t->remove(); break;
-        case 3: _t->newPlan(); break;
-        case 4: _t->save(); break;
-        case 5: _t->saveAs(); break;
-        case 6: _t->open(); break;
-        case 7: _t->closePlan(); break;
-        case 8: _t->first_response(); break;
-        case 9: _t->first_open(); break;
+        case 1: _t->changeSplitState((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 2: _t->set(); break;
+        case 3: _t->remove(); break;
+        case 4: _t->newPlan(); break;
+        case 5: _t->save(); break;
+        case 6: _t->saveAs(); break;
+        case 7: _t->showExercises(); break;
+        case 8: _t->showChart(); break;
+        case 9: _t->screenChanged(); break;
+        case 10: _t->open(); break;
+        case 11: _t->closePlan(); break;
+        case 12: _t->first_response(); break;
+        case 13: _t->first_open(); break;
+        case 14: _t->updateChart((*reinterpret_cast< chartWidget(*)>(_a[1])),(*reinterpret_cast< const std::string(*)>(_a[2])),(*reinterpret_cast< const std::string(*)>(_a[3]))); break;
         default: ;
         }
     }
-    Q_UNUSED(_a);
 }
 
 const QMetaObject Controller::staticMetaObject = {
@@ -138,13 +166,13 @@ int Controller::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 10)
+        if (_id < 15)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 10;
+        _id -= 15;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 10)
+        if (_id < 15)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 10;
+        _id -= 15;
     }
     return _id;
 }

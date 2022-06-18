@@ -9,15 +9,11 @@ Controller::Controller(QObject *parent) : QObject(parent), view(nullptr),
 void Controller::setView(chartViewer *v)
 {
     view  = v;
-    if (view != nullptr && model != nullptr)
-        view->setData(model->getTrainings());
 }
 
 void Controller::setModel(Model *m)
 {
     model = m;
-    if (view != nullptr && model != nullptr)
-        view->setData(model->getTrainings());
 }
 
 bool Controller::startView()
@@ -152,7 +148,7 @@ void Controller::add()
         model->addNewTraining(values.type.toStdString(),values.name.toStdString(),
                               start,values.distance,duration,&exName,&exDuration,&exRecovery);
         saved = false;
-        view->showData();
+        view->showData(model->getTrainings());
     }
     catch (std::runtime_error e) {
         view->showWarning(QString::fromStdString(e.what()));
@@ -165,10 +161,21 @@ void Controller::add()
     }
 }
 
+void Controller::changeSplitState(bool state) const
+{
+    try {
+        view->changeTableState(model->getTrainings(),state,true);
+    }  catch (std::runtime_error e) {
+        view->showWarning(e.what());
+    }  catch (std::invalid_argument e) {
+        view->showWarning(e.what());
+    }
+}
+
 void Controller::set()
 {
     try {
-        dialogValues values = view->showSetDialog();
+        dialogValues values = view->showSetDialog(model->getTrainings());
         DateTime start;
         TimeSpan duration;
         int pos = 0;
@@ -183,7 +190,7 @@ void Controller::set()
         model->setTraining(values.pos,values.name.toStdString(),start,values.distance,duration,values.exPos,values.exAct
                            ,&exName,&exDuration, &exRecovery);
         saved = false;
-        view->showData();
+        view->showData(model->getTrainings());
     }
     catch (std::runtime_error e) {
         view->showWarning(QString::fromStdString(e.what()));
@@ -199,10 +206,11 @@ void Controller::set()
 void Controller::remove()
 {
     try {
-        dialogValues values = view->showRemoveDialog();
+        dialogValues values = view->showRemoveDialog(model->getTrainings());
         model->removeTraining(values.pos);
-        saved = false;
-        view->showData();
+
+        saved = !model->getPlanSize();
+        view->showData(model->getTrainings());
     }
     catch (std::runtime_error e) {
         view->showWarning(QString::fromStdString(e.what()));
@@ -224,7 +232,7 @@ void Controller::newPlan()
             save();
         model->removeTrainings();
         saved = true;
-        view->showData();
+        view->showData(model->getTrainings());
 
     }  catch (std::runtime_error e) {
         view->showWarning(e.what());
@@ -283,6 +291,39 @@ void Controller::saveAs() const
 
 }
 
+void Controller::showExercises() const
+{
+    try {
+        view->showExercises(model->getTrainings());
+    }  catch (std::runtime_error e) {
+        view->showWarning(e.what());
+    }  catch (std::invalid_argument e) {
+        view->showWarning(e.what());
+    }
+}
+
+void Controller::showChart() const
+{
+    try {
+        view->showChart(model->getTrainings());
+    }  catch (std::runtime_error e) {
+        view->showWarning(e.what());
+    }  catch (std::invalid_argument e) {
+        view->showWarning(e.what());
+    }
+}
+
+void Controller::screenChanged() const
+{
+    try {
+        view->screenChanged(model->getTrainings());
+    }  catch (std::runtime_error e) {
+        view->showWarning(e.what());
+    }  catch (std::invalid_argument e) {
+        view->showWarning(e.what());
+    }
+}
+
 void Controller::open()
 {
     try {
@@ -323,7 +364,7 @@ void Controller::open()
         saved = true;
         filenameSaved = fileName;
 
-        view->showData();
+        view->showData(model->getTrainings());
 
     }  catch (std::runtime_error e) {
         view->showWarning(e.what());
@@ -347,6 +388,17 @@ void Controller::first_open()
 
     if(filenameSaved != "")
         dialog->close();
+}
+
+void Controller::updateChart(chartWidget& widget, const std::string& chart, const std::string& data) const
+{
+    try {
+        view->updateChart(model->getTrainings(),widget,chart,data);
+    }  catch (std::runtime_error e) {
+        view->showWarning(e.what());
+    }  catch (std::invalid_argument e) {
+        view->showWarning(e.what());
+    }
 }
 
 void Controller::first_response()

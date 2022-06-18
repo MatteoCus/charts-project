@@ -57,9 +57,6 @@ private:
     //layout principale e layout delle tabelle
     QVBoxLayout* mainLayout, *tableLayout;
 
-    //riferimento agli allenamenti del model
-    const std::list<Training*>* trainings;
-
     //splitState: indica se la visualizzazione alternativa è attiva
     bool splitState;
 
@@ -155,52 +152,53 @@ private:
     /**
      * @brief adjustResizePolicy:       imposta la resize policy in base alla risoluzione dello schermo in cui il widget
      *                                  è attualmente visibile
+     * @param trainings:                puntatore ad una collezione di allenamenti da cui dedurre la resize policy, usando anche
+     *                                  la risoluzione dello schermo in cui è mostrato il widget
      */
-    void adjustResizePolicy();
+    void adjustResizePolicy(const std::list<Training *>* trainings);
 
-private slots:
-
-    /**
-     * @brief changeState:              cambia lo splitState e aggiorna, se show è true, il widget
-     * @param state:                    nuovo splitState
-     * @param show:                     booleano che consente o meno di aggiornare la grafica del widget
-     */
-    void changeState(bool state, bool show);
 public:
 
     /**
      * @brief tableWidget:      costruttore di tableWidget, widget per la visualizzazione dinamica di tabelle
      * @param parent:           widget genitore
      */
-    explicit tableWidget(QWidget *parent = nullptr);
+    explicit tableWidget(QWidget *parent);
+
+    /**
+     * @brief changeState:              cambia lo splitState e aggiorna, se "show" è true, il widget
+     * @param trainings:                puntatore ad una collezione di allenamenti da mostrare in base al valore di "show"
+     * @param state:                    nuovo splitState
+     * @param show:                     booleano che consente o meno di aggiornare la grafica del widget
+     */
+    void changeState(const std::list<Training *>* trainings,bool state, bool show);
 
     /**
      * @brief showData:         gestisce la visualizzazione dei dati usando splitState
+     * @param trainings:        puntatore ad una collezione di allenamenti da mostrare
      */
-    void showData();
-
-    /**
-     * @brief setData:          collega il riferimento agli allenamenti
-     * @param data:             riferimento agli allenamenti
-     */
-    void setData(const std::list<Training *> *data);
+    void showData(const std::list<Training *>* trainings);
 
     /**
      * @brief setSplitState:    modifica esplicitamente il valore di spliState senza aggiornare il widget
+     * @param trainings:        puntatore ad una collezione di allenamenti da NON mostrare dopo aver impostato lo splitState
+     *                          (si usa il metodo changeState))
      * @param state:            nuovo splitState
      */
-    void setSplitState(bool state);
+    void setSplitState(const std::list<Training *>* trainings,bool state);
 
     /**
      * @brief screenChanged:    metodo pubblico che consente di chiamare il metodo privato "adjustResizePolicy"
+     * @param trainings:        puntatore ad una collezione di allenamenti da cui dedurre la resize policy
      */
-    void screenChanged();
+    void screenChanged(const std::list<Training *>* trainings);
 
 signals:
     void add();
     void set();
     void remove();
     void showExercises();
+    void changeState(bool);
 };
 
 #endif // TABLEWIDGET_H

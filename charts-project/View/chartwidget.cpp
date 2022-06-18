@@ -42,10 +42,10 @@ void chartWidget::addControls()
     controlsLayout->addWidget(dataBox);
 
     connect(chartBox, static_cast<void(QComboBox::*)(const QString &)>(&QComboBox::currentIndexChanged),
-            [=](const QString &text){showData(text.toStdString(), dataBox->currentText().toStdString());});
+            [=](const QString &text){emit updateChart(*this, text.toStdString(), dataBox->currentText().toStdString());});
 
     connect(dataBox, static_cast<void(QComboBox::*)(const QString &)>(&QComboBox::currentIndexChanged),
-            [=](const QString &text){showData(chartBox->currentText().toStdString(), text.toStdString());});
+            [=](const QString &text){emit updateChart(*this,chartBox->currentText().toStdString(), text.toStdString());});
 
     controlsLayout->setContentsMargins(0,20,0,0);
     controlsLayout->setSpacing(50);
@@ -80,10 +80,8 @@ void chartWidget::unhideDataBoxEntry(int x)
 
 
 
-chartWidget::chartWidget(QWidget *parent) : QWidget(parent)
+chartWidget::chartWidget(QWidget *parent) : QWidget(parent), mainLayout(new QVBoxLayout())
 {
-    mainLayout = new QVBoxLayout();
-
     addDefaultChart();
 
     addControls();
@@ -91,7 +89,7 @@ chartWidget::chartWidget(QWidget *parent) : QWidget(parent)
     setLayout(mainLayout);
 }
 
-void chartWidget::checkDataBoxValues()
+void chartWidget::checkDataBoxValues(const std::list<Training*>* trainings)
 {
     bool repetitionFound = false, enduranceFound = false;
     for (auto it = trainings->begin(); it != trainings->end()-- && (!repetitionFound || !enduranceFound); ++it)
@@ -112,7 +110,7 @@ void chartWidget::checkDataBoxValues()
         hideDataBoxEntry(3);
 }
 
-void chartWidget::extractValues(std::vector<double>& values, std::vector<DateTime*>& start, const std::string& data)
+void chartWidget::extractValues(const std::list<Training*>* trainings, std::vector<double>& values, std::vector<DateTime*>& start, const std::string& data)
 {
 
     for (auto it = trainings->begin(); it != trainings->end(); ++it)
@@ -144,7 +142,7 @@ void chartWidget::extractValues(std::vector<double>& values, std::vector<DateTim
     }
 }
 
-void chartWidget::extractValues(std::vector<double>& values, const std::string& data)
+void chartWidget::extractValues(const std::list<Training*>* trainings, std::vector<double>& values, const std::string& data)
 {
     int j = 0;
 
@@ -190,7 +188,7 @@ void chartWidget::extractValues(std::vector<double>& values, const std::string& 
     }
 }
 
-void chartWidget::showData(std::string chart, std::string data)
+void chartWidget::showData(const std::list<Training*>* trainings, std::string chart, std::string data)
 {
     //in base al valore delle combobox, campioniamo dei dati da spedire poi a mainChart (tipo chart*) tramite 'update(dati)'
     //e poi si invoca 'show()' sempre su mainChart, dopo averlo opportunamente cambiato se necessario
@@ -199,7 +197,7 @@ void chartWidget::showData(std::string chart, std::string data)
 
     visibleChart->getChartView()->setVisible(false);
 
-    checkDataBoxValues();
+    checkDataBoxValues(trainings);
 
     if ( chart == "" && data == "")
     {
@@ -211,7 +209,7 @@ void chartWidget::showData(std::string chart, std::string data)
 
     if (chart == "Line Chart" || chart == "Bar Chart")
     {
-        extractValues(values,start,data);
+        extractValues(trainings,values,start,data);
         if (chart == "Line Chart")
             visibleChart = line;
         else
@@ -219,7 +217,7 @@ void chartWidget::showData(std::string chart, std::string data)
     }
     else if (chart == "Pie Chart")
     {
-        extractValues(values,data);
+        extractValues(trainings,values,data);
         visibleChart = pie;
     }
     else throw std::runtime_error("Grafico non identificato!");
@@ -252,11 +250,6 @@ void chartWidget::showData(std::string chart, std::string data)
         delete values;
 }
 
-void chartWidget::setData(const std::list<Training *> *data)
-{
-    trainings = data;
-}
-
 chart *chartWidget::getVisibleChart() const
 {
     return visibleChart;
@@ -269,10 +262,9 @@ void chartWidget::setChartsSize(int w, int h)
     pie->getChartView()->setFixedSize(w,h);
 }
 
-chartWidget *chartWidget::clone() const
+chartWidget *chartWidget::clone(const std::list<Training*>* trainings) const
 {
     chartWidget* aux = new chartWidget();
-    aux->setData(trainings);
-    aux->showData();
+    aux->showData(trainings);
     return aux;
 }

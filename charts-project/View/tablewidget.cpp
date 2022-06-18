@@ -206,12 +206,12 @@ void tableWidget::addControls()
     controlBoxLayout->addWidget(splitCheckBox);
 
     connect(exerciseButton, SIGNAL(clicked()), this, SIGNAL(showExercises()));
-    connect(splitCheckBox, &QCheckBox::clicked, [this](bool state){changeState(state,true);});
+    connect(splitCheckBox, &QCheckBox::clicked, [this](bool state){emit changeState(state);});
 
     mainLayout->addLayout(controlBoxLayout);
 }
 
-void tableWidget::changeState(bool state, bool show)
+void tableWidget::changeState(const std::list<Training *>* trainings,bool state, bool show)
 {
     splitState = state;
 
@@ -223,15 +223,15 @@ void tableWidget::changeState(bool state, bool show)
     label1->adjustSize();
 
     if(show)
-        showData();
+        showData(trainings);
 }
 
-void tableWidget::screenChanged()
+void tableWidget::screenChanged(const std::list<Training *>* trainings)
 {
-    adjustResizePolicy();
+    adjustResizePolicy(trainings);
 }
 
-tableWidget::tableWidget(QWidget *parent) : QWidget(parent), mainLayout(new QVBoxLayout()), trainings(nullptr),splitState(false)
+tableWidget::tableWidget(QWidget *parent) : QWidget(parent), mainLayout(new QVBoxLayout()),splitState(false)
 {
     mainLayout->setAlignment(Qt::AlignTop);
 
@@ -309,7 +309,7 @@ void tableWidget::showEnduranceData(Endurance *training, unsigned int i)
         table2->setCellWidget(0,6,item);
 }
 
-void tableWidget::adjustResizePolicy()
+void tableWidget::adjustResizePolicy(const std::list<Training *>* trainings)
 {
     if(trainings->size() == 0)
         setStretchResize(table1);
@@ -343,7 +343,7 @@ void tableWidget::adjustResizePolicy()
         adaptSingleTableHeight(table1);
 }
 
-void tableWidget::showData()
+void tableWidget::showData(const std::list<Training *>* trainings)
 {
     bool foundRepetition = false, foundEndurance = false;
 
@@ -357,7 +357,7 @@ void tableWidget::showData()
 
     if(splitState && foundEndurance != foundRepetition)
     {
-        changeState(!splitState, false);
+        changeState(trainings,!splitState, false);
         splitCheckBox->setCheckState(Qt::CheckState::Unchecked);
     }
 
@@ -440,7 +440,7 @@ void tableWidget::showData()
             splitCheckBox->setVisible(false);
     }
 
-    adjustResizePolicy();
+    adjustResizePolicy(trainings);
 
     table1->scrollToTop();
     table2->scrollToTop();
@@ -449,14 +449,9 @@ void tableWidget::showData()
     label2->setVisible(splitState);
 }
 
-void tableWidget::setData(const std::list<Training *> *data)
+void tableWidget::setSplitState(const std::list<Training *>* trainings,bool state)
 {
-    trainings = data;
-}
-
-void tableWidget::setSplitState(bool state)
-{
-    changeState(state,false);
+    changeState(trainings,state,false);
 
     if(!state)
         splitCheckBox->setCheckState(Qt::CheckState::Unchecked);

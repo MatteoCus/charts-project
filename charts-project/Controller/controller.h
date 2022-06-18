@@ -93,6 +93,12 @@ public slots:
     void add();
 
     /**
+     * @brief changeSplitState:     gestisce un cambio di visualizzazione nel widget contenente la tabella/le tabelle
+     * @param state:                booleano che indica la visualizzazione richiesta dall'utente
+     */
+    void changeSplitState(bool state) const;
+
+    /**
      * @brief set:     gestisce una richiesta di modifica di un allenamento
      */
     void set();
@@ -120,6 +126,22 @@ public slots:
     void saveAs() const;
 
     /**
+     * @brief showExercises:    gestisce una richiesta di visualizzazione degli esercizi di un allenamento (da selezionare)
+     */
+    void showExercises() const;
+
+    /**
+     * @brief showChart:    gestisce una richiesta di visualizzazione di un dialog custom contenente il widget dei grafici
+     */
+    void showChart() const;
+
+    /**
+     * @brief screenChanged:    gestisce il resize delle componenti grafiche in base al modello ed allo schermo
+     *                          su cui il widget principale è visualizzato
+     */
+    void screenChanged() const;
+
+    /**
      * @brief open:     gestisce una richiesta di ripristino di allenamenti da un file (da selezionare)
      */
     void open();
@@ -140,6 +162,14 @@ public slots:
      *                          usando il dialog iniziale ma non seleziona un file.
      */
     void first_open();
+
+    /**
+     * @brief updateChart:  gestisce l'aggiornamento del widget relativo ai grafici, cambiando tipo di grafico o dati visualizzati
+     * @param widget:       widget in cui attuare i cambiamenti
+     * @param chart:        nome del grafico da visualizzare
+     * @param data:         nome del dato da visualizzare
+     */
+    void updateChart(chartWidget& widget, const std::string& chart, const std::string& data) const;
 };
 
 #endif // CONTROLLER_H

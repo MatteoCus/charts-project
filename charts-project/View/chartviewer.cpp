@@ -37,8 +37,8 @@ void chartViewer::addMenu()
     connect(file->actions().at(3),SIGNAL(triggered()),this,SIGNAL(saveAs()));
     connect(file->actions().at(4),SIGNAL(triggered()),this,SLOT(close()));
 
-    connect(visualizza->actions().at(0),SIGNAL(triggered()),this,SLOT(showChart()));
-    connect(visualizza->actions().at(1),SIGNAL(triggered()),this,SLOT(showExercises()));
+    connect(visualizza->actions().at(0),SIGNAL(triggered()),this,SIGNAL(showChart()));
+    connect(visualizza->actions().at(1),SIGNAL(triggered()),this,SIGNAL(showExercises()));
 
     connect(allenamenti->actions().at(0), SIGNAL(triggered()), this, SIGNAL(addTrainings()));
     connect(allenamenti->actions().at(1), SIGNAL(triggered()), this, SIGNAL(setTrainings()));
@@ -47,7 +47,7 @@ void chartViewer::addMenu()
     mainLayout->setMenuBar(menuBar);
 }
 
-void chartViewer::findTraining(unsigned int &n, const QDateTime& start)
+void chartViewer::findTraining(const std::list<Training *>* trainings, unsigned int &n, const QDateTime& start)
 {
     int i=0;
     bool found = false;
@@ -85,7 +85,7 @@ void chartViewer::closeEvent(QCloseEvent *event)
         event->ignore();
 }
 
-void chartViewer::showExercises()
+void chartViewer::showExercises(const std::list<Training *>* trainings)
 {
     bool ok;
     try{
@@ -93,7 +93,7 @@ void chartViewer::showExercises()
         if (start != "")
         {
             unsigned int n = 0;
-            findTraining(n,QDateTime::fromString(start, "dd/MM/yyyy hh:mm:ss"));
+            findTraining(trainings, n,QDateTime::fromString(start, "dd/MM/yyyy hh:mm:ss"));
             auto training = trainings->begin();
             std::advance(training,n);
             if (dynamic_cast<Repetition*>(*training))
@@ -112,9 +112,11 @@ void chartViewer::showExercises()
     }
 }
 
-void chartViewer::showChart()
+void chartViewer::showChart(const std::list<Training *>* trainings)
 {
-    chartWidget* aux = chartW->clone();
+    chartWidget* aux = chartW->clone(trainings);
+    connect(aux,SIGNAL(updateChart(chartWidget&, const std::string&, const std::string&)), this, SIGNAL(updateChart(chartWidget&, const std::string&, const std::string&)));
+
     QDialog *dialog = new QDialog(this);
 
     aux->setStyleSheet("QWidget{background-color: #404244}");
@@ -132,9 +134,9 @@ void chartViewer::showChart()
     dialog->show();
 }
 
-void chartViewer::screenChanged()
+void chartViewer::screenChanged(const std::list<Training *>* trainings)
 {
-    tableW->screenChanged();
+    tableW->screenChanged(trainings);
 }
 
 void chartViewer::setStyle()
@@ -237,17 +239,25 @@ chartViewer::chartViewer(QWidget *parent) : QWidget(parent)
 
     winId();
 
-    connect(tableW, SIGNAL(showExercises()), this, SLOT(showExercises()));
+    connect(tableW, SIGNAL(showExercises()), this, SIGNAL(showExercises()));
+    connect(tableW, SIGNAL(changeState(bool)), this, SIGNAL(changeSplitState(bool)));
     connect(tableW,SIGNAL(add()), this, SIGNAL(addTrainings()));
     connect(tableW,SIGNAL(remove()), this, SIGNAL(removeTrainings()));
     connect(tableW,SIGNAL(set()), this, SIGNAL(setTrainings()));
-    connect(window()->windowHandle(), SIGNAL(screenChanged(QScreen*)), this, SLOT(screenChanged()));
+    connect(chartW,SIGNAL(updateChart(chartWidget&, const std::string&, const std::string&)), this, SIGNAL(updateChart(chartWidget&, const std::string&, const std::string&)));
+    connect(window()->windowHandle(), SIGNAL(screenChanged(QScreen*)), this, SIGNAL(screenChanged()));
+}
+
+void chartViewer::changeTableState(const std::list<Training*>* trainings, bool state, bool show)
+{
+    tableW->changeState(trainings,state,show);
 }
 
 void chartViewer::setController(Controller *c)
 {
     controller = c;
     connect(this, SIGNAL(addTrainings()), controller, SLOT(add()));
+    connect(this, SIGNAL(changeSplitState(bool)), controller, SLOT(changeSplitState(bool)));
     connect(this, SIGNAL(setTrainings()), controller, SLOT(set()));
     connect(this, SIGNAL(removeTrainings()), controller, SLOT(remove()));
     connect(this, SIGNAL(newPlan()), controller, SLOT(newPlan()));
@@ -255,6 +265,10 @@ void chartViewer::setController(Controller *c)
     connect(this, SIGNAL(save()), controller, SLOT(save()));
     connect(this, SIGNAL(saveAs()), controller, SLOT(saveAs()));
     connect(this, SIGNAL(closeAll()), controller, SLOT(closePlan()));
+    connect(this, SIGNAL(showExercises()), controller, SLOT(showExercises()));
+    connect(this, SIGNAL(showChart()), controller, SLOT(showChart()));
+    connect(this, SIGNAL(screenChanged()), controller, SLOT(screenChanged()));
+    connect(this, SIGNAL(updateChart(chartWidget&, const std::string&, const std::string&)), controller, SLOT(updateChart(chartWidget&, const std::string&, const std::string&)));
 }
 
 void chartViewer::showWarning(const QString &message)
@@ -285,14 +299,14 @@ dialogValues chartViewer::showAddDialog()
         throw std::runtime_error("Nessun tipo scelto, operazione annullata!");
 }
 
-dialogValues chartViewer::showRemoveDialog()
+dialogValues chartViewer::showRemoveDialog(const std::list<Training *>* trainings)
 {
     bool ok = false;
     QString start = selectTrainingDialog::getDate(this,&ok,trainings);
     if(ok)
     {
         unsigned int n = 0;
-        findTraining(n,QDateTime::fromString(start, "dd/MM/yyyy hh:mm:ss"));
+        findTraining(trainings,n,QDateTime::fromString(start, "dd/MM/yyyy hh:mm:ss"));
         auto training = trainings->begin();
         std::advance(training,n);
         if (auto aux = dynamic_cast<Endurance*>(*training))
@@ -314,7 +328,7 @@ dialogValues chartViewer::showRemoveDialog()
         throw std::runtime_error("Nessun allenamento scelto, operazione annullata!");
 }
 
-dialogValues chartViewer::showSetDialog()
+dialogValues chartViewer::showSetDialog(const std::list<Training *>* trainings)
 {
     bool ok = false;
     QString start = selectTrainingDialog::getDate(this,&ok,trainings);
@@ -323,7 +337,7 @@ dialogValues chartViewer::showSetDialog()
     {
         unsigned int n = 0;
 
-        findTraining(n,QDateTime::fromString(start, "dd/MM/yyyy hh:mm:ss"));
+        findTraining(trainings,n,QDateTime::fromString(start, "dd/MM/yyyy hh:mm:ss"));
         auto training = trainings->begin();
         std::advance(training,n);
 
@@ -348,14 +362,7 @@ dialogValues chartViewer::showSetDialog()
         throw std::runtime_error("Nessun allenamento scelto, operazione annullata!");
 }
 
-void chartViewer::setData(const std::list<Training *> *data)
-{
-    trainings = data;
-    tableW->setData(trainings);
-    chartW->setData(trainings);
-}
-
-void chartViewer::showData()
+void chartViewer::showData(const std::list<Training *>* trainings)
 {
     bool repetition = false, endurance = false;
 
@@ -373,16 +380,21 @@ void chartViewer::showData()
         visualizza->actions().at(1)->setVisible(false);
 
     if(!repetition || !endurance)
-        tableW->setSplitState(false);
+        tableW->setSplitState(trainings,false);
 
 
     tableW->hide();
     chartW->hide();
 
-    tableW->showData();
-    chartW->showData();
+    tableW->showData(trainings);
+    chartW->showData(trainings);
 
     tableW->show();
     chartW->show();
 
+}
+
+void chartViewer::updateChart(const std::list<Training *> *trainings, chartWidget& widget, const std::string& chart, const std::string& data)
+{
+    widget.showData(trainings,chart,data);
 }

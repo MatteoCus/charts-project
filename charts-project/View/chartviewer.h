@@ -52,9 +52,6 @@ private:
     //i menù
     QMenu *file, *visualizza, *allenamenti;
 
-    //riferimento agli allenamenti del model
-    const std::list<Training*>* trainings;
-
     /**
      * @brief addMenu:      aggiunge i menu al mainLayout (e connette i segnali e gli slot)
      */
@@ -63,10 +60,12 @@ private:
     /**
      * @brief findTraining:     trova un allenamento basandosi sulla sua data di inizio (è identificatore degli esercizi)
      *                          e ritorna la sua posizione usando un riferimento
+     * @param trainings:        puntatore ad una collezione di allenamenti in cui trovare l'allenamento che ha
+     *                          come data di inizio la data di inizio in ingresso
      * @param n:                riferimento alla posizione dell'allenamento
      * @param start:            data di inizio dell'allenamento da cercare
      */
-    void findTraining(unsigned int &n, const QDateTime& start);
+    void findTraining(const std::list<Training *>* trainings, unsigned int &n, const QDateTime& start);
 
     /**
      * @brief closeEvent:   consente la chiusura del  widget chiedendo ulteriore conferma
@@ -79,26 +78,6 @@ private:
      */
     void setStyle();
     
-private slots:
-
-    /**
-     * @brief showExercises:        consente la scelta di un allenamento di ripetizione e ne mostra gli esercizi
-     * @throw std::runtime_error:   se il tipo di allenamento selezionato non è valido
-     */
-    void showExercises();
-
-    /**
-     * @brief showChart:            consente la visualizzazione del widget grafico presente in chartViewer in un dialog
-     *                              indipendente e ingrandibile
-     */
-    void showChart();
-
-    /**
-     * @brief screenChanged:        gestisce il cambio di schermo in cui è visualizzato il widget, segnalando la cosa
-     *                              alla tabella, per garantire una vista equilibrata
-     */
-    void screenChanged();
-
 public:
 
     /**
@@ -108,10 +87,39 @@ public:
     explicit chartViewer(QWidget *parent = nullptr);
 
     /**
+     * @brief changeTableState:     modifica la visualizzazione del widget che gestisce le tabelle
+     * @param trainings:            puntatore ad una collezione di allenamenti, serve per la visualizzazione dei dati
+     * @param state:                tipo di visualizzazione
+     * @param show:                 booleano che indica se il widget che gestisce le tabelle deve mostrare i cambiamenti a video
+     */
+    void changeTableState(const std::list<Training*>* trainings, bool state, bool show);
+
+    /**
      * @brief setController:        imposta il riferimento al controller (e connette segnali e slot)
      * @param c:                    riferimento al controller
      */
     void setController(Controller* c);
+
+    /**
+     * @brief showExercises:        consente la scelta di un allenamento di ripetizione e ne mostra gli esercizi
+     * @param trainings:            puntatore ad una collezione di allenamenti in cui operare
+     * @throw std::runtime_error:   se il tipo di allenamento selezionato non è valido
+     */
+    void showExercises(const std::list<Training *>* trainings);
+
+    /**
+     * @brief showChart:            consente la visualizzazione del widget grafico presente in chartViewer in un dialog
+     *                              indipendente e ingrandibile
+     * @param trainings:            puntatore ad una collezione di allenamenti in cui operare
+     */
+    void showChart(const std::list<Training *>* trainings);
+
+    /**
+     * @brief screenChanged:        gestisce il cambio di schermo in cui è visualizzato il widget, segnalando la cosa
+     *                              alla tabella, per garantire una vista equilibrata
+     * @param trainings:            puntatore ad una collezione di allenamenti da visualizzare sulla tabella
+     */
+    void screenChanged(const std::list<Training *>* trainings);
 
     /**
      * @brief showWarning:          mostra a video i messaggi di errore dell'applicazione
@@ -128,38 +136,50 @@ public:
 
     /**
      * @brief showRemoveDialog:     estrae i valori dai dialog per rimuovere un allenamento dal modello
+     * @param trainings:            puntatore ad una collezione di allenamenti in cui operare
      * @throw std::runtime_error:   se il tipo di allenamento scelto non è corretto/se l'operazione è annullata
      * @return dialogValues:        valori per rimuovere un allenamento dal modello
      */
-    dialogValues showRemoveDialog();
+    dialogValues showRemoveDialog(const std::list<Training *>* trainings);
 
     /**
      * @brief showSetDialog:        estrae i valori dai dialog per modificare un allenamento nel modello
+     * @param trainings:            puntatore ad una collezione di allenamenti in cui operare
      * @throw std::runtime_error:   se il tipo di allenamento scelto non è corretto/se l'operazione è annullata
      * @return dialogValues:        valori per modificare un allenamento nel modello
      */
-    dialogValues showSetDialog();
-
-    /**
-     * @brief setData:          collega il riferimento agli allenamenti
-     * @param data:             riferimento agli allenamenti
-     */
-    void setData(const std::list<Training*>* data);
+    dialogValues showSetDialog(const std::list<Training *>* trainings);
 
     /**
      * @brief showData:         aggiorna la/le tabella/e ed il grafico attivo
+     * @param trainings:        puntatore ad una collezione di allenamenti in cui operare
      */
-    void showData();
+    void showData(const std::list<Training *>* trainings);
+
+    /**
+     * @brief updateChart:      aggiorna il widget relativo alla visualizzazione dei grafici
+     * @param trainings:        puntatore ad una collezione di allenamenti di cui visualizzare i dati richiesti nel grafico richiesto
+     * @param widget:           widget in cui attuare i cambiamenti
+     * @param chart:            nome del grafico richiesto
+     * @param data:             nome dei dati richiesti
+     */
+    void updateChart(const std::list<Training*>* trainings, chartWidget& widget, const std::string& chart, const std::string& data);
 
 signals:
     void addTrainings() const;
+    void changeSplitState(bool) const;
     void setTrainings() const;
     void removeTrainings() const;
     void save() const;
     void saveAs() const;
+    void showExercises() const;
+    void showChart() const;
+    void screenChanged() const;
     void newPlan() const;
     void open() const;
     void closeAll() const;
+    void updateChart(chartWidget&, const std::string&, const std::string&) const;
+
 };
 
 #endif // CHARTVIEWER_H

@@ -39,9 +39,6 @@ private:
     //grafico a torta
     pieChart* pie;
 
-    //riferimento agli allenamenti del model
-    const std::list<Training*>* trainings;
-
     //combo box per la selezione del grafico
     QComboBox* chartBox;
 
@@ -57,7 +54,7 @@ private:
     void addDefaultChart();
 
     /**
-     * @brief addControls:  aggiunta delle combo box al layout principale (e collegamento segnali e slot)
+     * @brief addControls:          aggiunta delle combo box al layout principale (e collegamento segnali e slot)
      */
     void addControls();
 
@@ -78,25 +75,29 @@ private:
     /**
      * @brief checkDataBoxValues:   gestisce i valori delle combo box in seguito a modifiche del model
      *                              (nasconde/mostra entry della combo box relativa ai dati)
+     * @param trainings:            puntatore ad una collezione di allenamenti da cui dedurre se
+     *                              nascondere entry della combo box
      */
-    void checkDataBoxValues();
+    void checkDataBoxValues(const std::list<Training*>* trainings);
 
     /**
      * @brief extractValues:        consente l'estrazione dei dati, a partire dal riferimento agli allenamenti del model,
      *                              in un formato compatibile con le esigenze dei grafici
+     * @param trainings:            puntatore ad una collezione di allenamenti da cui estrarre i valori
      * @param values:               valori estratti
      * @param start:                date di inizio degli allenamenti da cui sono estratti i valori
      * @param data:                 tipo di dati da estrarre dagli allenamenti
      */
-    void extractValues(std::vector<double>& values, std::vector<DateTime*>& start, const std::string& data);
+    void extractValues(const std::list<Training*>* trainings, std::vector<double>& values, std::vector<DateTime*>& start, const std::string& data);
 
     /**
      * @brief extractValues:        consente l'estrazione dei dati, a partire dal riferimento agli allenamenti del model,
      *                              in un formato compatibile con le esigenze dei grafici
+     * @param trainings:            puntatore ad una collezione di allenamenti da cui estrarre i valori
      * @param values:               valori estratti
      * @param data:                 tipo di dati da estrarre dagli allenamenti
      */
-    void extractValues(std::vector<double>& values, const std::string& data);
+    void extractValues(const std::list<Training*>* trainings, std::vector<double>& values, const std::string& data);
 
 public:
 
@@ -108,17 +109,12 @@ public:
 
     /**
      * @brief showData:         gestisce la visualizzazione dei dati usando il grafico attivo ed i tipi di dato
-     *                          selezionati dall'utente
+     *                          selezionati dall'utente (se non specificati, si prendono i valori dalle combo box)
+     * @param trainings:        puntatore ad una collezione di allenamenti da cui estrarre i valori
      * @param chart:            nome del grafico da usare per la visualizzazione
      * @param data:             nome dei dati da usare per la visualizzazione
      */
-    void showData(std::string chart = "", std::string data = "");
-
-    /**
-     * @brief setData:          collega il riferimento agli allenamenti
-     * @param data:             riferimento agli allenamenti
-     */
-    void setData(const std::list<Training *> *data);
+    void showData(const std::list<Training*>* trainings, std::string chart = "", std::string data = "");
 
     /**
      * @brief getVisibleChart:  ritorna un puntatore al grafico visibile
@@ -134,10 +130,13 @@ public:
     void setChartsSize(int w, int h);
 
     /**
-     * @brief clone:                    metodo per implementare il clonable pattern sulla gerarchia sottostante
+     * @brief clone:                metodo per implementare il clonable pattern sulla gerarchia sottostante
+     * @param trainings:            puntatore ad una collezione di allenamenti, serve al costruttore
      */
-    chartWidget *clone() const;
+    chartWidget *clone(const std::list<Training*>* trainings) const;
 
+signals:
+    void updateChart(chartWidget&, const std::string&, const std::string&) const;
 };
 
 #endif // CHARTWIDGET_H

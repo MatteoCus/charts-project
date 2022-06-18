@@ -54,7 +54,8 @@ void initialDialog::addTextImage()
                               "a) La durata di ogni allenamento deve essere inferiore o \n"
                               "   uguale a 20 ore;\n"
                               "b) Il numero di esercizi inseribili per i tipi di \n"
-                              "   allenamento 4) e 5) deve essere compreso tra 1 e 15.",this);
+                              "   allenamento 4) e 5) deve essere compreso tra 1 e 15;\n"
+                              "c) Gli allenamenti non devono sovrapporsi temporalmente.",this);
 
     textImageLayout->addWidget(text);
 
