@@ -1,6 +1,4 @@
 #include "barchart.h"
-#include <iostream>
-using namespace std;
 
 barChart::barChart(QWidget *parent) : axedChart(parent)
 {

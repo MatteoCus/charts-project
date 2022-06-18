@@ -1,6 +1,4 @@
 #include "repetition.h"
-#include <iostream>
-using namespace std;
 
 Repetition::Repetition(const std::string &name, const DateTime &start)
     : Training(name, start), exercises() {}

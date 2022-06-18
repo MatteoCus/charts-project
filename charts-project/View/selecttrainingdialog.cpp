@@ -1,6 +1,4 @@
 #include "selecttrainingdialog.h"
-#include <iostream>
-using namespace std;
 
 selectTrainingDialog::selectTrainingDialog(QWidget* parent, const std::list<Training*>* trainings, std::string type): QDialog(parent)
 {

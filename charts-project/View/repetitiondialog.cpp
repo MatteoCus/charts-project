@@ -1,6 +1,4 @@
 #include "repetitiondialog.h"
-#include <iostream>
-using namespace std;
 
 repetitionDialog::repetitionDialog(QWidget *parent, action act, Repetition *training)
     :trainingDialog(parent)

@@ -1,6 +1,4 @@
 #include "plan.h"
-#include <iostream>
-using namespace std;
 
 bool Plan::check(Training *training) {
     if (!training)

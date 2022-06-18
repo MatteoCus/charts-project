@@ -1,7 +1,5 @@
 #include "chartviewer.h"
 #include "../Controller/controller.h"
-#include <iostream>
-using namespace std;
 
 void chartViewer::addMenu()
 {

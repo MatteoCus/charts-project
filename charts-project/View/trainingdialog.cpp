@@ -1,5 +1,4 @@
 #include "trainingdialog.h"
-#include <iostream>
 
 void trainingDialog::addToLayout(QBoxLayout* layout, QWidget* w1, QWidget* w2)
 {

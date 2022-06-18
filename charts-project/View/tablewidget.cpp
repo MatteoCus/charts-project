@@ -1,6 +1,4 @@
 #include "tablewidget.h"
-#include <iostream>
-using namespace std;
 
 std::string value2string(double value)
 {

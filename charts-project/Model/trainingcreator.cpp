@@ -1,7 +1,5 @@
 #include "trainingcreator.h"
 #include "exercisecreator.h"
-#include <iostream>
-using namespace std;
 
 Training *trainingCreator::createTraining(const std::string &type,
                                           const std::string &name, const DateTime &start,

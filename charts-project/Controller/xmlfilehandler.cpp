@@ -1,6 +1,4 @@
 #include "xmlfilehandler.h"
-#include <iostream>
-using namespace std;
 
 void xmlFileHandler::writeExercises(QXmlStreamWriter& writer, std::vector<trainingValues>::iterator it)
 {

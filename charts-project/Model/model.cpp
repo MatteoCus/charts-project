@@ -1,6 +1,4 @@
 #include "model.h"
-#include <iostream>
-using namespace std;
 
 Model::Model() : plan(new Plan()) {}
 

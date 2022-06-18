@@ -1,6 +1,4 @@
 #include "controller.h"
-#include <iostream>
-using namespace std;
 
 Controller::Controller(QObject *parent) : QObject(parent), view(nullptr),
     model(nullptr), saved(true), firstResponse(true), filenameSaved(""), dialog(nullptr)

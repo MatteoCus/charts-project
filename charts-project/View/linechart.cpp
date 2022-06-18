@@ -1,6 +1,4 @@
 #include "linechart.h"
-#include <iostream>
-using namespace std;
 
 lineChart::lineChart(QWidget *parent) : axedChart(parent)
 {

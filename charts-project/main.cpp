@@ -1,5 +1,4 @@
 #include <QApplication>
-#include <iostream>
 #include <vector>
 #include <list>
 #include "DateTime/timespan.h"
@@ -8,8 +7,6 @@
 #include "Model/model.h"
 #include "View/chartviewer.h"
 #include "Controller/controller.h"
-
-#include <iostream>
 using namespace std;
 
 int main(int argc, char *argv[])
