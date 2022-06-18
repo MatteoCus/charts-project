@@ -60,6 +60,25 @@ public:
                  unsigned int seconds = 0);
 
     /**
+     * @brief setSeconds:               modifica un orario/durata usando i secondi in ingresso
+     * @param seconds:                  secondi dell'orario/durata
+     * @throw std::invalid_argument:    se l'orario/durata non è valida
+     */
+    void setSeconds(unsigned int seconds);
+    /**
+     * @brief setMinutes:               modifica un orario/durata usando i minuti in ingresso
+     * @param minutes:                  minuti dell'orario/durata
+     * @throw std::invalid_argument:    se l'orario/durata non è valida
+     */
+    void setMinutes(unsigned int minutes);
+
+    /**
+     * @brief setHours:                 modifica un orario/durata usando le ore in ingresso
+     * @param hours:                    ore dell'orario/durata
+     */
+    void setHours(unsigned int hours);
+
+    /**
      * @brief getTotalMinutes:      restituisce i minuti totale dell'orario/durata
      * @return unsigned int:        minuti totali dell'orario/durata
      */

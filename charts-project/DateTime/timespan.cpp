@@ -27,6 +27,23 @@ void TimeSpan::setTime(unsigned int h, unsigned int m, unsigned int s) {
                             : throw std::invalid_argument("Tentativo di modifica di un orario/una durata di tempo usando un valore non valido!");
 }
 
+void TimeSpan::setSeconds(unsigned int seconds)
+{
+    sec = (seconds < 60)? getHours() * secInHour + getMinutes() * secInMinute + seconds
+                            : throw std::invalid_argument("Tentativo di modifica di un orario/una durata di tempo usando un valore non valido!");
+}
+
+void TimeSpan::setMinutes(unsigned int minutes)
+{
+    sec = (minutes < 60)? getHours() * secInHour + minutes * secInMinute + getSeconds()
+                            : throw std::invalid_argument("Tentativo di modifica di un orario/una durata di tempo usando un valore non valido!");
+}
+
+void TimeSpan::setHours(unsigned int hours)
+{
+    sec =  hours * secInHour + getMinutes() * secInMinute + getSeconds();
+}
+
 bool TimeSpan::isNull() const { return sec == 0; }
 
 std::string TimeSpan::toString() const
