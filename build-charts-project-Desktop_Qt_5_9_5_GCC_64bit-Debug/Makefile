@@ -304,6 +304,7 @@ DIST          = ../../../../Qt/5.9.5/gcc_64/mkspecs/features/spec_pre.prf \
 		../../../../Qt/5.9.5/gcc_64/mkspecs/features/qt_config.prf \
 		../../../../Qt/5.9.5/gcc_64/mkspecs/linux-g++/qmake.conf \
 		../../../../Qt/5.9.5/gcc_64/mkspecs/features/spec_post.prf \
+		../charts-project/.qmake.stash \
 		../../../../Qt/5.9.5/gcc_64/mkspecs/features/exclusive_builds.prf \
 		../../../../Qt/5.9.5/gcc_64/mkspecs/features/toolchain.prf \
 		../../../../Qt/5.9.5/gcc_64/mkspecs/features/default_pre.prf \
@@ -568,6 +569,7 @@ Makefile: ../charts-project/charts-project.pro ../../../../Qt/5.9.5/gcc_64/mkspe
 		../../../../Qt/5.9.5/gcc_64/mkspecs/features/qt_config.prf \
 		../../../../Qt/5.9.5/gcc_64/mkspecs/linux-g++/qmake.conf \
 		../../../../Qt/5.9.5/gcc_64/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		../../../../Qt/5.9.5/gcc_64/mkspecs/features/exclusive_builds.prf \
 		../../../../Qt/5.9.5/gcc_64/mkspecs/features/toolchain.prf \
 		../../../../Qt/5.9.5/gcc_64/mkspecs/features/default_pre.prf \
@@ -755,6 +757,7 @@ Makefile: ../charts-project/charts-project.pro ../../../../Qt/5.9.5/gcc_64/mkspe
 ../../../../Qt/5.9.5/gcc_64/mkspecs/features/qt_config.prf:
 ../../../../Qt/5.9.5/gcc_64/mkspecs/linux-g++/qmake.conf:
 ../../../../Qt/5.9.5/gcc_64/mkspecs/features/spec_post.prf:
+.qmake.stash:
 ../../../../Qt/5.9.5/gcc_64/mkspecs/features/exclusive_builds.prf:
 ../../../../Qt/5.9.5/gcc_64/mkspecs/features/toolchain.prf:
 ../../../../Qt/5.9.5/gcc_64/mkspecs/features/default_pre.prf:
@@ -1995,6 +1998,8 @@ moc_axedchart.cpp: ../charts-project/View/chart.h \
 		../charts-project/DateTime/datetime.h \
 		../charts-project/DateTime/timespan.h \
 		../charts-project/DateTime/date.h \
+		../charts-project/DateTime/datetimeconverter.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/QDateTime \
 		../charts-project/View/axedchart.h \
 		moc_predefs.h \
 		../../../../Qt/5.9.5/gcc_64/bin/moc
@@ -2590,6 +2595,7 @@ moc_chartviewer.cpp: ../../../../Qt/5.9.5/gcc_64/include/QtWidgets/QWidget \
 		../../../../Qt/5.9.5/gcc_64/include/QtCharts/QBarCategoryAxis \
 		../../../../Qt/5.9.5/gcc_64/include/QtCharts/QCategoryAxis \
 		../../../../Qt/5.9.5/gcc_64/include/QtCharts/QDateTimeAxis \
+		../charts-project/DateTime/datetimeconverter.h \
 		../charts-project/View/barchart.h \
 		../charts-project/View/piechart.h \
 		../charts-project/View/nonaxedchart.h \
@@ -3157,6 +3163,8 @@ moc_chartwidget.cpp: ../../../../Qt/5.9.5/gcc_64/include/QtCore/QObject \
 		../../../../Qt/5.9.5/gcc_64/include/QtCharts/QBarCategoryAxis \
 		../../../../Qt/5.9.5/gcc_64/include/QtCharts/QCategoryAxis \
 		../../../../Qt/5.9.5/gcc_64/include/QtCharts/QDateTimeAxis \
+		../charts-project/DateTime/datetimeconverter.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/QDateTime \
 		../charts-project/View/barchart.h \
 		../charts-project/View/piechart.h \
 		../charts-project/View/nonaxedchart.h \
@@ -5352,7 +5360,9 @@ axedchart.o: ../charts-project/View/axedchart.cpp ../charts-project/View/axedcha
 		../../../../Qt/5.9.5/gcc_64/include/QtCharts/QDateTimeAxis \
 		../charts-project/DateTime/datetime.h \
 		../charts-project/DateTime/timespan.h \
-		../charts-project/DateTime/date.h
+		../charts-project/DateTime/date.h \
+		../charts-project/DateTime/datetimeconverter.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/QDateTime
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o axedchart.o ../charts-project/View/axedchart.cpp
 
 barchart.o: ../charts-project/View/barchart.cpp ../charts-project/View/barchart.h \
@@ -5897,7 +5907,9 @@ barchart.o: ../charts-project/View/barchart.cpp ../charts-project/View/barchart.
 		../../../../Qt/5.9.5/gcc_64/include/QtCharts/QDateTimeAxis \
 		../charts-project/DateTime/datetime.h \
 		../charts-project/DateTime/timespan.h \
-		../charts-project/DateTime/date.h
+		../charts-project/DateTime/date.h \
+		../charts-project/DateTime/datetimeconverter.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/QDateTime
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o barchart.o ../charts-project/View/barchart.cpp
 
 chart.o: ../charts-project/View/chart.cpp ../charts-project/View/chart.h \
@@ -6440,7 +6452,9 @@ chart.o: ../charts-project/View/chart.cpp ../charts-project/View/chart.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCharts/QDateTimeAxis \
 		../charts-project/DateTime/datetime.h \
 		../charts-project/DateTime/timespan.h \
-		../charts-project/DateTime/date.h
+		../charts-project/DateTime/date.h \
+		../charts-project/DateTime/datetimeconverter.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/QDateTime
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o chart.o ../charts-project/View/chart.cpp
 
 chartviewer.o: ../charts-project/View/chartviewer.cpp ../charts-project/View/chartviewer.h \
@@ -7034,6 +7048,7 @@ chartviewer.o: ../charts-project/View/chartviewer.cpp ../charts-project/View/cha
 		../../../../Qt/5.9.5/gcc_64/include/QtCharts/QBarCategoryAxis \
 		../../../../Qt/5.9.5/gcc_64/include/QtCharts/QCategoryAxis \
 		../../../../Qt/5.9.5/gcc_64/include/QtCharts/QDateTimeAxis \
+		../charts-project/DateTime/datetimeconverter.h \
 		../charts-project/View/barchart.h \
 		../charts-project/View/piechart.h \
 		../charts-project/View/nonaxedchart.h \
@@ -7043,7 +7058,6 @@ chartviewer.o: ../charts-project/View/chartviewer.cpp ../charts-project/View/cha
 		../charts-project/Controller/xmlfilehandler.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/QXmlStreamWriter \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/QXmlStreamReader \
-		../charts-project/DateTime/datetimeconverter.h \
 		../charts-project/View/initialdialog.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/QCloseEvent \
 		../charts-project/Model/model.h \
@@ -7611,6 +7625,8 @@ chartwidget.o: ../charts-project/View/chartwidget.cpp ../charts-project/View/cha
 		../../../../Qt/5.9.5/gcc_64/include/QtCharts/QBarCategoryAxis \
 		../../../../Qt/5.9.5/gcc_64/include/QtCharts/QCategoryAxis \
 		../../../../Qt/5.9.5/gcc_64/include/QtCharts/QDateTimeAxis \
+		../charts-project/DateTime/datetimeconverter.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/QDateTime \
 		../charts-project/View/barchart.h \
 		../charts-project/View/piechart.h \
 		../charts-project/View/nonaxedchart.h
@@ -8447,7 +8463,9 @@ linechart.o: ../charts-project/View/linechart.cpp ../charts-project/View/linecha
 		../../../../Qt/5.9.5/gcc_64/include/QtCharts/QDateTimeAxis \
 		../charts-project/DateTime/datetime.h \
 		../charts-project/DateTime/timespan.h \
-		../charts-project/DateTime/date.h
+		../charts-project/DateTime/date.h \
+		../charts-project/DateTime/datetimeconverter.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/QDateTime
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o linechart.o ../charts-project/View/linechart.cpp
 
 nonaxedchart.o: ../charts-project/View/nonaxedchart.cpp ../charts-project/View/nonaxedchart.h \
@@ -8991,7 +9009,9 @@ nonaxedchart.o: ../charts-project/View/nonaxedchart.cpp ../charts-project/View/n
 		../../../../Qt/5.9.5/gcc_64/include/QtCharts/QDateTimeAxis \
 		../charts-project/DateTime/datetime.h \
 		../charts-project/DateTime/timespan.h \
-		../charts-project/DateTime/date.h
+		../charts-project/DateTime/date.h \
+		../charts-project/DateTime/datetimeconverter.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/QDateTime
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o nonaxedchart.o ../charts-project/View/nonaxedchart.cpp
 
 piechart.o: ../charts-project/View/piechart.cpp ../charts-project/View/piechart.h \
@@ -9536,7 +9556,9 @@ piechart.o: ../charts-project/View/piechart.cpp ../charts-project/View/piechart.
 		../../../../Qt/5.9.5/gcc_64/include/QtCharts/QDateTimeAxis \
 		../charts-project/DateTime/datetime.h \
 		../charts-project/DateTime/timespan.h \
-		../charts-project/DateTime/date.h
+		../charts-project/DateTime/date.h \
+		../charts-project/DateTime/datetimeconverter.h \
+		../../../../Qt/5.9.5/gcc_64/include/QtCore/QDateTime
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o piechart.o ../charts-project/View/piechart.cpp
 
 repetitiondialog.o: ../charts-project/View/repetitiondialog.cpp ../charts-project/View/repetitiondialog.h \
@@ -10861,6 +10883,7 @@ main.o: ../charts-project/main.cpp ../../../../Qt/5.9.5/gcc_64/include/QtWidgets
 		../../../../Qt/5.9.5/gcc_64/include/QtCharts/QBarCategoryAxis \
 		../../../../Qt/5.9.5/gcc_64/include/QtCharts/QCategoryAxis \
 		../../../../Qt/5.9.5/gcc_64/include/QtCharts/QDateTimeAxis \
+		../charts-project/DateTime/datetimeconverter.h \
 		../charts-project/View/barchart.h \
 		../charts-project/View/piechart.h \
 		../charts-project/View/nonaxedchart.h \
@@ -10870,7 +10893,6 @@ main.o: ../charts-project/main.cpp ../../../../Qt/5.9.5/gcc_64/include/QtWidgets
 		../charts-project/Controller/xmlfilehandler.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/QXmlStreamWriter \
 		../../../../Qt/5.9.5/gcc_64/include/QtCore/QXmlStreamReader \
-		../charts-project/DateTime/datetimeconverter.h \
 		../charts-project/View/initialdialog.h \
 		../../../../Qt/5.9.5/gcc_64/include/QtGui/QCloseEvent
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../charts-project/main.cpp

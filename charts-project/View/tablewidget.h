@@ -74,21 +74,6 @@ private:
      */
     void addToLayout(QBoxLayout* layout, QWidget* w1, QWidget* w2);
 
-
-    /**
-     * @brief adaptSingleTableHeight:       adatta l'altezza della tabella in ingresso nel caso della visualizzazione standard
-     *                                      a tabella singola
-     * @param table:                        tabella da adattare
-     */
-    void adaptSingleTableHeight(QTableWidget* table);
-
-    /**
-     * @brief adaptDoubleTableHeight        adatta l'altezza della tabella in ingresso nel caso della visualizzazione alternativa
-     *                                      a tabella doppia
-     * @param table:                        tabella da adattare
-     */
-    void adaptDoubleTableHeight(QTableWidget* table);
-
     /**
      * @brief setTableResize:               inizializza l'header della tabella in ingresso
      * @param table:                        tabella da inizializzare

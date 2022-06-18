@@ -62,7 +62,7 @@ int trainingDialog::showExNumberDialog()
 {
     bool ok = false;
     QInputDialog* dial = new QInputDialog(this);
-    int remove = dial->getInt(this,tr("Esercizi da inserire"),"Quantità: ",1,1,15,1,&ok);
+    int remove = dial->getInt(parentWidget(),tr("Esercizi da inserire"),"Quantità: ",1,1,15,1,&ok);
     if(!ok) throw std::runtime_error("Nessun numero scelto, inserimento annullato!");
     return remove;
 }

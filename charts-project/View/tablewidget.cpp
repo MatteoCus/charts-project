@@ -13,47 +13,6 @@ void tableWidget::addToLayout(QBoxLayout *layout, QWidget *w1, QWidget *w2)
     layout->addWidget(w2);
 }
 
-void tableWidget::adaptSingleTableHeight(QTableWidget* table)
-{
-    unsigned int h = 22;
-    for(int i = 0; i < table->rowCount() ; i++)
-        h += table->rowHeight(i);
-
-    QDesktopWidget desktop;
-    QRect desktopSize=desktop.screenGeometry(desktop.screenNumber(parentWidget()));
-
-    if(h > 442)
-    {
-        if (desktopSize.width() < 1920)
-            h = 442;
-        else if(h > 742)
-            h=742;
-    }
-    table->setFixedHeight(h);
-}
-
-void tableWidget::adaptDoubleTableHeight(QTableWidget *table)
-{
-    unsigned int h = 22;
-
-    for(int i = 0; i < table->rowCount() ; i++)
-        h += table->rowHeight(i);
-
-    QDesktopWidget desktop;
-    QRect desktopSize=desktop.screenGeometry(desktop.screenNumber(parentWidget()));
-
-
-    if(h > 202)
-    {
-        if (desktopSize.width() < 1920)
-            h = 202;
-        else if (h > 352)
-            h = 352;
-    }
-
-    table->setFixedHeight(h);
-}
-
 void tableWidget::insertEmptyRow(QTableWidget* table)
 {
     table->insertRow(0);
@@ -129,11 +88,14 @@ void tableWidget::addControlTable()
     table1Layout = new QVBoxLayout();
     table2Layout = new QVBoxLayout();
 
-    table1Layout->setContentsMargins(0,20,0,200);   //20 di margine + 180 per le righe
+    table1Layout->setContentsMargins(0,20,0,20);   //20 di margine
     table2Layout->setContentsMargins(0,20,0,20);
 
     table1->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     table2->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+    table1->setFrameStyle(QFrame::NoFrame);
+    table2->setFrameStyle(QFrame::NoFrame);
 
     addControls();
 
@@ -147,9 +109,6 @@ void tableWidget::addControlTable()
     table1->hideColumn(6);
     table1Layout->addWidget(label1);
     table1Layout->addWidget(table1);
-
-    adaptSingleTableHeight(table1);
-
 
     label2 = new QLabel("Allenamenti di resistenza in ordine cronologico",this);
     label2->setStyleSheet("QLabel {color : white ; background-color : #323235; selection-background-color: green ;"
@@ -246,23 +205,23 @@ void tableWidget::showCommonData(Training* it, unsigned int i)
 {
     i == 1? table1->insertRow(0) : table2->insertRow(0);
     QLabel* item = new QLabel(QString::fromStdString(it->getName()),this);
-    item->setAlignment(Qt::AlignCenter);;
+    item->setAlignment(Qt::AlignCenter);
     i == 1? table1->setCellWidget(0,0,item) : table2->setCellWidget(0,0,item);
 
     item = new QLabel(QString::fromStdString(" " + it->getStart().toString()+ " "),this);
-    item->setAlignment(Qt::AlignCenter);;
+    item->setAlignment(Qt::AlignCenter);
     i == 1? table1->setCellWidget(0,2,item) : table2->setCellWidget(0,2,item);
 
     item = new QLabel(QString::fromStdString(it->getDuration().toString()),this);
-    item->setAlignment(Qt::AlignCenter);;
+    item->setAlignment(Qt::AlignCenter);
     i == 1? table1->setCellWidget(0,3,item) : table2->setCellWidget(0,3,item);
 
     item = new QLabel(QString::fromStdString(" "+it->getEnd().toString()+" "),this);
-    item->setAlignment(Qt::AlignCenter);;
+    item->setAlignment(Qt::AlignCenter);
     i == 1? table1->setCellWidget(0,4,item) : table2->setCellWidget(0,4,item);
 
     item = new QLabel(QString::fromStdString(std::to_string(it->CaloriesBurned())),this);
-    item->setAlignment(Qt::AlignCenter);;
+    item->setAlignment(Qt::AlignCenter);
     i == 1? table1->setCellWidget(0,5,item) : table2->setCellWidget(0,5,item);
 
     if (dynamic_cast<Endurance*>(it))
@@ -321,24 +280,14 @@ void tableWidget::adjustResizePolicy(const std::list<Training *>* trainings)
             setContentResize(table1);
             setContentResize(table2);
 
-            table1Layout->setContentsMargins(0,20,0,200 - 30 * table1->rowCount());
         }
         else
         {
             setStretchResize(table1);
             setStretchResize(table2);
-            table1Layout->setContentsMargins(0,40,0,340 - 30 * table1->rowCount());
         }
 
     }
-
-    if(splitState)
-    {
-        adaptDoubleTableHeight(table1);
-        adaptDoubleTableHeight(table2);
-    }
-    else
-        adaptSingleTableHeight(table1);
 }
 
 void tableWidget::showData(const std::list<Training *>* trainings)
