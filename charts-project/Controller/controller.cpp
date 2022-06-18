@@ -20,9 +20,9 @@ bool Controller::startView()
 {
     view->hide();
     dialog = new initialDialog();
-    connect(dialog,SIGNAL(openFile()),this,SLOT(first_open()));
+    connect(dialog,SIGNAL(openFile()),this,SLOT(firstOpen()));
     connect(dialog,SIGNAL(showView()), this, SLOT(newPlan()));
-    connect(dialog,SIGNAL(closeAll()), this, SLOT(first_response()));
+    connect(dialog,SIGNAL(closeAll()), this, SLOT(firstResponseHandler()));
     dialog->exec();
     if(firstResponse)
         view->showMaximized();
@@ -382,7 +382,7 @@ void Controller::closePlan()
     }
 }
 
-void Controller::first_open()
+void Controller::firstOpen()
 {
     open();
 
@@ -401,7 +401,7 @@ void Controller::updateChart(chartWidget& widget, const std::string& chart, cons
     }
 }
 
-void Controller::first_response()
+void Controller::firstResponseHandler()
 {
     firstResponse = false;
 }

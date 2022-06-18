@@ -22,7 +22,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_Controller_t {
     QByteArrayData data[23];
-    char stringdata0[204];
+    char stringdata0[209];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -46,22 +46,22 @@ QT_MOC_LITERAL(11, 84, 9), // "showChart"
 QT_MOC_LITERAL(12, 94, 13), // "screenChanged"
 QT_MOC_LITERAL(13, 108, 4), // "open"
 QT_MOC_LITERAL(14, 113, 9), // "closePlan"
-QT_MOC_LITERAL(15, 123, 14), // "first_response"
-QT_MOC_LITERAL(16, 138, 10), // "first_open"
-QT_MOC_LITERAL(17, 149, 11), // "updateChart"
-QT_MOC_LITERAL(18, 161, 12), // "chartWidget&"
-QT_MOC_LITERAL(19, 174, 6), // "widget"
-QT_MOC_LITERAL(20, 181, 11), // "std::string"
-QT_MOC_LITERAL(21, 193, 5), // "chart"
-QT_MOC_LITERAL(22, 199, 4) // "data"
+QT_MOC_LITERAL(15, 123, 20), // "firstResponseHandler"
+QT_MOC_LITERAL(16, 144, 9), // "firstOpen"
+QT_MOC_LITERAL(17, 154, 11), // "updateChart"
+QT_MOC_LITERAL(18, 166, 12), // "chartWidget&"
+QT_MOC_LITERAL(19, 179, 6), // "widget"
+QT_MOC_LITERAL(20, 186, 11), // "std::string"
+QT_MOC_LITERAL(21, 198, 5), // "chart"
+QT_MOC_LITERAL(22, 204, 4) // "data"
 
     },
     "Controller\0add\0\0changeSplitState\0state\0"
     "set\0remove\0newPlan\0save\0saveAs\0"
     "showExercises\0showChart\0screenChanged\0"
-    "open\0closePlan\0first_response\0first_open\0"
-    "updateChart\0chartWidget&\0widget\0"
-    "std::string\0chart\0data"
+    "open\0closePlan\0firstResponseHandler\0"
+    "firstOpen\0updateChart\0chartWidget&\0"
+    "widget\0std::string\0chart\0data"
 };
 #undef QT_MOC_LITERAL
 
@@ -133,8 +133,8 @@ void Controller::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 9: _t->screenChanged(); break;
         case 10: _t->open(); break;
         case 11: _t->closePlan(); break;
-        case 12: _t->first_response(); break;
-        case 13: _t->first_open(); break;
+        case 12: _t->firstResponseHandler(); break;
+        case 13: _t->firstOpen(); break;
         case 14: _t->updateChart((*reinterpret_cast< chartWidget(*)>(_a[1])),(*reinterpret_cast< const std::string(*)>(_a[2])),(*reinterpret_cast< const std::string(*)>(_a[3]))); break;
         default: ;
         }

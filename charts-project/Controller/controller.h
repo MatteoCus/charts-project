@@ -153,15 +153,15 @@ public slots:
     void closePlan();
 
     /**
-     * @brief first_response:    gestisce la situazione in cui l'utente non voglia continuare ad utilizzare il programma dopo il primo dialog
+     * @brief firstResponseHandler:    gestisce la situazione in cui l'utente non voglia continuare ad utilizzare il programma dopo il primo dialog
      */
-    void first_response();
+    void firstResponseHandler();
 
     /**
-     * @brief first_open:    gestisce la situazione in cui l'utente vuole ripristinare allenamenti da file al primo avvio
+     * @brief firstOpen:    gestisce la situazione in cui l'utente vuole ripristinare allenamenti da file al primo avvio
      *                          usando il dialog iniziale ma non seleziona un file.
      */
-    void first_open();
+    void firstOpen();
 
     /**
      * @brief updateChart:  gestisce l'aggiornamento del widget relativo ai grafici, cambiando tipo di grafico o dati visualizzati
