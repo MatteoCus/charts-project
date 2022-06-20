@@ -51,11 +51,6 @@ public:
      * @param duration:                 durata dell'allenamento
      */
     void setDuration(const TimeSpan& duration);
-
-    /**
-     * @brief ~Endurance:                 distruttore virtuale per la gerarchia sottostante
-     */
-    virtual ~Endurance() = default;
 };
 
 #endif // ENDURANCE_H
