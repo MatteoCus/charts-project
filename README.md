@@ -1,5 +1,5 @@
 # charts-project
-Progetto relativo alla valutazione finale per il corso "Programmazione ad Oggetti", A.A. 2021/2020, UniPD.
+Progetto relativo alla valutazione finale per il corso "Programmazione ad Oggetti", A.A. 2021/2022, UniPD.
 
 Il progetto è sviluppato in C++ usando il framework QT (ed il modulo QtCharts): modella un'applicazione in grado di:
 
