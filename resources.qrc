@@ -5,6 +5,5 @@
         <file>images/tick_pressed.png</file>
         <file>images/jogging.png</file>
         <file>images/sport.jpg</file>
-        <file>images/sport.png</file>
     </qresource>
 </RCC>

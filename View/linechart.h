@@ -15,15 +15,6 @@ protected:
     //asse x
     QDateTimeAxis* axisX;
 
-    //asse y attivo
-    QAbstractAxis* axisY;
-
-    //asse y contenente per valori interi
-    QValueAxis* axisYInt;
-
-    //asse y per durate
-    QDateTimeAxis* axisYDateTime;
-
     //penna per la linea sul piano cartesiano
     QPen pen;
 

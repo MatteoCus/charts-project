@@ -12,14 +12,6 @@ barChart::barChart(QWidget *parent) : axedChart(parent)
 
     axisX = new QBarCategoryAxis(this);
     axisX->append(categories);
-
-    axisYDateTime = new QDateTimeAxis(this);
-    axisYDateTime->setFormat("hh:mm:ss");
-
-    axisYInt = new QValueAxis(this);
-    axisYInt->setMin(0);
-
-    axisY = axisYDateTime;
 }
 
 void barChart::connect()

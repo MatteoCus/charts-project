@@ -29,7 +29,7 @@ public:
     unsigned int CaloriesBurned() const override;
 
     /**
-     * @brief clone:                    metodo per implementare il clonable pattern sulla gerarchia sottostante
+     * @brief clone:                    metodo per implementare il clone pattern sulla gerarchia sottostante
      */
     Run* clone() const override;
 };

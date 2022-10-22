@@ -7,6 +7,16 @@
 class axedChart : public chart
 {
     Q_OBJECT
+
+protected:
+    //asse y attivo
+    QAbstractAxis* axisY;
+
+    //asse y contenente per valori interi
+    QValueAxis* axisYInt;
+
+    //asse y per durate
+    QDateTimeAxis* axisYDateTime;
 public:
 
     /**

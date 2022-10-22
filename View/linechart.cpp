@@ -9,14 +9,6 @@ lineChart::lineChart(QWidget *parent) : axedChart(parent)
     axisX = new QDateTimeAxis(this);
     axisX->setFormat("dd-MM-yyyy hh:mm");
 
-    axisYDateTime = new QDateTimeAxis(this);
-    axisYDateTime->setFormat("hh:mm:ss");
-
-    axisYInt = new QValueAxis(this);
-    axisYInt->setMin(0);
-
-    axisY = axisYDateTime;
-
     pen = QPen(QRgb(0x008000));
     pen.setWidth(3);
     series->setPen(pen);

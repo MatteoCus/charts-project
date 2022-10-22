@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plan>
+    <training type="Rugby">
+        <name>Resistenza</name>
+        <start>2022-06-11T15:52:24</start>
+        <exercises>
+            <exercise>
+                <name>Riscaldamento</name>
+                <duration>00:15:00</duration>
+                <recovery>00:05:00</recovery>
+            </exercise>
+            <exercise>
+                <name>Corsa lenta</name>
+                <duration>00:20:00</duration>
+                <recovery>00:05:00</recovery>
+            </exercise>
+            <exercise>
+                <name>Fartlek</name>
+                <duration>01:00:00</duration>
+                <recovery>00:20:00</recovery>
+            </exercise>
+            <exercise>
+                <name>Defaticamento</name>
+                <duration>00:20:00</duration>
+                <recovery>00:10:00</recovery>
+            </exercise>
+        </exercises>
+    </training>
+    <training type="Tennis">
+        <name>Agilità</name>
+        <start>2022-06-13T08:38:56</start>
+        <exercises>
+            <exercise>
+                <name>Riscaldamento</name>
+                <duration>00:15:00</duration>
+                <recovery>00:05:00</recovery>
+            </exercise>
+            <exercise>
+                <name>Scatti</name>
+                <duration>00:30:00</duration>
+                <recovery>00:10:00</recovery>
+            </exercise>
+            <exercise>
+                <name>Partita</name>
+                <duration>01:30:00</duration>
+                <recovery>00:30:00</recovery>
+            </exercise>
+        </exercises>
+    </training>
+    <training type="Tennis">
+        <name>Potenziamento</name>
+        <start>2022-06-15T15:40:52</start>
+        <exercises>
+            <exercise>
+                <name>Riscaldamento</name>
+                <duration>00:15:00</duration>
+                <recovery>00:05:00</recovery>
+            </exercise>
+            <exercise>
+                <name>Plank</name>
+                <duration>00:12:00</duration>
+                <recovery>00:04:00</recovery>
+            </exercise>
+            <exercise>
+                <name>Trazioni</name>
+                <duration>00:20:00</duration>
+                <recovery>00:08:00</recovery>
+            </exercise>
+            <exercise>
+                <name>Pesi</name>
+                <duration>00:30:00</duration>
+                <recovery>00:15:00</recovery>
+            </exercise>
+            <exercise>
+                <name>Squat</name>
+                <duration>00:20:00</duration>
+                <recovery>00:06:00</recovery>
+            </exercise>
+            <exercise>
+                <name>Scatti</name>
+                <duration>00:25:00</duration>
+                <recovery>00:10:00</recovery>
+            </exercise>
+            <exercise>
+                <name>Defaticamento</name>
+                <duration>00:10:00</duration>
+                <recovery>00:05:00</recovery>
+            </exercise>
+        </exercises>
+    </training>
+    <training type="Rugby">
+        <name>Resistenza</name>
+        <start>2022-06-17T07:45:38</start>
+        <exercises>
+            <exercise>
+                <name>Riscaldamento</name>
+                <duration>00:30:00</duration>
+                <recovery>00:10:00</recovery>
+            </exercise>
+            <exercise>
+                <name>Scatti</name>
+                <duration>00:40:00</duration>
+                <recovery>00:15:00</recovery>
+            </exercise>
+            <exercise>
+                <name>Corsa su pista</name>
+                <duration>01:00:00</duration>
+                <recovery>00:25:00</recovery>
+            </exercise>
+        </exercises>
+    </training>
+    <training type="Rugby">
+        <name>Potenziamento</name>
+        <start>2022-06-19T15:47:56</start>
+        <exercises>
+            <exercise>
+                <name>Riscaldamento</name>
+                <duration>00:15:00</duration>
+                <recovery>00:05:00</recovery>
+            </exercise>
+            <exercise>
+                <name>Placcaggi</name>
+                <duration>00:30:00</duration>
+                <recovery>00:10:00</recovery>
+            </exercise>
+            <exercise>
+                <name>Touche</name>
+                <duration>00:30:00</duration>
+                <recovery>00:12:30</recovery>
+            </exercise>
+            <exercise>
+                <name>1 vs 1</name>
+                <duration>00:50:00</duration>
+                <recovery>00:20:00</recovery>
+            </exercise>
+            <exercise>
+                <name>Defaticamento</name>
+                <duration>00:20:00</duration>
+                <recovery>00:10:00</recovery>
+            </exercise>
+        </exercises>
+    </training>
+    <training type="Camminata">
+        <name>Recupero</name>
+        <start>2022-06-20T08:30:20</start>
+        <duration>00:57:10</duration>
+        <distance>7,010000</distance>
+    </training>
+    <training type="Tennis">
+        <name>Tennis</name>
+        <start>2022-06-20T17:35:45</start>
+        <exercises>
+            <exercise>
+                <name>Riscaldamento</name>
+                <duration>00:15:00</duration>
+                <recovery>00:05:00</recovery>
+            </exercise>
+            <exercise>
+                <name>Palleggio</name>
+                <duration>00:59:12</duration>
+                <recovery>00:20:00</recovery>
+            </exercise>
+            <exercise>
+                <name>Voleè</name>
+                <duration>00:55:14</duration>
+                <recovery>00:20:00</recovery>
+            </exercise>
+        </exercises>
+    </training>
+    <training type="Ciclismo">
+        <name>Potenziamento</name>
+        <start>2022-06-21T18:31:10</start>
+        <duration>02:06:54</duration>
+        <distance>56,000000</distance>
+    </training>
+    <training type="Corsa">
+        <name>Corsa lenta</name>
+        <start>2022-06-22T08:27:10</start>
+        <duration>01:15:19</duration>
+        <distance>10,510000</distance>
+    </training>
+    <training type="Ciclismo">
+        <name>Recupero</name>
+        <start>2022-06-23T09:32:27</start>
+        <duration>01:12:00</duration>
+        <distance>32,010000</distance>
+    </training>
+    <training type="Corsa">
+        <name>Corsa lenta</name>
+        <start>2022-06-24T17:29:04</start>
+        <duration>01:16:12</duration>
+        <distance>12,150000</distance>
+    </training>
+    <training type="Ciclismo">
+        <name>Lungo ciclismo</name>
+        <start>2022-06-25T14:33:15</start>
+        <duration>04:15:29</duration>
+        <distance>66,010000</distance>
+    </training>
+    <training type="Corsa">
+        <name>Lungo corsa</name>
+        <start>2022-06-26T16:27:58</start>
+        <duration>02:10:12</duration>
+        <distance>18,010000</distance>
+    </training>
+</plan>

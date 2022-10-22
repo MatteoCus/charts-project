@@ -60,8 +60,21 @@ void xmlFileHandler::readDuration(QXmlStreamReader &reader, QTime &duration)
 
 void xmlFileHandler::readDistance(QXmlStreamReader &reader, double &distance)
 {
+
     if(reader.name().toString() == "distance")
-        distance = std::stod(reader.readElementText().toStdString());
+    {
+        std::string dist = reader.readElementText().toStdString();
+
+        #ifdef Q_OS_WIN
+        std::replace(dist.begin(),dist.end(), ',', '.');
+
+        #else
+        std::replace(dist.begin(),dist.end(), '.', ',');
+
+        #endif
+
+        distance = std::stod(dist);
+    }
     else
         throwReadError();
 }

@@ -294,6 +294,9 @@ void tableWidget::showData(const std::list<Training *>* trainings)
 {
     bool foundRepetition = false, foundEndurance = false;
 
+    table1->setVisible(false);
+    table2->setVisible(false);
+
     for(auto it = trainings->begin(); it != trainings->end() && (!foundEndurance || !foundRepetition); ++it)
     {
         if (!foundRepetition && dynamic_cast<Repetition*>(*it))
@@ -391,6 +394,8 @@ void tableWidget::showData(const std::list<Training *>* trainings)
 
     table1->scrollToTop();
     table2->scrollToTop();
+
+    table1->setVisible(true);
 
     table2->setVisible(splitState);
     label2->setVisible(splitState);

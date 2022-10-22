@@ -21,15 +21,6 @@ protected:
     //asse x
     QBarCategoryAxis* axisX;
 
-    //asse y attivo
-    QAbstractAxis* axisY;
-
-    //asse y contenente per valori interi
-    QValueAxis* axisYInt;
-
-    //asse y per durate
-    QDateTimeAxis* axisYDateTime;
-
     /**
      * @brief connect:  gestisce l'aggiunta delle serie appena costruite al grafico, prima della sua visualizzazione
      */
