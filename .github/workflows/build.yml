@@ -17,7 +17,7 @@ defaults:
 env:
   SOURCE_DIR:   ${{ github.workspace }}
   QT_VERSION:   5.9.5
-  ARTIFACT:     qt-planets-linux-build.AppImage
+  ARTIFACT:     qt-charts-linux-build.AppImage
 
 jobs:
   build:
@@ -46,7 +46,7 @@ jobs:
       - name: Build
         working-directory: ${{ env.SOURCE_DIR }}/build
         run:  |
-              qmake -r ${{ env.SOURCE_DIR }}/planets-qml.pro
+              qmake -r ${{ env.SOURCE_DIR }}/charts-project.pro
               make
               
       - name: AppImage
@@ -56,8 +56,8 @@ jobs:
           chmod +x deploy.AppImage
           export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${{ github.workspace }}/Qt/5.9.5/gcc_64/lib/
           cp ${{ env.SOURCE_DIR }}/linux/* .
-          ./deploy.AppImage planets-qml.desktop -appimage -no-translations -qmldir=${{ env.SOURCE_DIR }} -extra-plugins=renderers
-          mv Qt_planets_app*.AppImage ${{ env.ARTIFACT }}          
+          ./deploy.AppImage charts-project.desktop -appimage -no-translations -qmldir=${{ env.SOURCE_DIR }} -extra-plugins=renderers
+          mv Qt_chart_app*.AppImage ${{ env.ARTIFACT }}          
       
       - name: Linux artefact
         uses: actions/upload-artifact@v1
