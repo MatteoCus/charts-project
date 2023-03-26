@@ -57,7 +57,7 @@ jobs:
           export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${{ github.workspace }}/Qt/5.9.5/gcc_64/lib/
           cp ${{ env.SOURCE_DIR }}/linux/* .
           ./deploy.AppImage charts-project.desktop -appimage -no-translations -qmldir=${{ env.SOURCE_DIR }} -extra-plugins=renderers
-          mv Qt_chart_app*.AppImage ${{ env.ARTIFACT }}          
+          mv Qt_training_app*.AppImage ${{ env.ARTIFACT }}          
       
       - name: Linux artefact
         uses: actions/upload-artifact@v1
