@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Qt training app
+Comment=Qt charts ci-cd
+Exec=charts-project
+Icon=charts-project
+Categories=Office;
