@@ -1,4 +1,10 @@
 #include "trainingdialog.h"
+#include <iostream>
+
+void trainingDialog::setLabelStyleSheet(QLabel* name)
+{
+    name->setStyleSheet("QLabel {background-color: #404244; color: white}");
+}
 
 void trainingDialog::addToLayout(QBoxLayout* layout, QWidget* w1, QWidget* w2)
 {
@@ -6,7 +12,7 @@ void trainingDialog::addToLayout(QBoxLayout* layout, QWidget* w1, QWidget* w2)
     layout->addWidget(w2);
 }
 
-void trainingDialog::setupCommon(QBoxLayout* layout, action act, Training* training)
+void trainingDialog::setupCommon(QBoxLayout* mainL, action act, Training* training)
 {
     QHBoxLayout *nameLayout = new QHBoxLayout;
     QHBoxLayout *startLayout = new QHBoxLayout;
@@ -27,42 +33,59 @@ void trainingDialog::setupCommon(QBoxLayout* layout, action act, Training* train
         Date date = training->getStart().getDate();
         Time time = training->getStart().getTime();
         QString trainingName = QString::fromStdString(training->getName());
-        QDateTime qdatetime(QDate(date.getYear(),date.getMonth(), date.getDay()), QTime(time.getHours(),time.getMinutes(),time.getSeconds()));
+        QDateTime* qdatetime = new QDateTime(QDate(date.getYear(),date.getMonth(), date.getDay()), QTime(time.getHours(),time.getMinutes(),time.getSeconds()));
 
         name = new QLineEdit(trainingName, this);
-        start = new QDateTimeEdit(qdatetime,this);
+        start = new QDateTimeEdit(*qdatetime,this);
 
         if( act == eliminate || act == nothing)
         {   name->setReadOnly(true);
             start->setReadOnly(true);
         }
     }
-    start->setDisplayFormat("dd/MM/yyyy hh:mm:ss");
-    start->setCalendarPopup(true);
-
     nameLabel->setFont(font);
     name->setFixedWidth(150);
     name->setAlignment(Qt::AlignCenter);
 
+    name->setStyleSheet("QLineEdit {background-color: #56585a; color: white ; selection-background-color: #c26110 ;"
+                        "selection-color : white} ");
+
     start->setFixedWidth(150);
     start->setAlignment(Qt::AlignCenter);
+
+
+    setLabelStyleSheet(nameLabel);
 
     addToLayout(nameLayout,nameLabel,name);
 
     QLabel* startLabel = new QLabel(QString("Inizio"), this);
     startLabel->setFont(font);
+    start->setStyleSheet("QDateTimeEdit {background-color: #56585a;   color: white ; selection-background-color: #c26110 ;"
+                         "selection-color : white} ");
+
+    setLabelStyleSheet(startLabel);
 
     addToLayout(startLayout,startLabel,start);
 
-    layout->addLayout(nameLayout);
-    layout->addLayout(startLayout);
+
+
+    mainL->addLayout(nameLayout);
+    mainL->addLayout(startLayout);
 }
 
 int trainingDialog::showExNumberDialog()
 {
     bool ok = false;
     QInputDialog* dial = new QInputDialog(this);
-    int remove = dial->getInt(parentWidget(),tr("Esercizi da inserire"),"Quantità: ",1,1,15,1,&ok);
+    this -> setStyleSheet("QDialog{background-color : #404244; color : white}"
+                          "QInputDialog{background-color : #404244}"
+                          "QInputDialog QWidget{background-color: #56585a; color: white ; selection-background-color: #c26110 ;"
+                          "selection-color : white}"
+                          "QInputDialog QPushButton{background-color: #404244; color: white ; selection-background-color: #c26110 ;"
+                                                 "selection-color : white}"
+                          "QInputDialog QLabel{background-color: #404244; color: white ; selection-background-color: #c26110 ;"
+                          "selection-color : white}");
+    int remove = dial->getInt(this,tr("Esercizi da inserire"),"Quantità: ",1,1,15,1,&ok);
     if(!ok) throw std::runtime_error("Nessun numero scelto, inserimento annullato!");
     return remove;
 }
@@ -70,21 +93,36 @@ int trainingDialog::showExNumberDialog()
 void trainingDialog::addButtons()
 {
     QHBoxLayout *buttonsLayout = new QHBoxLayout;
-    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok
-                                                       | QDialogButtonBox::Close,this);
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(Qt::Orientation::Horizontal,this);
+
+    QPushButton* first = new QPushButton(QString("Ok"), buttonBox);
+    first->setStyleSheet("QPushButton {background-color: #404244; color: white ; selection-background-color: #c26110 ;"
+                         "selection-color : white} ");
+    first->setDefault(true);
+
+    QPushButton* second = new QPushButton(QString("Cancel"), buttonBox);
+    second->setStyleSheet("QPushButton {background-color: #404244; color: white ; selection-background-color: #c26110 ;"
+                         "selection-color : white} ");
+    second->setAutoDefault(false);
+
+    buttonBox->addButton(first,QDialogButtonBox::AcceptRole);
+    buttonBox->addButton(second,QDialogButtonBox::RejectRole);
 
     buttonsLayout->addWidget(buttonBox);
     mainL->addLayout(buttonsLayout);
 
-    connect(buttonBox, &QDialogButtonBox::accepted,
-            this, &trainingDialog::accept);
-    connect(buttonBox, &QDialogButtonBox::rejected,
-            this, &trainingDialog::reject);
+    bool conn = connect(buttonBox, &QDialogButtonBox::accepted,
+                      this, &trainingDialog::accept);
+    Q_ASSERT(conn);
+    conn = connect(buttonBox, &QDialogButtonBox::rejected,
+        this, &trainingDialog::reject);
+    Q_ASSERT(conn);
 
 }
 
 trainingDialog::trainingDialog(QWidget *parent) : QDialog(parent)
 {
     mainL = new QVBoxLayout;
+    setStyleSheet("QDialog{background-color : #404244; color : white}");
     setLayout(mainL);
 }

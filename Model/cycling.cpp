@@ -14,9 +14,6 @@ const double Cycling::c2 = 0.0175;
  * 1 Cal = 1kcal
  */
 
-unsigned int Cycling::CaloriesBurned() const{
-    unsigned int res = MET * avgWeight * c2 * getDuration().getTotalMinutes();
-    return (res > 200? res : 425);
-}
+unsigned int Cycling::CaloriesBurned() const{ return (MET * avgWeight * c2 * getDuration().getTotalMinutes()); }
 
 Cycling* Cycling::clone() const{ return new Cycling(*this);}

@@ -1,11 +1,3 @@
 # charts-project
-Progetto relativo alla valutazione finale per il corso "Programmazione ad Oggetti", A.A. 2021/2022, UniPD.
-
-Il progetto è sviluppato in C++ usando il framework QT (ed il modulo QtCharts): modella un'applicazione in grado di:
-
-- Inserire allenamenti
-- Rimuovere allenamenti
-- Modificare allenamenti
-- Ricavare dati aggiuntivi dagli allenamenti
-- Esporre i dati degli allenamenti tramite 3 tipologie di grafici 
-
+Final project for PaO course
+Now I'm trying to code with Visual Studio Code and commit/push from here

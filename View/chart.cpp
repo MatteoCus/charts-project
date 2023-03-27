@@ -7,6 +7,7 @@ chart::chart(QWidget *parent) : QWidget(parent)
     chartView = new QChartView(graph,this);
     chartView->setRenderHint(QPainter::Antialiasing);
     chartView->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    chartView->setFixedSize(600,450);
 
     graph->setTheme(QChart::ChartThemeDark);
     QFont font;

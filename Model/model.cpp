@@ -7,8 +7,12 @@ void Model::addNewTraining(const std::string &type, const std::string &name,
                            const TimeSpan &duration, const std::vector<std::string>* exName,
                            const std::vector<TimeSpan>* exDuration,
                            const std::vector<TimeSpan>* exRecovery) const {
-
-    plan->insertTraining(trainingCreator::createTraining(type, name, start, distance, duration, exName,exDuration, exRecovery));
+    trainingCreator *creator = new trainingCreator();
+    Training *tr =
+            creator->createTraining(type, name, start, distance, duration, exName,
+                                    exDuration, exRecovery);
+    plan->insertTraining(tr);
+    delete creator;
 }
 
 void Model::removeTraining(unsigned int pos) const {

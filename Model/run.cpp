@@ -10,9 +10,6 @@ Run::Run(const std::string &name, const DateTime& start, double dist, const Time
  * 1 Cal = 1kcal
  */
 
-unsigned int Run::CaloriesBurned() const{
-    unsigned int res = 0.9 * avgWeight * getDistance();
-    return (res > 200? res : 375);
-}
+unsigned int Run::CaloriesBurned() const{ return (0.9 * avgWeight * getDistance()); }
 
 Run* Run::clone() const{ return new Run(*this);}

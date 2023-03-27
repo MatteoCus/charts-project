@@ -1,16 +1,18 @@
 #include "datetime.h"
 
 DateTime::DateTime()
-    :date(), time(){}
+    :date(1,1,2000), time(){}
 
 DateTime::DateTime(const Date& d, const Time& t)
     :date(d), time(t){}
+
+//possible throws --> catched outside of the creation of DateTime
 
 const unsigned int DateTime::hoursPerDay = 24;
 
 void DateTime::setTime(const Time& t){
     if(t.getHours()>= 24)
-        throw std::invalid_argument("Tentativo di modifica di un orario usando un valore non valido!");
+        throw std::invalid_argument("Invalid hour set");
     time.setTime(t.getHours(), t.getMinutes(), t.getSeconds());
 }
 
@@ -53,7 +55,7 @@ DateTime DateTime::operator-(const TimeSpan& subTime) const{
             d += -1;
             t = t + TimeSpan(24);
         }
-    }
+     }
     t = t - subTime;
     return DateTime(d,t);
 }

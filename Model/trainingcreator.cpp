@@ -1,40 +1,35 @@
 #include "trainingcreator.h"
 #include "exercisecreator.h"
+#include <iostream>
+using namespace std;
 
 Training *trainingCreator::createTraining(const std::string &type,
                                           const std::string &name, const DateTime &start,
                                           double distance, TimeSpan duration,
                                           const std::vector<std::string>* exName,
                                           const std::vector<TimeSpan>* exDuration,
-                                          const std::vector<TimeSpan>* exRecovery) {
+                                          const std::vector<TimeSpan>* exRecovery) const {
 
+    if (type == "Ciclismo")
+        return new Cycling(name, start, distance, duration);
+     else if (type == "Corsa")
+        return new Run(name, start, distance, duration);
+     else if (type == "Camminata")
+        return new Walk(name, start, distance, duration);
 
-        if (type == "Ciclismo")
-            return new Cycling(name, start, distance, duration);
-        else if (type == "Corsa")
-            return new Run(name, start, distance, duration);
-        else if (type == "Camminata")
-            return new Walk(name, start, distance, duration);
-        else{
+    Repetition *aux = nullptr;
+    if (type == "Rugby")
+        aux = new Rugby(name, start);
+     else if (type == "Tennis")
+        aux = new Tennis(name, start);
 
-            Repetition* aux = nullptr;
-            try {
-                if (type == "Rugby")
-                    aux = new Rugby(name, start);
-                else if (type == "Tennis")
-                    aux = new Tennis(name, start);
+    if (aux && exName->size() == exDuration->size() && exDuration->size() == exRecovery->size() && exName->size() > 0 && exName->size() < 16) {
+        exerciseCreator *creator = new exerciseCreator();
+        for (unsigned int i = 0; i < exName->size(); ++i )
+            aux->addExercise(creator->createExercise((*exName)[i], (*exDuration)[i], (*exRecovery)[i]));
 
-                if (aux && exName->size() == exDuration->size() && exDuration->size() == exRecovery->size() && exName->size() > 0 && exName->size() < 16) {
-                    for (unsigned int i = 0; i < exName->size(); ++i )
-                        aux->addExercise(exerciseCreator::createExercise(exName->at(i), exDuration->at(i), exRecovery->at(i)));
-                }
-                else
-                    throw std::invalid_argument("Tentativo di creazione di una serie di esercizi che non rispettano i vincoli di programma!");
-
-            }   catch (std::invalid_argument) {
-                delete aux;
-                throw;
-            }
+        delete creator;
         return aux;
-    }
+    } else
+        throw std::runtime_error("errore");
 }

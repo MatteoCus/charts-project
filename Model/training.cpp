@@ -4,8 +4,8 @@ Training::Training()
     : name("Generic training"), start(){}
 
 Training::Training(const std::string &trName, const DateTime& start)
-    : name(trName != ""? trName : throw std::invalid_argument("Tentativo di creazione di un allenamento usando un nome nullo!")),
-      start(start){}
+    : name(trName != ""? trName : throw std::invalid_argument("Invalid training name inserted!")),
+        start(start){}
 
 const double Training::avgWeight = 75;
 
@@ -16,7 +16,7 @@ DateTime Training::getStart() const {return start;}
 DateTime Training::getEnd() const {return start + getDuration();}
 
 void Training::setName(const std::string &newName){
-    name = newName != "" ? newName : throw std::invalid_argument("Tentativo di modifica di un allenamento usando un nome nullo");
+    name = newName != "" ? newName : throw std::invalid_argument("Invalid training name inserted!");
 }
 
 void Training::setStart(const DateTime& newStart) {
