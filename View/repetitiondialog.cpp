@@ -1,6 +1,4 @@
 #include "repetitiondialog.h"
-#include <iostream>
-using namespace std;
 
 repetitionDialog::repetitionDialog(QWidget *parent, action act, Repetition *training)
     :trainingDialog(parent)
@@ -14,14 +12,6 @@ repetitionDialog::repetitionDialog(QWidget *parent, action act, Repetition *trai
     QFont font;
     font.setItalic(true);
 
-    this -> setStyleSheet("QDialog{background-color : #404244}"
-                          "QInputDialog{background-color : #404244}"
-                          "QInputDialog QWidget{background-color: #404244; color: white ; selection-background-color: #c26110 ;"
-                          "selection-color : white}"
-                          "QInputDialog  QLabel{background-color : #404244; color: white}"
-                          "QInputDialog QLineEdit{background-color: #56585a; color: white ; selection-background-color: #c26110 ;"
-                          "selection-color : white}");
-
     firstLayout->setContentsMargins(0,0,15,0);
     rowLayout.push_back(firstLayout);
     unsigned int exNumber = (act == add? showExNumberDialog() : training->getExercises().size());
@@ -29,18 +19,18 @@ repetitionDialog::repetitionDialog(QWidget *parent, action act, Repetition *trai
     if (act == set)
     {
         QStringList items;
-        items << tr("Aggiungi") << tr("Inserisci") << tr("Modifica") << tr("Rimuovi");
+        items << tr("Aggiungi esercizio") << tr("Inserisci esercizio") << tr("Modifica") << tr("Rimuovi esercizio");
 
         bool ok;
         std::string item = QInputDialog::getItem(this, tr("Esercizi"),
-                                             tr("Azione da effettuare sugli esercizi:"), items, 0, false, &ok).toStdString();
+                                                 tr("Azione da effettuare:"), items, 0, false, &ok).toStdString();
         if (ok && item !="")
         {
-            if (item == "Aggiungi")
+            if (item == items.at(0).toStdString())
                 exAct = add;
-            else if (item == "Inserisci")
+            else if (item == items.at(1).toStdString())
                 exAct = insert;
-            else if (item == "Modifica")
+            else if (item == items.at(2).toStdString())
                 exAct = set;
             else //if (item == "Rimuovi")
                 exAct = eliminate;
@@ -72,11 +62,11 @@ repetitionDialog::repetitionDialog(QWidget *parent, action act, Repetition *trai
         unsigned int i=0;
         for (; i<exNumber ; i++){
             QVBoxLayout* repetitionLayout = new QVBoxLayout;
-            rowLayout[(i/3)]->addLayout(repetitionLayout);
+            rowLayout.at(i/3)->addLayout(repetitionLayout);
 
             //Setup dei nomi
             exNameLayout.push_back(new QHBoxLayout);
-            QLabel* auxLabel = new QLabel(QString("Nome esercizio " + QString::fromStdString(std::to_string(i+1)) + " :"), this);
+            QLabel* auxLabel = new QLabel(QString("Nome esercizio " + QString::fromStdString(std::to_string(i+1))), this);
             exNameLabel.push_back(auxLabel);
             auxLabel->setFont(font);
 
@@ -86,7 +76,7 @@ repetitionDialog::repetitionDialog(QWidget *parent, action act, Repetition *trai
 
             if (act == add)
             {
-                auxEdit = new QLineEdit(this);
+                auxEdit = new QLineEdit("Nome esercizio", this);
                 auxDuration = new QTimeEdit(QTime(1,0,0),this);
                 auxRecovery= new QTimeEdit(QTime(1,0,0),this);
             }
@@ -108,14 +98,10 @@ repetitionDialog::repetitionDialog(QWidget *parent, action act, Repetition *trai
                 }
             }
 
-
-            auxEdit->setStyleSheet("QLineEdit {background-color: #56585a; color: white ; selection-background-color: #c26110 ;"
-                                   "selection-color : white} ");
             auxEdit->setAlignment(Qt::AlignCenter);
             auxEdit->setFixedWidth(120);
             exName.push_back(auxEdit);
-            setLabelStyleSheet(exNameLabel[i]);
-            addToLayout(exNameLayout[i],exNameLabel[i],auxEdit);
+            addToLayout(exNameLayout.at(i),exNameLabel.at(i),auxEdit);
 
             //Setup delle durate
             exDurationLayout.push_back(new QHBoxLayout);
@@ -123,49 +109,34 @@ repetitionDialog::repetitionDialog(QWidget *parent, action act, Repetition *trai
             exDurationLabel->setFont(font);
 
 
-            auxDuration->setStyleSheet("QTimeEdit {background-color: #56585a; color: white ; selection-background-color: #c26110 ;"
-                                       "selection-color : white} ");
             auxDuration->setDisplayFormat("hh:mm:ss");
             auxDuration->setAlignment(Qt::AlignCenter);
             auxDuration->setFixedWidth(120);
             exDuration.push_back(auxDuration);
-            setLabelStyleSheet(exDurationLabel);
-            addToLayout(exDurationLayout[i],exDurationLabel,auxDuration);
+            addToLayout(exDurationLayout.at(i),exDurationLabel,auxDuration);
 
             //Setup dei recuperi
             exRecoveryLayout.push_back(new QHBoxLayout);
             QLabel* exRecoveryLabel = new QLabel(QString("Durata recupero"), this);
             exRecoveryLabel->setFont(font);
 
-            auxRecovery->setStyleSheet("QTimeEdit {background-color: #56585a; color: white ; selection-background-color: #c26110 ;"
-                                       "selection-color : white} ");
             auxRecovery->setDisplayFormat("hh:mm:ss");
             auxRecovery->setAlignment(Qt::AlignCenter);
             auxRecovery->setFixedWidth(120);
             exRecovery.push_back(auxRecovery);
-            setLabelStyleSheet(exRecoveryLabel);
-            addToLayout(exRecoveryLayout[i],exRecoveryLabel,auxRecovery);
+            addToLayout(exRecoveryLayout.at(i),exRecoveryLabel,auxRecovery);
 
             //Setup layout
             repetitionLayout->setContentsMargins(0,10,5,10);
-            repetitionLayout->addLayout(exNameLayout[i]);
-            repetitionLayout->addLayout(exDurationLayout[i]);
-            repetitionLayout->addLayout(exRecoveryLayout[i]);
+            repetitionLayout->addLayout(exNameLayout.at(i));
+            repetitionLayout->addLayout(exDurationLayout.at(i));
+            repetitionLayout->addLayout(exRecoveryLayout.at(i));
         }
 
     }
     else
     {
         setupCommon(firstLayout,eliminate,training);
-
-        this -> setStyleSheet("QDialog{background-color : #404244; color : white}"
-                              "QInputDialog{background-color : #404244}"
-                              "QInputDialog QWidget{background-color: #56585a; color: white ; selection-background-color: #c26110 ;"
-                              "selection-color : white}"
-                              "QInputDialog QPushButton{background-color: #404244; color: white ; selection-background-color: #c26110 ;"
-                                                     "selection-color : white}"
-                              "QInputDialog QLabel{background-color: #404244; color: white ; selection-background-color: #c26110 ;"
-                              "selection-color : white}");
 
         mainL->addLayout(firstLayout);
         if (exAct == add)
@@ -189,7 +160,7 @@ repetitionDialog::repetitionDialog(QWidget *parent, action act, Repetition *trai
 
         //Setup dei nomi
         exNameLayout.push_back(new QHBoxLayout);
-        QLabel* auxLabel = new QLabel(QString("Nome esercizio " + QString::fromStdString(std::to_string(exPos+1)) + " :"), this);
+        QLabel* auxLabel = new QLabel(QString("Nome esercizio " + QString::fromStdString(std::to_string(exPos+1))), this);
         exNameLabel.push_back(auxLabel);
         auxLabel->setFont(font);
 
@@ -199,7 +170,7 @@ repetitionDialog::repetitionDialog(QWidget *parent, action act, Repetition *trai
 
         if (exAct == add || exAct == insert)
         {
-            auxEdit = new QLineEdit(this);
+            auxEdit = new QLineEdit("Nome esercizio",this);
             auxDuration = new QTimeEdit(QTime(1,0,0),this);
             auxRecovery= new QTimeEdit(QTime(1,0,0),this);
         }
@@ -221,57 +192,47 @@ repetitionDialog::repetitionDialog(QWidget *parent, action act, Repetition *trai
             }
         }
 
-
-        auxEdit->setStyleSheet("QLineEdit {background-color: #56585a; color: white ; selection-background-color: #c26110 ;"
-                               "selection-color : white} ");
         auxEdit->setAlignment(Qt::AlignCenter);
         auxEdit->setFixedWidth(120);
         exName.push_back(auxEdit);
-        setLabelStyleSheet(exNameLabel[0]);
-        addToLayout(exNameLayout[0],exNameLabel[0],auxEdit);
+        addToLayout(exNameLayout.at(0),exNameLabel.at(0),auxEdit);
 
         //Setup delle durate
         exDurationLayout.push_back(new QHBoxLayout);
         QLabel* exDurationLabel = new QLabel(QString("Durata attività"), this);
         exDurationLabel->setFont(font);
 
-
-        auxDuration->setStyleSheet("QTimeEdit {background-color: #56585a; color: white ; selection-background-color: #c26110 ;"
-                                   "selection-color : white} ");
         auxDuration->setDisplayFormat("hh:mm:ss");
         auxDuration->setAlignment(Qt::AlignCenter);
         auxDuration->setFixedWidth(120);
         exDuration.push_back(auxDuration);
-        setLabelStyleSheet(exDurationLabel);
-        addToLayout(exDurationLayout[0],exDurationLabel,auxDuration);
+        addToLayout(exDurationLayout.at(0),exDurationLabel,auxDuration);
 
         //Setup dei recuperi
         exRecoveryLayout.push_back(new QHBoxLayout);
         QLabel* exRecoveryLabel = new QLabel(QString("Durata recupero"), this);
         exRecoveryLabel->setFont(font);
 
-        auxRecovery->setStyleSheet("QTimeEdit {background-color: #56585a; color: white ; selection-background-color: #c26110 ;"
-                                   "selection-color : white} ");
         auxRecovery->setDisplayFormat("hh:mm:ss");
         auxRecovery->setAlignment(Qt::AlignCenter);
         auxRecovery->setFixedWidth(120);
         exRecovery.push_back(auxRecovery);
-        setLabelStyleSheet(exRecoveryLabel);
-        addToLayout(exRecoveryLayout[0],exRecoveryLabel,auxRecovery);
+        addToLayout(exRecoveryLayout.at(0),exRecoveryLabel,auxRecovery);
 
         //Setup layout
         firstLayout->setContentsMargins(0,10,5,10);
-        firstLayout->addLayout(exNameLayout[0]);
-        firstLayout->addLayout(exDurationLayout[0]);
-        firstLayout->addLayout(exRecoveryLayout[0]);
+        firstLayout->addLayout(exNameLayout.at(0));
+        firstLayout->addLayout(exDurationLayout.at(0));
+        firstLayout->addLayout(exRecoveryLayout.at(0));
     }
     addButtons();
+
+    setFixedSize((exName.size()+2)/3 * 250 + 15, exName.size() < 3? 100 + exName.size() * 110 : 440);
 }
 
-trainingValues repetitionDialog::getValues(QWidget *parent, bool *ok, action act, Repetition *training)
+dialogValues repetitionDialog::getValues(QWidget *parent, bool *ok, action act, Repetition *training)
 {
     repetitionDialog *dialog = new repetitionDialog(parent,act,training);
-
     const int ret = dialog->exec();
     if (ok)
         *ok = !!ret;
@@ -291,12 +252,14 @@ trainingValues repetitionDialog::getValues(QWidget *parent, bool *ok, action act
         exAct = dialog->exAct;
         for (unsigned int i = 0; i < dialog->exName.size(); ++i)
         {
-            exName.push_back(dialog->exName[i]->text());
-            exDuration.push_back(dialog->exDuration[i]->time());
-            recovery.push_back(dialog->exRecovery[i]->time());
+            exName.push_back(dialog->exName.at(i)->text());
+            exDuration.push_back(dialog->exDuration.at(i)->time());
+            recovery.push_back(dialog->exRecovery.at(i)->time());
         }
 
     }
+    else
+        throw std::runtime_error("Operazione annullata!");
     dialog->deleteLater();
-    return trainingValues("",start,name,0,QTime(),exName,exDuration,recovery,act,pos,exAct, exPos);
+    return dialogValues("",start,name,0,QTime(),exName,exDuration,recovery,pos,exAct, exPos);
 }

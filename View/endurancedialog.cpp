@@ -30,19 +30,14 @@ enduranceDialog::enduranceDialog(QWidget *parent, action act, Endurance* trainin
     distance->setFixedWidth(150);
     distance->setMinimum(0.01);
     distance->setAlignment(Qt::AlignCenter);
-    distance->setStyleSheet("QDoubleSpinBox {background-color: #56585a; color: white ; selection-background-color: #c26110 ;"
-                            "selection-color : white} ");
     QLabel* distanceLabel = new QLabel(QString("Distanza percorsa"), this);
     distanceLabel->setFixedWidth(150);
     distanceLabel->setFont(font);
 
-    setLabelStyleSheet(distanceLabel);
     addToLayout(distanceLayout,distanceLabel,distance);
 
     duration->setFixedWidth(150);
     duration->setAlignment(Qt::AlignCenter);
-    duration->setStyleSheet("QTimeEdit {background-color: #56585a; color: white ; selection-background-color: #c26110 ;"
-                            "selection-color : white} ");
     QLabel* durationLabel = new QLabel(QString("Durata allenamento"), this);
     duration->setDisplayFormat("hh:mm:ss");
     durationLabel->setFixedWidth(150);
@@ -52,7 +47,6 @@ enduranceDialog::enduranceDialog(QWidget *parent, action act, Endurance* trainin
 
     this->setFixedSize(327,200);
 
-    setLabelStyleSheet(durationLabel);
     addToLayout(durationLayout,durationLabel,duration);
 
     mainL->addLayout(distanceLayout);
@@ -60,9 +54,9 @@ enduranceDialog::enduranceDialog(QWidget *parent, action act, Endurance* trainin
     addButtons();
 }
 
-trainingValues enduranceDialog::getValues(QWidget *parent, bool *ok, action act, Endurance *training)
+dialogValues enduranceDialog::getValues(QWidget *parent, bool *ok, action act, Endurance *training)
 {
-     enduranceDialog *dialog = new enduranceDialog(parent,act,training);
+    enduranceDialog *dialog = new enduranceDialog(parent,act,training);
 
     const int ret = dialog->exec();
     if (ok)
@@ -83,5 +77,5 @@ trainingValues enduranceDialog::getValues(QWidget *parent, bool *ok, action act,
     else
         throw std::runtime_error("Operazione annullata!");
     dialog->deleteLater();
-    return trainingValues("",start,name,distance,duration,std::vector<QString>(),std::vector<QTime>(),std::vector<QTime>(),act,pos,nothing, 0);
+    return dialogValues("",start,name,distance,duration,std::vector<QString>(),std::vector<QTime>(),std::vector<QTime>(),pos,nothing, 0);
 }

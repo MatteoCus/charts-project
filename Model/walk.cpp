@@ -10,6 +10,9 @@ Walk::Walk(const std::string &name, const DateTime& start, double dist, const Ti
  * 1 Cal = 1kcal
  */
 
-unsigned int Walk::CaloriesBurned() const{ return (0.5 * avgWeight * getDistance()); }
+unsigned int Walk::CaloriesBurned() const{
+    unsigned int res = 0.5 * avgWeight * getDistance();
+    return (res > 200? res : 325);
+}
 
 Walk* Walk::clone() const{ return new Walk(*this);}

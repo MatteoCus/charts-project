@@ -1,28 +1,9 @@
 #include "selecttrainingdialog.h"
-#include <iostream>
-
-void selectTrainingDialog::setComboBoxStyleSheet()
-{
-    dateBox->setStyleSheet("QComboBox {background-color : #404244 ; color: white ; selection-background-color: #c26110 ;"
-                           "selection-color : white} "
-                           "QComboBox::drop-down{background-color : #c26110 ;}"
-                           "QComboBox::drop-down"
-                           "{"
-                           "border : 2px solid;"
-                           "border-color : #df7012 #81410b #81410b #df7012;}"
-                           "QComboBox::drop-down:pressed{"
-                           "border : 2px solid;"
-                           "border-color : #81410b #df7012 #df7012 #81410b;}"
-                           "QComboBox::down-arrow{image : url(/home/matteo/Documenti/GitHub/charts-project/charts-project/icons/pngwing.com.png); width: 10px;"
-                           "height: 10px;}"
-                           "QComboBox QListView {background-color : #56585a ; color : white;}"
-                           "QComboBox QAbstractItemView {selection-background-color:#c26110;}");
-}
 
 selectTrainingDialog::selectTrainingDialog(QWidget* parent, const std::list<Training*>* trainings, std::string type): QDialog(parent)
 {
     if (!trainings)
-        throw std::runtime_error("Non ci sono allenamenti adatti!");
+        throw std::runtime_error("Non ci sono allenamenti che soddisfano la richiesta!");
 
     QVBoxLayout *mainL = new QVBoxLayout;
     QHBoxLayout *dateLayout = new QHBoxLayout;
@@ -37,12 +18,10 @@ selectTrainingDialog::selectTrainingDialog(QWidget* parent, const std::list<Trai
 
     nameLayout->setContentsMargins(0,0,0,10);
 
-    setStyleSheet("QDialog{background-color: #404244}");
     setFixedSize(250,120);
 
     dateBox = new QComboBox(this);
     dateBox->setFixedSize(100,25);
-    setComboBoxStyleSheet();
     dateBox->setFixedWidth(150);
 
     auto it = trainings->begin();
@@ -54,7 +33,7 @@ selectTrainingDialog::selectTrainingDialog(QWidget* parent, const std::list<Trai
     for (--it; it != --trainings->begin(); --it)
     {
         if(type == "All" || (type == "Repetition" && dynamic_cast<const Repetition*>(*it))
-                         || (type == "Endurance" && dynamic_cast<const Endurance*>(*it)))
+                || (type == "Endurance" && dynamic_cast<const Endurance*>(*it)))
         {
             if (!foundFirst)
             {
@@ -73,34 +52,20 @@ selectTrainingDialog::selectTrainingDialog(QWidget* parent, const std::list<Trai
 
 
     QLabel* startLabel = new QLabel(QString("Inizio"), this);
-    startLabel->setStyleSheet("QWidget {background-color: #404244; color: white}");
     startLabel->setFont(font);
     dateLayout->addWidget(startLabel);
     dateLayout->addWidget(dateBox);
 
     QLabel* nameLabel = new QLabel(QString("Nome"), this);
-    nameLabel->setStyleSheet("QWidget {background-color: #404244; color: white}");
     nameLabel->setFont(font);
-    name->setStyleSheet("QWidget {background-color: #56585a; color: white ; selection-background-color: #c26110 ;"
+    name->setStyleSheet("QWidget {background-color: #56585a; color: white ; selection-background-color: green ;"
                         "selection-color : white} ");
     name->setFixedWidth(150);
     nameLayout->addWidget(nameLabel);
     nameLayout->addWidget(name);
 
-    QDialogButtonBox *buttonBox = new QDialogButtonBox(Qt::Orientation::Horizontal,this);
-
-    QPushButton* first = new QPushButton(QString("Ok"), buttonBox);
-    first->setStyleSheet("QPushButton {background-color : #404244 ; color: white ; selection-background-color: #c26110 ;"
-                         "selection-color : white} ");
-    first->setDefault(true);
-
-    QPushButton* second = new QPushButton(QString("Cancel"), buttonBox);
-    second->setStyleSheet("QPushButton {background-color : #404244 ; color: white ; selection-background-color: #c26110 ;"
-                         "selection-color : white} ");
-    second->setAutoDefault(false);
-
-    buttonBox->addButton(first,QDialogButtonBox::AcceptRole);
-    buttonBox->addButton(second,QDialogButtonBox::RejectRole);
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok
+                                                       | QDialogButtonBox::Close,this);
 
     buttonsLayout->addWidget(buttonBox);
     dataLayout->addLayout(dateLayout);
@@ -108,12 +73,10 @@ selectTrainingDialog::selectTrainingDialog(QWidget* parent, const std::list<Trai
     mainL->addLayout(dataLayout);
     mainL->addLayout(buttonsLayout);
 
-    bool conn = connect(buttonBox, &QDialogButtonBox::accepted,
-                      this, &selectTrainingDialog::accept);
-    Q_ASSERT(conn);
-    conn = connect(buttonBox, &QDialogButtonBox::rejected,
-        this, &selectTrainingDialog::reject);
-    Q_ASSERT(conn);
+    connect(buttonBox, &QDialogButtonBox::accepted,
+            this, &selectTrainingDialog::accept);
+    connect(buttonBox, &QDialogButtonBox::rejected,
+            this, &selectTrainingDialog::reject);
 
     connect(dateBox, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged),[=](int index){auto training = aux.begin(); std::advance(training, index); name->setText(QString::fromStdString((*training)->getName())); });
 
@@ -131,7 +94,7 @@ QString selectTrainingDialog::getDate(QWidget *parent, bool *ok, const std::list
 
         if (ret)
             return (dialog->dateBox->currentText());
-        else if (type == "Repetition")
+        else
             return "";
     }
     else

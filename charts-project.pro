@@ -12,6 +12,7 @@ CONFIG += c++11
 
 SOURCES += \
     Controller/controller.cpp \
+    Controller/xmlfilehandler.cpp \
     DateTime/date.cpp \
     DateTime/datetime.cpp \
     DateTime/datetimeconverter.cpp \
@@ -28,6 +29,7 @@ SOURCES += \
     View/chartviewer.cpp \
     View/chartwidget.cpp \
     View/endurancedialog.cpp \
+    View/initialdialog.cpp \
     View/linechart.cpp \
     View/nonaxedchart.cpp \
     View/piechart.cpp \
@@ -35,6 +37,7 @@ SOURCES += \
     View/selecttrainingdialog.cpp \
     View/tablewidget.cpp \
     View/trainingdialog.cpp \
+    dialogvalues.cpp \
     main.cpp \
     Model/plan.cpp \
     Model/repetition.cpp \
@@ -48,6 +51,7 @@ SOURCES += \
 
 HEADERS += \
     Controller/controller.h \
+    Controller/xmlfilehandler.h \
     DateTime/date.h \
     DateTime/datetime.h \
     DateTime/datetimeconverter.h \
@@ -57,6 +61,7 @@ HEADERS += \
     View/chartviewer.h \
     View/chartwidget.h \
     View/endurancedialog.h \
+    View/initialdialog.h \
     View/linechart.h \
     View/nonaxedchart.h \
     View/piechart.h \
@@ -80,9 +85,13 @@ HEADERS += \
     Model/training.h \
     Model/walk.h \
     View/typedialog.h \
+    dialogvalues.h \
     trainingvalues.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    resources.qrc

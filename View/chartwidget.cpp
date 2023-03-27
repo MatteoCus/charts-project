@@ -1,6 +1,4 @@
 #include "chartwidget.h"
-#include <iostream>
-using namespace std;
 
 void chartWidget::addDefaultChart()
 {
@@ -30,20 +28,6 @@ void chartWidget::addControls()
     chartBox->addItem("Bar Chart");
     chartBox->addItem("Pie Chart");
     chartBox->setFixedSize(100,25);
-    chartBox->setStyleSheet("QComboBox {background-color : #404244 ; color: white ; selection-background-color: #c26110;"
-                            "selection-color : white} "
-                            "QComboBox::drop-down{background-color : #c26110 ;}"
-                            "QComboBox::drop-down"
-                            "{"
-                            "border : 2px solid;"
-                            "border-color : #df7012 #81410b #81410b #df7012;}"
-                            "QComboBox::drop-down:pressed{"
-                            "border : 2px solid;"
-                            "border-color : #81410b #df7012 #df7012 #81410b;}"
-                            "QComboBox::down-arrow{image : url(/home/matteo/Documenti/GitHub/charts-project/charts-project/icons/pngwing.com.png); width: 10px;"
-                            "height: 10px;}"
-                            "QComboBox QListView {background-color : #404244 ; color : white;}"
-                            "QComboBox QAbstractItemView {selection-background-color:#c26110;}");   //IMPORTANTE
 
     dataBox = new QComboBox(this);
     dataBox->addItem("Durata");
@@ -51,29 +35,15 @@ void chartWidget::addControls()
     dataBox->addItem("Intensità");
     dataBox->addItem("Distanza");
     dataBox->setFixedSize(100,25);
-    dataBox->setStyleSheet("QComboBox {background-color : #404244 ; color: white ; selection-background-color: #c26110 ;"
-                           "selection-color : white} "
-                           "QComboBox::drop-down{background-color : #c26110 ;}"
-                           "QComboBox::drop-down"
-                           "{"
-                           "border : 2px solid;"
-                           "border-color : #df7012 #81410b #81410b #df7012;}"
-                           "QComboBox::drop-down:pressed{"
-                           "border : 2px solid;"
-                           "border-color : #81410b #df7012 #df7012 #81410b;}"
-                           "QComboBox::down-arrow{image : url(/home/matteo/Documenti/GitHub/charts-project/charts-project/icons/pngwing.com.png); width: 10px;"
-                           "height: 10px;}"
-                           "QComboBox QListView {background-color : #404244 ; color : white;}"
-                           "QComboBox QAbstractItemView {selection-background-color:#c26110;}");   //IMPORTANTE
 
     controlsLayout->addWidget(chartBox);
     controlsLayout->addWidget(dataBox);
 
     connect(chartBox, static_cast<void(QComboBox::*)(const QString &)>(&QComboBox::currentIndexChanged),
-            [=](const QString &text){showData(text.toStdString(), dataBox->currentText().toStdString());});
+            [=](const QString &text){emit updateChart(*this, text.toStdString(), dataBox->currentText().toStdString());});
 
     connect(dataBox, static_cast<void(QComboBox::*)(const QString &)>(&QComboBox::currentIndexChanged),
-            [=](const QString &text){showData(chartBox->currentText().toStdString(), text.toStdString());});
+            [=](const QString &text){emit updateChart(*this,chartBox->currentText().toStdString(), text.toStdString());});
 
     controlsLayout->setContentsMargins(0,20,0,0);
     controlsLayout->setSpacing(50);
@@ -108,20 +78,16 @@ void chartWidget::unhideDataBoxEntry(int x)
 
 
 
-chartWidget::chartWidget(QWidget *parent) : QWidget(parent)
+chartWidget::chartWidget(QWidget *parent) : QWidget(parent), mainLayout(new QVBoxLayout())
 {
-    mainLayout = new QVBoxLayout();
-
     addDefaultChart();
 
     addControls();
 
-    setStyleSheet("QWidget{background-color : #2e2f30}");
-    mainLayout->setAlignment(Qt::AlignTop);
     setLayout(mainLayout);
 }
 
-void chartWidget::checkDataBoxValues()
+void chartWidget::checkDataBoxValues(const std::list<Training*>* trainings)
 {
     bool repetitionFound = false, enduranceFound = false;
     for (auto it = trainings->begin(); it != trainings->end()-- && (!repetitionFound || !enduranceFound); ++it)
@@ -142,12 +108,13 @@ void chartWidget::checkDataBoxValues()
         hideDataBoxEntry(3);
 }
 
-void chartWidget::extractValues(std::vector<double>& values, std::vector<DateTime*>& start, const std::string& data)
+void chartWidget::extractValues(const std::list<Training*>* trainings, std::vector<double>& values, std::vector<DateTime*>& start, const std::string& data)
 {
 
     for (auto it = trainings->begin(); it != trainings->end(); ++it)
     {
-        start.push_back(new DateTime((*it)->getStart()));
+        DateTime* aux = new DateTime((*it)->getStart());
+        start.push_back(aux);
         if (data == "Durata")
             values.push_back((*it)->getDuration().getTotalSeconds());
         else if (data == "Calorie")
@@ -156,18 +123,24 @@ void chartWidget::extractValues(std::vector<double>& values, std::vector<DateTim
         {
             if (auto rep = dynamic_cast<const Repetition*>(*it))
                 values.push_back(rep->Intensity());
-            else{ start.pop_back();}
+            else{
+                delete aux;
+                start.pop_back();
+            }
         }
         else if (data == "Distanza")
         {
             if (auto end = dynamic_cast<const Endurance*>(*it))
                 values.push_back(end->getDistance());
-            else {start.pop_back();}
+            else {
+                delete aux;
+                start.pop_back();
+            }
         }
     }
 }
 
-void chartWidget::extractValues(std::vector<double>& values, const std::string& data)
+void chartWidget::extractValues(const std::list<Training*>* trainings, std::vector<double>& values, const std::string& data)
 {
     int j = 0;
 
@@ -196,24 +169,24 @@ void chartWidget::extractValues(std::vector<double>& values, const std::string& 
         if (j >= 0)
         {
             if (data == "Durata")
-                values[j] += (*it)->getDuration().getTotalSeconds();
+                values.at(j) += (*it)->getDuration().getTotalSeconds();
             else if (data == "Calorie")
-                values[j] += (*it)->CaloriesBurned();
+                values.at(j) += (*it)->CaloriesBurned();
             else if (data == "Intensità")
             {
                 if (auto rep = dynamic_cast<const Repetition*>(*it))
-                    values[j] += rep->Intensity();
+                    values.at(j) += rep->Intensity();
             }
             else if (data == "Distanza")
             {
                 if (auto end = dynamic_cast<const Endurance*>(*it))
-                    values[j] += end->getDistance();
+                    values.at(j) += end->getDistance();
             }
         }
     }
 }
 
-void chartWidget::showData(std::string chart, std::string data)
+void chartWidget::showData(const std::list<Training*>* trainings, std::string chart, std::string data)
 {
     //in base al valore delle combobox, campioniamo dei dati da spedire poi a mainChart (tipo chart*) tramite 'update(dati)'
     //e poi si invoca 'show()' sempre su mainChart, dopo averlo opportunamente cambiato se necessario
@@ -222,7 +195,7 @@ void chartWidget::showData(std::string chart, std::string data)
 
     visibleChart->getChartView()->setVisible(false);
 
-    checkDataBoxValues();
+    checkDataBoxValues(trainings);
 
     if ( chart == "" && data == "")
     {
@@ -234,7 +207,7 @@ void chartWidget::showData(std::string chart, std::string data)
 
     if (chart == "Line Chart" || chart == "Bar Chart")
     {
-        extractValues(values,start,data);
+        extractValues(trainings,values,start,data);
         if (chart == "Line Chart")
             visibleChart = line;
         else
@@ -242,7 +215,7 @@ void chartWidget::showData(std::string chart, std::string data)
     }
     else if (chart == "Pie Chart")
     {
-        extractValues(values,data);
+        extractValues(trainings,values,data);
         visibleChart = pie;
     }
     else throw std::runtime_error("Grafico non identificato!");
@@ -270,11 +243,9 @@ void chartWidget::showData(std::string chart, std::string data)
         throw std::runtime_error("Errore nella visualizzazione del grafico!");
 
     visibleChart->getChartView()->setVisible(true);
-}
 
-void chartWidget::setData(const std::list<Training *> *data)
-{
-    trainings = data;
+    for (auto values : start)
+        delete values;
 }
 
 chart *chartWidget::getVisibleChart() const
@@ -289,10 +260,9 @@ void chartWidget::setChartsSize(int w, int h)
     pie->getChartView()->setFixedSize(w,h);
 }
 
-chartWidget *chartWidget::clone() const
+chartWidget *chartWidget::clone(const std::list<Training*>* trainings) const
 {
     chartWidget* aux = new chartWidget();
-    aux->setData(trainings);
-    aux->showData();
+    aux->showData(trainings);
     return aux;
 }

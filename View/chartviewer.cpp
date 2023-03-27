@@ -1,16 +1,9 @@
 #include "chartviewer.h"
 #include "../Controller/controller.h"
-#include <iostream>
-using namespace std;
 
-void chartViewer::addMenu(QHBoxLayout* mainLayout)
+void chartViewer::addMenu()
 {
     menuBar = new QMenuBar(this);
-
-    menuBar->setStyleSheet("QMenuBar {background-color : #404244 ; color: white; }"
-                           "QMenuBar::item:selected {background-color : #c26110;}"
-                           "QMenu {background-color : #404244 ; color: white; }"
-                           "QMenu::item:selected {background-color : #c26110;}");
 
     file = new QMenu("File", menuBar);
     visualizza = new QMenu("Visualizza", menuBar);
@@ -25,7 +18,6 @@ void chartViewer::addMenu(QHBoxLayout* mainLayout)
     file->addAction(new QAction("Nuovo", file));
     file->addAction(new QAction("Salva", file));
     file->addAction(new QAction("Salva col nome", file));
-    file->addAction(new QAction("Chiudi", file));
     file->addAction(new QAction("Esci", file));
 
     //Menù "visualizza"
@@ -37,72 +29,195 @@ void chartViewer::addMenu(QHBoxLayout* mainLayout)
     allenamenti->addAction(new QAction("Modifica", allenamenti));
     allenamenti->addAction(new QAction("Rimuovi", allenamenti));
 
-    connect(file->actions()[5],SIGNAL(triggered()),this,SLOT(close()));
+    connect(file->actions().at(0),SIGNAL(triggered()),this,SIGNAL(open()));
+    connect(file->actions().at(1),SIGNAL(triggered()),this,SIGNAL(newPlan()));
+    connect(file->actions().at(2),SIGNAL(triggered()),this,SIGNAL(save()));
+    connect(file->actions().at(3),SIGNAL(triggered()),this,SIGNAL(saveAs()));
+    connect(file->actions().at(4),SIGNAL(triggered()),this,SLOT(close()));
 
-    connect(visualizza->actions()[0],SIGNAL(triggered()),this,SLOT(showChart()));
-    connect(visualizza->actions()[1],SIGNAL(triggered()),this,SLOT(showExercises()));
+    connect(visualizza->actions().at(0),SIGNAL(triggered()),this,SIGNAL(showChart()));
+    connect(visualizza->actions().at(1),SIGNAL(triggered()),this,SIGNAL(showExercises()));
+
+    connect(allenamenti->actions().at(0), SIGNAL(triggered()), this, SIGNAL(addTrainings()));
+    connect(allenamenti->actions().at(1), SIGNAL(triggered()), this, SIGNAL(setTrainings()));
+    connect(allenamenti->actions().at(2), SIGNAL(triggered()), this, SIGNAL(removeTrainings()));
 
     mainLayout->setMenuBar(menuBar);
 }
 
-void chartViewer::findTraining(unsigned int &n, bool found, const QString& start)
+void chartViewer::findTraining(const std::list<Training *>* trainings, unsigned int &n, const QDateTime& start)
 {
     int i=0;
+    bool found = false;
+
     for (auto it = trainings->begin(); it != trainings->end() && !found ; ++it)
     {
         i++;
-        if (((*it)->getStart().toString() == start.toStdString()))
+
+        DateTime datetime = (*it)->getStart();
+
+        Date date = datetime.getDate();
+        Time time = datetime.getTime();
+
+        QDate qdate = start.date();
+        QTime qtime = start.time();
+
+
+        if (static_cast<int>(date.getDay()) == qdate.day() && static_cast<int>(date.getMonth()) == qdate.month()
+                && static_cast<int>(date.getYear()) == qdate.year()
+                && static_cast<int>(time.getHours()) == qtime.hour() && static_cast<int>(time.getMinutes()) == qtime.minute()
+                && static_cast<int>(time.getSeconds()) == qtime.second())
             found = true;
     }
     n = i-1;
 }
 
-void chartViewer::showExercises()
+void chartViewer::closeEvent(QCloseEvent *event)
 {
-        bool ok, found = false;
-        try{
-            QString start = selectTrainingDialog::getDate(this,&ok,trainings,"Repetition");
-            if (start != "")
-            {
-                unsigned int n = 0;
-                auto training = trainings->begin();
-                for (unsigned int i = 0; i < trainings->size() && !found ; ++i)
-                {
-                    if ((*training)->getStart().toString() == start.toStdString())
-                    {
-                        found = true;
-                        n = i;
-                    }
-                    if (training != trainings->end())
-                        std::advance(training,1);
-                }
-                training = trainings->begin();
-                std::advance(training,n);
-                if (found && dynamic_cast<Repetition*>(*training))
-                {
-                    Repetition* aux = static_cast<Repetition*>(*training);
-                    repetitionDialog* rep = new repetitionDialog(this,nothing,aux);
-                    rep->exec();
-                }
-                else
-                    throw std::runtime_error("Tipo di allenamento selezionato non valido!");
-            }
-        }
-        catch(std::runtime_error e)
-        {
-            showWarning(e.what());
-        }
+    if(QMessageBox::question(this,"Chiusura", "Sei sicuro di voler uscire?", QMessageBox::Close | QMessageBox::Yes) == QMessageBox::Yes)
+    {
+        emit closeAll();
+        event->accept();
+    }
+    else
+        event->ignore();
 }
 
-void chartViewer::showChart()
+void chartViewer::showExercises(const std::list<Training *>* trainings)
 {
-    chartWidget* aux = chartW->clone();
-    dialog = new QDialog(this);
+    bool ok;
+    try{
+        QString start = selectTrainingDialog::getDate(this,&ok,trainings,"Repetition");
+        if (start != "")
+        {
+            unsigned int n = 0;
+            findTraining(trainings, n,QDateTime::fromString(start, "dd/MM/yyyy hh:mm:ss"));
+            auto training = trainings->begin();
+            std::advance(training,n);
+            if (dynamic_cast<Repetition*>(*training))
+            {
+                Repetition* aux = static_cast<Repetition*>(*training);
+                repetitionDialog* rep = new repetitionDialog(this,nothing,aux);
+                rep->exec();
+            }
+            else
+                throw std::runtime_error("Tipo di allenamento selezionato non valido!");
+        }
+    }
+    catch(std::runtime_error e)
+    {
+        showWarning(e.what());
+    }
+}
+
+void chartViewer::showChart(const std::list<Training *>* trainings)
+{
+    chartWidget* aux = chartW->clone(trainings);
+    connect(aux,SIGNAL(updateChart(chartWidget&, const std::string&, const std::string&)), this, SIGNAL(updateChart(chartWidget&, const std::string&, const std::string&)));
+
+    QDialog *dialog = new QDialog(this);
+
+    aux->setStyleSheet("QWidget{background-color: #404244}");
+    dialog->setStyleSheet("QDialog{background-color: #404244}");
+
+
+    Qt::WindowFlags flags = Qt::Window | Qt::WindowMinimizeButtonHint | Qt::WindowMaximizeButtonHint| Qt::WindowCloseButtonHint;
+    dialog->setWindowFlags(flags);
+
     dialog->setLayout(new QHBoxLayout);
-    aux->setChartsSize(900,600);
     dialog->layout()->addWidget(aux);
-    dialog->exec();
-    delete(dialog);
+    dialog->layout()->setAlignment(Qt::AlignCenter);
+    dialog->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    dialog->resize(800,450);
+    dialog->show();
+}
+
+void chartViewer::screenChanged(const std::list<Training *>* trainings)
+{
+    tableW->screenChanged(trainings);
+}
+
+void chartViewer::setStyle()
+{
+    setStyleSheet("QWidget{background-color : #323235} "
+                  "QMessageBox {background-color : #404244} "
+                  "QMessageBox QPushButton {background-color: #404244; color: white ; selection-background-color: green ; "
+                  "selection-color : white}"
+                  "QMessageBox QLabel{color: white; background-color : #404244}"
+                  "QComboBox {background-color : #404244; color: white ; selection-background-color: green; "
+                  "selection-color : white} "
+                  "QComboBox::drop-down"
+                  "{"
+                  "background-color : green;"
+                  "border : 1px solid;"
+                  "border-bottom: 0px;"
+                  "border-color : #77c213 #335407 #335407 #77c213 ;} "
+                  "QComboBox::drop-down:pressed{"
+                  "border : 1px solid;"
+                  "border-color : #77c213 #335407 #335407 #77c213} "
+                  "QComboBox::down-arrow{image : url(:/images/down-arrow.png); width: 10px;"
+                  "height: 10px} "
+                  "QComboBox QAbstractItemView {background-color : #404244 ; color : green; selection-background-color:green} "
+                  "QCheckBox { color : white} "
+                  "QCheckBox::indicator {background-color: green ; border : 1px solid green}"
+                  "QCheckBox::indicator:unchecked:pressed {"
+                  "background-color : #269226;"
+                  "} "
+                  "QCheckBox::indicator:checked {"
+                  "image: url(:/images/tick.png);"
+                  " width : 12 px; height : 12 px"
+                  "} "
+                  "QCheckBox::indicator:checked:pressed {"
+                  "image: url(:/images/tick_pressed.png);"
+                  "} "
+                  "QPushButton {background-color : green ; color: white ; selection-background-color: green; selection-color : white}  "
+                  "QHeaderView::section { color : white ; background-color: green}  "
+                  "QTableWidget::item {color : white ;  gridline-color: green ; background-color : #404244; selection-background-color: green ;"
+                  "selection-color : white}"
+                  "QLabel {color : white ; background-color : #404244; selection-background-color: green ;"
+                  "selection-color : white} "
+                  "QTimeEdit {background-color: #56585a; color: white ; selection-background-color: green ;"
+                  "selection-color : white} "
+                  "QLineEdit {background-color: #56585a; color: white ; selection-background-color: green ;"
+                  "selection-color : white} "
+                  "QDateTimeEdit {background-color: #56585a;   color: white ; selection-background-color: green ;"
+                  "selection-color : white} "
+                  "QDialog {background-color : #404244;} "
+                  "QDoubleSpinBox {background-color: #56585a; color: white ; selection-background-color: green ;"
+                  "selection-color : white} "
+                  "QSpinBox {background-color: #56585a; color: white ; selection-background-color: green ;"
+                  "selection-color : white} "
+                  "QMenuBar {background-color : #404244 ; color: white; }"
+                  "QMenuBar::item:selected {background-color : green;}"
+                  "QMenu {background-color : #404244 ; color: white; }"
+                  "QMenu::item:selected {background-color : green;} "
+                  "QMessageBox QPushButton {background-color : green ; color: white ; selection-background-color: green; selection-color : white} "
+                  "QCalendarWidget QToolButton { "
+                      "color: white; "
+                  "} "
+                  "QCalendarWidget QMenu { "
+                      "color: white; "
+                     " background-color: #404244 "
+                  "} "
+                  "QCalendarWidget QSpinBox { "
+                      "color: white; "
+                      "selection-background-color: green; "
+                      "selection-color: white; "
+                      " background-color: #404244 "
+                 " } "
+                  "QCalendarWidget QSpinBox::up-button { subcontrol-origin: border;  subcontrol-position: top right;  } "
+                  "QCalendarWidget QSpinBox::down-button {subcontrol-origin: border; subcontrol-position: bottom right; } "
+                  "QCalendarWidget QWidget { alternate-background-color: #3b3c3d; } "
+
+                  "QCalendarWidget QAbstractItemView:enabled  "
+                  "{ "
+                      "color: white; "
+                      "background-color: #56585a;  "
+                      "selection-background-color: #323235; "
+                      "selection-color: rgb(0, 255, 0); "
+                  "} "
+
+                  "QCalendarWidget QAbstractItemView:disabled { color: orange; }");
 }
 
 chartViewer::chartViewer(QWidget *parent) : QWidget(parent)
@@ -111,186 +226,173 @@ chartViewer::chartViewer(QWidget *parent) : QWidget(parent)
 
     tableW = new tableWidget(this);
     chartW = new chartWidget(this);
-    mainLayout->setSpacing(40);
+
+    mainLayout->setSpacing(20);
     mainLayout->addWidget(tableW);
     mainLayout->addWidget(chartW);
-    mainLayout->setContentsMargins(10,90,10,20);
-    addMenu(mainLayout);
+    mainLayout->setContentsMargins(10,50,10,20);
+    addMenu();
     setLayout(mainLayout);
-    setStyleSheet("QWidget{background-color : #2e2f30}");
+    setStyle();
 
-    /*auto aux = new std::list<Training*>;
-    Date d = Date(21,04,2021);
-    Date d2 = Date(21,05,2021);
-    Time ti = Time(17);
-    Training* t = new Run("C",DateTime(d,ti) ,17.59,TimeSpan(1,25));
-    aux->push_back(t);
-    trainings = aux;
+    winId();
 
-    Tennis* tr = new Tennis("Tennis del martedì",DateTime(d2,ti));
-    Exercise* ex = new Exercise("Primo", Time(0,15,0),Time(0,5,0));
-    tr->addExercise(ex);
-    ex = new Exercise("Secondo", Time(0,15,1),Time(0,16,0));
-    tr->addExercise(ex);
-    ex = new Exercise("Secondo", Time(0,15,1),Time(0,6,0));
-    tr->addExercise(ex);
-    ex = new Exercise("Secondo", Time(0,15,1),Time(0,16,0));
-    tr->addExercise(ex);
-    ex = new Exercise("Secondo", Time(0,15,1),Time(0,6,0));
-    tr->addExercise(ex);
-    ex = new Exercise("Secondo", Time(0,15,1),Time(0,16,0));
-    tr->addExercise(ex);
-    ex = new Exercise("Secondo", Time(0,15,1),Time(0,6,0));
-    tr->addExercise(ex);
-    aux->push_back(tr);
-
-    Date d3 = Date(21,06,2021);
-    Time tim = Time(17);
-    Rugby* tr2 = new Rugby("Cristo",DateTime(d3,tim));
-    Exercise* ex2 = new Exercise("Primo", Time(0,15,0),Time(0,5,0));
-    tr2->addExercise(ex2);
-    ex2 = new Exercise("Secondo", Time(0,15,1),Time(0,6,0));
-    tr2->addExercise(ex2);
-    ex2 = new Exercise("Secondo", Time(0,15,1),Time(0,6,0));
-    tr2->addExercise(ex2);
-    ex2 = new Exercise("Secondo", Time(0,15,1),Time(0,6,0));
-    tr2->addExercise(ex2);
-    ex2 = new Exercise("Secondo", Time(0,15,1),Time(0,6,0));
-    tr2->addExercise(ex2);
-    ex2 = new Exercise("Secondo", Time(0,15,1),Time(0,6,0));
-    tr2->addExercise(ex2);
-    ex2 = new Exercise("Secondo", Time(0,15,1),Time(0,6,0));
-    tr2->addExercise(ex2);
-    aux->push_back(tr2);
-
-    Date d4 = Date(29,07,2021);
-    Time t4 = Time(17);
-    Training* tr4 = new Cycling("C",DateTime(d4,t4) ,7.59,TimeSpan(0,15));
-    aux->push_back(tr4);
-    trainingValues val = showSetDialog();
-    //std::cout<<val.name.toStdString()<<" "<<val.exName.size()<<std::endl;
-    setData(aux);
-    showData();*/
-    resize(1200,700);
-
-    connect(tableW, SIGNAL(showExercises()), this, SLOT(showExercises()));
+    connect(tableW, SIGNAL(showExercises()), this, SIGNAL(showExercises()));
+    connect(tableW, SIGNAL(changeState(bool)), this, SIGNAL(changeSplitState(bool)));
     connect(tableW,SIGNAL(add()), this, SIGNAL(addTrainings()));
     connect(tableW,SIGNAL(remove()), this, SIGNAL(removeTrainings()));
     connect(tableW,SIGNAL(set()), this, SIGNAL(setTrainings()));
+    connect(chartW,SIGNAL(updateChart(chartWidget&, const std::string&, const std::string&)), this, SIGNAL(updateChart(chartWidget&, const std::string&, const std::string&)));
+    connect(window()->windowHandle(), SIGNAL(screenChanged(QScreen*)), this, SIGNAL(screenChanged()));
+}
+
+void chartViewer::changeTableState(const std::list<Training*>* trainings, bool state, bool show)
+{
+    tableW->changeState(trainings,state,show);
 }
 
 void chartViewer::setController(Controller *c)
 {
     controller = c;
     connect(this, SIGNAL(addTrainings()), controller, SLOT(add()));
+    connect(this, SIGNAL(changeSplitState(bool)), controller, SLOT(changeSplitState(bool)));
     connect(this, SIGNAL(setTrainings()), controller, SLOT(set()));
     connect(this, SIGNAL(removeTrainings()), controller, SLOT(remove()));
+    connect(this, SIGNAL(newPlan()), controller, SLOT(newPlan()));
+    connect(this, SIGNAL(open()), controller, SLOT(open()));
+    connect(this, SIGNAL(save()), controller, SLOT(save()));
+    connect(this, SIGNAL(saveAs()), controller, SLOT(saveAs()));
+    connect(this, SIGNAL(closeAll()), controller, SLOT(closePlan()));
+    connect(this, SIGNAL(showExercises()), controller, SLOT(showExercises()));
+    connect(this, SIGNAL(showChart()), controller, SLOT(showChart()));
+    connect(this, SIGNAL(screenChanged()), controller, SLOT(screenChanged()));
+    connect(this, SIGNAL(updateChart(chartWidget&, const std::string&, const std::string&)), controller, SLOT(updateChart(chartWidget&, const std::string&, const std::string&)));
 }
 
 void chartViewer::showWarning(const QString &message)
 {
-    dialog = new QDialog(this);
-    QFont serifFont("Arial", 11);
-    dialog->setLayout(new QHBoxLayout);
-    QLabel* label = new QLabel(message, dialog);
-    label->setFont(serifFont);
-    dialog->layout()->addWidget(label);
-    dialog->layout()->setAlignment(Qt::AlignCenter);
-    dialog->setMinimumWidth(120);
-    dialog->setMaximumWidth(500);
-    dialog->setMaximumHeight(400);
-    dialog->setStyleSheet("QWidget {background-color: #404244 ; color: white}");
-    dialog->exec();
-    delete(dialog);
+    QMessageBox::warning(this, "Errore", "<FONT COLOR='#ffffff'>"+message+"</FONT>",QMessageBox::Ok);
 }
 
-QString chartViewer::showPathDialog()
+dialogValues chartViewer::showAddDialog()
 {
-    QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),
-                                                    "/home",
-                                                    tr("Documenti (*.xml)"));
-    if (fileName == "")
-        throw std::runtime_error("Nessun file scelto, aggiunta annullata!");
-
-    return fileName;
-}
-
-trainingValues chartViewer::showAddDialog()
-{
-    bool ok;
+    bool ok = false;
     QString type = typeDialog::getType(this,&ok);
-    if (type == "Camminata" || type == "Corsa" || type == "Ciclismo")
+    if(ok)
     {
-        trainingValues values = enduranceDialog::getValues(this,&ok,add);
-        values.type = type;
-        return values;
+        if (type == "Camminata" || type == "Corsa" || type == "Ciclismo")
+        {
+            dialogValues values = enduranceDialog::getValues(this,&ok,add);
+            values.type = type;
+            return values;
+        }
+        else
+        {
+            dialogValues values = repetitionDialog::getValues(this,&ok,add);
+            values.type = type;
+            return values;
+        }
     }
     else
-    {
-        trainingValues values = repetitionDialog::getValues(this,&ok,add);
-        values.type = type;
-        return values;
-    }
+        throw std::runtime_error("Nessun tipo scelto, operazione annullata!");
 }
 
-trainingValues chartViewer::showRemoveDialog()
+dialogValues chartViewer::showRemoveDialog(const std::list<Training *>* trainings)
 {
-    bool ok, found = false;
+    bool ok = false;
     QString start = selectTrainingDialog::getDate(this,&ok,trainings);
-    unsigned int n = 0;
-    findTraining(n,found,start);
-    auto training = trainings->begin();
-    std::advance(training,n);
-    if (auto aux = dynamic_cast<Endurance*>(*training))
+    if(ok)
     {
-        trainingValues values = enduranceDialog::getValues(this,&ok,eliminate,aux);
-        values.pos = n;
-        return values;
-    }
-    else if (auto aux = dynamic_cast<Repetition*>(*training))
-    {
-        trainingValues values = repetitionDialog::getValues(this,&ok,eliminate,aux);
-        values.pos = n;
-        return values;
+        unsigned int n = 0;
+        findTraining(trainings,n,QDateTime::fromString(start, "dd/MM/yyyy hh:mm:ss"));
+        auto training = trainings->begin();
+        std::advance(training,n);
+        if (auto aux = dynamic_cast<Endurance*>(*training))
+        {
+            dialogValues values = enduranceDialog::getValues(this,&ok,eliminate,aux);
+            values.pos = n;
+            return values;
+        }
+        else if (auto aux = dynamic_cast<Repetition*>(*training))
+        {
+            dialogValues values = repetitionDialog::getValues(this,&ok,eliminate,aux);
+            values.pos = n;
+            return values;
+        }
+        else
+            throw std::runtime_error("Allenamento non corretto selezionato!");
     }
     else
-        throw std::runtime_error("Allenamento non corretto selezionato!");
+        throw std::runtime_error("Nessun allenamento scelto, operazione annullata!");
 }
 
-trainingValues chartViewer::showSetDialog()
+dialogValues chartViewer::showSetDialog(const std::list<Training *>* trainings)
 {
-    bool ok, found = false;
+    bool ok = false;
     QString start = selectTrainingDialog::getDate(this,&ok,trainings);
-    unsigned int n = 0;
-    findTraining(n,found,start);
-    auto training = trainings->begin();
-    std::advance(training,n);
 
-    if (auto aux = dynamic_cast<Endurance*>(*training))
+    if(ok)
     {
-        trainingValues values = enduranceDialog::getValues(this,&ok,set,aux);
-        values.pos = n;
-        return values;
-    }
-    else if (auto aux = dynamic_cast<Repetition*>(*training))
-    {
-        trainingValues values = repetitionDialog::getValues(this,&ok,set,aux);
-        values.pos = n;
-        return values;
+        unsigned int n = 0;
+
+        findTraining(trainings,n,QDateTime::fromString(start, "dd/MM/yyyy hh:mm:ss"));
+        auto training = trainings->begin();
+        std::advance(training,n);
+
+        if (auto aux = dynamic_cast<Endurance*>(*training))
+        {
+            dialogValues values = enduranceDialog::getValues(this,&ok,set,aux);
+            values.pos = n;
+            values.type = "Endurance";
+            return values;
+        }
+        else if (auto aux = dynamic_cast<Repetition*>(*training))
+        {
+            dialogValues values = repetitionDialog::getValues(this,&ok,set,aux);
+            values.pos = n;
+            values.type = "Repetition";
+            return values;
+        }
+        else
+            throw std::runtime_error("Allenamento non corretto selezionato!");
     }
     else
-        throw std::runtime_error("Allenamento non corretto selezionato!");
+        throw std::runtime_error("Nessun allenamento scelto, operazione annullata!");
 }
 
-void chartViewer::setData(const std::list<Training *> *data)
+void chartViewer::showData(const std::list<Training *>* trainings)
 {
-    trainings = data;
-    tableW->setData(trainings);
-    chartW->setData(trainings);
+    bool repetition = false, endurance = false;
+
+    for (auto it = trainings->begin(); it != trainings->end() && (!repetition || !endurance); ++it)
+    {
+        if (dynamic_cast<Repetition*>(*it))
+            repetition = true;
+        else
+            endurance = true;
+    }
+
+    if(repetition)
+        visualizza->actions().at(1)->setVisible(true);
+    else
+        visualizza->actions().at(1)->setVisible(false);
+
+    if(!repetition || !endurance)
+        tableW->setSplitState(trainings,false);
+
+
+    tableW->hide();
+    chartW->hide();
+
+    tableW->showData(trainings);
+    chartW->showData(trainings);
+
+    tableW->show();
+    chartW->show();
+
 }
 
-void chartViewer::showData()
+void chartViewer::updateChart(const std::list<Training *> *trainings, chartWidget& widget, const std::string& chart, const std::string& data)
 {
-    tableW->showData();
-    chartW->showData();
+    widget.showData(trainings,chart,data);
 }
