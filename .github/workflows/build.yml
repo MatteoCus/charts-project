@@ -21,7 +21,7 @@ env:
 
 jobs:
   build:
-    runs-on:  ubuntu-18.04
+    runs-on:  ubuntu-20.04
 
     steps:
       - name: Checkout repo
@@ -30,15 +30,16 @@ jobs:
           submodules: recursive
 
       - name: Install Qt
-        uses: jurplel/install-qt-action@v2
+        uses: jurplel/install-qt-action@v3
         with:
-          version:      ${{ env.QT_VERSION }}
-          host:         linux
-          target:       desktop
-          arch:         gcc_64
-          dir:          ${{ runner.temp }}
-          modules:      qtcharts qt3d
-          setup-python: false
+          aqtversion: '==3.1.*'
+          py7zrversion: '>=0.20.2'
+          version: '5.9.5'
+          host: 'linux'
+          target: 'desktop'
+          arch: 'gcc_64'
+          dir: ${{ runner.temp }}
+          modules: 'qtcharts'
               
       - name: Create build directory
         run:  mkdir ${{ env.SOURCE_DIR }}/build
